@@ -11,7 +11,7 @@
 
 .nav-logo {
 	height: 32px;
-    border: none;
+	border: none;
 }
 
 .nav-login-signup-container {
@@ -64,6 +64,8 @@ i {
 	justify-content: flex-start;
 	flex-direction: column;
 	box-sizing: border-box;
+    max-height: 80%;
+    overflow-y: scroll;
 }
 
 .auth-container-profile-menu {
@@ -75,8 +77,23 @@ i {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	padding: 0px 0px 0px 52px;
+	box-sizing: border-box;
+	color: rgb(28, 28, 28);
+    font-weight: 500;
+}
+
+.profile-menu-section-title {
+	height: 40px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 	padding: 0px 20px;
 	box-sizing: border-box;
+	color: rgb(120, 124, 126);
+	font-weight: 400;
+    font-size: 1rem;
+	cursor: auto;
 }
 
 .profile-menu-el:hover {
@@ -115,4 +132,9 @@ i {
 
 .profile-menu-user-stats {
 	padding-right: 30px;
+}
+
+a {
+	text-decoration: none;
+	color: rgb(28, 28, 28);
 }

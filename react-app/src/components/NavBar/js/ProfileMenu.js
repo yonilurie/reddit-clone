@@ -1,6 +1,7 @@
 // import LogoutButton from "../../auth/LogoutButton";
 import { logout } from "../../../store/session";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const ProfileMenu = ({ showMenu, user }) => {
 	const dispatch = useDispatch();
@@ -11,10 +12,30 @@ const ProfileMenu = ({ showMenu, user }) => {
 		<div className="profile-menu-container">
 			{showMenu && (
 				<div className="profile-menu">
-					<div className="profile-menu-el">
+					{user && (
+						<>
+							<div className="profile-menu-section-title">
+								<i class="fa-regular fa-circle-user"></i>
+								<div>My Stuff</div>
+							</div>
+
+							<Link
+								to={`/user/${user.username}`}
+								className="profile-menu-el"
+							>
+								Profile
+							</Link>
+
+							<Link to={`/settings`} className="profile-menu-el">
+								User Settings
+							</Link>
+						</>
+					)}
+					<Link to={`/about`} className="profile-menu-el">
 						<i class="fa-solid fa-scroll"></i>
 						<div>About</div>
-					</div>
+					</Link>
+
 					{user ? (
 						<div className="profile-menu-el">
 							<i class="fa-solid fa-arrow-right-from-bracket"></i>
