@@ -4,15 +4,24 @@ from app.models import db, Comment
 # Adds a demo user, you can add other users here if you want
 def seed_comments():
     Comment1 = Comment(
-        user_id=1, post_id=2, text='This is a test')
+        user_id=1, post_id=2, text='This is a test1')
     Comment2 = Comment(
-        user_id=1, post_id=3, text='This is a test')
+        user_id=1, post_id=3, text='This is a test2')
     Comment3 = Comment(
-        user_id=2, post_id=2, text='This is a test')
+        user_id=2, post_id=2, text='This is a test3')
+    Comment4 = Comment(
+        user_id=5, post_id=2, text='This is a test4')
+    Comment5 = Comment(
+        user_id=3, post_id=3, text='This is a test5')
+    Comment6 = Comment(
+        user_id=6, post_id=2, text='This is a test6')
 
     db.session.add(Comment1)
     db.session.add(Comment2)
     db.session.add(Comment3)
+    db.session.add(Comment4)
+    db.session.add(Comment5)
+    db.session.add(Comment6)
 
     db.session.commit()
 

@@ -17,3 +17,17 @@ def users():
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+
+@user_routes.route('/<string:username>')
+def get_user(username):
+    """
+    Returns a single user by their username
+    """
+    user = User.query.filter(User.username == username).first() 
+    if user is not None:
+        return user.to_dict()
+    else:
+        return jsonify({
+            "error": "User not found"
+        })

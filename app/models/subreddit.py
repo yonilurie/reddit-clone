@@ -1,5 +1,6 @@
 from .db import db
 from sqlalchemy.sql import func
+from flask import jsonify
 
 class SubReddit(db.Model):
     __tablename__ = "subreddits"
@@ -38,6 +39,8 @@ class SubReddit(db.Model):
             "banned_words": self.banned_words,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            "posts": [post.to_dict() for post in self.posts],
-            "members": len(self.members)
+            "members": len(self.members),
         }
+
+    def __posts__(self):
+        return jsonify([post.to_dict() for post in self.posts])

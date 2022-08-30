@@ -9,16 +9,19 @@ def seed_subreddits():
         name='cats', owner_id=2)
     sub3 = SubReddit(
         name='views', owner_id=3)
-    sub1 = SubReddit(
+    sub4 = SubReddit(
         name='seattle', owner_id=4)
-    sub2 = SubReddit(
+    sub5 = SubReddit(
         name='gaming', owner_id=5)
-    sub3 = SubReddit(
+    sub6 = SubReddit(
         name='appacademy', owner_id=6)
 
     db.session.add(sub1)
     db.session.add(sub2)
     db.session.add(sub3)
+    db.session.add(sub4)
+    db.session.add(sub5)
+    db.session.add(sub6)
 
     db.session.commit()
 
