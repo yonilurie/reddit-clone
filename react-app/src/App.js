@@ -10,6 +10,7 @@ import User from "./components/User";
 import Subreddit from "./components/Subreddit";
 import { authenticate } from "./store/session";
 
+
 function App() {
 	const [loaded, setLoaded] = useState(false);
 	const dispatch = useDispatch();
