@@ -1,0 +1,221 @@
+.user-profile-tabs {
+	background-color: rgb(255, 255, 255);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+}
+
+.profile-tab-link {
+	padding: 0px 8px;
+	margin: 0px 5px;
+	height: 100%;
+	font-weight: 500;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.profile-tab-link:hover {
+	color: rgb(0, 121, 211);
+}
+
+.atpage {
+	border-bottom: solid 2px rgb(0, 121, 211);
+	color: rgb(0, 121, 211);
+}
+
+.user-info-card {
+	height: 300px;
+	width: 312px;
+	padding: 12px;
+	box-sizing: border-box;
+	position: relative;
+	border-radius: 4px;
+	background-color: white;
+	z-index: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.blue-block {
+	z-index: -1;
+	position: absolute;
+	height: 94px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: rgb(51, 168, 255);
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.user-profile-page-profile-image {
+	width: 80px;
+	height: 80px;
+	border-radius: 4px;
+	border: solid 4px white;
+	background-color: white;
+	margin-top: 20px;
+}
+
+.user-profile-page-profile-image.container {
+}
+
+.user-profile-username {
+	font-size: 0.75rem;
+	font-weight: 500;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.karma-cakeday-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.karma-container,
+.cakeday-container {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	font-weight: 500;
+}
+
+.karma,
+.cakeday {
+	color: rgb(124, 124, 124);
+	font-size: 12px;
+}
+
+.add-social-links-button {
+	border-radius: 9999px;
+	border: none;
+	padding: 10px 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	cursor: pointer;
+}
+
+.fa-solid.fa-plus {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.new-post-button {
+	line-height: 24px;
+	padding: 4px 16px;
+	width: 100%;
+	border-radius: 9999px;
+	border: none;
+	background-color: rgb(0, 121, 211);
+	color: white;
+	font-weight: 700;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.upload-image.fa-thin.fa-circle-camera {
+	height: 24px;
+	width: 24px;
+}
+
+.profile-content-container-wide {
+	padding: 0px 20px;
+
+	margin: auto;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	/* align-items: center; */
+	align-items: flex-start;
+}
+
+.profile-content-wide {
+	width: 100%;
+}
+.user-post-container {
+	border: solid 1px rgb(204, 204, 204);
+	background-color: white;
+	border-radius: 4px;
+	
+	display: flex;
+	margin-right: 30px;
+}
+
+.votes-container {
+	background-color: rgb(248, 249, 250);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.vote {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+}
+
+.fa-arrow-up,
+.fa-arrow-down,
+.votes {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 10px;
+}
+
+.fa-arrow-up:hover,
+.fa-arrow-down:hover {
+	background-color: rgb(225, 226, 228);
+}
+
+.upvoted {
+	color: orange;
+}
+.downvoted {
+	color: blue;
+}
+
+.image-box {
+	width: 96px;
+	height: 72px;
+	border: solid 1px black;
+	border-radius: 4px;
+	background-color: rgb(248, 248, 248);
+}
+
+.profile-post-info-container {
+	padding: 8px;
+}
+
+.profile-post-info {
+	display: flex;
+}
+
+.profile-post-title {
+	color: rgb(155, 155, 155);
+}
+.profile-post-subreddit {
+	color: rgb(28, 28, 28);
+	font-size: 0.75rem;
+}
+
+.profile-post-text {
+	margin-left: 5px;
+	display: flex;
+	flex-direction: column;
+}
+
+.profile-post-time {
+	font-size: 0.75rem;
+	color: rgb(155, 155, 155);
+}

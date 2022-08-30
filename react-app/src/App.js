@@ -6,7 +6,7 @@ import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar/index"
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
-import User from "./components/User";
+import Profile from "./components/Profile/index";
 import Subreddit from "./components/Subreddit";
 import { authenticate } from "./store/session";
 
@@ -40,7 +40,10 @@ function App() {
 					<UsersList />
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username" exact={true}>
-					<User />
+					<Profile />
+				</ProtectedRoute>
+				<ProtectedRoute path="/user/:username/:tab" exact={true}>
+					<Profile />
 				</ProtectedRoute>
 				<ProtectedRoute path="/r/:subreddit">
 					<Subreddit></Subreddit>

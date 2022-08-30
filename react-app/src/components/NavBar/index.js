@@ -61,12 +61,12 @@ function NavBar() {
 								</div>
 							</div>
 						</div>
-						<i class="fa-solid fa-angle-down"></i>
+						<i className="fa-solid fa-angle-down"></i>
 					</>
 				) : (
 					<>
-						<i class="fa-regular fa-user"></i>
-						<i class="fa-solid fa-angle-down"></i>
+						<i className="fa-regular fa-user"></i>
+						<i className="fa-solid fa-angle-down"></i>
 					</>
 				)}
 				<ProfileMenu showMenu={showMenu} user={user}></ProfileMenu>
