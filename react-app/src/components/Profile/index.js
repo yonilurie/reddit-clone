@@ -5,6 +5,7 @@ import UserTabs from "./js/UserTabs";
 import UserInfoCard from "./js/UserInfoCard";
 import UserPostCard from "./js/UserPostCard";
 function User() {
+    const params = useParams();
 	const [user, setUser] = useState({});
 	const { username } = useParams();
 
@@ -31,7 +32,7 @@ function User() {
 					<UserTabs user={user}></UserTabs>
 					<div className="profile-content-container-wide">
 						<div className="profile-content-wide">
-							{user.posts.length > 0 &&
+							{ params.tab === 'submitted' && user.posts.length > 0 &&
 								user.posts.map((post) => {
 									return (
 										<UserPostCard
