@@ -46,16 +46,20 @@ class Post(db.Model):
         total = 0
         upvotes = 0
         downvotes = 0
-        current_user_upvoted = False
+        current_user_vote = False
+        user_voted = False
         for vote in votes_list:
             if user_id == vote.user_id:
-                current_user_upvoted = True
+                user_voted = True
+                current_user_vote = vote.upvote
             if vote.upvote:
                 upvotes += 1
             else: 
                 downvotes += 1
             total += 1
     
-        vote_stats = {"upvote_count": upvotes, "downvote_count": downvotes, "total": total, "current_user_upvoted": current_user_upvoted}
+        vote_stats = {"upvote_count": upvotes, "downvote_count": downvotes, "total": total}
+        if user_voted:
+            vote_stats['user_vote'] = current_user_vote
         return vote_stats
         
