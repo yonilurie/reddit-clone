@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import ProfileMenu from "./js/ProfileMenu";
 import "./css/index.css";
 
-const NavBar = () => {
+function NavBar() {
 	const [showMenu, setShowMenu] = useState(false);
 	const user = useSelector((state) => state.session.user);
 
@@ -27,18 +27,13 @@ const NavBar = () => {
 				</NavLink>
 			</div>
 			<div className="nav-login-signup-container">
-				{" "}
 				<div className="login-button">
-					<NavLink to="/login" exact={true} activeClassName="active">
+					<NavLink to="/login" exact={true}>
 						Login
 					</NavLink>
 				</div>
 				<div className="signup-button">
-					<NavLink
-						to="/sign-up"
-						exact={true}
-						activeClassName="active"
-					>
+					<NavLink to="/sign-up" exact={true}>
 						Sign Up
 					</NavLink>
 				</div>
@@ -78,6 +73,6 @@ const NavBar = () => {
 			</div>
 		</nav>
 	);
-};
+}
 
 export default NavBar;

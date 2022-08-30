@@ -21,12 +21,15 @@ const ProfileMenu = ({ showMenu, user }) => {
 
 							<Link
 								to={`/user/${user.username}`}
-								className="profile-menu-el"
+								className="profile-menu-el user-links"
 							>
 								Profile
 							</Link>
 
-							<Link to={`/settings`} className="profile-menu-el">
+							<Link
+								to={`/settings`}
+								className="profile-menu-el user-links"
+							>
 								User Settings
 							</Link>
 						</>
@@ -49,6 +52,10 @@ const ProfileMenu = ({ showMenu, user }) => {
 							<div>Sign up or log in </div>
 						</div>
 					)}
+					<div className="no-copyright">
+				
+						2022 Reddit Clone. No rights reserved
+					</div>
 				</div>
 			)}
 		</div>

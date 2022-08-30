@@ -42,6 +42,7 @@
 i {
 	width: 20px;
 	height: 20px;
+    margin-right: 10px;
 }
 
 .profile-menu-container {
@@ -77,10 +78,14 @@ i {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	padding: 0px 0px 0px 52px;
+	padding: 0px 0px 0px 20px;
 	box-sizing: border-box;
 	color: rgb(28, 28, 28);
     font-weight: 500;
+}
+
+.user-links {
+    padding-left: 52px;
 }
 
 .profile-menu-section-title {
@@ -137,4 +142,14 @@ i {
 a {
 	text-decoration: none;
 	color: rgb(28, 28, 28);
+}
+
+
+.no-copyright {
+    color: rgb(135, 138, 140);
+    font-size: .75rem   ;
+    text-align: center;
+    font-weight: 400;
+    cursor: auto;
+    line-height: 16px;
 }
