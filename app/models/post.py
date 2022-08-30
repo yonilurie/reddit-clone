@@ -1,8 +1,5 @@
-from app.api.user_routes import user
 from .db import db
-from .vote import Vote
 from sqlalchemy.sql import func
-from flask import jsonify
 
 class Post(db.Model):
     __tablename__ = "posts"

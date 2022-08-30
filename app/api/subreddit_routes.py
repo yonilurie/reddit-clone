@@ -1,11 +1,8 @@
-
-from urllib import request
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
-from app.models import SubReddit, db, Post
+from app.models import SubReddit,  Post
 
 subreddit_routes = Blueprint('subreddits', __name__)
-
 
 @subreddit_routes.route('/list-all')
 def all_subreddits():
@@ -14,7 +11,6 @@ def all_subreddits():
     """
     subs = SubReddit.query.all()
     return {'subreddits': [sub.to_dict() for sub in subs]}
-
 
 @subreddit_routes.route('/<string:name>')
 def get_subreddit(name):

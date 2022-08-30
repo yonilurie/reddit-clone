@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import User
 
 user_routes = Blueprint('users', __name__)
@@ -24,9 +24,19 @@ def get_user(username):
     """
     Returns a single user by their username
     """
-    user = User.query.filter(User.username == username).first() 
-    if user is not None:
-        return user.to_dict()
+    user_query = User.query.filter(User.username == username).first() 
+    if user_query is not None:
+        comments = user_query.__comments__()
+        posts = None
+        if current_user.id:
+            posts = user_query.__posts__(current_user.id)
+        else:
+            posts = user_query.__posts__(None)
+        user = user_query.to_dict()
+        print(posts)
+        user['comments'] = comments['comments']
+        user['posts'] = posts['posts']
+        return jsonify(user)
     else:
         return jsonify({
             "error": "User not found"

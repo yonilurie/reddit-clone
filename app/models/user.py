@@ -2,8 +2,6 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-from .vote import Vote
-from .member import Member
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -26,9 +24,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship("Post", back_populates="user", cascade="all, delete-orphan")
     comments = db.relationship("Comment", back_populates="user", cascade="all, delete-orphan")
     votes = db.relationship("Vote", back_populates="user", cascade="all, delete-orphan")
-    
     subreddits = db.relationship("SubReddit", back_populates="owner", cascade="all, delete-orphan")
-
     member = db.relationship("Member", back_populates="users", cascade="all, delete-orphan")
 
 
@@ -57,5 +53,11 @@ class User(db.Model, UserMixin):
             "dark_mode": self.dark_mode,
             "subreddits": [subreddit.to_dict() for subreddit in self.subreddits],
             "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "updated_at": self.updated_at,
         }
+
+    def __comments__(self):
+         return {"comments": [{"id": comment.id, "post_id": comment.post_id, "text": comment.text, "created_at": comment.created_at, "updated_at": comment.updated_at, "post_title":comment.post.title, "post_user": comment.post.user.username, "post_subreddit": comment.post.subreddit.name} for comment in self.comments]}
+
+    def __posts__(self, user_id):
+        return {"posts": [{"title": post.title, "id": post.id, "votes": post.__votes__(user_id), "subreddit": post.subreddit.name, "comment_count": post.to_dict()["comment_count"], "created_at": post.created_at, "updated_at": post.updated_at} for post in self.posts]}
