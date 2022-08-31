@@ -20,7 +20,7 @@ def seed_votes():
     Vote8 = Vote(
         post_id=3, user_id=8, upvote=True)
     Vote9 = Vote(
-        post_id=1, user_id=19, upvote=True)
+        post_id=1, user_id=9, upvote=True)
 
     db.session.add(Vote1)
     db.session.add(Vote2)
