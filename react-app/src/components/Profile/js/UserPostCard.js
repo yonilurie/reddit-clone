@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 function UserPostCard({ post }) {
+	console.log(post);
 	return (
 		<div className="user-post-container">
 			<div className="votes-container">
@@ -20,10 +23,30 @@ function UserPostCard({ post }) {
 			</div>
 			<div className="profile-post-info-container">
 				<div className="profile-post-info">
-					{post.image ? (
-						<img src={post.image} className="image-box"></img>
-					) : (
-						<div className="image-box"></div>
+					{post.image && (
+						<a href={post.image} target="_blank" rel="noreferrer">
+							<img src={post.image} className="image-box"></img>
+						</a>
+					)}
+
+					{post.text && (
+						<a
+							href={`/r/${post.subreddit}/${post.id}/${post.title}`}
+							target="_blank"
+							rel="noreferrer"
+						>
+							<div className="image-box">
+								<i className="fa-solid fa-align-justify"></i>
+							</div>
+						</a>
+					)}
+					{post.link && (
+						<a href={post.link} target="_blank" rel="noreferrer">
+							<div className="image-box">
+								<i className="fa-solid fa-link"></i>
+								<i class="fa-solid fa-arrow-up-right-from-square"></i>
+							</div>
+						</a>
 					)}
 					<div className="profile-post-text">
 						<div className="profile-post-title">{post.title}</div>
