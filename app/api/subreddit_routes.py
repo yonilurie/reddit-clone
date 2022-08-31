@@ -14,7 +14,7 @@ def all_subreddits():
     Returns a list of all subreddits
     """
     subs = SubReddit.query.all()
-    return {'subreddits': [sub.to_dict() for sub in subs]}
+    return jsonify([sub.to_dict() for sub in subs])
 
 @subreddit_routes.route('/<string:name>')
 def get_subreddit(name):
@@ -29,12 +29,12 @@ def get_subreddit(name):
             "error": "Subreddit not found"
         })
 
-@subreddit_routes.route('/<string:name>/posts')
-def get_newest_subreddit_posts(name, page=0):
+@subreddit_routes.route('/<int:id>/posts')
+def get_newest_subreddit_posts(id, page=0):
     """
     Returns a single subreddits newest 
     """
-    sub = SubReddit.query.filter(SubReddit.name == name).first()
+    sub = SubReddit.query.get(id)
     if sub is None:
         return jsonify({
             "error": "Subreddit not found"
@@ -43,9 +43,9 @@ def get_newest_subreddit_posts(name, page=0):
     
     return sub.__posts__()
 
-@subreddit_routes.route('/<string:name>/post', methods=['POST'])
+@subreddit_routes.route('/<int:id>/post', methods=['POST'])
 @login_required
-def create_post(name):
+def create_post(id):
     '''
     Post to a subreddit
     '''
@@ -54,7 +54,7 @@ def create_post(name):
 
     if form.validate_on_submit():
         post = Post(
-            subreddit_id = form.data['subreddit_id'],
+            subreddit_id = id,
             title = form.data['title'],
             type_of_post = form.data['type_of_post'],
             user_id = current_user.id,
@@ -73,8 +73,8 @@ def create_post(name):
 
 
 
-@subreddit_routes.route('/<string:name>/<int:post_id>')
-def get_post_details(name, post_id):
+@subreddit_routes.route('/<int:subreddit_id>/<int:post_id>')
+def get_post_details(subreddit_id, post_id):
     """
     Get a specific posts details
     """
@@ -101,9 +101,9 @@ def get_post_details(name, post_id):
 
 
     
-@subreddit_routes.route('/<string:name>/post/image', methods=['POST'])
+@subreddit_routes.route('/<int:id>/post/image', methods=['POST'])
 @login_required
-def create_post_image(name):
+def create_post_image(id):
     '''
     Post to a subreddit
     '''
@@ -126,7 +126,7 @@ def create_post_image(name):
         url = upload["url"]
 
         post = Post(
-            subreddit_id = form.data['subreddit_id'],
+            subreddit_id = id,
             title = form.data['title'],
             type_of_post = form.data['type_of_post'],
             user_id = current_user.id,

@@ -9,7 +9,8 @@ import UsersList from "./components/UsersList";
 import Profile from "./components/Profile/index";
 import Subreddit from "./components/Subreddit";
 import { authenticate } from "./store/session";
-import PostForm from "./components/PostForm";
+
+import SubmitPage from "./components/SubmitPage";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -43,7 +44,7 @@ function App() {
 					<Profile />
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username/submit" exact={true}>
-					<PostForm />
+					<SubmitPage/>
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username/:tab" exact={true}>
 					<Profile />

@@ -1,12 +1,23 @@
-function LinkForm({ link, setLink }) {
+function LinkForm({ link, setLink, setValidURL }) {
+	const resizeInput = (e) => {
+		try {
+			const URLCheck = new URL(e.target.value);
+			setValidURL(true);
+		} catch (e) {
+			setValidURL(false);
+		}
+		setLink(e.target.value);
+		e.target.style.height = "auto";
+		e.target.style.height = e.target.scrollHeight + "px";
+	};
 	return (
 		<div className="text-form-container">
-			<input
-				type="url"
+			<textarea
+				className="link-input"
 				placeholder="Url"
 				value={link}
-				onChange={(e) => setLink(e.target.value)}
-			></input>
+				onChange={(e) => resizeInput(e)}
+			></textarea>
 		</div>
 	);
 }
