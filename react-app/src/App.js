@@ -44,7 +44,7 @@ function App() {
 					<Profile />
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username/submit" exact={true}>
-					<SubmitPage/>
+					<SubmitPage />
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username/:tab" exact={true}>
 					<Profile />

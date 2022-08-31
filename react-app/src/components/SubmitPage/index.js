@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function SubmitPage() {
-	const params = useParams();
+	
 	const { username } = useParams();
 	const [user, setUser] = useState({});
 	useEffect(() => {
