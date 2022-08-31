@@ -20,6 +20,7 @@ class PostForm(FlaskForm):
     link = StringField("link", 
     # validators=[URL(require_tld=True, message='Must be a valid URL')]
     )
+    image = StringField("image")
     text = StringField("text", validators=[Length(min=0, max=10000, message='Text must be less than 10,000 characters')])
 
     

@@ -1,5 +1,4 @@
 function UserPostCard({ post }) {
-	console.log(post);
 	return (
 		<div className="user-post-container">
 			<div className="votes-container">
@@ -21,8 +20,8 @@ function UserPostCard({ post }) {
 			</div>
 			<div className="profile-post-info-container">
 				<div className="profile-post-info">
-					{post.link ? (
-						<img src={post.link} className="image-box"></img>
+					{post.image ? (
+						<img src={post.image} className="image-box"></img>
 					) : (
 						<div className="image-box"></div>
 					)}

@@ -15,13 +15,11 @@ const Subreddit = () => {
 			const response = await fetch(`/api/r/${subreddit}`);
 			const subredditInfo = await response.json();
 			setSub(subredditInfo);
-			console.log(subredditInfo);
 		})();
 		(async () => {
 			const response = await fetch(`/api/r/${subreddit}/posts`);
 			const postsArr = await response.json();
 			setPosts(postsArr);
-			console.log(postsArr);
 		})();
 	}, [subreddit]);
 

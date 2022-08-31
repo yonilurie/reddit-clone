@@ -1,7 +1,10 @@
+from os import link
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import SubReddit, Post, db
 from app.forms.post_form import PostForm
+from app.s3_helpers import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 
 subreddit_routes = Blueprint('subreddits', __name__)
 
@@ -95,3 +98,44 @@ def get_post_details(name, post_id):
     post['vote_stats'] = vote_stats
     return jsonify(post)
 
+
+
+    
+@subreddit_routes.route('/<string:name>/post/image', methods=['POST'])
+@login_required
+def create_post_image(name):
+    '''
+    Post to a subreddit
+    '''
+    form = PostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        if "image" not in request.files:
+            return {"errors": "image required"}, 400
+    
+        image = request.files["image"]
+
+        if not allowed_file(image.filename):
+            return {"errors": "file type not permitted"}, 400
+        
+        image.filename = get_unique_filename(image.filename)
+
+        upload = upload_file_to_s3(image)
+        if "url" not in upload:
+            return upload, 400
+        url = upload["url"]
+
+        post = Post(
+            subreddit_id = form.data['subreddit_id'],
+            title = form.data['title'],
+            type_of_post = form.data['type_of_post'],
+            user_id = current_user.id,
+            tags = form.data['tags'],
+            image = url,
+            text = form.data['text']
+        )
+        db.session.add(post)
+        db.session.commit()
+        return post.to_dict()
+    else:
+        return jsonify(form.errors)

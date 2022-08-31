@@ -1,12 +1,14 @@
 import { Modal } from "../../context/Modal";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import TextForm from "./js/TextForm";
 import LinkForm from "./js/LinkForm";
 import "./css/index.css";
+import ImageForm from "./js/ImageForm";
 
 function PostForm() {
 	const history = useHistory();
+	const { username } = useParams();
 	const [subredditsList, setSubredditsList] = useState([]);
 	const [subredditId, setSubredditId] = useState(1);
 	const [typeOfPost, setTypeOfPost] = useState("text");
@@ -14,35 +16,41 @@ function PostForm() {
 	const [tags, setTags] = useState("");
 	const [link, setLink] = useState("");
 	const [text, setText] = useState("");
-	const [] = useState("");
+	const [image, setImage] = useState(null);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		const post = {
-			subreddit_id: subredditId,
-			title: title,
-			type_of_post: typeOfPost,
-		};
+		const formData = new FormData();
+		formData.append("subreddit_id", subredditId);
+		formData.append("title", title);
+		formData.append("type_of_post", typeOfPost);
+
 		if (tags) {
-			post["tags"] = tags;
+			formData.append("tags", tags);
 		}
-		if (link) {
-			post["link"] = link;
+		if (typeOfPost === "link") {
+			formData.append("link", link);
 		}
-		if (text) {
-			post["text"] = text;
+		if (typeOfPost === "text") {
+			formData.append("text", text);
+		}
+		if (typeOfPost === "image") {
+			formData.append("image", image);
+			const res = await fetch("/api/r/dogs/post/image", {
+				method: "POST",
+				body: formData,
+			});
+			const data = await res.json();
+		} else {
+			const response = await fetch("/api/r/dogs/post", {
+				method: "POST",
+				body: formData,
+			});
+
+			const data = await response.json();
 		}
 
-		const response = await fetch("/api/r/dogs/post", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(post),
-		});
-
-		const data = await response.json();
-		console.log(data);
+		history.push(`/user/${username}/submitted`);
 	};
 
 	return (
@@ -91,8 +99,8 @@ function PostForm() {
 						</div>
 					</div>
 					<div className="post-title">
-                        <input
-                            className="title"
+						<input
+							className="title"
 							type="text"
 							placeholder="title"
 							value={title}
@@ -104,6 +112,12 @@ function PostForm() {
 					)}
 					{typeOfPost === "link" && (
 						<LinkForm setLink={setLink} link={link}></LinkForm>
+					)}
+					{typeOfPost === "image" && (
+						<ImageForm
+							setImage={setImage}
+							image={image}
+						></ImageForm>
 					)}
 
 					<div>tags</div>

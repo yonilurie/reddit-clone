@@ -1,0 +1,8 @@
+Rerun heroku db and seed
+
+heroku restart --app teddir && heroku pg:reset DATABASE --confirm teddir --app teddir && heroku run flask db migrate --app teddir && heroku run flask db upgrade --app teddir && heroku run flask seed all --app teddir
+
+flask db init 
+flask db migrate 
+flask db upgrade 
+flask seed all

@@ -33,7 +33,6 @@ def get_user(username):
         else:
             posts = user_query.__posts__(None)
         user = user_query.to_dict()
-        print(posts)
         user['comments'] = comments['comments']
         user['posts'] = posts['posts']
         return jsonify(user)

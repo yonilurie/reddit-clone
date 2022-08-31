@@ -1,3 +1,4 @@
+from sqlalchemy import null
 from .db import db
 from sqlalchemy.sql import func
 
@@ -12,7 +13,8 @@ class Post(db.Model):
     title = db.Column(db.String(300), nullable=False, default = "")
     type_of_post = db.Column(db.String, nullable=False, default = "")
     text = db.Column(db.String(10000), nullable=False, default = "")
-    link = db.Column(db.String, nullable=False, default = "")
+    link = db.Column(db.String, nullable=True, default = "")
+    image = db.Column(db.String, nullable=True, default = "") 
     created_at = db.Column(db.DateTime(timezone=True), nullable=True, server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), nullable=True, onupdate=func.now())
 
@@ -22,13 +24,14 @@ class Post(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "subreddit_id": self.subreddit.id,
+            "subreddit_id": self.subreddit_id,
             "user_id": self.user_id,
             "tags": self.tags,
             "title": self.title,
             "type_of_post": self.type_of_post,
             "text": self.text,
             "link": self.link,
+            "image": self.image,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
 
