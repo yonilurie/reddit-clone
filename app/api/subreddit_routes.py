@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import SubReddit,  Post
+from app.models import SubReddit, Post, db
+from app.forms.post_form import PostForm
 
 subreddit_routes = Blueprint('subreddits', __name__)
 
@@ -38,7 +39,36 @@ def get_newest_subreddit_posts(name, page=0):
         
     
     return sub.__posts__()
-    
+
+@subreddit_routes.route('/<string:name>/post', methods=['POST'])
+@login_required
+def create_post(name):
+    '''
+    Post to a subreddit
+    '''
+    form = PostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        post = Post(
+            subreddit_id = form.data['subreddit_id'],
+            title = form.data['title'],
+            type_of_post = form.data['type_of_post'],
+            user_id = current_user.id,
+            tags = form.data['tags'],
+            link = form.data['link'],
+            text = form.data['text']
+
+        )
+        db.session.add(post)
+        db.session.commit()
+        return post.to_dict()
+    else:
+        return jsonify(form.errors)
+
+
+
+
 
 @subreddit_routes.route('/<string:name>/<int:post_id>')
 def get_post_details(name, post_id):

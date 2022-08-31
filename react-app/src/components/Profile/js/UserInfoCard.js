@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function UserInfoCard({ user }) {
+	// const [showPostModal, setShowPostModal] = useState(false);
+
 	return (
 		<>
 			{user && (

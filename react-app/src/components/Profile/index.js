@@ -4,9 +4,11 @@ import "./css/index.css";
 import UserTabs from "./js/UserTabs";
 import UserInfoCard from "./js/UserInfoCard";
 import UserPostCard from "./js/UserPostCard";
+import PostForm from "../PostForm";
 function User() {
     const params = useParams();
-	const [user, setUser] = useState({});
+    const [user, setUser] = useState({});
+
 	const { username } = useParams();
 
 	useEffect(() => {
@@ -16,8 +18,7 @@ function User() {
 		(async () => {
 			const response = await fetch(`/api/u/${username}`);
 			const user = await response.json();
-			setUser(user);
-			console.log(user);
+            setUser(user);
 		})();
 	}, [username]);
 
@@ -40,7 +41,8 @@ function User() {
 											post={post}
 										/>
 									);
-								})}
+                                })}
+                            {params.tab === 'submit' && <PostForm></PostForm> }
 						</div>
 						
 							<UserInfoCard user={user}></UserInfoCard>

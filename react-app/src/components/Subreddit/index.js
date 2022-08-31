@@ -35,7 +35,7 @@ const Subreddit = () => {
 			<div>r/{sub.name}</div>
 			<div>
 				<div>-----Posts-----</div>
-				{posts.map((post) => (
+				{posts.reverse()((post) => (
 					<div className="single-post" key={post.id}>
 						{post.title}
 					</div>
