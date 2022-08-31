@@ -52,6 +52,7 @@ i {
 	top: 3rem;
 	right: 0px;
 	box-sizing: border-box;
+	z-index: 5;
 }
 
 .profile-menu {

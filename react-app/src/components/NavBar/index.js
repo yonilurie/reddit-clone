@@ -26,7 +26,9 @@ function NavBar() {
 					></img>
 				</NavLink>
 			</div>
-			<div className="nav-login-signup-container">
+
+
+			{ !user && <div className="nav-login-signup-container">
 				<div className="login-button">
 					<NavLink to="/login" exact={true}>
 						Login
@@ -37,7 +39,7 @@ function NavBar() {
 						Sign Up
 					</NavLink>
 				</div>
-			</div>
+			</div>}
 
 			<div
 				className={`profile-toggle ${showMenu ? "active" : ""}`}

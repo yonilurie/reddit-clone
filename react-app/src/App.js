@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
-import NavBar from "./components/NavBar/index"
+import NavBar from "./components/NavBar/index";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import Profile from "./components/Profile/index";
 import Subreddit from "./components/Subreddit";
 import { authenticate } from "./store/session";
-
+import PostForm from "./components/PostForm";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -41,6 +41,9 @@ function App() {
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username" exact={true}>
 					<Profile />
+				</ProtectedRoute>
+				<ProtectedRoute path="/user/:username/submit" exact={true}>
+					<PostForm />
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username/:tab" exact={true}>
 					<Profile />
