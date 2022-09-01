@@ -2,7 +2,7 @@
 	width: fit-content;
 	display: flex;
 	flex-direction: column;
-	
+
 	justify-content: center;
 	/* align-items: flex-start; */
 	margin: auto;
@@ -148,6 +148,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 57px;
 }
 
 .fa-align-justify,

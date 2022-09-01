@@ -33,7 +33,7 @@ const Subreddit = () => {
 			<div>r/{sub.name}</div>
 			<div>
 				<div>-----Posts-----</div>
-				{posts.reverse()((post) => (
+				{posts.reverse().map((post) => (
 					<div className="single-post" key={post.id}>
 						{post.title}
 					</div>
