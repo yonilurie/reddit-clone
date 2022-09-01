@@ -34,8 +34,9 @@ class Post(db.Model):
             "image": self.image,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-
-            "comment_count": len(self.comments)
+            "user": {"username": self.user.username},
+            "comment_count": len(self.comments),
+            "votes": self.__votes__(None)
         }
 
     def __comments__(self):

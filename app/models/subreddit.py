@@ -43,4 +43,4 @@ class SubReddit(db.Model):
         }
 
     def __posts__(self):
-        return jsonify([post.to_dict() for post in self.posts])
+        return [post.to_dict() for post in self.posts]

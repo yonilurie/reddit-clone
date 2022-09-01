@@ -54,6 +54,7 @@ class User(db.Model, UserMixin):
             "subreddits": [subreddit.to_dict() for subreddit in self.subreddits],
             "created_at": self.created_at,
             "updated_at": self.updated_at,
+            "votes": [{vote.post_id:vote.to_dict()} for vote in self.votes][0],
         }
 
     def __comments__(self):

@@ -40,8 +40,13 @@ def get_newest_subreddit_posts(id, page=0):
             "error": "Subreddit not found"
         })
         
-    
-    return sub.__posts__()
+    posts = sub.__posts__()
+    # for post in posts:
+    #     user_id = None,
+    #     if current_user.id:
+    #         user_id = current_user.id
+    #     post['votes'] = post.__votes__(user_id)
+    return jsonify(posts)
 
 @subreddit_routes.route('/<int:id>/post', methods=['POST'])
 @login_required
