@@ -4,6 +4,9 @@ import SubredditPostCard from "./js/SubredditPostCard";
 import "./css/index.css";
 import SubredditInfoCard from "./js/SubredditInfoCard";
 import SubredditBanner from "./js/SubredditBanner";
+import SubredditInfoAbout from "./js/SubredditInfoAbout";
+import SubredditInfoRules from "./js/SubredditInfoRules";
+import SubredditInfoModerator from "./js/SubredditInfoModerator";
 
 const Subreddit = () => {
 	const { subreddit } = useParams();
@@ -33,16 +36,41 @@ const Subreddit = () => {
 					<div className="subreddit-inner-container">
 						<div className="subreddit-posts">
 							{posts.length > 0 &&
-								posts
-									.map((post) => (
-										<SubredditPostCard
-											post={post}
-											key={post.id}
-										></SubredditPostCard>
-									))}
+								posts.map((post) => (
+									<SubredditPostCard
+										post={post}
+										key={post.id}
+									></SubredditPostCard>
+								))}
 						</div>
+						<div className="subreddit-info">
+							{/* <div> */}
+							<div>
+								<SubredditInfoCard
+									sub={sub}
+									title="About Community"
+								>
+									<SubredditInfoAbout></SubredditInfoAbout>
+								</SubredditInfoCard>
+							</div>
+							<div>
+								<SubredditInfoCard
+									sub={sub}
+									title={`r/${sub.name} Rules`}
+								>
+									<SubredditInfoRules></SubredditInfoRules>
+								</SubredditInfoCard>
+							</div>
+							<div>
+								<SubredditInfoCard sub={sub} title="Moderator">
+									{/* <SubredditInfoModerator
+										sub={sub}
+									></SubredditInfoModerator> */}
+								</SubredditInfoCard>
+							</div>
 
-						<SubredditInfoCard sub={sub}></SubredditInfoCard>
+							{/* </div> */}
+						</div>
 					</div>
 				</>
 			)}

@@ -101,7 +101,9 @@ h1 {
 	border-top-right-radius: 4px;
 }
 
-.subreddit-info-card-info {
+.subreddit-info-card-info,
+.subreddit-info-card-rules,
+.subreddit-info-card-moderator {
 	background-color: white;
 	height: 100%;
 	padding: 12px;
@@ -160,19 +162,26 @@ h1 {
 	flex-direction: column;
 }
 
-
 .votes-container {
 	width: 32px;
 	height: 100%;
 	min-height: 72px;
-	min-width: 32px	;
+	min-width: 32px;
 	display: flex;
 	justify-content: flex-start;
 	padding-top: 10px;
 	box-sizing: border-box;
 }
 
-.fa-arrow-down, .fa-arrow-up, .votes {
+.fa-arrow-down,
+.fa-arrow-up,
+.votes {
 	padding: 0px;
 	margin: 0px;
+}
+
+.subreddit-info {
+	display: flex;
+	gap: 20px;
+	flex-direction: column;
 }

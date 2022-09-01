@@ -1,9 +1,12 @@
-const SubredditInfoCard = ({ sub }) => {
+import SubredditInfoAbout from "./SubredditInfoAbout";
+import SubredditInfoModerator from "./SubredditInfoModerator";
+import SubredditInfoRules from "./SubredditInfoRules";
 
+const SubredditInfoCard = ({ sub, title }) => {
 	return (
 		<div className="subreddit-info-card">
-			<div className="subreddit-info-card-top">About Community</div>
-			{sub.name && (
+			<div className="subreddit-info-card-top">{title}</div>
+			{/* {sub.name && (
 				<div className="subreddit-info-card-info">
 					<div className="subreddit-description">
 						{sub.description
@@ -22,7 +25,16 @@ const SubredditInfoCard = ({ sub }) => {
 						</div>
 					</div>
 				</div>
-			)}
+			)} */}
+			{title === "About Community" ? (
+				<SubredditInfoAbout sub={sub}></SubredditInfoAbout>
+			) : null}
+			{title === `r/${sub.name} Rules` ? (
+				<SubredditInfoRules sub={sub}></SubredditInfoRules>
+			) : null}
+			{title === `Moderator` ? (
+				<SubredditInfoModerator sub={sub}></SubredditInfoModerator>
+			) : null}
 		</div>
 	);
 };
