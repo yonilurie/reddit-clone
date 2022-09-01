@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import LoginFormModal from "../auth/LoginFormModal";
 import ProfileMenu from "./js/ProfileMenu";
+import * as sessionActions from "../../store/session";
 import "./css/index.css";
 
 function NavBar() {
+	const dispatch = useDispatch();
 	const [showMenu, setShowMenu] = useState(false);
+	const [showModal, setShowModal] = useState(true);
+	const [action, setAction] = useState("");
 	const user = useSelector((state) => state.session.user);
-
-	useEffect(() => {
-		if (!showMenu) return;
-		const closeMenu = () => setShowMenu(false);
-		document.addEventListener("click", closeMenu);
-		return () => document.removeEventListener("click", closeMenu);
-	}, [showMenu]);
 
 	return (
 		<nav className="nav-container">
@@ -27,51 +24,82 @@ function NavBar() {
 				</NavLink>
 			</div>
 
-
-			{ !user && <div className="nav-login-signup-container">
-				<div className="login-button">
-					<NavLink to="/login" exact={true}>
-						Login
-					</NavLink>
-				</div>
-				<div className="signup-button">
-					<NavLink to="/sign-up" exact={true}>
-						Sign Up
-					</NavLink>
-				</div>
-			</div>}
-
-			<div
-				className={`profile-toggle ${showMenu ? "active" : ""}`}
-				onClick={() => setShowMenu((showMenu) => !showMenu)}
-			>
-				{user ? (
-					<>
-						<div className="profile-menu-user-info">
-							<div className="profile-menu-profile-image-container">
-								<img
-									src={user.profile_image}
-									className="profile-menu-profile-image"
-								></img>
-							</div>
-							<div className="profile-menu-user-stats">
-								<div className="profile-menu-username">
-									{user.username}
-								</div>
-								<div className="profile-menu-karma">
-									{user.karma} karma
-								</div>
-							</div>
+			<div className="login-signup-menu">
+				{!user && (
+					<div className="login-signup-container">
+						<div
+							className="login-button"
+							onClick={() =>
+								dispatch(
+									sessionActions.login(
+										"demo@aa.io",
+										"password"
+									)
+								)
+							}
+						>
+							Demo User
 						</div>
-						<i className="fa-solid fa-angle-down"></i>
-					</>
-				) : (
-					<>
-						<i className="fa-regular fa-user"></i>
-						<i className="fa-solid fa-angle-down"></i>
-					</>
+						<button
+							className="login-button"
+							onClick={() => {
+								setAction("Log In");
+								setShowModal(true);
+							}}
+							action="login"
+						>
+							Log In
+						</button>
+						<button
+							className="signup-button"
+							onClick={() => {
+								setAction("Sign Up");
+								setShowModal(true);
+							}}
+						>
+							Sign Up
+						</button>
+					</div>
 				)}
-				<ProfileMenu showMenu={showMenu} user={user}></ProfileMenu>
+				<div
+					className={`profile-toggle ${showMenu ? "active" : ""}`}
+					onClick={() => setShowMenu((showMenu) => !showMenu)}
+				>
+					{user ? (
+						<>
+							<div className="profile-menu-user-info">
+								<div className="profile-menu-profile-image-container">
+									<img
+										src={user.profile_image}
+										className="profile-menu-profile-image"
+									></img>
+								</div>
+								<div className="profile-menu-user-stats">
+									<div className="profile-menu-username">
+										{user.username}
+									</div>
+									<div className="profile-menu-karma">
+										{user.karma} karma
+									</div>
+								</div>
+							</div>
+							<i className="fa-solid fa-angle-down"></i>
+						</>
+					) : (
+						<>
+							<i className="fa-regular fa-user"></i>
+							<i className="fa-solid fa-angle-down"></i>
+						</>
+					)}
+					<ProfileMenu
+						showMenu={showMenu}
+						setShowMenu={setShowMenu}
+						user={user}
+						showModal={showModal}
+						setShowModal={setShowModal}
+						action={action}
+					></ProfileMenu>
+				</div>
 			</div>
 		</nav>
 	);

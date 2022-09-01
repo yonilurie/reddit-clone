@@ -1,94 +1,89 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { login } from "../../store/session";
+import "./index.css";
 
-const SignUpForm = () => {
-  const [errors, setErrors] = useState([]);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const user = useSelector(state => state.session.user);
-  const dispatch = useDispatch();
+const LoginForm = ({ action , setShowModal}) => {
+	const [errors, setErrors] = useState([]);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
-  const onSignUp = async (e) => {
-    e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
-      if (data) {
-        setErrors(data)
-      }
+	const dispatch = useDispatch();
+
+	const onLogin = async (e) => {
+		e.preventDefault();
+		const data = await dispatch(login(email, password));
+		if (data) {
+			setErrors(data);
+			console.log(data && true);
+    } else {
+      setShowModal(false)
     }
-  };
+  
+	};
 
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
-  };
+	const updateEmail = (e) => {
+		setEmail(e.target.value);
+	};
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
+	const updatePassword = (e) => {
+		setPassword(e.target.value);
+	};
 
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const updateRepeatPassword = (e) => {
-    setRepeatPassword(e.target.value);
-  };
-
-  if (user) {
-    return <Redirect to='/' />;
-  }
-
-  return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label>User Name</label>
-        <input
-          type='text'
-          name='username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type='password'
-          name='repeat_password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type='submit'>Sign Up</button>
-    </form>
-  );
+	return (
+		<div className="login-form-container">
+			<div onClick={() => setShowModal(false)}>XXXX</div>
+			<div className="modal-title">
+				<div className="modal-title-text">
+					<h2>{action}</h2>
+				</div>
+			</div>
+			<form onSubmit={onLogin} className="login-form">
+				<div className="errors-container">
+					{errors.map((error, ind) => (
+						<div key={ind} className="error">
+							{error}
+						</div>
+					))}
+				</div>
+				<div className="input-container">
+					<input
+						name="email"
+						type="text"
+						className="signup-login-input"
+						value={email}
+						onChange={updateEmail}
+						required={true}
+						maxLength={"255"}
+					/>
+					<label htmlFor="email" className={`input-label `}>
+						Username
+					</label>
+				</div>
+				<div className="input-container">
+					<input
+						name="password"
+						type="password"
+						htmlFor="password"
+						className={`signup-login-input`}
+						value={password}
+						onChange={updatePassword}
+						required={true}
+						minLength="6"
+					></input>
+					<label
+						className={`input-label ${
+							password.length > 0 ? "move-up-label" : ""
+						}`}
+					>
+						Password
+					</label>
+				</div>
+				<button className="signup-login-form-button">Log In</button>
+			</form>
+		</div>
+	);
 };
 
-export default SignUpForm;
+export default LoginForm;

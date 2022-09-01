@@ -32,29 +32,29 @@ function App() {
 		<BrowserRouter>
 			<NavBar />
 			<Switch>
-				<Route path="/login" exact={true}>
+				<Route path="/" exact={true}>
+					<HomePage></HomePage>
+				</Route>
+				{/* <Route path="/login" exact={true}>
 					<LoginForm />
 				</Route>
 				<Route path="/sign-up" exact={true}>
 					<SignUpForm />
+				</Route> */}
+				<Route path="/r/:subreddit">
+					<Subreddit></Subreddit>
+				</Route>
+				<Route path="/user/:username" exact={true}>
+					<Profile />
 				</Route>
 				<ProtectedRoute path="/users" exact={true}>
 					<UsersList />
-				</ProtectedRoute>
-				<ProtectedRoute path="/user/:username" exact={true}>
-					<Profile />
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username/submit" exact={true}>
 					<SubmitPage />
 				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username/:tab" exact={true}>
 					<Profile />
-				</ProtectedRoute>
-				<ProtectedRoute path="/r/:subreddit">
-					<Subreddit></Subreddit>
-				</ProtectedRoute>
-				<ProtectedRoute path="/" exact={true}>
-					<HomePage></HomePage>
 				</ProtectedRoute>
 			</Switch>
 		</BrowserRouter>

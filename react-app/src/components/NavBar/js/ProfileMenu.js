@@ -1,15 +1,48 @@
-// import LogoutButton from "../../auth/LogoutButton";
 import { logout } from "../../../store/session";
 import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-const ProfileMenu = ({ showMenu, user }) => {
+import LoginFormModal from "../../auth/LoginFormModal";
+const ProfileMenu = ({
+	showMenu,
+	setShowMenu,
+	user,
+	showModal,
+	setShowModal,
+	action,
+}) => {
 	const dispatch = useDispatch();
 	const onLogout = async (e) => {
 		await dispatch(logout());
 	};
+	useEffect(() => {
+		if (showModal) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "unset";
+		}
+	}, [showModal]);
+
+	// useEffect(() => {
+	// 	if (!showModal) return;
+	// 	const closeModal = () => setShowModal(false);
+	// 	document.addEventListener("click", closeModal);
+	// 	return () => document.removeEventListener("click", closeModal);
+	// }, [showModal]);
+
+	useEffect(() => {
+		if (!showMenu) return;
+		const closeMenu = () => setShowMenu(false);
+		document.addEventListener("click", closeMenu);
+		return () => document.removeEventListener("click", closeMenu);
+	}, [showMenu]);
 	return (
 		<div className="profile-menu-container">
+			<LoginFormModal
+				showModal={showModal}
+				setShowModal={setShowModal}
+				action={action}
+			></LoginFormModal>
 			{showMenu && (
 				<div className="profile-menu">
 					{user && (
@@ -49,11 +82,12 @@ const ProfileMenu = ({ showMenu, user }) => {
 							<div>
 								<i className="fa-regular fa-circle-user"></i>
 							</div>
-							<div>Sign up or log in </div>
+							<div onClick={() => setShowModal(true)}>
+								Sign up or log in{" "}
+							</div>
 						</div>
 					)}
 					<div className="no-copyright">
-				
 						2022 Reddit Clone. No rights reserved
 					</div>
 				</div>
