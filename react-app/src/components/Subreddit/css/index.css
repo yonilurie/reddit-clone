@@ -21,6 +21,7 @@
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
+	row-gap: 15px;
 }
 
 .subreddit-banner {
@@ -85,7 +86,7 @@ h1 {
 .subreddit-info-card {
 	width: 310px;
 	min-width: 310px;
-	
+
 	height: fit-content;
 	border: solid 1px rgb(204, 204, 204);
 	border-radius: 4px;
@@ -142,4 +143,36 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.sub-post-container {
+	border: solid 1px rgb(204, 204, 204);
+	background-color: white;
+	border-radius: 4px;
+	display: flex;
+
+	min-height: 140px;
+	margin-right: 30px;
+}
+
+.sub-post-info {
+	display: flex;
+	flex-direction: column;
+}
+
+
+.votes-container {
+	width: 32px;
+	height: 100%;
+	min-height: 72px;
+	min-width: 32px	;
+	display: flex;
+	justify-content: flex-start;
+	padding-top: 10px;
+	box-sizing: border-box;
+}
+
+.fa-arrow-down, .fa-arrow-up, .votes {
+	padding: 0px;
+	margin: 0px;
 }

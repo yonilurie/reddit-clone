@@ -5,7 +5,6 @@
 	align-items: center;
 	height: 40px;
 	padding: 0px 10px;
-	
 }
 
 .profile-tab-link {
@@ -177,7 +176,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-right: 10px;
+	padding: 0px;
+	margin: 0px;
 }
 
 .fa-arrow-up:hover,

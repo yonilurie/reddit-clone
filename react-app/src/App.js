@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import Profile from "./components/Profile/index";
 import Subreddit from "./components/Subreddit";
+import HomePage from "./components/HomePage";
 import { authenticate } from "./store/session";
 
 import SubmitPage from "./components/SubmitPage";
@@ -53,7 +54,7 @@ function App() {
 					<Subreddit></Subreddit>
 				</ProtectedRoute>
 				<ProtectedRoute path="/" exact={true}>
-					<h1>My Home Page</h1>
+					<HomePage></HomePage>
 				</ProtectedRoute>
 			</Switch>
 		</BrowserRouter>
