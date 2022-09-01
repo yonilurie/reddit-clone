@@ -104,25 +104,25 @@ function PostForm() {
 					<div className="input-types">
 						<div
 							className={`input-type ${
-								typeOfPost === "text" ? "selected" : null
+								typeOfPost === "text" ? "selected" : ''
 							}`}
 							onClick={() => setTypeOfPost("text")}
 						>
-							<i class="fa-solid fa-align-justify"></i>
+							<i className="fa-solid fa-align-justify"></i>
 							<div>Post</div>
 						</div>
 						<div
 							className={`input-type ${
-								typeOfPost === "image" ? "selected" : null
+								typeOfPost === "image" ? "selected" : ''
 							}`}
 							onClick={() => setTypeOfPost("image")}
 						>
-							<i class="fa-regular fa-image"></i>
+							<i className="fa-regular fa-image"></i>
 							<div>Images</div>
 						</div>
 						<div
 							className={`input-type ${
-								typeOfPost === "link" ? "selected" : null
+								typeOfPost === "link" ? "selected" : ''
 							}`}
 							onClick={() => setTypeOfPost("link")}
 						>

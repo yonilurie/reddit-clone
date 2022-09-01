@@ -16,7 +16,7 @@ function UserPostCard({ post }) {
 				<div className="vote downvote">
 					<i
 						className={`fa-solid fa-arrow-down ${
-							!post.votes.user_vote ? "downvoted" : ""
+							post.votes.user_vote === false ? "downvoted" : ""
 						}`}
 					></i>
 				</div>
@@ -44,7 +44,7 @@ function UserPostCard({ post }) {
 						<a href={post.link} target="_blank" rel="noreferrer">
 							<div className="image-box">
 								<i className="fa-solid fa-link"></i>
-								<i class="fa-solid fa-arrow-up-right-from-square"></i>
+								<i className="fa-solid fa-arrow-up-right-from-square"></i>
 							</div>
 						</a>
 					)}

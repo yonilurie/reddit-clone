@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     display_name = db.Column(db.String(30), nullable=True, default="")
     about = db.Column(db.String(200), nullable=True, default="")
     social_links = db.Column(db.String, nullable=True, default="")
-    profile_image = db.Column(db.String, nullable=True, default="http://cdn.onlinewebfonts.com/svg/img_206976.png")
+    profile_image = db.Column(db.String, nullable=True, default="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png")
     banner_image = db.Column(db.String, nullable=True, default="")
     dark_mode = db.Column(db.Boolean, nullable=True, default=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=True, server_default=func.now())

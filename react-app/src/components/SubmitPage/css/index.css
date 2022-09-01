@@ -3,13 +3,13 @@
 	justify-content: flex-start;
 	width: 80%;
 	margin: auto;
-    
+	gap: 15px;
+	max-width: 1000px;
 }
 
 .user-info-card {
-	/* margin-top: 55px; */
 	position: sticky;
 }
 .user-info-card-container-submit {
-    margin-top: 25px;
+	margin-top: 25px;
 }

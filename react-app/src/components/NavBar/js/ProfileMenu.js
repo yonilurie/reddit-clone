@@ -15,7 +15,7 @@ const ProfileMenu = ({ showMenu, user }) => {
 					{user && (
 						<>
 							<div className="profile-menu-section-title">
-								<i class="fa-regular fa-circle-user"></i>
+								<i className="fa-regular fa-circle-user"></i>
 								<div>My Stuff</div>
 							</div>
 
@@ -35,19 +35,19 @@ const ProfileMenu = ({ showMenu, user }) => {
 						</>
 					)}
 					<Link to={`/about`} className="profile-menu-el">
-						<i class="fa-solid fa-scroll"></i>
+						<i className="fa-solid fa-scroll"></i>
 						<div>About</div>
 					</Link>
 
 					{user ? (
 						<div className="profile-menu-el">
-							<i class="fa-solid fa-arrow-right-from-bracket"></i>
+							<i className="fa-solid fa-arrow-right-from-bracket"></i>
 							<div onClick={onLogout}>Logout</div>
 						</div>
 					) : (
 						<div className="auth-container-profile-menu profile-menu-el">
 							<div>
-								<i class="fa-regular fa-circle-user"></i>
+								<i className="fa-regular fa-circle-user"></i>
 							</div>
 							<div>Sign up or log in </div>
 						</div>
