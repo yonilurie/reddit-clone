@@ -1,5 +1,4 @@
 const SubredditBanner = ({ sub }) => {
-	console.log(sub);
 	return (
 		<div className="subreddit-banner">
 			<div className="subreddit-banner-inner">

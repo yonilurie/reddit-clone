@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 function UserPostCard({ post }) {
-	console.log(post);
 	return (
 		<div className="user-post-container">
 			<div className="votes-container">

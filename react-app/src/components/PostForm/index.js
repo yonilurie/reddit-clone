@@ -28,9 +28,7 @@ function PostForm() {
 	};
 
 	const setSubredditInfo = (e) => {
-		// setSubreddit(e.name);
 		setSubredditId(e.value);
-		console.log(subredditId);
 	};
 
 	const onSubmit = async (e) => {

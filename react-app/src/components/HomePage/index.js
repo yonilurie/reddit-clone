@@ -8,10 +8,6 @@ function HomePage() {
 			const response = await fetch(`/api/r/list-all`);
 			const subredditInfo = await response.json();
 			setSubs(subredditInfo);
-			console.log(subredditInfo);
-			// const response2 = await fetch(`/api/r/${subredditInfo.id}/posts`);
-			// const postsArr = await response2.json();
-			// setPosts(postsArr.reverse());
 		})();
 	}, []);
 	return (

@@ -1,5 +1,5 @@
 const SubredditInfoCard = ({ sub }) => {
-	console.log(sub);
+
 	return (
 		<div className="subreddit-info-card">
 			<div className="subreddit-info-card-top">About Community</div>

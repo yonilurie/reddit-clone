@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const SubredditPostCard = ({ post }) => {
-	// console.log(post.created_at);
 
 	const getTimeElapsed = (createdAt) => {
 		let newDate = new Date(createdAt);
@@ -19,9 +18,7 @@ const SubredditPostCard = ({ post }) => {
 		}
 	};
 
-	const elapsed = getTimeElapsed(post.created_at);
-	console.log(elapsed);
-	// console.log(newDate, today);
+
 	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<div className="sub-post-container">
