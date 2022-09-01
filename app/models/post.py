@@ -25,6 +25,7 @@ class Post(db.Model):
         return {
             "id": self.id,
             "subreddit_id": self.subreddit_id,
+            "subreddit_name": self.subreddit.name,
             "user_id": self.user_id,
             "tags": self.tags,
             "title": self.title,

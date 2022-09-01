@@ -5,13 +5,14 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	margin-bottom: 50px;
 }
 
 .subreddit-inner-container {
 	display: flex;
 	justify-content: center;
 	flex-direction: row;
-	width: 80%;
+	width: fit-content;
 	margin-top: 20px;
 	gap: 20px;
 }
@@ -42,6 +43,7 @@
 	background-color: white;
 	height: 78px;
 	width: 100%;
+	box-sizing: border-box;
 	padding-left: 10%;
 }
 
@@ -152,14 +154,25 @@ h1 {
 	background-color: white;
 	border-radius: 4px;
 	display: flex;
-
 	min-height: 140px;
 	margin-right: 30px;
+	max-width: 640px;
+}
+
+.sub-post-info-container {
+	padding: 5px;
+	display: flex;
+	justify-content: flex-start;
+	width: 100%;
 }
 
 .sub-post-info {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+	padding: 10px;
+	box-sizing: border-box;
+	width: 100%;
 }
 
 .votes-container {
@@ -184,4 +197,27 @@ h1 {
 	display: flex;
 	gap: 20px;
 	flex-direction: column;
+}
+
+.image-box-subreddit {
+	max-width: 100%;
+	max-height: 254px;
+}
+
+.sub-text-box {
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+.sub-post-title {
+	max-width: 90%;
+	word-wrap: break-word;
+}
+
+.sub-text-box {
+	max-width: 90%;
+	word-wrap: break-word;
+	max-height: 300px;
+	overflow: hidden;
+	font-size: 14px;
 }

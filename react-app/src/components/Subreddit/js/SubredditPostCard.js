@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const SubredditPostCard = ({ post }) => {
-
 	const getTimeElapsed = (createdAt) => {
 		let newDate = new Date(createdAt);
 		let today = new Date();
@@ -17,8 +16,7 @@ const SubredditPostCard = ({ post }) => {
 			return `${Math.floor(days)} days ago`;
 		}
 	};
-
-
+	console.log(post);
 	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<div className="sub-post-container">
@@ -44,23 +42,21 @@ const SubredditPostCard = ({ post }) => {
 			<div className="sub-post-info-container">
 				<div className="sub-post-info">
 					<div className="profile-post-text">
-						<div className="profile-post-title">{post.title}</div>
 						<div className="profile-post-subreddit-time">
-							<Link to={`/r/${post.subreddit}`}>
-								<div className="profile-post-subreddit">
-									r/{post.subreddit}{" "}
-									<span className="profile-post-time">{`Posted by u/${
-										post.user.username
-									} ${getTimeElapsed(
-										post.created_at
-									)}`}</span>
-								</div>
-							</Link>
+							<div className="profile-post-subreddit">
+								<span className="profile-post-time">{`Posted by u/${
+									post.user.username
+								} ${getTimeElapsed(post.created_at)}`}</span>
+							</div>
 						</div>
+						<div className="sub-post-title">{post.title}</div>
 					</div>
 					{post.image && (
 						<a href={post.image} target="_blank" rel="noreferrer">
-							<img src={post.image} className="image-box"></img>
+							<img
+								src={post.image}
+								className="image-box-subreddit"
+							></img>
 						</a>
 					)}
 
@@ -70,9 +66,9 @@ const SubredditPostCard = ({ post }) => {
 							target="_blank"
 							rel="noreferrer"
 						>
-							<div className="image-box">
-								<i className="fa-solid fa-align-justify"></i>
-							</div>
+							{post.text ? (
+								<div className="sub-text-box">{post.text}</div>
+							) : null}
 						</a>
 					)}
 					{post.link && (
