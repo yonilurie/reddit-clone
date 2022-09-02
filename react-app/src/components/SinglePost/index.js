@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
-import { postVote, getTimeElapsed } from "../../util";
+import { postVote, getTimeElapsed } from "../../util/index.js";
 import "./css/index.css";
 
 function SinglePostPage() {
@@ -162,10 +162,11 @@ function SinglePostPage() {
 											<i class="fa-solid fa-share"></i>
 											<div>share</div>
 										</div>
-										{currentUser.username ===
-											post.user.username && (
-											<div className="edit">...</div>
-										)}
+										{currentUser &&
+											currentUser.username ===
+												post.user.username && (
+												<div className="edit">...</div>
+											)}
 										<div className="vote-percent">
 											{getPercentUpvoted(post.votes)}
 										</div>

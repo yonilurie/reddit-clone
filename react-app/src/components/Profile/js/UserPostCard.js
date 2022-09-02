@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { postVote } from "../../../util";
+import { postVote } from "../../../util/index.js";
 
 function UserPostCard({ post }) {
 	const user = useSelector((state) => state.session.user);

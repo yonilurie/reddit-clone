@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getTimeElapsed, getPercentUpvoted, postVote } from "../../../util";
+import {
+	getTimeElapsed,
+	getPercentUpvoted,
+	postVote,
+} from "../../../util/index.js";
 const SubredditPostCard = ({ post }) => {
 	const currentUser = useSelector((state) => state.session.user);
 	return (
@@ -14,13 +18,12 @@ const SubredditPostCard = ({ post }) => {
 					}}
 				>
 					<i
-					className={`fa-solid fa-arrow-up ${
-												currentUser &&
-												currentUser.votes[post.id] &&
-												currentUser.votes[post.id]
-													.upvote === true &&
-												"upvoted"
-											}`}
+						className={`fa-solid fa-arrow-up ${
+							currentUser &&
+							currentUser.votes[post.id] &&
+							currentUser.votes[post.id].upvote === true &&
+							"upvoted"
+						}`}
 					></i>
 				</div>
 				<div className="votes">
@@ -36,12 +39,11 @@ const SubredditPostCard = ({ post }) => {
 				>
 					<i
 						className={`fa-solid fa-arrow-down ${
-											currentUser &&
-											currentUser.votes[post.id] &&
-											currentUser.votes[post.id]
-												.upvote === false &&
-											"downvoted"
-										}`}
+							currentUser &&
+							currentUser.votes[post.id] &&
+							currentUser.votes[post.id].upvote === false &&
+							"downvoted"
+						}`}
 					></i>
 				</div>
 			</div>
