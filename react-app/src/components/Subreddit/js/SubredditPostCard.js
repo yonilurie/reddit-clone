@@ -52,13 +52,15 @@ const SubredditPostCard = ({ post }) => {
 					<div className="sub-post-text">
 						<div className="profile-post-subreddit-time">
 							<div className="profile-post-subreddit">
-								<Link to={`/user/${post.user.username}`}>
-									<span className="profile-post-time">{`Posted by u/${
-										post.user.username
-									} ${getTimeElapsed(
-										post.created_at
-									)}`}</span>
-								</Link>
+								<span className="profile-post-time">
+									{`Posted by `}
+									<Link to={`/user/${post.user.username}`}>
+										<span className="sub-post-time username">
+											u/{post.user.username}
+										</span>{" "}
+									</Link>
+									{getTimeElapsed(post.created_at)}
+								</span>
 							</div>
 						</div>
 						<Link
@@ -78,15 +80,13 @@ const SubredditPostCard = ({ post }) => {
 					)}
 
 					{post.text && (
-						<a
-							href={`/r/${post.subreddit}/${post.id}/${post.title}`}
-							target="_blank"
-							rel="noreferrer"
+						<Link
+							to={`/r/${post.subreddit}/${post.id}/${post.title}`}
 						>
 							{post.text ? (
 								<div className="sub-text-box">{post.text}</div>
 							) : null}
-						</a>
+						</Link>
 					)}
 					{post.link && (
 						<a href={post.link} target="_blank" rel="noreferrer">
@@ -104,16 +104,13 @@ const SubredditPostCard = ({ post }) => {
 					</div>
 
 					<div className="share">
-						<i class="fa-solid fa-share"></i>
+						<i className="fa-solid fa-share"></i>
 						<div>share</div>
 					</div>
 					{currentUser &&
 						currentUser.username === post.user.username && (
 							<div className="edit">...</div>
 						)}
-					<div className="vote-percent">
-						{getPercentUpvoted(post.votes)}
-					</div>
 				</div>
 			</div>
 		</div>

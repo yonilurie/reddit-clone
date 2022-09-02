@@ -25,5 +25,6 @@ class Vote(db.Model):
             "post_id": self.post_id,
             "upvote": self.upvote,
             "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "updated_at": self.updated_at,
+            "post": self.post.to_dict()
         }

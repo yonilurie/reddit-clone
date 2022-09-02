@@ -61,4 +61,4 @@ class User(db.Model, UserMixin):
          return {"comments": [{"id": comment.id, "post_id": comment.post_id, "text": comment.text, "created_at": comment.created_at, "updated_at": comment.updated_at, "post_title":comment.post.title, "post_user": comment.post.user.username, "post_subreddit": comment.post.subreddit.name} for comment in self.comments]}
 
     def __posts__(self):
-        return {"posts": [{"title": post.title, "id": post.id, "text": post.text, "votes": post.__votes__(),  "username": post.user.username, "subreddit": post.subreddit.name, "comment_count": post.to_dict()["comment_count"], "image": post.image, "link": post.link, "created_at": post.created_at, "updated_at": post.updated_at, "type_of_post": post.type_of_post} for post in self.posts]}
+        return {"posts": [{"title": post.title, "id": post.id, "text": post.text, "votes": post.__votes__(),  "user": {"username":post.user.username}, "subreddit": post.subreddit.name, "comment_count": post.to_dict()["comment_count"], "image": post.image, "link": post.link, "created_at": post.created_at, "updated_at": post.updated_at, "type_of_post": post.type_of_post} for post in self.posts]}

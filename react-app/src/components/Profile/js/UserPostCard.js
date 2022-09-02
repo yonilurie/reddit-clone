@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { postVote } from "../../../util/index.js";
 
 function UserPostCard({ post }) {
+	console.log(post);
 	const user = useSelector((state) => state.session.user);
 	return (
 		<div className="user-post-container">
@@ -72,19 +73,29 @@ function UserPostCard({ post }) {
 						</a>
 					)}
 					<div className="profile-post-text">
-						<div className="profile-post-title">{post.title}</div>
+						<Link to={`/r/${post.subreddit_name}`}>
+							<div className="profile-post-title">
+								{post.title}
+							</div>
+						</Link>
 						<div className="profile-post-subreddit-time">
-							<Link to={`/r/${post.subreddit}`}>
-								<div className="profile-post-subreddit">
-									r/{post.subreddit}{" "}
-									<span className="profile-post-time">{`Posted by u/${post.username} 1 days ago`}</span>
-								</div>
-							</Link>
+							<div className="profile-post-subreddit">
+								r/{post.subreddit_name}{" "}
+								<span className="profile-post-time">
+									{`Posted by `}
+									<Link to={`/user/${user.username}`}>
+										<span className="profile-post-username">
+											u/{post.user.username}
+										</span>
+										1 days ago
+									</Link>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			{user && user.username === post.username && (
+			{user && user.username === post.user.username && (
 				<div className="edit-toggle" onClick={() => "wow"}>
 					...
 				</div>

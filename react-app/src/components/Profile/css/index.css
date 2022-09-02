@@ -135,8 +135,9 @@
 
 .profile-content-container-wide {
 	padding: 0px 20px;
-
+	margin: auto;
 	max-width: 80%;
+	width: 80%;
 
 	margin-top: 20px;
 	display: flex;
@@ -147,14 +148,15 @@
 
 .profile-content-wide {
 	width: 100%;
+	max-width: 75%;
 }
 .user-post-container {
 	border: solid 1px rgb(204, 204, 204);
 	background-color: white;
 	border-radius: 4px;
 	max-width: 95%;
+	width: 95%;
 	display: flex;
-	
 }
 
 .votes-container {
@@ -212,9 +214,9 @@
 }
 
 .profile-post-title {
-	color: rgb(155, 155, 155);
+	/* color: rgb(155, 155, 155); */
 	text-overflow: ellipsis;
-	max-width: 100%;
+	max-width: 50%;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -263,10 +265,15 @@
 }
 
 .edit-toggle {
-	right:  0px;
+	right: 0px;
 	cursor: pointer;
 	height: fit-content;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.profile-post-username:hover {
+	text-decoration: underline;
+	cursor: pointer;
 }

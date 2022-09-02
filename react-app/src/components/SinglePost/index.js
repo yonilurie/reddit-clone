@@ -159,7 +159,7 @@ function SinglePostPage() {
 										</div>
 
 										<div className="share">
-											<i class="fa-solid fa-share"></i>
+											<i className="fa-solid fa-share"></i>
 											<div>share</div>
 										</div>
 										{currentUser &&
