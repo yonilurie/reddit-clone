@@ -9,7 +9,7 @@ import "./css/index.css";
 function NavBar() {
 	const dispatch = useDispatch();
 	const [showMenu, setShowMenu] = useState(false);
-	const [showModal, setShowModal] = useState(true);
+	const [showModal, setShowModal] = useState(false);
 	const [action, setAction] = useState("");
 	const user = useSelector((state) => state.session.user);
 

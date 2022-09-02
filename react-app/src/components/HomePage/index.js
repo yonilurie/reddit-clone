@@ -14,7 +14,11 @@ function HomePage() {
 		<div className="home-sub-list">
 			{subs.length > 0 &&
 				subs.map((sub) => {
-					return <Link to={`/r/${sub.name}`}>r/{sub.name}</Link>;
+					return (
+						<Link to={`/r/${sub.name}`} key={sub.name}>
+							r/{sub.name}
+						</Link>
+					);
 				})}
 		</div>
 	);

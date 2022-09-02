@@ -73,9 +73,9 @@ const ProfileMenu = ({
 					</Link>
 
 					{user ? (
-						<div className="profile-menu-el">
+						<div className="profile-menu-el" onClick={onLogout}>
 							<i className="fa-solid fa-arrow-right-from-bracket"></i>
-							<div onClick={onLogout}>Logout</div>
+							<div>Logout</div>
 						</div>
 					) : (
 						<div className="auth-container-profile-menu profile-menu-el">

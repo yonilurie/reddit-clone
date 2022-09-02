@@ -16,7 +16,6 @@ const LoginForm = ({ action, setShowModal }) => {
 		const data = await dispatch(login(email, password));
 		if (data) {
 			setErrors(data);
-			console.log(data && true);
 		} else {
 			setShowModal(false);
 		}

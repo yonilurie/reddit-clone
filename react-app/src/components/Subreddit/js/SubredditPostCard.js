@@ -16,7 +16,6 @@ const SubredditPostCard = ({ post }) => {
 			return `${Math.floor(days)} days ago`;
 		}
 	};
-	console.log(post);
 	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<div className="sub-post-container">
@@ -24,7 +23,9 @@ const SubredditPostCard = ({ post }) => {
 				<div className="vote upvote">
 					<i
 						className={`fa-solid fa-arrow-up ${
-							currentUser.votes[post.id] ? "upvoted" : ""
+							currentUser &&
+							currentUser.votes[post.id] &&
+							"upvoted"
 						}`}
 					></i>
 				</div>
@@ -32,9 +33,9 @@ const SubredditPostCard = ({ post }) => {
 				<div className="vote downvote">
 					<i
 						className={`fa-solid fa-arrow-down ${
-							currentUser.votes[post.id] === false
-								? "downvoted"
-								: ""
+							currentUser &&
+							currentUser.votes[post.id] === false &&
+							"downvoted"
 						}`}
 					></i>
 				</div>
