@@ -1,6 +1,6 @@
 import { Modal } from "../../context/Modal";
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import TextForm from "./js/TextForm";
 import LinkForm from "./js/LinkForm";
@@ -10,6 +10,8 @@ import ImageForm from "./js/ImageForm";
 function PostForm() {
 	const history = useHistory();
 	const { username } = useParams();
+	const location = useLocation();
+
 	const [subredditsList, setSubredditsList] = useState([]);
 	// const [subreddit, setSubreddit] = useState("");
 	const [subredditId, setSubredditId] = useState(0);
@@ -71,6 +73,16 @@ function PostForm() {
 		const data = await subreddits.json();
 		setSubredditsList(data);
 		setSubredditId(data[0].id);
+		let postSubId;
+		try {
+			if (location.state.postSubId) {
+				postSubId = location.state.postSubId;
+				location.state = {};
+			}
+		} catch (e) {}
+		if (postSubId) {
+			setSubredditId(postSubId);
+		}
 	}, [username]);
 
 	return (
@@ -102,7 +114,7 @@ function PostForm() {
 					<div className="input-types">
 						<div
 							className={`input-type ${
-								typeOfPost === "text" ? "selected" : ''
+								typeOfPost === "text" ? "selected" : ""
 							}`}
 							onClick={() => setTypeOfPost("text")}
 						>
@@ -111,7 +123,7 @@ function PostForm() {
 						</div>
 						<div
 							className={`input-type ${
-								typeOfPost === "image" ? "selected" : ''
+								typeOfPost === "image" ? "selected" : ""
 							}`}
 							onClick={() => setTypeOfPost("image")}
 						>
@@ -120,7 +132,7 @@ function PostForm() {
 						</div>
 						<div
 							className={`input-type ${
-								typeOfPost === "link" ? "selected" : ''
+								typeOfPost === "link" ? "selected" : ""
 							}`}
 							onClick={() => setTypeOfPost("link")}
 						>

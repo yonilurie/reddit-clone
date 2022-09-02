@@ -8,6 +8,7 @@ import NoPermission from "../ErrorPages/NoPermission";
 
 function SubmitPage() {
 	const history = useHistory();
+	const { submit } = useParams();
 	const currentUser = useSelector((state) => state.session.user);
 	const { username } = useParams();
 	const [user, setUser] = useState(null);
