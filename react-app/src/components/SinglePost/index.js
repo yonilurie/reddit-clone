@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
+import { postVote, getTimeElapsed } from "../../util";
 import "./css/index.css";
 
 function SinglePostPage() {
@@ -17,25 +18,9 @@ function SinglePostPage() {
 		const subData = await getSub.json();
 		setSub(subData);
 	}, []);
-
-	const getTimeElapsed = (createdAt) => {
-		let newDate = new Date(createdAt);
-		let today = new Date();
-		let diff = today.getTime() - newDate.getTime();
-		let days = diff / (1000 * 3600 * 24);
-
-		if (days * 24 < 1) {
-			return `${Math.floor(days * 24 * 60)} minutes ago`;
-		} else if (days < 1) {
-			return `${Math.floor(days * 24)} hours ago`;
-		} else {
-			return `${Math.floor(days)} days ago`;
-		}
-	};
-
 	const getPercentUpvoted = (votes) => {
 		const { upvote_count, downvote_count, total } = votes;
-		console.log(votes);
+
 		if (downvote_count === 0 && upvote_count > 0) {
 			return "100% Upvoted";
 		}
@@ -54,7 +39,6 @@ function SinglePostPage() {
 	};
 
 	const currentUser = useSelector((state) => state.session.user);
-	console.log(post);
 	return (
 		<>
 			{post && sub && (
@@ -64,25 +48,49 @@ function SinglePostPage() {
 						<div className="single-post-container">
 							<div className="single-post">
 								<div className="single-post-votes-container">
-									<div className="vote upvote">
+									<div
+										className="vote upvote"
+										onClick={() => {
+											if (!currentUser) return;
+											postVote(
+												"true",
+												post.id,
+												currentUser.id
+											);
+										}}
+									>
 										<i
 											className={`fa-solid fa-arrow-up ${
 												currentUser &&
 												currentUser.votes[post.id] &&
+												currentUser.votes[post.id]
+													.upvote === true &&
 												"upvoted"
 											}`}
 										></i>
 									</div>
 									<div className="votes">
 										{" "}
-										{post.votes.total}
+										{post.votes.upvote_count -
+											post.votes.downvote_count}
 									</div>
-									<div className="vote downvote">
+									<div
+										className="vote downvote"
+										onClick={() => {
+											if (!currentUser) return;
+											postVote(
+												"false",
+												post.id,
+												currentUser.id
+											);
+										}}
+									>
 										<i
 											className={`fa-solid fa-arrow-down ${
 												currentUser &&
-												currentUser.votes[post.id] ===
-													false &&
+												currentUser.votes[post.id] &&
+												currentUser.votes[post.id]
+													.upvote === false &&
 												"downvoted"
 											}`}
 										></i>

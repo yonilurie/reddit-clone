@@ -27,12 +27,7 @@ def get_user(username):
     user_query = User.query.filter(User.username == username).first() 
     if user_query is not None:
         comments = user_query.__comments__()
-        posts = None
-        
-        if current_user.get_id():
-            posts = user_query.__posts__(current_user.get_id())
-        else:
-            posts = user_query.__posts__(None)
+        posts = user_query.__posts__()
         user = user_query.to_dict()
         user['comments'] = comments['comments']
         user['posts'] = posts['posts']

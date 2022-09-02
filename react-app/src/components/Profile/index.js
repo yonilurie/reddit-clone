@@ -35,6 +35,7 @@ function User() {
 							{params.tab === "submitted" &&
 								user.posts.length > 0 &&
 								user.posts.map((post) => {
+									console.log(post);
 									return (
 										<UserPostCard
 											key={post.id}

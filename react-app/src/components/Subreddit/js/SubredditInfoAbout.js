@@ -27,7 +27,7 @@ function SubredditInfoAbout({ sub }) {
 						<Link
 							to={{
 								pathname: `/user/${user.username}/submit`,
-								state: { postSubId: sub.id },
+								state: { postSubId: sub.id},
 							}}
 							className="new-post-button-container"
 						>

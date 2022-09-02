@@ -1,4 +1,4 @@
-from sqlalchemy import null
+from sqlalchemy import false, null
 from .db import db
 from sqlalchemy.sql import func
 
@@ -21,7 +21,7 @@ class Post(db.Model):
     comments = db.relationship("Comment", back_populates="post", cascade="all, delete-orphan")
     votes = db.relationship("Vote", back_populates="post", cascade="all, delete-orphan")
     subreddit = db.relationship("SubReddit", back_populates="posts")
-    def to_dict(self):
+    def to_dict(self, ):
         return {
             "id": self.id,
             "subreddit_id": self.subreddit_id,
@@ -37,23 +37,18 @@ class Post(db.Model):
             "updated_at": self.updated_at,
             "user": {"username": self.user.username},
             "comment_count": len(self.comments),
-            "votes": self.__votes__(None)
+            "votes": self.__votes__()
         }
 
     def __comments__(self):
         return {"comments": [comment.to_dict() for comment in self.comments]}
 
-    def __votes__(self, user_id):
+    def __votes__(self):
         votes_list = self.votes
         total = 0
         upvotes = 0
         downvotes = 0
-        current_user_vote = False
-        user_voted = False
         for vote in votes_list:
-            if user_id == vote.user_id:
-                user_voted = True
-                current_user_vote = vote.upvote
             if vote.upvote:
                 upvotes += 1
             else: 
@@ -61,7 +56,5 @@ class Post(db.Model):
             total += 1
     
         vote_stats = {"upvote_count": upvotes, "downvote_count": downvotes, "total": total}
-        if user_voted:
-            vote_stats['user_vote'] = current_user_vote
         return vote_stats
         

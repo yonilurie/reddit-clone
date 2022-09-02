@@ -1,24 +1,47 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { postVote } from "../../../util";
 
 function UserPostCard({ post }) {
 	const user = useSelector((state) => state.session.user);
-	console.log(post)
+	console.log(post);
+	console.log(user.votes);
 	return (
 		<div className="user-post-container">
 			<div className="votes-container">
-				<div className="vote upvote">
+				<div
+					className="vote upvote"
+					onClick={() => {
+						if (!user) return;
+						postVote("true", post.id, user.id);
+					}}
+				>
 					<i
 						className={`fa-solid fa-arrow-up ${
-							post.votes.user_vote ? "upvoted" : ""
+							user &&
+							user.votes[post.id] &&
+							user.votes[post.id].upvote === true &&
+							"upvoted"
 						}`}
 					></i>
 				</div>
-				<div className="votes"> {post.votes.total}</div>
-				<div className="vote downvote">
+				<div className="votes">
+					{" "}
+					{post.votes.upvote_count - post.votes.downvote_count}
+				</div>
+				<div
+					className="vote downvote"
+					onClick={() => {
+						if (!user) return;
+						postVote("false", post.id, user.id);
+					}}
+				>
 					<i
 						className={`fa-solid fa-arrow-down ${
-							post.votes.user_vote === false ? "downvoted" : ""
+							user &&
+							user.votes[post.id] &&
+							user.votes[post.id].upvote === false &&
+							"downvoted"
 						}`}
 					></i>
 				</div>
@@ -64,8 +87,9 @@ function UserPostCard({ post }) {
 				</div>
 			</div>
 			{user && user.username === post.username && (
-
-				<div className="edit-toggle" onClick={() => 'wow'}>...</div>
+				<div className="edit-toggle" onClick={() => "wow"}>
+					...
+				</div>
 			)}
 		</div>
 	);

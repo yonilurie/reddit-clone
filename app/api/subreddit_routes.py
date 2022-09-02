@@ -1,4 +1,4 @@
-from os import link
+
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import SubReddit, Post, db
@@ -29,12 +29,7 @@ def get_post_details( post_id):
         })
 
     comments_list = post.__comments__()
-
-    vote_stats = None
-    if current_user:
-        vote_stats = post.__votes__(current_user.id)
-    else:
-        vote_stats = post.__votes__()
+    vote_stats = post.__votes__()
 
     post = post.to_dict()
     post['comments'] = comments_list["comments"]
@@ -67,13 +62,9 @@ def get_newest_subreddit_posts(id, page=0):
             "error": "Subreddit not found"
         })
         
-    posts = sub.__posts__()
-    # for post in posts:
-    #     user_id = None,
-    #     if current_user.id:
-    #         user_id = current_user.id
-    #     post['votes'] = post.__votes__(user_id)
-    return jsonify(posts)
+    posts = Post.query.filter(Post.subreddit_id == id)
+
+    return jsonify([post.to_dict() for post in posts])
 
 @subreddit_routes.route('/<int:id>/post', methods=['POST'])
 @login_required
