@@ -154,6 +154,7 @@
 	border-radius: 4px;
 	max-width: 95%;
 	display: flex;
+	
 }
 
 .votes-container {
@@ -259,4 +260,13 @@
 	margin: 0px;
 	padding: 0px;
 	color: rgb(16, 129, 213);
+}
+
+.edit-toggle {
+	right:  0px;
+	cursor: pointer;
+	height: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

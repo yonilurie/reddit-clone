@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function UserPostCard({ post }) {
+	const user = useSelector((state) => state.session.user);
+	console.log(post)
 	return (
 		<div className="user-post-container">
 			<div className="votes-container">
@@ -60,6 +63,10 @@ function UserPostCard({ post }) {
 					</div>
 				</div>
 			</div>
+			{user && user.username === post.username && (
+
+				<div className="edit-toggle" onClick={() => 'wow'}>...</div>
+			)}
 		</div>
 	);
 }

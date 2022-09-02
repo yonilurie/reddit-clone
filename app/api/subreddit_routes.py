@@ -16,6 +16,33 @@ def all_subreddits():
     subs = SubReddit.query.all()
     return jsonify([sub.to_dict() for sub in subs])
 
+@subreddit_routes.route('/<int:post_id>')
+def get_post_details( post_id):
+    """
+    Get a specific posts details
+    """
+
+    post = Post.query.get(post_id)
+    if not post:
+        return jsonify({
+            "error": "Post not found"
+        })
+
+    comments_list = post.__comments__()
+
+    vote_stats = None
+    if current_user:
+        vote_stats = post.__votes__(current_user.id)
+    else:
+        vote_stats = post.__votes__()
+
+    post = post.to_dict()
+    post['comments'] = comments_list["comments"]
+    post['vote_stats'] = vote_stats
+    return jsonify(post)
+
+
+
 @subreddit_routes.route('/<string:name>')
 def get_subreddit(name):
     """
@@ -78,30 +105,6 @@ def create_post(id):
 
 
 
-@subreddit_routes.route('/<int:subreddit_id>/<int:post_id>')
-def get_post_details(subreddit_id, post_id):
-    """
-    Get a specific posts details
-    """
-
-    post = Post.query.get(post_id)
-    if not post:
-        return jsonify({
-            "error": "Post not found"
-        })
-
-    comments_list = post.__comments__()
-
-    vote_stats = None
-    if current_user:
-        vote_stats = post.__votes__(current_user.id)
-    else:
-        vote_stats = post.__votes__()
-
-    post = post.to_dict()
-    post['comments'] = comments_list["comments"]
-    post['vote_stats'] = vote_stats
-    return jsonify(post)
 
 
 

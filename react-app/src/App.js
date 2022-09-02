@@ -9,6 +9,7 @@ import UsersList from "./components/UsersList";
 import Profile from "./components/Profile/index";
 import Subreddit from "./components/Subreddit";
 import HomePage from "./components/HomePage";
+import SinglePostPage from "./components/SinglePost";
 import { authenticate } from "./store/session";
 
 import SubmitPage from "./components/SubmitPage";
@@ -41,8 +42,11 @@ function App() {
 				<Route path="/sign-up" exact={true}>
 					<SignUpForm />
 				</Route> */}
-				<Route path="/r/:subreddit">
+				<Route path="/r/:subreddit" exact={true}>
 					<Subreddit></Subreddit>
+				</Route>
+				<Route path='/r/:subreddit/:postId/:postTitle' exact={true}>
+					<SinglePostPage></SinglePostPage>
 				</Route>
 				<Route path="/user/:username" exact={true}>
 					<Profile />
@@ -53,9 +57,9 @@ function App() {
 				<ProtectedRoute path="/user/:username/submit" exact={true}>
 					<SubmitPage />
 				</ProtectedRoute>
-				<ProtectedRoute path="/user/:username/:tab" exact={true}>
+				<Route path="/user/:username/:tab" exact={true}>
 					<Profile />
-				</ProtectedRoute>
+				</Route>
 			</Switch>
 		</BrowserRouter>
 	);
