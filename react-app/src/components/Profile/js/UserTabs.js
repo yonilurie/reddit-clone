@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+
 function UserTabs({ user }) {
 	const params = useParams();
-
+	const { username } = useParams();
+	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<div className="user-profile-tabs">
 			<Link
@@ -28,22 +31,26 @@ function UserTabs({ user }) {
 			>
 				COMMENTS
 			</Link>
-			<Link
-				to={`/user/${user.username}/upvoted`}
-				className={`profile-tab-link ${
-					params.tab == "upvoted" ? "atpage" : ""
-				}`}
-			>
-				UPVOTED
-			</Link>
-			<Link
-				to={`/user/${user.username}/downvoted`}
-				className={`profile-tab-link ${
-					params.tab == "downvoted" ? "atpage" : ""
-				}`}
-			>
-				DOWNVOTED
-			</Link>
+			{currentUser.username === username && (
+				<Link
+					to={`/user/${user.username}/upvoted`}
+					className={`profile-tab-link ${
+						params.tab == "upvoted" ? "atpage" : ""
+					}`}
+				>
+					UPVOTED
+				</Link>
+			)}
+			{currentUser.username === username && (
+				<Link
+					to={`/user/${user.username}/downvoted`}
+					className={`profile-tab-link ${
+						params.tab == "downvoted" ? "atpage" : ""
+					}`}
+				>
+					DOWNVOTED
+				</Link>
+			)}
 		</div>
 	);
 }

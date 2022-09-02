@@ -83,7 +83,7 @@ function UserPostCard({ post }) {
 								r/{post.subreddit_name}{" "}
 								<span className="profile-post-time">
 									{`Posted by `}
-									<Link to={`/user/${user.username}`}>
+									<Link to={`/user/${post.user.username}`}>
 										<span className="profile-post-username">
 											u/{post.user.username}
 										</span>
