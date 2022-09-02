@@ -4,8 +4,6 @@ import { postVote } from "../../../util";
 
 function UserPostCard({ post }) {
 	const user = useSelector((state) => state.session.user);
-	console.log(post);
-	console.log(user.votes);
 	return (
 		<div className="user-post-container">
 			<div className="votes-container">
