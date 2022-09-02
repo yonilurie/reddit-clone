@@ -196,3 +196,17 @@ a {
 .login-signup-menu {
 	display: flex;
 }
+
+@media screen and (max-width: 1100px) {
+	.subreddit-info {
+		display: none;
+	}
+
+	.login-button,
+	.signup-button {
+		width: 70px;
+		height: 30px;
+		font-size: 12px;
+		white-space: pre;
+	}
+}

@@ -5,6 +5,7 @@
 	align-items: center;
 	height: 40px;
 	padding: 0px 10px;
+	max-width: 100%;
 }
 
 .profile-tab-link {
@@ -135,12 +136,12 @@
 .profile-content-container-wide {
 	padding: 0px 20px;
 
-	margin: auto;
+	max-width: 80%;
+
 	margin-top: 20px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	/* align-items: center; */
 	align-items: flex-start;
 }
 
@@ -151,9 +152,8 @@
 	border: solid 1px rgb(204, 204, 204);
 	background-color: white;
 	border-radius: 4px;
-
+	max-width: 95%;
 	display: flex;
-	margin-right: 30px;
 }
 
 .votes-container {
@@ -203,6 +203,7 @@
 
 .profile-post-info-container {
 	padding: 8px;
+	max-width: 65%;
 }
 
 .profile-post-info {
@@ -211,6 +212,10 @@
 
 .profile-post-title {
 	color: rgb(155, 155, 155);
+	text-overflow: ellipsis;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
 }
 .profile-post-subreddit {
 	color: rgb(28, 28, 28);
@@ -221,6 +226,8 @@
 	margin-left: 5px;
 	display: flex;
 	flex-direction: column;
+	word-wrap: break-word;
+	max-width: 100%;
 }
 
 .profile-post-time {

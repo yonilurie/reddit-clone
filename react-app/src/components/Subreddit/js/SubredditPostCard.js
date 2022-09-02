@@ -42,7 +42,7 @@ const SubredditPostCard = ({ post }) => {
 			</div>
 			<div className="sub-post-info-container">
 				<div className="sub-post-info">
-					<div className="profile-post-text">
+					<div className="sub-post-text">
 						<div className="profile-post-subreddit-time">
 							<div className="profile-post-subreddit">
 								<span className="profile-post-time">{`Posted by u/${

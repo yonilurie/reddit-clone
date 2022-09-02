@@ -11,7 +11,7 @@ import SubredditInfoModerator from "./js/SubredditInfoModerator";
 const Subreddit = () => {
 	const { subreddit } = useParams();
 	const [sub, setSub] = useState(null);
-	const [posts, setPosts] = useState([]);
+	const [posts, setPosts] = useState(null);
 
 	useEffect(() => {
 		if (!subreddit) {
@@ -30,19 +30,23 @@ const Subreddit = () => {
 
 	return (
 		<div className="subreddit-outer-container">
-			{sub && (
+			{sub && posts && (
 				<>
 					<SubredditBanner sub={sub} />
 					<div className="subreddit-inner-container">
 						<div className="subreddit-posts">
-							{posts.length > 0 &&
-								posts.map((post) => (
-									<SubredditPostCard
-										post={post}
-										key={post.id}
-									></SubredditPostCard>
-								))}
+							{posts.length > 0
+								? posts.map((post) => (
+										<SubredditPostCard
+											post={post}
+											key={post.id}
+										></SubredditPostCard>
+								  ))
+								: 
+								<div className="no-posts"></div>
+								}
 						</div>
+
 						<div className="subreddit-info">
 							{/* <div> */}
 							<div>
