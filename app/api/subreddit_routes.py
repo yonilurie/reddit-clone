@@ -54,18 +54,18 @@ def get_subreddit(name):
             "error": "Subreddit not found"
         })
 
-@subreddit_routes.route('/<int:id>/posts')
-def get_newest_subreddit_posts(id, page=0):
+@subreddit_routes.route('/<string:sub_name>/posts')
+def get_newest_subreddit_posts(sub_name, page=0):
     """
     Returns a single subreddits newest 
     """
-    sub = SubReddit.query.get(id)
+    sub = SubReddit.query.filter(SubReddit.name == sub_name).first() 
     if sub is None:
         return jsonify({
             "error": "Subreddit not found"
         })
         
-    posts = Post.query.filter(Post.subreddit_id == id)
+    posts = Post.query.filter(Post.subreddit_id == sub.id )
 
     return jsonify([post.to_dict() for post in posts])
 

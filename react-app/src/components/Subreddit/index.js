@@ -7,75 +7,41 @@ import SubredditBanner from "./js/SubredditBanner";
 import SubredditInfoAbout from "./js/SubredditInfoAbout";
 import SubredditInfoRules from "./js/SubredditInfoRules";
 import SubredditInfoModerator from "./js/SubredditInfoModerator";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getSubInfo, getPosts } from "../../store/subreddits";
 const Subreddit = () => {
+	const dispatch = useDispatch();
 	const { subreddit } = useParams();
 	const [sub, setSub] = useState(null);
-	const [posts, setPosts] = useState(null);
+	const subreddits = useSelector((state) => state.subreddits);
 
 	useEffect(() => {
-		if (!subreddit) {
-			return;
+		if (!subreddits[subreddit]) {
+			dispatch(getSubInfo(subreddit));
+			dispatch(getPosts(subreddit));
 		}
-		(async () => {
-			const response = await fetch(`/api/r/${subreddit}`);
-			const subredditInfo = await response.json();
-			setSub(subredditInfo);
+		setSub(subreddits[subreddit]);
+	}, [dispatch, subreddits]);
 
-			const response2 = await fetch(`/api/r/${subredditInfo.id}/posts`);
-			const postsArr = await response2.json();
-			setPosts(postsArr.reverse());
-		})();
-	}, [subreddit]);
 	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<div className="subreddit-outer-container">
-			{sub && posts && (
+			{sub && (
 				<>
 					<SubredditBanner sub={sub} />
 					<div className="subreddit-inner-container">
 						<div className="subreddit-posts">
-							{
-								posts.length > 0
-									? posts.map((post) => (
-											<SubredditPostCard
-												post={post}
-												key={post.id}
-											></SubredditPostCard>
-									  ))
-									: null
-								// <div className="sub-post-container">
-								// 	<div
-								// 		className="no-posts-yet"
-								// 		style={{
-								// 			width: "100%",
-								// 			height: "100%",
-								// 			display: "flex",
-								// 			justifyContent: "center",
-								// 			alignItems: "center",
-								// 			paddingLeft: "25px",
-								// 		}}
-								// 	>
-								// 		<div
-								// 			className="no-posts-yet-text"
-								// 			style={{
-								// 				width: "100%",
-								// 				height: "100%",
-								// 				display: "flex",
-								// 				// justifyContent: "center",
-								// 				alignItems: "center",
-								// 				color: "rgb(205,205,205)",
-								// 				fontSize: "36px",
-								// 			}}
-								// 		>
-								// 			No posts yet... Be the First{" "}
-								// 		</div>{" "}
-								// 	</div>
-								// </div>
-							}
+							{sub &&
+								sub.posts &&
+								sub.posts.length > 0 &&
+								sub.posts.map((post) => (
+									<SubredditPostCard
+										post={post}
+										key={post.id}
+									></SubredditPostCard>
+								))}
 						</div>
-						{posts.length === 0 && (
+						{!sub.posts && (
 							<div className="empty-post-main">
 								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
 									(empty) => {
@@ -144,14 +110,11 @@ const Subreddit = () => {
 								</SubredditInfoCard>
 							</div>
 							<div>
-								<SubredditInfoCard sub={sub} title="Moderator">
-									{/* <SubredditInfoModerator
-										sub={sub}
-									></SubredditInfoModerator> */}
-								</SubredditInfoCard>
+								<SubredditInfoCard
+									sub={sub}
+									title="Moderator"
+								></SubredditInfoCard>
 							</div>
-
-							{/* </div> */}
 						</div>
 					</div>
 				</>
