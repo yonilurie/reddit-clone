@@ -115,7 +115,7 @@
 	align-items: center;
 }
 
-.new-post-button {
+.-button {
 	line-height: 24px;
 	padding: 4px 16px;
 	width: 100%;
@@ -275,5 +275,17 @@
 
 .profile-post-username:hover {
 	text-decoration: underline;
+	cursor: pointer;
+}
+.new-post-button {
+	line-height: 24px;
+	padding: 4px 16px;
+	width: 100%;
+	border-radius: 9999px;
+	border: none;
+	background-color: rgb(0, 121, 211);
+	color: white;
+	font-weight: 700;
+	font-size: 14px;
 	cursor: pointer;
 }

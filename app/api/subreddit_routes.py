@@ -5,7 +5,7 @@ from app.models import SubReddit, Post, db
 from app.forms.post_form import PostForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
-
+import random
 subreddit_routes = Blueprint('subreddits', __name__)
 
 @subreddit_routes.route('/list-all')
@@ -14,7 +14,10 @@ def all_subreddits():
     Returns a list of all subreddits
     """
     subs = SubReddit.query.all()
-    return jsonify([sub.to_dict() for sub in subs])
+
+    list_of_subs = [sub.to_dict() for sub in subs]
+    random_five = random.sample(list_of_subs, k=5)
+    return jsonify(random_five)
 
 @subreddit_routes.route('/<int:post_id>')
 def get_post_details( post_id):
@@ -104,7 +107,7 @@ def create_post(id):
 @login_required
 def create_post_image(id):
     '''
-    Post to a subreddit
+    Post image to a subreddit with aws storing
     '''
     form = PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']

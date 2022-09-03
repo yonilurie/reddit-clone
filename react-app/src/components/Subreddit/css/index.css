@@ -245,7 +245,6 @@ h1 {
 
 .username:hover {
 	text-decoration: underline;
-	
 }
 
 @media screen and (max-width: 1100px) {
@@ -253,3 +252,59 @@ h1 {
 		display: none;
 	}
 }
+
+.empty-post-main {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 100%;
+	max-width: 640px;
+	position: relative;
+}
+.empty-post-container {
+	height: 88px;
+	width: 598px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border: solid 1px rgb(204, 204, 204);
+	border-radius: 2px;
+	color: rgb(230, 230, 230);
+}
+
+.empty-votes {
+	display: flex;
+	height: 100%;
+	width: fit-content;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 10px;
+	box-sizing: border-box;
+	border: solid 1px rgba(135, 138, 140, 0.05);
+}
+
+.empty-post-text-container-flex {
+	position: absolute;
+	background-color: rgba(131, 132, 133, 0.039);
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.empty-post-text {
+	padding-top: 75px;
+	display: flex;
+	flex-direction: column;
+	/* justify-content: center; */
+	align-items: center;
+	text-align: center;
+}
+
+.empty-post-big-text {
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.empty-post-small-text {
+	margin-bottom: 15px;
+}
+

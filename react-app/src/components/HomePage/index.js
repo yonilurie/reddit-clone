@@ -12,14 +12,24 @@ function HomePage() {
 	}, []);
 	return (
 		<div className="home-sub-list">
-			{subs.length > 0 &&
-				subs.map((sub) => {
-					return (
-						<Link to={`/r/${sub.name}`} key={sub.name}>
-							r/{sub.name}
-						</Link>
-					);
-				})}
+			<div className="reccomended-title">
+				<div>Communities to Check Out</div>
+			</div>
+			<div className="reccomended-subs-container">
+				{subs.length > 0 &&
+					subs.map((sub, idx) => {
+						return (
+							<Link to={`/r/${sub.name}`} key={sub.name}>
+								<div className="reccomended-container">
+									<div className="reccomended-content">
+										<div>{idx + 1}</div>
+										<div>r/{sub.name}</div>
+									</div>
+								</div>
+							</Link>
+						);
+					})}
+			</div>
 		</div>
 	);
 }
