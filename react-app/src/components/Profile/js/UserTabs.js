@@ -31,7 +31,7 @@ function UserTabs({ user }) {
 			>
 				COMMENTS
 			</Link>
-			{currentUser.username === username && (
+			{currentUser && currentUser.username === username && (
 				<Link
 					to={`/user/${user.username}/upvoted`}
 					className={`profile-tab-link ${
@@ -41,7 +41,7 @@ function UserTabs({ user }) {
 					UPVOTED
 				</Link>
 			)}
-			{currentUser.username === username && (
+			{currentUser && currentUser.username === username && (
 				<Link
 					to={`/user/${user.username}/downvoted`}
 					className={`profile-tab-link ${

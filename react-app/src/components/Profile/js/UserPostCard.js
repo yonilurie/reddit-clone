@@ -73,14 +73,22 @@ function UserPostCard({ post }) {
 						</a>
 					)}
 					<div className="profile-post-text">
-						<Link to={`/r/${post.subreddit_name}`}>
+						<Link
+							to={`/r/${post.subreddit}/${post.id}/${post.title}`}
+						>
 							<div className="profile-post-title">
 								{post.title}
 							</div>
 						</Link>
 						<div className="profile-post-subreddit-time">
 							<div className="profile-post-subreddit">
-								r/{post.subreddit_name}{" "}
+								<Link to={`/r/${post.subreddit}`}>
+									{" "}
+									<span className="sub-link">
+										r/{post.subreddit}{" "}
+									</span>
+								</Link>
+
 								<span className="profile-post-time">
 									{`Posted by `}
 									<Link to={`/user/${post.user.username}`}>
