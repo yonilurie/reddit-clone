@@ -6,12 +6,13 @@ import UserTabs from "./js/UserTabs";
 import UserInfoCard from "./js/UserInfoCard";
 import UserPostCard from "./js/UserPostCard";
 import PostForm from "../PostForm";
-import NoPermission from "../ErrorPages/NoPermission";
+
 function User() {
 	const params = useParams();
 	const { username } = useParams();
 	const [user, setUser] = useState({});
 	const currentUser = useSelector((state) => state.session.user);
+
 	useEffect(() => {
 		if (!username) {
 			return;
@@ -22,7 +23,7 @@ function User() {
 			setUser(user);
 		})();
 	}, [username]);
-	console.log(user);
+
 	if (!user) {
 		return null;
 	}

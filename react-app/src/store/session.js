@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const CHANGE_VOTE = "session/CHANGE_VOTE";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -9,6 +10,11 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
 	type: REMOVE_USER,
+});
+
+const changeVote = (postId) => ({
+	type: CHANGE_VOTE,
+	postId,
 });
 
 const initialState = { user: null };
@@ -94,7 +100,12 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
+export const changeUserVote = (postId) => async (dispatch) => {
+	dispatch(changeVote(postId));
+};
+
 export default function reducer(state = initialState, action) {
+	let newState = {};
 	switch (action.type) {
 		case SET_USER:
 			let votesArr = action.payload.votes;
@@ -102,11 +113,19 @@ export default function reducer(state = initialState, action) {
 			votesArr.forEach((vote) => {
 				votes[vote.post_id] = vote;
 			});
-			let newState = { user: action.payload };
+			newState = { user: action.payload };
 			newState.user.votes = votes;
 			return newState;
 		case REMOVE_USER:
 			return { user: null };
+
+		case CHANGE_VOTE:
+			newState = { ...state };
+			console.log(newState)
+			newState.user.votes[action.postId].upvote = !newState.user.votes[
+				action.postId
+			].upvote;
+			return newState
 		default:
 			return state;
 	}

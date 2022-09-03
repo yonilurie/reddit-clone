@@ -14,7 +14,7 @@ const Subreddit = () => {
 	const { subreddit } = useParams();
 	const [sub, setSub] = useState(null);
 	const subreddits = useSelector((state) => state.subreddits);
-
+	const currentUser = useSelector((state) => state.session.user);
 	useEffect(() => {
 		if (!subreddits[subreddit]) {
 			dispatch(getSubInfo(subreddit));
@@ -23,7 +23,6 @@ const Subreddit = () => {
 		setSub(subreddits[subreddit]);
 	}, [dispatch, subreddits]);
 
-	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<div className="subreddit-outer-container">
 			{sub && (
@@ -33,8 +32,8 @@ const Subreddit = () => {
 						<div className="subreddit-posts">
 							{sub &&
 								sub.posts &&
-								sub.posts.length > 0 &&
-								sub.posts.map((post) => (
+								Object.values(sub.posts).length > 0 &&
+								Object.values(sub.posts).map((post) => (
 									<SubredditPostCard
 										post={post}
 										key={post.id}
@@ -46,7 +45,7 @@ const Subreddit = () => {
 								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
 									(empty) => {
 										return (
-											<div className="empty-post-container">
+											<div className="empty-post-container" key={ empty}>
 												<div className="empty-votes">
 													<i
 														className={`fa-solid fa-arrow-up `}

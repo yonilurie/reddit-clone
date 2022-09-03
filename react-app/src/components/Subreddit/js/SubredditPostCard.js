@@ -1,20 +1,26 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
 	getTimeElapsed,
 	getPercentUpvoted,
-	postVote,
+	// postVote,
 } from "../../../util/index.js";
+import { authenticate } from "../../../store/session.js";
+import { postVote } from "../../../store/subreddits.js";
 const SubredditPostCard = ({ post }) => {
+	const dispatch = useDispatch();
 	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<div className="sub-post-container">
 			<div className="votes-container">
 				<div
 					className="vote upvote"
-					onClick={() => {
+					onClick={async () => {
 						if (!currentUser) return;
-						postVote("true", post.id, currentUser.id);
+						await dispatch(
+							postVote("true", post.id, currentUser.id)
+						);
+						dispatch(authenticate());
 					}}
 				>
 					<i
@@ -32,9 +38,12 @@ const SubredditPostCard = ({ post }) => {
 				</div>
 				<div
 					className="vote downvote"
-					onClick={() => {
+					onClick={async () => {
 						if (!currentUser) return;
-						postVote("false", post.id, currentUser.id);
+						await dispatch(
+							postVote("false", post.id, currentUser.id)
+						);
+						dispatch(authenticate());
 					}}
 				>
 					<i

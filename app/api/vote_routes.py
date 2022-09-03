@@ -29,16 +29,14 @@ def upvote():
           )
           db.session.add(new_vote)
           db.session.commit()
-          return new_vote.to_dict()
+          return new_vote.post.to_dict()
 
         else:
             curr_vote = vote.upvote
+            post_id = vote.post_id
             if form.data['upvote'] == 'true' and curr_vote == True:
                 db.session.delete(vote)
                 db.session.commit()
-                return jsonify({
-                    "messsage": 'Vote deleted'
-                })
             elif form.data['upvote'] == 'false' and curr_vote == True:
                 vote.upvote = False
                 db.session.commit()
@@ -48,10 +46,7 @@ def upvote():
             elif form.data['upvote'] == 'false' and curr_vote == False:
                 db.session.delete(vote)
                 db.session.commit()
-                return jsonify({
-                    "messsage": 'Vote deleted'
-                })
-            return vote.to_dict()
+            return Post.query.get(post_id).to_dict()
     else:
         return form.errors
 

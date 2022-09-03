@@ -1,4 +1,3 @@
-import { Modal } from "../../context/Modal";
 import { useState } from "react";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import { useEffect } from "react";
@@ -9,11 +8,10 @@ import ImageForm from "./js/ImageForm";
 
 function PostForm() {
 	const history = useHistory();
-	const { username } = useParams();
 	const location = useLocation();
+	const { username } = useParams();
 
 	const [subredditsList, setSubredditsList] = useState([]);
-	// const [subreddit, setSubreddit] = useState("");
 	const [subredditId, setSubredditId] = useState(0);
 	const [typeOfPost, setTypeOfPost] = useState("text");
 	const [title, setTitle] = useState("");
@@ -56,16 +54,15 @@ function PostForm() {
 				body: formData,
 			});
 			const data = await res.json();
+			history.push(`/r/${data.subreddit_name}/${data.id}/${data.title}`);
 		} else {
 			const response = await fetch(`/api/r/${subredditId}/post`, {
 				method: "POST",
 				body: formData,
 			});
-
 			const data = await response.json();
+			history.push(`/r/${data.subreddit_name}/${data.id}/${data.title}`);
 		}
-
-		history.push(`/user/${username}/submitted`);
 	};
 
 	useEffect(async () => {
