@@ -55,7 +55,7 @@ function UserPostCard({ post }) {
 
 					{post.text && (
 						<a
-							href={`/r/${post.subreddit}/${post.id}/${post.title}`}
+							href={`/r/${post.subreddit_name}/${post.id}/${post.title}`}
 							target="_blank"
 							rel="noreferrer"
 						>
@@ -74,7 +74,7 @@ function UserPostCard({ post }) {
 					)}
 					<div className="profile-post-text">
 						<Link
-							to={`/r/${post.subreddit}/${post.id}/${post.title}`}
+							to={`/r/${post.subreddit_name}/${post.id}/${post.title}`}
 						>
 							<div className="profile-post-title">
 								{post.title}
@@ -82,10 +82,10 @@ function UserPostCard({ post }) {
 						</Link>
 						<div className="profile-post-subreddit-time">
 							<div className="profile-post-subreddit">
-								<Link to={`/r/${post.subreddit}`}>
+								<Link to={`/r/${post.subreddit_name}`}>
 									{" "}
 									<span className="sub-link">
-										r/{post.subreddit}{" "}
+										r/{post.subreddit_name}{" "}
 									</span>
 								</Link>
 

@@ -1,3 +1,4 @@
+
 export const getTimeElapsed = (createdAt) => {
 	let newDate = new Date(createdAt);
 	let today = new Date();
@@ -33,6 +34,7 @@ export const getPercentUpvoted = (votes) => {
 };
 
 export const postVote = async (vote, postId, currentUserId) => {
+	
 	const formData = new FormData();
 	formData.append("post_id", postId);
 	formData.append("user_id", currentUserId);
@@ -42,5 +44,6 @@ export const postVote = async (vote, postId, currentUserId) => {
 		method: "POST",
 		body: formData,
 	});
-	return;
+	const res = await data.json();
+	console.log(res);
 };

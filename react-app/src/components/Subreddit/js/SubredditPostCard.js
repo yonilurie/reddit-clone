@@ -81,7 +81,7 @@ const SubredditPostCard = ({ post }) => {
 
 					{post.text && (
 						<Link
-							to={`/r/${post.subreddit}/${post.id}/${post.title}`}
+							to={`/r/${post.subreddit_name}/${post.id}/${post.title}`}
 						>
 							{post.text ? (
 								<div className="sub-text-box">{post.text}</div>
