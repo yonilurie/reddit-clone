@@ -13,6 +13,7 @@ const Subreddit = () => {
 	const dispatch = useDispatch();
 	const { subreddit } = useParams();
 	const [sub, setSub] = useState(null);
+	const [loaded, setLoaded] = useState(false);
 	const subreddits = useSelector((state) => state.subreddits);
 	const currentUser = useSelector((state) => state.session.user);
 	useEffect(() => {
@@ -22,10 +23,15 @@ const Subreddit = () => {
 		}
 		setSub(subreddits[subreddit]);
 	}, [dispatch, subreddits]);
-
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			setLoaded(true);
+		}, 250);
+		return () => clearTimeout(timeout);
+	}, []);
 	return (
 		<div className="subreddit-outer-container">
-			{sub && (
+			{loaded && sub && (
 				<>
 					<SubredditBanner sub={sub} />
 					<div className="subreddit-inner-container">
@@ -40,7 +46,7 @@ const Subreddit = () => {
 									></SubredditPostCard>
 								))}
 						</div>
-						{!sub.posts && (
+						{loaded && !sub.posts && (
 							<div className="empty-post-main">
 								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
 									(empty) => {
