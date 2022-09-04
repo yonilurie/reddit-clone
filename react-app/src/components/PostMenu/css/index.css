@@ -1,0 +1,80 @@
+.post-menu-container {
+	position: relative;
+	cursor: pointer;
+}
+
+.post-menu {
+	position: absolute;
+	top: 20px;
+	z-index: 20;
+	background-color: white;
+	border-radius: 4px;
+	font-size: 16px;
+	width: 227px;
+	/* padding: 5px; */
+	border: solid 1px rgb(237, 239, 241);
+	color: rgb(28, 28, 28);
+	box-shadow: rgba(28, 28, 28, 0.2) 0px 2px 4px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.post-menu-option {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 10px;
+	padding: 8px;
+	height: 40px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.post-menu-option:hover {
+	background-color: rgb(233, 245, 253);
+}
+
+.fa-pencil,
+.fa-trash {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0px;
+	padding: 0px;
+}
+
+.confirm-delete-modal {
+	width: 445px;
+	height: fit-content;
+}
+
+.confirm-delete-post-title {
+	padding: 16px;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: solid 1px rgb(237, 239, 241);
+	box-sizing: border-box;
+	height: 53px;
+	font-size: 16px;
+}
+.confirm-delete-post-text {
+	height: 74px;
+	padding: 16px;
+	font-size: 14px;
+}
+
+.confirm-delete-post-buttons-container {
+	background-color: rgb(237, 239, 241);
+	padding: 16px;
+	display: flex;
+	justify-content: flex-end;
+}
+.confirm-delete-post-buttons {
+	display: flex;
+	gap: 10px;
+}
+.exit-delete {
+	color: rgb(135, 138, 140);
+	cursor: pointer;
+}

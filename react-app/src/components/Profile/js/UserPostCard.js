@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getSubInfo, postUserVote, getPosts } from "../../../store/subreddits";
 import { authenticate } from "../../../store/session.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import PostMenu from "../../PostMenu/index.js";
 
 function UserPostCard({ postId, post }) {
 	const dispatch = useDispatch();
@@ -123,16 +124,27 @@ function UserPostCard({ postId, post }) {
 									</span>
 								</div>
 							</div>
+							{/* {user && user.username === post.user.username && ( */}
+							<div className="profile-post-bottom-bar">
+								<div className="single-post-comments-count">
+									<i className="fa-regular fa-message"></i>
+									<div>{post.comment_count}</div>
+								</div>
+
+								<div className="share">
+									<i className="fa-solid fa-share"></i>
+									<div>share</div>
+								</div>
+								{user &&
+									user.username === post.user.username && (
+										<PostMenu post={post}></PostMenu>
+									)}
+							</div>
+							{/* )} */}
 						</div>
 					</div>
 				</div>
-				{user && user.username === post.user.username && (
-					<div className="edit-toggle" onClick={() => "wow"}>
-						...
-					</div>
-				)}
 			</>
-			{/* )} */}
 		</div>
 	);
 }

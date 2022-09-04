@@ -5,6 +5,7 @@ import "./css/index.css";
 import UserTabs from "./js/UserTabs";
 import UserInfoCard from "./js/UserInfoCard";
 import UserPostCard from "./js/UserPostCard";
+import UserModCard from "./js/UserModCard";
 import PostForm from "../PostForm";
 import { getUserInfo } from "../../store/subreddits";
 function User() {
@@ -48,8 +49,7 @@ function User() {
 										<UserPostCard
 											key={post.id}
 											post={post}
-											postId={ post.id}
-											
+											postId={post.id}
 										/>
 									);
 								})}
@@ -90,13 +90,10 @@ function User() {
 									)}
 							</>
 						</div>
-
-						<UserInfoCard user={user}></UserInfoCard>
-						{/* <div className="user-communities">
-								{user.subreddits.map((subreddit) => {
-									return subreddit.name;
-								})}
-							</div> */}
+						<div>
+							<UserInfoCard user={user}></UserInfoCard>
+							<UserModCard user={user}></UserModCard>
+						</div>
 					</div>
 				</>
 			)}

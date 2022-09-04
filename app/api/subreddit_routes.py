@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import SubReddit, Post, db
 from app.forms.post_form import PostForm
+from app.forms.delete_form import DeleteForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 import random
@@ -39,7 +40,24 @@ def get_post_details( post_id):
     post['vote_stats'] = vote_stats
     return jsonify(post)
 
+@subreddit_routes.route('/<int:post_id>', methods=['DELETE'])
+@login_required
+def delete_post(post_id):
+    """
+    Delete a single post
+    """
+    form = DeleteForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
 
+        post = Post.query.get(post_id)
+        db.session.delete(post)
+        db.session.commit()
+        return jsonify({
+            "message": "Post Deleted Succesfully"
+        })
+    else:
+        return form.errors
 
 @subreddit_routes.route('/<string:name>')
 def get_subreddit(name):

@@ -4,6 +4,7 @@ const GET_POSTS = "subreddits/GET_POSTS";
 const POST_VOTE = "/subreddits/POST_VOTE";
 const USER_VOTE = "/subreddits/USER_VOTE";
 const ADD_USER = "/subreddits/GET_USER";
+const DELETE_POST = "/subreddits/DELETE_POST";
 
 const addSub = (sub) => ({
 	type: GET_SUB,
@@ -29,6 +30,10 @@ const addUser = (user) => ({
 	user,
 });
 
+const deletePost = (data) => ({
+	type: DELETE_POST,
+	data,
+});
 const initialState = {};
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
@@ -125,6 +130,23 @@ export const postUserVote = (userVote, postId, currentUserId) => async (
 	}
 };
 
+export const deleteAPost = (postId, username) => async (dispatch) => {
+	const response = await fetch(`/api/r/${postId}`, {
+		method: "DELETE",
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		console.log(data);
+		dispatch(
+			deletePost({
+				username,
+				postId
+			})
+		);
+	}
+};
+
 export default function subreddits(state = initialState, action) {
 	let newState = {};
 	switch (action.type) {
@@ -155,6 +177,12 @@ export default function subreddits(state = initialState, action) {
 			console.log(action);
 			newState[action.post.user.username].posts[action.post.id] =
 				action.post;
+			return newState;
+		case DELETE_POST:
+			newState = { ...state };
+			console.log(action);
+			
+			delete newState[action.data.username].posts[action.data.postId] 
 			return newState;
 		case ADD_USER:
 			newState = { ...state };

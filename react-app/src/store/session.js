@@ -100,6 +100,8 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
+
+
 export const changeUserVote = (postId) => async (dispatch) => {
 	dispatch(changeVote(postId));
 };
@@ -121,11 +123,11 @@ export default function reducer(state = initialState, action) {
 
 		case CHANGE_VOTE:
 			newState = { ...state };
-			console.log(newState)
+			console.log(newState);
 			newState.user.votes[action.postId].upvote = !newState.user.votes[
 				action.postId
 			].upvote;
-			return newState
+			return newState;
 		default:
 			return state;
 	}

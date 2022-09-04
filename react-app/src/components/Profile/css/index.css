@@ -207,6 +207,9 @@
 .profile-post-info-container {
 	padding: 8px;
 	max-width: 65%;
+	gap: 10px;
+	display: flex;
+	flex-direction: column;
 }
 
 .profile-post-info {
@@ -214,7 +217,6 @@
 }
 
 .profile-post-title {
-	/* color: rgb(155, 155, 155); */
 	text-overflow: ellipsis;
 	max-width: 50%;
 	white-space: nowrap;
@@ -231,6 +233,7 @@
 	flex-direction: column;
 	word-wrap: break-word;
 	max-width: 100%;
+	gap: 10px;
 }
 
 .profile-post-time {
@@ -290,6 +293,74 @@
 	cursor: pointer;
 }
 
+.new-post-button:hover,
+.subreddit-link-join-button:hover {
+	background-color: rgb(21, 132, 215);
+}
+
 .sub-link:hover {
 	text-decoration: underline;
+}
+
+.moderator-card {
+	height: fit-content;
+	background-color: white;
+	border-radius: 4px;
+	margin-top: 10px;
+	padding: 10px;
+}
+
+.moderator-title {
+	font-size: 16px;
+}
+.subreddit-link {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.subreddit-link-left {
+	display: flex;
+	align-items: center;
+	width: fit-content;
+}
+
+.subreddit-link-link:hover {
+	text-decoration: underline;
+}
+
+.subreddit-link-icon {
+	height: 30px;
+	width: 30px;
+	fill: rgb(0, 121, 211);
+	margin-right: 10px;
+}
+
+.subreddit-link-link {
+	font-size: 14px;
+}
+
+.subreddit-link-join-button {
+	line-height: 24px;
+	padding: 4px 16px;
+	width: 106px;
+	border-radius: 9999px;
+	border: none;
+	background-color: rgb(0, 121, 211);
+	color: white;
+	font-weight: 700;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.profile-post-bottom-bar {
+	display: flex;
+	height: fit-content;
+	font-size: 10px;
+	justify-content: flex-start;
+	align-items: center;
+	margin-left: 10px;
+	gap: 10px;
+	position: relative;
 }
