@@ -5,7 +5,7 @@ from app.models import SubReddit, Post, db
 from app.forms.post_form import PostForm
 from app.forms.delete_form import DeleteForm
 from app.s3_helpers import (
-    upload_file_to_s3, allowed_file, get_unique_filename)
+    upload_file_to_s3, allowed_file, get_unique_filename, delete_object)
 import random
 subreddit_routes = Blueprint('subreddits', __name__)
 
@@ -56,6 +56,7 @@ def delete_post(post_id):
         return jsonify({
             "message": "Post Deleted Succesfully"
         })
+    
     else:
         return form.errors
 
