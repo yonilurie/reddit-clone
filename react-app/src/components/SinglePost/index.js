@@ -1,23 +1,42 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
-import { postVote, getTimeElapsed } from "../../util/index.js";
+import { getTimeElapsed } from "../../util/index.js";
+import { postVote, getSubInfo, getPosts } from "../../store/subreddits";
+import { authenticate } from "../../store/session";
 import "./css/index.css";
 
 function SinglePostPage() {
-	const [post, setPost] = useState(null);
+	// const [post, setPost] = useState(null);
+	const dispatch = useDispatch();
+	const subreddits = useSelector((state) => state.subreddits);
+
 	const [sub, setSub] = useState(null);
+	const [post, setPost] = useState(null);
 	const { subreddit, postId, postTitle } = useParams();
+	// useEffect(async () => {
+	// 	const getPost = await fetch(`/api/r/${postId}`);
+	// 	const data = await getPost.json();
+	// 	setPost(data);
+	// 	const getSub = await fetch(`/api/r/${subreddit}`);
+	// 	const subData = await getSub.json();
+	// 	setSub(subData);
+	// }, []);
 	useEffect(async () => {
-		const getPost = await fetch(`/api/r/${postId}`);
-		const data = await getPost.json();
-		setPost(data);
-		const getSub = await fetch(`/api/r/${subreddit}`);
-		const subData = await getSub.json();
-		setSub(subData);
-	}, []);
+		if (!subreddits[subreddit]) {
+			await dispatch(getSubInfo(subreddit));
+			await dispatch(getPosts(subreddit));
+			setSub(subreddits[subreddit]);
+		}
+	}, [dispatch, subreddits]);
+	useEffect(() => {
+		if (subreddits[subreddit] && subreddits[subreddit].posts) {
+			setPost(subreddits[subreddit].posts[postId]);
+		}
+	}, [sub]);
+
 	const getPercentUpvoted = (votes) => {
 		const { upvote_count, downvote_count, total } = votes;
 
@@ -41,29 +60,36 @@ function SinglePostPage() {
 	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<>
-			{post && sub && (
+			{subreddits[subreddit] && subreddits[subreddit].posts && (
 				<>
-					<SubredditBanner sub={sub}></SubredditBanner>
+					<SubredditBanner
+						sub={subreddits[subreddit]}
+					></SubredditBanner>
+
+					{/* <div>{sub.posts[postId].title}</div> */}
 					<div className="single-post-sub-info-container">
 						<div className="single-post-container">
 							<div className="single-post">
 								<div className="single-post-votes-container">
 									<div
 										className="vote upvote"
-										onClick={() => {
+										onClick={async () => {
 											if (!currentUser) return;
-											postVote(
-												"true",
-												post.id,
-												currentUser.id
+											await dispatch(
+												postVote(
+													"true",
+													postId,
+													currentUser.id
+												)
 											);
+											dispatch(authenticate());
 										}}
 									>
 										<i
 											className={`fa-solid fa-arrow-up ${
 												currentUser &&
-												currentUser.votes[post.id] &&
-												currentUser.votes[post.id]
+												currentUser.votes[postId] &&
+												currentUser.votes[postId]
 													.upvote === true &&
 												"upvoted"
 											}`}
@@ -71,25 +97,30 @@ function SinglePostPage() {
 									</div>
 									<div className="votes">
 										{" "}
-										{post.votes.upvote_count -
-											post.votes.downvote_count}
+										{subreddits[subreddit].posts[postId]
+											.votes.upvote_count -
+											subreddits[subreddit].posts[postId]
+												.votes.downvote_count}
 									</div>
 									<div
 										className="vote downvote"
 										onClick={() => {
 											if (!currentUser) return;
-											postVote(
-												"false",
-												post.id,
-												currentUser.id
+											dispatch(
+												postVote(
+													"false",
+													postId,
+													currentUser.id
+												)
 											);
+											dispatch(authenticate());
 										}}
 									>
 										<i
 											className={`fa-solid fa-arrow-down ${
 												currentUser &&
-												currentUser.votes[post.id] &&
-												currentUser.votes[post.id]
+												currentUser.votes[postId] &&
+												currentUser.votes[postId]
 													.upvote === false &&
 												"downvoted"
 											}`}
@@ -102,46 +133,76 @@ function SinglePostPage() {
 											<div className="profile-post-subreddit-time">
 												<div className="profile-post-subreddit">
 													<Link
-														to={`/user/${post.user.username}`}
+														to={`/user/${subreddits[subreddit].posts[postId].user.username}`}
 													>
 														<span className="profile-post-time">{`Posted by u/${
-															post.user.username
+															subreddits[
+																subreddit
+															].posts[postId].user
+																.username
 														} ${getTimeElapsed(
-															post.created_at
+															subreddits[
+																subreddit
+															].posts[postId]
+																.created_at
 														)}`}</span>
 													</Link>
 												</div>
 											</div>{" "}
 											<div className="sub-post-title">
-												{post.title}
+												{
+													subreddits[subreddit].posts[
+														postId
+													].title
+												}
 											</div>
 										</div>
 
-										{post.image && (
+										{subreddits[subreddit].posts[postId]
+											.image && (
 											<a
-												href={post.image}
+												href={
+													subreddits[subreddit].posts[
+														postId
+													].image
+												}
 												target="_blank"
 												rel="noreferrer"
 											>
 												<img
-													src={post.image}
+													src={
+														subreddits[subreddit]
+															.posts[postId].image
+													}
 													className="image-box-subreddit"
 												></img>
 											</a>
 										)}
 
-										{post.text && (
+										{subreddits[subreddit].posts[postId]
+											.text && (
 											<div>
-												{post.text ? (
+												{subreddits[subreddit].posts[
+													postId
+												].text ? (
 													<div className="sub-text-box">
-														{post.text}
+														{
+															subreddits[
+																subreddit
+															].posts[postId].text
+														}
 													</div>
 												) : null}
 											</div>
 										)}
-										{post.link && (
+										{subreddits[subreddit].posts[postId]
+											.link && (
 											<a
-												href={post.link}
+												href={
+													subreddits[subreddit].posts[
+														postId
+													].link
+												}
 												target="_blank"
 												rel="noreferrer"
 											>
@@ -155,7 +216,13 @@ function SinglePostPage() {
 									<div className="single-post-bottom-bar">
 										<div className="single-post-comments-count">
 											<i className="fa-regular fa-message"></i>
-											<div>{post.comments.length}</div>
+											<div>
+												{
+													subreddits[subreddit].posts[
+														postId
+													].comment_count
+												}
+											</div>
 										</div>
 
 										<div className="share">
@@ -164,18 +231,24 @@ function SinglePostPage() {
 										</div>
 										{currentUser &&
 											currentUser.username ===
-												post.user.username && (
+												subreddits[subreddit].posts[
+													postId
+												].user.username && (
 												<div className="edit">...</div>
 											)}
 										<div className="vote-percent">
-											{getPercentUpvoted(post.votes)}
+											{getPercentUpvoted(
+												subreddits[subreddit].posts[
+													postId
+												].votes
+											)}
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<SubredditInfoCard
-							sub={sub}
+							sub={subreddits[subreddit]}
 							title="About Community"
 						></SubredditInfoCard>
 					</div>

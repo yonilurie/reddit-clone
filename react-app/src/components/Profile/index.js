@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import "./css/index.css";
 import UserTabs from "./js/UserTabs";
 import UserInfoCard from "./js/UserInfoCard";
 import UserPostCard from "./js/UserPostCard";
 import PostForm from "../PostForm";
-
+import { getUserInfo } from "../../store/subreddits";
 function User() {
+	const dispatch = useDispatch();
 	const params = useParams();
 	const { username } = useParams();
-	const [user, setUser] = useState({});
+	// const [user, setUser] = useState({});
 	const currentUser = useSelector((state) => state.session.user);
+	const user = useSelector((state) => state.subreddits[username]);
 
 	useEffect(() => {
+		dispatch(getUserInfo(username));
+
 		if (!username) {
 			return;
 		}
-		(async () => {
-			const response = await fetch(`/api/u/${username}`);
-			const user = await response.json();
-			setUser(user);
-		})();
+
+		// (async () => {
+		// 	const response = await fetch(`/api/u/${username}`);
+		// 	const user = await response.json();
+		// 	setUser(user);
+		// 	console.log(user);
+		// })();
 	}, [username]);
 
 	if (!user) {
@@ -36,12 +42,14 @@ function User() {
 					<div className="profile-content-container-wide">
 						<div className="profile-content-wide">
 							{params.tab === "submitted" &&
-								user.posts.length > 0 &&
-								user.posts.map((post) => {
+								Object.values(user.posts).length > 0 &&
+								Object.values(user.posts).map((post) => {
 									return (
 										<UserPostCard
 											key={post.id}
 											post={post}
+											postId={ post.id}
+											
 										/>
 									);
 								})}
