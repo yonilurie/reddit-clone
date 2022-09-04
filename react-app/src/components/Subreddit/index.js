@@ -40,12 +40,15 @@ const Subreddit = () => {
 									></SubredditPostCard>
 								))}
 						</div>
-						{!sub.posts && (
+						{!sub && sub.posts && (
 							<div className="empty-post-main">
 								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
 									(empty) => {
 										return (
-											<div className="empty-post-container" key={ empty}>
+											<div
+												className="empty-post-container"
+												key={empty}
+											>
 												<div className="empty-votes">
 													<i
 														className={`fa-solid fa-arrow-up `}
