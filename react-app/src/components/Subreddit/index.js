@@ -13,14 +13,16 @@ const Subreddit = () => {
 	const dispatch = useDispatch();
 	const { subreddit } = useParams();
 	const [sub, setSub] = useState(null);
-	const [loaded, setLoaded] = useState(false);
+	const [loaded, setLoaded] = useState(true);
 	const subreddits = useSelector((state) => state.subreddits);
 	const currentUser = useSelector((state) => state.session.user);
 	useEffect(() => {
 		if (!subreddits[subreddit]) {
 			dispatch(getSubInfo(subreddit));
 			dispatch(getPosts(subreddit));
+			setLoaded(false);
 		}
+
 		setSub(subreddits[subreddit]);
 	}, [dispatch, subreddits]);
 	useEffect(() => {
