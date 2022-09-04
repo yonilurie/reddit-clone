@@ -28,7 +28,7 @@ const Subreddit = () => {
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setLoaded(true);
-		}, 250);
+		}, 500);
 		return () => clearTimeout(timeout);
 	}, []);
 	return (
