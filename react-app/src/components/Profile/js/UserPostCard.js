@@ -65,6 +65,7 @@ function UserPostCard({ postId, post }) {
 							>
 								<img
 									src={post.image}
+									alt='post'
 									className="image-box"
 								></img>
 							</a>

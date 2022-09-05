@@ -1,4 +1,3 @@
-
 export const getTimeElapsed = (createdAt) => {
 	let newDate = new Date(createdAt);
 	let today = new Date();
@@ -15,7 +14,8 @@ export const getTimeElapsed = (createdAt) => {
 };
 
 export const getPercentUpvoted = (votes) => {
-	const { upvote_count, downvote_count, total } = votes;
+	const { upvote_count, downvote_count } = votes;
+	console.log(votes);
 	if (downvote_count === 0 && upvote_count > 0) {
 		return "100% Upvoted";
 	}
@@ -23,18 +23,19 @@ export const getPercentUpvoted = (votes) => {
 		return "No votes yet";
 	}
 	if (downvote_count === upvote_count) {
-		return "50% upvoted";
+		return "50% Upvoted";
 	}
 	if (downvote_count > upvote_count) {
-		return 100 - (upvote_count / downvote_count) * 100;
+		return "0% upvoted";
 	}
 	if (upvote_count > downvote_count) {
-		return (upvote_count / downvote_count) * 100;
+		let percent = (1 - downvote_count / upvote_count) * 100;
+
+		return `${percent.toString().slice(0, 5)}% Upvoted`;
 	}
 };
 
 export const postVote = async (vote, postId, currentUserId) => {
-	
 	const formData = new FormData();
 	formData.append("post_id", postId);
 	formData.append("user_id", currentUserId);

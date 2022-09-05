@@ -5,7 +5,8 @@ import { useParams, Link } from "react-router-dom";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
 import TextForm from "../PostForm/js/TextForm";
-import { getTimeElapsed } from "../../util/index.js";
+import PostMenu from "../PostMenu";
+import { getTimeElapsed, getPercentUpvoted } from "../../util/index.js";
 import {
 	postVote,
 	getSubInfo,
@@ -22,67 +23,46 @@ function SinglePostPage() {
 	const subreddits = useSelector((state) => state.subreddits);
 	const [edit, setEdit] = useState(false);
 	const [text, setText] = useState("");
-	const [URL, setURL] = useState("");
+	const { subreddit, postId } = useParams();
 
-	const { subreddit, postId, postTitle } = useParams();
-
-	useEffect(async () => {
+	useEffect(() => {
 		if (!subreddits[subreddit]) {
-			await dispatch(getSubInfo(subreddit));
-			await dispatch(getPosts(subreddit));
+			const subInfo = async () => await dispatch(getSubInfo(subreddit));
+			const postInfo = async () => await dispatch(getPosts(subreddit));
+			subInfo();
+			postInfo();
 		}
-	}, [dispatch, subreddits]);
-
-	const getPercentUpvoted = (votes) => {
-		const { upvote_count, downvote_count, total } = votes;
-
-		if (downvote_count === 0 && upvote_count > 0) {
-			return "100% Upvoted";
-		}
-		if (downvote_count === 0 && upvote_count === 0) {
-			return "No votes yet";
-		}
-		if (downvote_count === upvote_count) {
-			return "50% upvoted";
-		}
-		if (downvote_count > upvote_count) {
-			return 100 - (upvote_count / downvote_count) * 100;
-		}
-		if (upvote_count > downvote_count) {
-			return (upvote_count / downvote_count) * 100;
-		}
-	};
+	}, [dispatch, subreddits, subreddit]);
 
 	const currentUser = useSelector((state) => state.session.user);
-	useEffect(async () => {
+	useEffect(() => {
 		let editPost = false;
 		try {
 			if (location.state.edit) {
 				editPost = location.state.edit;
 				history.replace();
+				setEdit(editPost);
 			}
 		} catch (e) {}
-
-		await setEdit(editPost);
-	}, [dispatch]);
+	}, [dispatch, history, setEdit, location]);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData();
 		formData.append("text", text);
-		formData.append("link", URL)
 		dispatch(editAPost(postId, formData));
-		setEdit(false)
-		
+		setEdit(false);
 	};
 
 	return (
 		<>
 			{subreddits[subreddit] && subreddits[subreddit].posts && (
 				<>
-					<SubredditBanner
-						sub={subreddits[subreddit]}
-					></SubredditBanner>
+					<Link to={`/r/${subreddit}`}>
+						<SubredditBanner
+							sub={subreddits[subreddit]}
+						></SubredditBanner>
+					</Link>
 					<div className="single-post-sub-info-container">
 						<div className="single-post-container">
 							<div className="single-post">
@@ -120,9 +100,9 @@ function SinglePostPage() {
 									</div>
 									<div
 										className="vote downvote"
-										onClick={() => {
+										onClick={async () => {
 											if (!currentUser) return;
-											dispatch(
+											await dispatch(
 												postVote(
 													"false",
 													postId,
@@ -151,17 +131,43 @@ function SinglePostPage() {
 													<Link
 														to={`/user/${subreddits[subreddit].posts[postId].user.username}`}
 													>
-														<span className="profile-post-time">{`Posted by u/${
-															subreddits[
-																subreddit
-															].posts[postId].user
-																.username
-														} ${getTimeElapsed(
-															subreddits[
+														<span className="profile-post-time">
+															{`Posted by u/${
+																subreddits[
+																	subreddit
+																].posts[postId]
+																	.user
+																	.username
+															} ${getTimeElapsed(
+																subreddits[
+																	subreddit
+																].posts[postId]
+																	.created_at
+															)}`}{" "}
+															{subreddits[
 																subreddit
 															].posts[postId]
-																.created_at
-														)}`}</span>
+																.updated_at && (
+																<span>
+																	Edited:{" "}
+																	{subreddits[
+																		subreddit
+																	].posts[
+																		postId
+																	].created_at
+																		.split(
+																			" "
+																		)
+																		.splice(
+																			1,
+																			4
+																		)
+																		.join(
+																			" "
+																		)}
+																</span>
+															)}
+														</span>
 													</Link>
 												</div>
 											</div>{" "}
@@ -191,6 +197,7 @@ function SinglePostPage() {
 															.posts[postId].image
 													}
 													className="image-box-subreddit"
+													alt="subreddit"
 												></img>
 											</a>
 										)}
@@ -229,6 +236,13 @@ function SinglePostPage() {
 														></TextForm>
 														<button>Submit</button>
 													</form>
+													<button
+														onClick={() =>
+															setEdit(false)
+														}
+													>
+														Cancel
+													</button>
 												</>
 											)}
 										{subreddits[subreddit].posts[postId]
@@ -250,28 +264,36 @@ function SinglePostPage() {
 										)}
 									</div>
 									<div className="single-post-bottom-bar">
-										<div className="single-post-comments-count">
-											<i className="fa-regular fa-message"></i>
-											<div>
-												{
+										<div className="single-post-bottom-bar-left">
+											<div className="single-post-comments-count">
+												<i className="fa-regular fa-message"></i>
+												<div>
+													{
+														subreddits[subreddit]
+															.posts[postId]
+															.comment_count
+													}
+												</div>
+											</div>
+
+											{/* <div className="share">
+												<i className="fa-solid fa-share"></i>
+												<div>share</div>
+											</div> */}
+											{currentUser &&
+												currentUser.username ===
 													subreddits[subreddit].posts[
 														postId
-													].comment_count
-												}
-											</div>
+													].user.username && (
+													<PostMenu
+														post={
+															subreddits[
+																subreddit
+															].posts[postId]
+														}
+													></PostMenu>
+												)}
 										</div>
-
-										<div className="share">
-											<i className="fa-solid fa-share"></i>
-											<div>share</div>
-										</div>
-										{currentUser &&
-											currentUser.username ===
-												subreddits[subreddit].posts[
-													postId
-												].user.username && (
-												<div className="edit">...</div>
-											)}
 										<div className="vote-percent">
 											{getPercentUpvoted(
 												subreddits[subreddit].posts[

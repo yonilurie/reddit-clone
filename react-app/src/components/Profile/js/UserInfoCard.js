@@ -16,6 +16,7 @@ function UserInfoCard({ user }) {
 						<img
 							src={user.profile_image}
 							className="user-profile-page-profile-image"
+							alt='profile'
 						></img>
 					</div>
 					<h3 className="h3-username">

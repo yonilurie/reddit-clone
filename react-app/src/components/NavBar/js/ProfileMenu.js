@@ -1,8 +1,9 @@
 import { logout } from "../../../store/session";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import LoginFormModal from "../../auth/LoginFormModal";
+import SubredditModal from "../../SubredditModal";
 const ProfileMenu = ({
 	showMenu,
 	setShowMenu,
@@ -12,8 +13,11 @@ const ProfileMenu = ({
 	action,
 }) => {
 	const dispatch = useDispatch();
+	const history = useHistory();
+	const [showSubModal, setShowSubModal] = useState(false);
 	const onLogout = async (e) => {
 		await dispatch(logout());
+		history.push("/");
 	};
 	useEffect(() => {
 		if (showModal) {
@@ -43,6 +47,10 @@ const ProfileMenu = ({
 				setShowModal={setShowModal}
 				action={action}
 			></LoginFormModal>
+			<SubredditModal
+				showSubModal={showSubModal}
+				setShowSubModal={setShowSubModal}
+			></SubredditModal>
 			{showMenu && (
 				<div className="profile-menu">
 					{user && (
@@ -65,6 +73,13 @@ const ProfileMenu = ({
 							>
 								User Settings
 							</Link>
+							<div
+								className="profile-menu-el"
+								onClick={() => setShowSubModal(true)}
+							>
+								<div>Logo</div>
+								<div>Create a community</div>
+							</div>
 						</>
 					)}
 					<Link to={`/about`} className="profile-menu-el">

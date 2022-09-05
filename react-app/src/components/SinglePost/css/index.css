@@ -46,12 +46,19 @@
 .single-post-bottom-bar {
 	display: flex;
 	height: fit-content;
-	font-size: 10px;
-	justify-content: flex-start;
+	font-size: 14px;
+	justify-content: space-between;
 	align-items: center;
 	margin-left: 10px;
 	gap: 10px;
+	margin-bottom: 10px;
 }
+
+.single-post-bottom-bar-left {
+	display: flex;
+	gap: 10px;
+}
+
 .single-post-comments-count,
 .share {
 	display: flex;
@@ -60,7 +67,8 @@
 	align-items: center;
 }
 .fa-message,
-.fa-share {
+.fa-share,
+.fa-ellipsis {
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import LoginFormModal from "../auth/LoginFormModal";
 import ProfileMenu from "./js/ProfileMenu";
 import * as sessionActions from "../../store/session";
 import "./css/index.css";
@@ -20,6 +19,7 @@ function NavBar() {
 					<img
 						src="https://logos-download.com/wp-content/uploads/2016/06/Reddit_logo_full_1.png"
 						className="nav-logo"
+						alt="logo"
 					></img>
 				</NavLink>
 			</div>
@@ -61,6 +61,14 @@ function NavBar() {
 						</button>
 					</div>
 				)}
+				{user && (
+					<Link
+						to={`/user/${user.username}/submit`}
+						className="submit-post-link"
+					>
+						<i class="fa-thin fa-plus"></i>
+					</Link>
+				)}
 				<div
 					className={`profile-toggle ${showMenu ? "active" : ""}`}
 					onClick={() => setShowMenu((showMenu) => !showMenu)}
@@ -72,6 +80,7 @@ function NavBar() {
 									<img
 										src={user.profile_image}
 										className="profile-menu-profile-image"
+										alt="profile"
 									></img>
 								</div>
 								<div className="profile-menu-user-stats">

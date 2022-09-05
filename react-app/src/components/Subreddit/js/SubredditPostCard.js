@@ -1,10 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-	getTimeElapsed,
-	getPercentUpvoted,
-	// postVote,
-} from "../../../util/index.js";
+import { getTimeElapsed } from "../../../util/index.js";
 import { authenticate } from "../../../store/session.js";
 import { postVote } from "../../../store/subreddits.js";
 const SubredditPostCard = ({ post }) => {
@@ -84,6 +80,7 @@ const SubredditPostCard = ({ post }) => {
 							<img
 								src={post.image}
 								className="image-box-subreddit"
+								alt="subreddit"
 							></img>
 						</a>
 					)}

@@ -6,7 +6,6 @@ import SubredditInfoCard from "./js/SubredditInfoCard";
 import SubredditBanner from "./js/SubredditBanner";
 import SubredditInfoAbout from "./js/SubredditInfoAbout";
 import SubredditInfoRules from "./js/SubredditInfoRules";
-import SubredditInfoModerator from "./js/SubredditInfoModerator";
 import { useDispatch, useSelector } from "react-redux";
 import { getSubInfo, getPosts } from "../../store/subreddits";
 const Subreddit = () => {
@@ -24,7 +23,7 @@ const Subreddit = () => {
 		}
 
 		setSub(subreddits[subreddit]);
-	}, [dispatch, subreddits]);
+	}, [dispatch, subreddits, subreddit]);
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setLoaded(true);
@@ -33,7 +32,7 @@ const Subreddit = () => {
 	}, []);
 	return (
 		<div className="subreddit-outer-container">
-			{loaded && sub && (
+			{sub && (
 				<>
 					<SubredditBanner sub={sub} />
 					<div className="subreddit-inner-container">
