@@ -215,10 +215,15 @@ export default function subreddits(state = initialState, action) {
 			action.user["subreddit_name"] = action.user.username;
 			if (action.user.posts.length > 0) {
 				const posts = {};
+				let karma = 0
 				action.user.posts.forEach((post) => {
 					posts[post.id] = post;
+					console.log(posts)
+					karma += post.votes.upvote_count
+					karma -= post.votes.downvote_count
 				});
 				action.user.posts = posts;
+				action.user.karma = karma
 			}
 			newState[action.user.username] = action.user;
 			return newState;

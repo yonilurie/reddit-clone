@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getSubInfo, postUserVote, getPosts } from "../../../store/subreddits";
+import { postUserVote } from "../../../store/subreddits";
 import { authenticate } from "../../../store/session.js";
-import { useEffect, useState } from "react";
 import PostMenu from "../../PostMenu/index.js";
 
 function UserPostCard({ postId, post }) {

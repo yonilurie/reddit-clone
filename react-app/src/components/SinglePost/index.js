@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useHistory } from "react-router-dom";
 import { useParams, Link } from "react-router-dom";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
@@ -10,9 +11,11 @@ import { authenticate } from "../../store/session";
 import "./css/index.css";
 
 function SinglePostPage() {
+	const location = useLocation();
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const subreddits = useSelector((state) => state.subreddits);
-	const [edit, setEdit] = useState(true);
+	const [edit, setEdit] = useState(false);
 	const [text, setText] = useState("");
 	// const [sub, setSub] = useState(null);
 	// const [post, setPost] = useState(null);
@@ -52,6 +55,18 @@ function SinglePostPage() {
 	};
 
 	const currentUser = useSelector((state) => state.session.user);
+	useEffect(() => {
+		let editPost = false;
+		try {
+			if (location.state.edit) {
+				editPost = location.state.edit;
+				history.replace();
+			}
+		} catch (e) {}
+
+		setEdit(editPost);
+	}, [dispatch]);
+
 	return (
 		<>
 			{subreddits[subreddit] && subreddits[subreddit].posts && (
@@ -191,7 +206,7 @@ function SinglePostPage() {
 
 										{subreddits[subreddit].posts[postId]
 											.text &&
-											edit && (
+											edit === true && (
 												<>
 													<TextForm
 														text={text}

@@ -5,7 +5,7 @@ function HomePage() {
 	const [subs, setSubs] = useState([]);
 	useEffect(() => {
 		(async () => {
-			const response = await fetch(`/api/r/list-all`);
+			const response = await fetch(`/api/r/list-five`);
 			const subredditInfo = await response.json();
 			setSubs(subredditInfo);
 		})();

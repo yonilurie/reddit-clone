@@ -1,9 +1,7 @@
-import { Link, useParams, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function UserInfoCard({ user }) {
-	// const [showPostModal, setShowPostModal] = useState(false);
 	const location = useLocation();
 	const currentUser = useSelector((state) => state.session.user);
 	return (
@@ -33,7 +31,9 @@ function UserInfoCard({ user }) {
 					<div className="karma-cakeday-container">
 						<div className="karma-container">
 							<div>Karma</div>
-							<div className="karma">1</div>
+							<div className="karma">
+								{user.karma ? user.karma : 0}
+							</div>
 						</div>
 						<div className="cakeday-container">
 							<div>Cake day</div>

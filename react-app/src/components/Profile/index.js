@@ -12,23 +12,12 @@ function User() {
 	const dispatch = useDispatch();
 	const params = useParams();
 	const { username } = useParams();
-	// const [user, setUser] = useState({});
 	const currentUser = useSelector((state) => state.session.user);
 	const user = useSelector((state) => state.subreddits[username]);
 
 	useEffect(() => {
+		if (!username) return;
 		dispatch(getUserInfo(username));
-
-		if (!username) {
-			return;
-		}
-
-		// (async () => {
-		// 	const response = await fetch(`/api/u/${username}`);
-		// 	const user = await response.json();
-		// 	setUser(user);
-		// 	console.log(user);
-		// })();
 	}, [username]);
 
 	if (!user) {
@@ -53,7 +42,6 @@ function User() {
 										/>
 									);
 								})}
-
 							<>
 								{params.tab === "submit" && (
 									<PostForm></PostForm>

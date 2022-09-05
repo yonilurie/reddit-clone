@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./css/index.css";
 import DeletePostModal from "./js/DeleteModal";
 function PostMenu({ post }) {
@@ -15,10 +16,16 @@ function PostMenu({ post }) {
 				</div>
 				{showMenu && (
 					<div className="post-menu">
-						<div className="post-menu-option">
+						<Link
+							className="post-menu-option"
+							to={{
+								pathname: `/r/${post.subreddit_name}/${post.id}/${post.title}`,
+								state: { edit: true },
+							}}
+						>
 							<i class="fa-solid fa-pencil"></i>
 							<div>Edit</div>
-						</div>
+						</Link>
 						<div
 							className="post-menu-option"
 							onClick={() => {

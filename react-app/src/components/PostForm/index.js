@@ -10,7 +10,6 @@ import {
 	createAPost,
 	getUserInfo,
 } from "../../store/subreddits";
-import { authenticate } from "../../store/session";
 
 function PostForm() {
 	const history = useHistory();

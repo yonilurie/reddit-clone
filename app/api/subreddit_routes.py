@@ -9,8 +9,8 @@ from app.s3_helpers import (
 import random
 subreddit_routes = Blueprint('subreddits', __name__)
 
-@subreddit_routes.route('/list-all')
-def all_subreddits():
+@subreddit_routes.route('/list-five')
+def five_subreddits():
     """
     Returns a list of all subreddits
     """
@@ -19,6 +19,14 @@ def all_subreddits():
     list_of_subs = [sub.to_dict() for sub in subs]
     random_five = random.sample(list_of_subs, k=5)
     return jsonify(random_five)
+@subreddit_routes.route('/list-all')
+def all_subreddits():
+    """
+    Returns a list of all subreddits
+    """
+    subs = SubReddit.query.all()
+
+    return jsonify([sub.to_dict() for sub in subs])
 
 @subreddit_routes.route('/<int:post_id>')
 def get_post_details( post_id):

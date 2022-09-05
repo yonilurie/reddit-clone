@@ -1,6 +1,4 @@
-import { Link, useParams, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function UserModCard({ user }) {
 	return (
@@ -21,14 +19,19 @@ function UserModCard({ user }) {
 									className="subreddit-link-icon"
 								></path>
 							</svg>
-							<Link to={`/r/${subreddit.name}`} className='subreddit-link-link'>
+							<Link
+								to={`/r/${subreddit.name}`}
+								className="subreddit-link-link"
+							>
 								{" "}
 								r/{subreddit.name}
 							</Link>
 						</div>
 
 						<div className="subreddit-link-right">
-							<button className="subreddit-link-join-button">Join</button>
+							<button className="subreddit-link-join-button">
+								Join
+							</button>
 						</div>
 					</div>
 				);
