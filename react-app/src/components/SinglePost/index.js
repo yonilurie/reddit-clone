@@ -6,7 +6,12 @@ import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
 import TextForm from "../PostForm/js/TextForm";
 import { getTimeElapsed } from "../../util/index.js";
-import { postVote, getSubInfo, getPosts } from "../../store/subreddits";
+import {
+	postVote,
+	getSubInfo,
+	getPosts,
+	editAPost,
+} from "../../store/subreddits";
 import { authenticate } from "../../store/session";
 import "./css/index.css";
 
@@ -17,22 +22,16 @@ function SinglePostPage() {
 	const subreddits = useSelector((state) => state.subreddits);
 	const [edit, setEdit] = useState(false);
 	const [text, setText] = useState("");
-	// const [sub, setSub] = useState(null);
-	// const [post, setPost] = useState(null);
+	const [URL, setURL] = useState("");
+
 	const { subreddit, postId, postTitle } = useParams();
 
 	useEffect(async () => {
 		if (!subreddits[subreddit]) {
 			await dispatch(getSubInfo(subreddit));
 			await dispatch(getPosts(subreddit));
-			// setSub(subreddits[subreddit]);
 		}
 	}, [dispatch, subreddits]);
-	// useEffect(() => {
-	// 	if (subreddits[subreddit] && subreddits[subreddit].posts) {
-	// 		setPost(subreddits[subreddit].posts[postId]);
-	// 	}
-	// }, [sub]);
 
 	const getPercentUpvoted = (votes) => {
 		const { upvote_count, downvote_count, total } = votes;
@@ -55,7 +54,7 @@ function SinglePostPage() {
 	};
 
 	const currentUser = useSelector((state) => state.session.user);
-	useEffect(() => {
+	useEffect(async () => {
 		let editPost = false;
 		try {
 			if (location.state.edit) {
@@ -64,8 +63,18 @@ function SinglePostPage() {
 			}
 		} catch (e) {}
 
-		setEdit(editPost);
+		await setEdit(editPost);
 	}, [dispatch]);
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		const formData = new FormData();
+		formData.append("text", text);
+		formData.append("link", URL)
+		dispatch(editAPost(postId, formData));
+		setEdit(false)
+		
+	};
 
 	return (
 		<>
@@ -208,10 +217,18 @@ function SinglePostPage() {
 											.text &&
 											edit === true && (
 												<>
-													<TextForm
-														text={text}
-														setText={setText}
-													></TextForm>
+													<form onSubmit={onSubmit}>
+														<TextForm
+															text={text}
+															setText={setText}
+															post={
+																subreddits[
+																	subreddit
+																].posts[postId]
+															}
+														></TextForm>
+														<button>Submit</button>
+													</form>
 												</>
 											)}
 										{subreddits[subreddit].posts[postId]

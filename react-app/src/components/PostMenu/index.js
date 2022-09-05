@@ -1,31 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./css/index.css";
 import DeletePostModal from "./js/DeleteModal";
 function PostMenu({ post }) {
 	const [showMenu, setShowMenu] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+
+	useEffect(() => {
+		if (!showMenu) return;
+		const closeMenu = () => setShowMenu(false);
+		document.addEventListener("click", closeMenu);
+		return () => document.removeEventListener("click", closeMenu);
+	}, [showMenu]);
+
 	return (
 		<>
 			<div className="post-menu-container">
 				<div
 					className="edit"
-					onClick={() => setShowMenu((showMenu) => !showMenu)}
+					onClick={() => {
+						setShowMenu((showMenu) => !showMenu);
+					}}
 				>
 					...
 				</div>
 				{showMenu && (
 					<div className="post-menu">
-						<Link
-							className="post-menu-option"
-							to={{
-								pathname: `/r/${post.subreddit_name}/${post.id}/${post.title}`,
-								state: { edit: true },
-							}}
-						>
-							<i class="fa-solid fa-pencil"></i>
-							<div>Edit</div>
-						</Link>
+						{post.type_of_post === "text" && (
+							<Link
+								className="post-menu-option"
+								to={{
+									pathname: `/r/${post.subreddit_name}/${post.id}/${post.title}`,
+									state: { edit: true },
+								}}
+							>
+								<i className="fa-solid fa-pencil"></i>
+								<div>Edit</div>
+							</Link>
+						)}
 						<div
 							className="post-menu-option"
 							onClick={() => {
@@ -33,7 +45,7 @@ function PostMenu({ post }) {
 								setShowModal(true);
 							}}
 						>
-							<i class="fa-solid fa-trash"></i>
+							<i className="fa-solid fa-trash"></i>
 							<div>Delete</div>
 						</div>
 					</div>

@@ -123,7 +123,6 @@ export default function reducer(state = initialState, action) {
 
 		case CHANGE_VOTE:
 			newState = { ...state };
-			console.log(newState);
 			newState.user.votes[action.postId].upvote = !newState.user.votes[
 				action.postId
 			].upvote;

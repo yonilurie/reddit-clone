@@ -24,3 +24,6 @@ class PostForm(FlaskForm):
     text = StringField("text", validators=[Length(min=0, max=10000, message='Text must be less than 10,000 characters')])
 
     
+class PostFormEdit(FlaskForm):
+    text = StringField("text", validators=[Length(min=0, max=10000, message='Text must be less than 10,000 characters')])
+    link = StringField("link" )

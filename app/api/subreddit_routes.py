@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import SubReddit, Post, db
-from app.forms.post_form import PostForm
+from app.forms.post_form import PostForm, PostFormEdit
 from app.forms.delete_form import DeleteForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_object)
@@ -122,14 +122,28 @@ def create_post(id):
     else:
         return jsonify(form.errors)
 
+@subreddit_routes.route('/<int:id>/post/edit', methods=['PUT'])
+@login_required
+def edit_post(id):
+    '''
+    Post to a subreddit
+    '''
+    form = PostFormEdit()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        post = Post.query.get(id)
+        if form.data['text']:
+            post.text = form.data['text']
+        elif form.data['link']:
+            post.link = form.data['link']
+        db.session.commit()
+        updated_post = Post.query.get(id)
+        return updated_post.to_dict()
+    else:
+        return jsonify(form.errors)
 
 
-
-
-
-
-
-    
 @subreddit_routes.route('/<int:id>/post/image', methods=['POST'])
 @login_required
 def create_post_image(id):

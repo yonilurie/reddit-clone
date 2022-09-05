@@ -6,7 +6,7 @@ function UserModCard({ user }) {
 			<h2 className="moderator-title">Moderator of these communities</h2>
 			{user.subreddits.map((subreddit) => {
 				return (
-					<div className="subreddit-link">
+					<div className="subreddit-link" key={subreddit.id}>
 						<div className="subreddit-link-left">
 							<div></div>
 							<svg

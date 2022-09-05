@@ -6,6 +6,7 @@ const USER_VOTE = "/subreddits/USER_VOTE";
 const ADD_USER = "/subreddits/GET_USER";
 const DELETE_POST = "/subreddits/DELETE_POST";
 const CREATE_POST = "/subreddits/CREATE_POST";
+const EDIT_POST = "/subredddits/EDIT_POST";
 
 const addSub = (sub) => ({
 	type: GET_SUB,
@@ -38,6 +39,11 @@ const deletePost = (data) => ({
 
 const createPost = (post) => ({
 	type: CREATE_POST,
+	post,
+});
+
+const editPost = (post) => ({
+	type: EDIT_POST,
 	post,
 });
 
@@ -113,7 +119,6 @@ export const postVote = (userVote, postId, currentUserId) => async (
 
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
 		dispatch(vote(data));
 	}
 };
@@ -132,7 +137,6 @@ export const postUserVote = (userVote, postId, currentUserId) => async (
 
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
 		dispatch(userPageVote(data));
 	}
 };
@@ -143,8 +147,6 @@ export const deleteAPost = (postId, username) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		const data = await response.json();
-		console.log(data);
 		dispatch(
 			deletePost({
 				username,
@@ -162,7 +164,7 @@ export const createAPostImage = (subredditId, formData) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(createPost(data));
-		return data
+		return data;
 	}
 };
 export const createAPost = (subredditId, formData) => async (dispatch) => {
@@ -173,7 +175,20 @@ export const createAPost = (subredditId, formData) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(createPost(data));
-		return data
+		return data;
+	}
+};
+
+export const editAPost = (postId, formData) => async (dispatch) => {
+	const response = await fetch(`/api/r/${postId}/post/edit`, {
+		method: "PUT",
+		body: formData,
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(editPost(data));
+		return data;
 	}
 };
 
@@ -215,22 +230,28 @@ export default function subreddits(state = initialState, action) {
 			action.user["subreddit_name"] = action.user.username;
 			if (action.user.posts.length > 0) {
 				const posts = {};
-				let karma = 0
+				let karma = 0;
 				action.user.posts.forEach((post) => {
 					posts[post.id] = post;
-					console.log(posts)
-					karma += post.votes.upvote_count
-					karma -= post.votes.downvote_count
+
+					karma += post.votes.upvote_count;
+					karma -= post.votes.downvote_count;
 				});
 				action.user.posts = posts;
-				action.user.karma = karma
+				action.user.karma = karma;
 			}
 			newState[action.user.username] = action.user;
 			return newState;
 		case CREATE_POST:
 			newState = { ...state };
-			console.log(action)
 			newState[action.post.user.username].posts[action.post.id] =
+				action.post;
+			return newState;
+		case EDIT_POST:
+			newState = { ...state };
+			newState[action.post.user.username].posts[action.post.id] =
+				action.post;
+			newState[action.post.subreddit_name].posts[action.post.id] =
 				action.post;
 			return newState;
 		default:

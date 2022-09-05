@@ -1,4 +1,4 @@
-function LinkForm({ link, setLink, setValidURL }) {
+function LinkForm({ link, setLink, setValidURL, post }) {
 	const resizeInput = (e) => {
 		try {
 			const URLCheck = new URL(e.target.value);

@@ -32,7 +32,7 @@ function UserInfoCard({ user }) {
 						<div className="karma-container">
 							<div>Karma</div>
 							<div className="karma">
-								{user.karma ? user.karma : 0}
+								{user.karma > 0 ? user.karma : 0}
 							</div>
 						</div>
 						<div className="cakeday-container">
