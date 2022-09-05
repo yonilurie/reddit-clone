@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory, useParams, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import TextForm from "./js/TextForm";
 import LinkForm from "./js/LinkForm";
 import "./css/index.css";
 import ImageForm from "./js/ImageForm";
+import {
+	createAPostImage,
+	createAPost,
+	getUserInfo,
+} from "../../store/subreddits";
+import { authenticate } from "../../store/session";
 
 function PostForm() {
 	const history = useHistory();
 	const location = useLocation();
+	const dispatch = useDispatch();
 	const { username } = useParams();
 
 	const [subredditsList, setSubredditsList] = useState([]);
@@ -30,7 +37,9 @@ function PostForm() {
 	const setSubredditInfo = (e) => {
 		setSubredditId(e.value);
 	};
-
+	useEffect(() => {
+		dispatch(getUserInfo(username));
+	}, []);
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
@@ -49,19 +58,17 @@ function PostForm() {
 		}
 		if (typeOfPost === "image") {
 			formData.append("image", image);
-			const res = await fetch(`/api/r/${subredditId}/post/image`, {
-				method: "POST",
-				body: formData,
+			dispatch(createAPostImage(subredditId, formData)).then((data) => {
+				history.push(
+					`/r/${data.subreddit_name}/${data.id}/${data.title}`
+				);
 			});
-			const data = await res.json();
-			history.push(`/r/${data.subreddit_name}/${data.id}/${data.title}`);
 		} else {
-			const response = await fetch(`/api/r/${subredditId}/post`, {
-				method: "POST",
-				body: formData,
+			dispatch(createAPost(subredditId, formData)).then((data) => {
+				history.push(
+					`/r/${data.subreddit_name}/${data.id}/${data.title}`
+				);
 			});
-			const data = await response.json();
-			history.push(`/r/${data.subreddit_name}/${data.id}/${data.title}`);
 		}
 	};
 

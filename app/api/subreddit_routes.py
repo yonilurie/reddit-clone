@@ -160,3 +160,8 @@ def create_post_image(id):
         return post.to_dict()
     else:
         return jsonify(form.errors)
+
+
+# @subreddit_routes.route('/<int:id>/post', methods=['PUT'])
+# @login_required
+# def edit_post(id):

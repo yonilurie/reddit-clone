@@ -5,6 +5,7 @@ const POST_VOTE = "/subreddits/POST_VOTE";
 const USER_VOTE = "/subreddits/USER_VOTE";
 const ADD_USER = "/subreddits/GET_USER";
 const DELETE_POST = "/subreddits/DELETE_POST";
+const CREATE_POST = "/subreddits/CREATE_POST";
 
 const addSub = (sub) => ({
 	type: GET_SUB,
@@ -34,6 +35,12 @@ const deletePost = (data) => ({
 	type: DELETE_POST,
 	data,
 });
+
+const createPost = (post) => ({
+	type: CREATE_POST,
+	post,
+});
+
 const initialState = {};
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
@@ -141,9 +148,32 @@ export const deleteAPost = (postId, username) => async (dispatch) => {
 		dispatch(
 			deletePost({
 				username,
-				postId
+				postId,
 			})
 		);
+	}
+};
+
+export const createAPostImage = (subredditId, formData) => async (dispatch) => {
+	const response = await fetch(`/api/r/${subredditId}/post/image`, {
+		method: "POST",
+		body: formData,
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(createPost(data));
+		return data
+	}
+};
+export const createAPost = (subredditId, formData) => async (dispatch) => {
+	const response = await fetch(`/api/r/${subredditId}/post`, {
+		method: "POST",
+		body: formData,
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(createPost(data));
+		return data
 	}
 };
 
@@ -168,26 +198,21 @@ export default function subreddits(state = initialState, action) {
 			return newState;
 		case POST_VOTE:
 			newState = { ...state };
-			console.log(action);
 			newState[action.post.subreddit_name].posts[action.post.id] =
 				action.post;
 			return newState;
 		case USER_VOTE:
 			newState = { ...state };
-			console.log(action);
 			newState[action.post.user.username].posts[action.post.id] =
 				action.post;
 			return newState;
 		case DELETE_POST:
 			newState = { ...state };
-			console.log(action);
-			
-			delete newState[action.data.username].posts[action.data.postId] 
+			delete newState[action.data.username].posts[action.data.postId];
 			return newState;
 		case ADD_USER:
 			newState = { ...state };
 			action.user["subreddit_name"] = action.user.username;
-
 			if (action.user.posts.length > 0) {
 				const posts = {};
 				action.user.posts.forEach((post) => {
@@ -195,10 +220,13 @@ export default function subreddits(state = initialState, action) {
 				});
 				action.user.posts = posts;
 			}
-
 			newState[action.user.username] = action.user;
-
-			console.log(newState);
+			return newState;
+		case CREATE_POST:
+			newState = { ...state };
+			console.log(action)
+			newState[action.post.user.username].posts[action.post.id] =
+				action.post;
 			return newState;
 		default:
 			return state;

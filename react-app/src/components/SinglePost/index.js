@@ -3,39 +3,33 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
+import TextForm from "../PostForm/js/TextForm";
 import { getTimeElapsed } from "../../util/index.js";
 import { postVote, getSubInfo, getPosts } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
 import "./css/index.css";
 
 function SinglePostPage() {
-	// const [post, setPost] = useState(null);
 	const dispatch = useDispatch();
 	const subreddits = useSelector((state) => state.subreddits);
-
-	const [sub, setSub] = useState(null);
-	const [post, setPost] = useState(null);
+	const [edit, setEdit] = useState(true);
+	const [text, setText] = useState("");
+	// const [sub, setSub] = useState(null);
+	// const [post, setPost] = useState(null);
 	const { subreddit, postId, postTitle } = useParams();
-	// useEffect(async () => {
-	// 	const getPost = await fetch(`/api/r/${postId}`);
-	// 	const data = await getPost.json();
-	// 	setPost(data);
-	// 	const getSub = await fetch(`/api/r/${subreddit}`);
-	// 	const subData = await getSub.json();
-	// 	setSub(subData);
-	// }, []);
+
 	useEffect(async () => {
 		if (!subreddits[subreddit]) {
 			await dispatch(getSubInfo(subreddit));
 			await dispatch(getPosts(subreddit));
-			setSub(subreddits[subreddit]);
+			// setSub(subreddits[subreddit]);
 		}
 	}, [dispatch, subreddits]);
-	useEffect(() => {
-		if (subreddits[subreddit] && subreddits[subreddit].posts) {
-			setPost(subreddits[subreddit].posts[postId]);
-		}
-	}, [sub]);
+	// useEffect(() => {
+	// 	if (subreddits[subreddit] && subreddits[subreddit].posts) {
+	// 		setPost(subreddits[subreddit].posts[postId]);
+	// 	}
+	// }, [sub]);
 
 	const getPercentUpvoted = (votes) => {
 		const { upvote_count, downvote_count, total } = votes;
@@ -65,8 +59,6 @@ function SinglePostPage() {
 					<SubredditBanner
 						sub={subreddits[subreddit]}
 					></SubredditBanner>
-
-					{/* <div>{sub.posts[postId].title}</div> */}
 					<div className="single-post-sub-info-container">
 						<div className="single-post-container">
 							<div className="single-post">
@@ -180,21 +172,33 @@ function SinglePostPage() {
 										)}
 
 										{subreddits[subreddit].posts[postId]
-											.text && (
-											<div>
-												{subreddits[subreddit].posts[
-													postId
-												].text ? (
-													<div className="sub-text-box">
-														{
-															subreddits[
-																subreddit
-															].posts[postId].text
-														}
-													</div>
-												) : null}
-											</div>
-										)}
+											.text &&
+											!edit && (
+												<div>
+													{subreddits[subreddit]
+														.posts[postId].text ? (
+														<div className="sub-text-box">
+															{
+																subreddits[
+																	subreddit
+																].posts[postId]
+																	.text
+															}
+														</div>
+													) : null}
+												</div>
+											)}
+
+										{subreddits[subreddit].posts[postId]
+											.text &&
+											edit && (
+												<>
+													<TextForm
+														text={text}
+														setText={setText}
+													></TextForm>
+												</>
+											)}
 										{subreddits[subreddit].posts[postId]
 											.link && (
 											<a
