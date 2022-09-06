@@ -7,16 +7,17 @@ import "./index.css";
 function SubredditModal({ showSubModal, setShowSubModal }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const currentUser = useSelector((state) => state.session.user);
+
 	const [newSubredditName, setNewSubredditName] = useState("");
 	const [errors, setErrors] = useState(null);
+
+	const currentUser = useSelector((state) => state.session.user);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
-		if (!newSubredditName || !currentUser.id) {
-			return;
-		}
+		if (!newSubredditName || !currentUser.id) return null;
+
 		formData.append("subreddit_name", newSubredditName);
 		formData.append("owner_id", currentUser.id);
 		dispatch(createASub(formData)).then((data) => {

@@ -53,8 +53,6 @@ const createSub = (sub) => ({
 	sub,
 });
 
-const initialState = {};
-
 export const getSubInfo = (subredditName) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditName}`, {
 		method: "GET",
@@ -206,13 +204,15 @@ export const createASub = (formData) => async (dispatch) => {
 		method: "POST",
 		body: formData,
 	});
-	
+
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(createSub(data));
 		return data;
 	}
 };
+
+const initialState = {};
 
 export default function subreddits(state = initialState, action) {
 	let newState = {};
@@ -230,8 +230,25 @@ export default function subreddits(state = initialState, action) {
 				action.posts.forEach((post) => {
 					posts[post.id] = post;
 				});
+
 				newState[subName].posts = posts;
 			}
+			return newState;
+		case ADD_USER:
+			newState = { ...state };
+			action.user["subreddit_name"] = action.user.username;
+			if (action.user.posts.length > 0) {
+				const posts = {};
+				let karma = 0;
+				action.user.posts.forEach((post) => {
+					posts[post.id] = post;
+					karma += post.votes.upvote_count;
+					karma -= post.votes.downvote_count;
+				});
+				action.user.posts = posts;
+				action.user.karma = karma;
+			}
+			newState[action.user.username] = action.user;
 			return newState;
 		case POST_VOTE:
 			newState = { ...state };
@@ -246,27 +263,8 @@ export default function subreddits(state = initialState, action) {
 		case DELETE_POST:
 			newState = { ...state };
 			delete newState[action.data.username].posts[action.data.postId];
-			// delete newState[action.data.subredditName].posts[
-			// 	action.data.postId
-			// ];
 			return newState;
-		case ADD_USER:
-			newState = { ...state };
-			action.user["subreddit_name"] = action.user.username;
-			if (action.user.posts.length > 0) {
-				const posts = {};
-				let karma = 0;
-				action.user.posts.forEach((post) => {
-					posts[post.id] = post;
 
-					karma += post.votes.upvote_count;
-					karma -= post.votes.downvote_count;
-				});
-				action.user.posts = posts;
-				action.user.karma = karma;
-			}
-			newState[action.user.username] = action.user;
-			return newState;
 		case CREATE_POST:
 			newState = { ...state };
 			newState[action.post.user.username].posts[action.post.id] =

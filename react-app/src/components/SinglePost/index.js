@@ -20,16 +20,20 @@ function SinglePostPage() {
 	const location = useLocation();
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const subreddits = useSelector((state) => state.subreddits);
-	const currentUser = useSelector((state) => state.session.user);
+	const { subreddit, postId } = useParams();
+
 	const [edit, setEdit] = useState(false);
 	const [text, setText] = useState("");
-	const { subreddit, postId } = useParams();
+
+	const subreddits = useSelector((state) => state.subreddits);
+	const currentUser = useSelector((state) => state.session.user);
+
 	useEffect(() => {
 		if (currentUser) {
 			dispatch(authenticate());
 		}
 	}, [postId]);
+
 	useEffect(() => {
 		if (!subreddits[subreddit]) {
 			const subInfo = async () => await dispatch(getSubInfo(subreddit));

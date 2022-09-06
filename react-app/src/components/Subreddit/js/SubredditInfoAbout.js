@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
 function SubredditInfoAbout({ sub }) {
 	const user = useSelector((state) => state.session.user);
 	return (

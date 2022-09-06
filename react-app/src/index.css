@@ -2,12 +2,15 @@
 html {
 	background-color: rgb(218, 224, 230);
 	width: 100%;
+	max-width: 100%;
 }
 
 body {
 	margin: 0px;
+	width: 100%;
+	max-width: 100%;
 }
 
 * {
-	font-family: 'IBM Plex Sans', sans-serif;
+	font-family: "IBM Plex Sans", sans-serif;
 }

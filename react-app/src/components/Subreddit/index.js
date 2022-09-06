@@ -1,52 +1,71 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getSubInfo, getPosts } from "../../store/subreddits";
+
 import SubredditPostCard from "./js/SubredditPostCard";
-import "./css/index.css";
 import SubredditInfoCard from "./js/SubredditInfoCard";
 import SubredditBanner from "./js/SubredditBanner";
 import SubredditInfoAbout from "./js/SubredditInfoAbout";
 import SubredditInfoRules from "./js/SubredditInfoRules";
-import { useDispatch, useSelector } from "react-redux";
-import { getSubInfo, getPosts } from "../../store/subreddits";
+import SubredditLoading from "./SubredditLoading";
+import "./css/index.css";
+
 const Subreddit = () => {
 	const dispatch = useDispatch();
 	const { subreddit } = useParams();
+
 	const [sub, setSub] = useState(null);
 	const [loaded, setLoaded] = useState(true);
+
 	const subreddits = useSelector((state) => state.subreddits);
 	const currentUser = useSelector((state) => state.session.user);
+
 	useEffect(() => {
 		if (!subreddits[subreddit]) {
-			dispatch(getSubInfo(subreddit));
+			const subInfo = async () => await dispatch(getSubInfo(subreddit));
+			subInfo();
 			dispatch(getPosts(subreddit));
 			setLoaded(false);
 		}
-
 		setSub(subreddits[subreddit]);
 	}, [dispatch, subreddits, subreddit]);
+
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setLoaded(true);
 		}, 500);
 		return () => clearTimeout(timeout);
 	}, []);
+
 	return (
 		<div className="subreddit-outer-container">
 			{sub && (
 				<>
 					<SubredditBanner sub={sub} />
+
 					<div className="subreddit-inner-container">
-						<div className="subreddit-posts">
-							{sub &&
-								sub.posts &&
-								Object.values(sub.posts).length > 0 &&
-								Object.values(sub.posts).reverse().map((post) => (
-									<SubredditPostCard
-										post={post}
-										key={post.id}
-									></SubredditPostCard>
-								))}
-						</div>
+						{sub && sub.posts && (
+							<div className="subreddit-posts">
+								{sub &&
+									sub.posts &&
+									Object.values(sub.posts).length > 0 &&
+									Object.values(sub.posts)
+										.reverse()
+										.map((post) => (
+											<SubredditPostCard
+												post={post}
+												key={post.id}
+											></SubredditPostCard>
+										))}
+							</div>
+						)}
+						{!loaded && !sub.posts && (
+							<div className="loading-posts">
+								<SubredditLoading></SubredditLoading>
+								<SubredditLoading></SubredditLoading>
+							</div>
+						)}
 						{loaded && !sub.posts && (
 							<div className="empty-post-main">
 								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
@@ -100,6 +119,7 @@ const Subreddit = () => {
 								</div>
 							</div>
 						)}
+
 						<div className="subreddit-info">
 							{/* <div> */}
 							<div>

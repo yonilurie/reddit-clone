@@ -21,11 +21,37 @@ function PostForm() {
 	const [subredditId, setSubredditId] = useState(0);
 	const [typeOfPost, setTypeOfPost] = useState("text");
 	const [title, setTitle] = useState("");
-	const [tags, setTags] = useState("");
+	// const [tags, setTags] = useState("");
 	const [link, setLink] = useState("");
 	const [text, setText] = useState("");
 	const [image, setImage] = useState(null);
 	const [validURL, setValidURL] = useState(true);
+
+	useEffect(() => {
+		dispatch(getUserInfo(username));
+	}, [dispatch, username]);
+
+	useEffect(() => {
+		const subreddits = async () => {
+			const res = await fetch("/api/r/list-all");
+			return await res.json();
+		};
+		const res = subreddits();
+		res.then((data) => {
+			setSubredditsList(data);
+			setSubredditId(data[0].id);
+		});
+		let postSubId;
+		try {
+			if (location.state.postSubId) {
+				postSubId = location.state.postSubId;
+				location.state = {};
+			}
+		} catch (e) {}
+		if (postSubId) {
+			setSubredditId(postSubId);
+		}
+	}, [username, location]);
 
 	const resizeInput = (e) => {
 		setTitle(e.target.value);
@@ -36,9 +62,7 @@ function PostForm() {
 	const setSubredditInfo = (e) => {
 		setSubredditId(e.value);
 	};
-	useEffect(() => {
-		dispatch(getUserInfo(username));
-	}, []);
+
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
@@ -46,9 +70,9 @@ function PostForm() {
 		formData.append("title", title);
 		formData.append("type_of_post", typeOfPost);
 
-		if (tags) {
-			formData.append("tags", tags);
-		}
+		// if (tags) {
+		// 	formData.append("tags", tags);
+		// }
 		if (typeOfPost === "link") {
 			formData.append("link", link);
 		}
@@ -70,23 +94,6 @@ function PostForm() {
 			});
 		}
 	};
-
-	useEffect(async () => {
-		const subreddits = await fetch("/api/r/list-all");
-		const data = await subreddits.json();
-		setSubredditsList(data);
-		setSubredditId(data[0].id);
-		let postSubId;
-		try {
-			if (location.state.postSubId) {
-				postSubId = location.state.postSubId;
-				location.state = {};
-			}
-		} catch (e) {}
-		if (postSubId) {
-			setSubredditId(postSubId);
-		}
-	}, [username]);
 
 	return (
 		<div className="post-form-container">

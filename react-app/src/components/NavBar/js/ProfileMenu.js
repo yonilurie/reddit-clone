@@ -1,7 +1,7 @@
 import { logout } from "../../../store/session";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginFormModal from "../../auth/LoginFormModal";
 import SubredditModal from "../../SubredditModal";
 const ProfileMenu = ({
@@ -13,12 +13,8 @@ const ProfileMenu = ({
 	action,
 }) => {
 	const dispatch = useDispatch();
-	const history = useHistory();
 	const [showSubModal, setShowSubModal] = useState(false);
-	const onLogout = async (e) => {
-		await dispatch(logout());
-		history.push("/");
-	};
+
 	useEffect(() => {
 		if (showModal) {
 			document.body.style.overflow = "hidden";
@@ -27,19 +23,16 @@ const ProfileMenu = ({
 		}
 	}, [showModal]);
 
-	// useEffect(() => {
-	// 	if (!showModal) return;
-	// 	const closeModal = () => setShowModal(false);
-	// 	document.addEventListener("click", closeModal);
-	// 	return () => document.removeEventListener("click", closeModal);
-	// }, [showModal]);
-
 	useEffect(() => {
 		if (!showMenu) return;
 		const closeMenu = () => setShowMenu(false);
 		document.addEventListener("click", closeMenu);
 		return () => document.removeEventListener("click", closeMenu);
-	}, [showMenu]);
+	}, [showMenu, setShowMenu]);
+
+	const onLogout = async (e) => {
+		await dispatch(logout());
+	};
 	return (
 		<div className="profile-menu-container">
 			<LoginFormModal

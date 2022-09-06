@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { getTimeElapsed } from "../../../util/index.js";
 import { authenticate } from "../../../store/session.js";
 import { postVote } from "../../../store/subreddits.js";
+
 const SubredditPostCard = ({ post }) => {
 	const dispatch = useDispatch();
+	
 	const currentUser = useSelector((state) => state.session.user);
+
 	return (
 		<div className="sub-post-container">
 			<div className="votes-container">

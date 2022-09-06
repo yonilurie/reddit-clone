@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { signUp } from "../../store/session";
 import "./index.css";
 
 const LoginForm = ({ action, setShowModal }) => {
+	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
 
-	const dispatch = useDispatch();
-
-	const onLogin = async (e) => {
-		e.preventDefault();
-		const data = await dispatch(signUp(email, password));
-		if (data) {
-			setErrors(data);
-		} else {
-			setShowModal(false);
-		}
-	};
+	useEffect(() => {
+		setErrors([]);
+	}, [email, password, username]);
 
 	const updateEmail = (e) => {
 		setEmail(e.target.value);
@@ -30,9 +22,13 @@ const LoginForm = ({ action, setShowModal }) => {
 		setPassword(e.target.value);
 	};
 
-	useEffect(() => {
-		setErrors([]);
-	}, [email, password, username]);
+	const onLogin = async (e) => {
+		e.preventDefault();
+		const data = await dispatch(signUp(email, password));
+		
+		if (data) setErrors(data);
+		else setShowModal(false);
+	};
 
 	return (
 		<div className="login-form-container">
