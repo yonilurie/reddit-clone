@@ -62,7 +62,7 @@ export const getSubInfo = (subredditName) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(addSub(data));
-		return null;
+		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
@@ -225,9 +225,7 @@ export default function subreddits(state = initialState, action) {
 			return newState;
 		case GET_POSTS:
 			newState = { ...state };
-
 			const posts = {};
-			console.log(action);
 			if (action.posts.length > 0) {
 				action.posts.forEach((post) => {
 					posts[post.id] = post;
@@ -273,6 +271,7 @@ export default function subreddits(state = initialState, action) {
 			newState = { ...state };
 			newState[action.post.user.username].posts[action.post.id] =
 				action.post;
+			// newState[action.post.subreddit_name].posts[action.post.id] = action.post
 			return newState;
 		case EDIT_POST:
 			newState = { ...state };

@@ -36,12 +36,15 @@ function SinglePostPage() {
 
 	useEffect(() => {
 		if (!subreddits[subreddit]) {
-			const subInfo = async () => await dispatch(getSubInfo(subreddit));
-			const postInfo = async () => await dispatch(getPosts(subreddit));
-			subInfo();
-			postInfo();
+			dispatch(getSubInfo(subreddit));
 		}
-	}, [dispatch, subreddits, subreddit, edit]);
+		if (subreddits[subreddit] && !subreddits[subreddit].posts) {
+			dispatch(getPosts(subreddit));
+			// setLoaded(true);
+		}
+
+		// setSub(subreddits[subreddit]);
+	}, [dispatch, subreddits, subreddit]);
 
 	useEffect(() => {
 		let editPost = false;
@@ -200,8 +203,8 @@ function SinglePostPage() {
 															.posts[postId].image
 													}
 													target="_blank"
-												rel="noreferrer"
-												className="single-post-image-link"
+													rel="noreferrer"
+													className="single-post-image-link"
 												>
 													<img
 														src={

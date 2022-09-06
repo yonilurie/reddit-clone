@@ -9,6 +9,8 @@ import {
 	createAPostImage,
 	createAPost,
 	getUserInfo,
+	getSubInfo,
+	getPosts,
 } from "../../store/subreddits";
 
 function PostForm() {
@@ -88,6 +90,10 @@ function PostForm() {
 			});
 		} else {
 			dispatch(createAPost(subredditId, formData)).then((data) => {
+				dispatch(getSubInfo(data.subreddit_name)).then((data) => {
+					dispatch(getPosts(data.name));
+				});
+
 				history.push(
 					`/r/${data.subreddit_name}/${data.id}/${data.title}`
 				);

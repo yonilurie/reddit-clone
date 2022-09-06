@@ -6,8 +6,10 @@ import { postVote } from "../../../store/subreddits.js";
 
 const SubredditPostCard = ({ post }) => {
 	const dispatch = useDispatch();
-	
+
 	const currentUser = useSelector((state) => state.session.user);
+
+
 
 	return (
 		<div className="sub-post-container">
@@ -79,7 +81,12 @@ const SubredditPostCard = ({ post }) => {
 						</Link>
 					</div>
 					{post.image && (
-						<a href={post.image} target="_blank" rel="noreferrer" className="sub-image-link">
+						<a
+							href={post.image}
+							target="_blank"
+							rel="noreferrer"
+							className="sub-image-link"
+						>
 							<img
 								src={post.image}
 								className="image-box-subreddit"
@@ -111,7 +118,7 @@ const SubredditPostCard = ({ post }) => {
 						<i className="fa-regular fa-message"></i>
 						<div>{post.comment_count}</div>
 					</div>
-{/* 
+					{/* 
 					<div className="share">
 						<i className="fa-solid fa-share"></i>
 						<div>share</div>
