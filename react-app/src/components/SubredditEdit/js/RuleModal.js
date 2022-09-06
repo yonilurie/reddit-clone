@@ -11,6 +11,7 @@ function RuleModal({
 	ruleDetail,
 	rules,
 	subredditId,
+	newRule,
 }) {
 	const dispatch = useDispatch();
 	const [title, setTitle] = useState(ruleTitle || "");
@@ -24,16 +25,16 @@ function RuleModal({
 		const formData = new FormData();
 		let formattedRule = `${title}:${detail}`;
 		let subRules = rules;
-		let newRules = subRules.replace(
-			`${ruleTitle}:${ruleDetail}`,
-			formattedRule
-		);
-		console.log(newRules);
+		let newRules = ruleTitle
+			? subRules.replace(`${ruleTitle}:${ruleDetail}`, formattedRule)
+			: (subRules += "%" + formattedRule);
 		formData.append("rules", newRules);
 		formData.append("subreddit_id", subredditId);
+
 		dispatch(editARule(formData, subredditId)).then((data) => {
 			dispatch(authenticate());
 		});
+		setShowRuleModal(false);
 	};
 
 	return (
@@ -80,11 +81,12 @@ function RuleModal({
 							>
 								Cancel
 							</div>
+
 							<div
 								className="submit-post-button rules"
 								onClick={onSubmit}
 							>
-								Add New Rule
+								{ruleTitle ? "Update Rule" : "Add Rule"}
 							</div>
 						</div>
 					</div>

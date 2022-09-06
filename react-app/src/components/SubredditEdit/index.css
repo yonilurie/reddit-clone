@@ -217,3 +217,7 @@
 	outline: none;
 	padding: 5px;
 }
+
+.rule-interact {
+	display: flex;
+}

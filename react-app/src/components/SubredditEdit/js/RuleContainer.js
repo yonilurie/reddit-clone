@@ -1,6 +1,13 @@
 import { useState } from "react";
 import RuleModal from "./RuleModal";
-function RuleContainer({ ruleTitle, ruleDetail, index, rules, subredditId }) {
+function RuleContainer({
+	ruleTitle,
+	ruleDetail,
+	index,
+	rules,
+	subredditId,
+	newRule,
+}) {
 	const [showRuleDetail, setShowRuleDetail] = useState(false);
 	const [showRuleModal, setShowRuleModal] = useState(false);
 	return (
@@ -9,14 +16,8 @@ function RuleContainer({ ruleTitle, ruleDetail, index, rules, subredditId }) {
 				<div className="sub-rule">
 					{index + 1} {ruleTitle}
 				</div>
-				{ruleDetail && (
-					<div className="rule-interact">
-						<div
-							className="edit-rule"
-							onClick={() => setShowRuleModal(true)}
-						>
-							edit rule
-						</div>
+				<div className="rule-interact">
+					{ruleDetail && (
 						<div
 							onClick={() =>
 								setShowRuleDetail(
@@ -25,10 +26,16 @@ function RuleContainer({ ruleTitle, ruleDetail, index, rules, subredditId }) {
 							}
 							className="toggle-rule-detail"
 						>
-							Expand
+							<i className="fa-solid fa-up-right-and-down-left-from-center"></i>
 						</div>
+					)}
+					<div
+						className="edit-rule"
+						onClick={() => setShowRuleModal(true)}
+					>
+						<i className="fa-solid fa-pencil"></i>
 					</div>
-				)}
+				</div>
 			</div>
 			{ruleDetail && (
 				<div

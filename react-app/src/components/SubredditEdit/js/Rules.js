@@ -12,6 +12,8 @@ function SubredditRules({ sub }) {
 				showRuleModal={showRuleModal}
 				setShowRuleModal={setShowRuleModal}
 				rules={sub.rules}
+				newRule={true}
+				subredditId={sub.id}
 			></RuleModal>
 			<div className="add-rule-container">
 				<button
