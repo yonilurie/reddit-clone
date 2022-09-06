@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import SubredditEditPlaceholder from "./js/Placeholder";
 import SubredditRules from "./js/Rules";
+import RuleModal from "./js/RuleModal";
 
 function SubredditEdit() {
 	const { subreddit, section } = useParams();
 	const sub = useSelector(
 		(state) => state.session.user.subreddits[subreddit]
 	);
-	console.log(section);
+
 
 	return (
 		<>
@@ -35,7 +36,7 @@ function SubredditEdit() {
 							to={`/r/${sub.name}`}
 						>
 							{" "}
-							{`R/${sub.name} / ABOUT`}
+							{`R/${sub.name} / ${section.toUpperCase()}`}
 						</Link>
 					</div>
 					<div className="edit-subreddit-page-container-inner">
@@ -60,8 +61,8 @@ function SubredditEdit() {
 								Rules
 							</Link>
 							<div className="profile-menu-section-title">
-								<i className="fa-solid fa-scroll"></i>
-								<div>OTHER</div>
+								<i className="fa-solid fa-gear"></i>
+								<div>Settings</div>
 							</div>
 							<Link
 								to={`/r/${subreddit}/community-settings`}

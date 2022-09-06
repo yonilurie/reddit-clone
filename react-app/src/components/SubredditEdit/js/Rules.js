@@ -3,6 +3,7 @@ import RuleContainer from "./RuleContainer";
 function SubredditRules({ sub }) {
 	const rules = sub.rules.split("%");
 	console.log(rules);
+	const [editedRules, setEditedRules] = useState(rules)
 	return (
 		<div>
 			<div className="add-rule-container">
@@ -26,6 +27,7 @@ function SubredditRules({ sub }) {
 									ruleTitle={ruleTitle}
 									ruleDetail={ruleDetail}
 									index={index}
+									key={index}
 								></RuleContainer>
 							);
 						})}
