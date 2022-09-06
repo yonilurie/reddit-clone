@@ -5,7 +5,7 @@
 	align-items: flex-start;
 
 	margin-top: 20px;
-	gap: 25px;
+	gap: 20px;
 }
 
 .single-post-container {
@@ -26,9 +26,11 @@
 }
 
 .single-post-votes-container {
+	background-color: rgb(248, 249, 250);
 	width: 32px;
 	height: 100%;
-	min-height: 72px;
+	
+	min-height: 100%;
 	min-width: 32px;
 	display: flex;
 	flex-direction: column;
@@ -79,4 +81,10 @@
 .sub-post-info-container {
 	display: flex;
 	flex-direction: column;
+}
+
+.single-post-image-link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

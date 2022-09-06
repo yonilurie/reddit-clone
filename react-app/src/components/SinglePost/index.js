@@ -200,7 +200,8 @@ function SinglePostPage() {
 															.posts[postId].image
 													}
 													target="_blank"
-													rel="noreferrer"
+												rel="noreferrer"
+												className="single-post-image-link"
 												>
 													<img
 														src={

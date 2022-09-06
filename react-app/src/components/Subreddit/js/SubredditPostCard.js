@@ -79,7 +79,7 @@ const SubredditPostCard = ({ post }) => {
 						</Link>
 					</div>
 					{post.image && (
-						<a href={post.image} target="_blank" rel="noreferrer">
+						<a href={post.image} target="_blank" rel="noreferrer" className="sub-image-link">
 							<img
 								src={post.image}
 								className="image-box-subreddit"

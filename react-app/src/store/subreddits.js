@@ -14,9 +14,10 @@ const addSub = (sub) => ({
 	sub,
 });
 
-const addPosts = (posts) => ({
+const addPosts = (posts, subredditName) => ({
 	type: GET_POSTS,
 	posts,
+	subredditName,
 });
 
 const vote = (post) => ({
@@ -96,7 +97,7 @@ export const getPosts = (subredditName) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(addPosts(data));
+		dispatch(addPosts(data, subredditName));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -219,19 +220,20 @@ export default function subreddits(state = initialState, action) {
 	switch (action.type) {
 		case GET_SUB:
 			newState = { ...state };
+
 			newState[action.sub.name] = action.sub;
 			return newState;
 		case GET_POSTS:
 			newState = { ...state };
-			if (action.posts.length > 0) {
-				let subName = action.posts[0].subreddit_name;
 
-				const posts = {};
+			const posts = {};
+			console.log(action);
+			if (action.posts.length > 0) {
 				action.posts.forEach((post) => {
 					posts[post.id] = post;
 				});
-				newState[subName].posts = posts;
 			}
+			newState[action.subredditName].posts = posts;
 			return newState;
 		case ADD_USER:
 			newState = { ...state };

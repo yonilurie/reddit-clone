@@ -16,7 +16,7 @@ const Subreddit = () => {
 	const { subreddit } = useParams();
 
 	const [sub, setSub] = useState(null);
-	const [loaded, setLoaded] = useState(true);
+	const [loaded, setLoaded] = useState(false);
 
 	const subreddits = useSelector((state) => state.subreddits);
 	const currentUser = useSelector((state) => state.session.user);
@@ -25,14 +25,13 @@ const Subreddit = () => {
 		if (!subreddits[subreddit]) {
 			dispatch(getSubInfo(subreddit));
 		}
-		if (subreddits[subreddit]) {
+		if (subreddits[subreddit] && !subreddits[subreddit].posts) {
 			dispatch(getPosts(subreddit));
-				setLoaded(false);
+			setLoaded(true);
 		}
-	
+
 		setSub(subreddits[subreddit]);
 	}, [dispatch, subreddits, subreddit]);
-
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -63,13 +62,13 @@ const Subreddit = () => {
 										))}
 							</div>
 						)}
-						{!loaded && !sub.posts && (
+						{!sub.posts && (
 							<div className="loading-posts">
 								<SubredditLoading></SubredditLoading>
 								<SubredditLoading></SubredditLoading>
 							</div>
 						)}
-						{loaded && !sub.posts && (
+						{loaded && sub.posts && Object.keys(sub.posts).length === 0 && (
 							<div className="empty-post-main">
 								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
 									(empty) => {

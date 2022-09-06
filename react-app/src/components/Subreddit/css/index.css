@@ -167,7 +167,7 @@ h1 {
 }
 
 .sub-post-info-container {
-	padding: 5px;
+	/* padding: 5px; */
 	display: flex;
 	justify-content: flex-start;
 	width: 90%;
@@ -188,6 +188,7 @@ h1 {
 	min-height: 72px;
 	min-width: 32px;
 	display: flex;
+
 	justify-content: flex-start;
 	padding-top: 10px;
 	box-sizing: border-box;
@@ -210,7 +211,14 @@ h1 {
 
 .image-box-subreddit {
 	max-width: 100%;
+	/* width: 100%; */
 	max-height: 254px;
+}
+
+.sub-image-link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .sub-text-box {
@@ -261,7 +269,9 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	width: 100%;
+	width: 640px;
+	/* min-width: 100%; */
+	min-width: 640px;
 	max-width: 640px;
 	position: relative;
 }
