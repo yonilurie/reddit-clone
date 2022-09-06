@@ -17,7 +17,7 @@ function SubredditRules({ sub }) {
 					comments, and users. Communities can have a maximum of 15
 					rules.
 				</h3>
-				{rules && (
+				{sub.rules && rules && (
 					<div className="edit-subreddit-rules-map">
 						{rules.map((rule, index) => {
 							console.log(rule);
@@ -33,7 +33,7 @@ function SubredditRules({ sub }) {
 						})}
 					</div>
 				)}
-				{!rules && (
+				{!sub.rules && (
 					<div className="no-rules-placeholder">
 						<div className="no-rules-placeholder-content-container">
 							<i className="fa-solid fa-scroll rules"></i>
