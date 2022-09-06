@@ -30,6 +30,10 @@ const LoginForm = ({ action, setShowModal }) => {
 		setPassword(e.target.value);
 	};
 
+	useEffect(() => {
+		setErrors([]);
+	}, [email, password, username]);
+
 	return (
 		<div className="login-form-container">
 			<div className="exit-container">
@@ -75,7 +79,7 @@ const LoginForm = ({ action, setShowModal }) => {
 						onChange={(e) => setUsername(e.target.value)}
 						required={true}
 						maxLength="64"
-						minLength='1'
+						minLength="1"
 					/>
 					<label htmlFor="email" className={`input-label `}>
 						Username

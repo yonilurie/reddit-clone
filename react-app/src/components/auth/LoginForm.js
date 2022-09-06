@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
@@ -20,7 +20,10 @@ const LoginForm = ({ action, setShowModal }) => {
 			setShowModal(false);
 		}
 	};
-
+	useEffect(() => {
+		setErrors([])
+	}, [email, password])
+		
 	const updateEmail = (e) => {
 		setEmail(e.target.value);
 	};
