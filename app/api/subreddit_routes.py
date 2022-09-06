@@ -215,4 +215,4 @@ def edit_rules(id):
         db.session.commit()
         return sub.to_dict()
     else: 
-        jsonify(form.errors)
+       return  jsonify(form.errors)

@@ -1,13 +1,25 @@
 import { useState } from "react";
 import RuleContainer from "./RuleContainer";
+import RuleModal from "./RuleModal";
 function SubredditRules({ sub }) {
 	const rules = sub.rules.split("%");
 	console.log(rules);
-	const [editedRules, setEditedRules] = useState(rules)
+	const [showRuleModal, setShowRuleModal] = useState(false);
+	const [editedRules, setEditedRules] = useState(rules);
 	return (
 		<div>
+			<RuleModal
+				showRuleModal={showRuleModal}
+				setShowRuleModal={setShowRuleModal}
+				rules={sub.rules}
+			></RuleModal>
 			<div className="add-rule-container">
-				<button className="submit-post-button rules">Add Rule</button>
+				<button
+					className="submit-post-button rules"
+					onClick={() => setShowRuleModal(true)}
+				>
+					Add Rule
+				</button>
 			</div>
 			<div className="edit-subreddit-main-content rules">
 				<h2 className="edit-subreddit-header rules">Rules</h2>
@@ -28,6 +40,8 @@ function SubredditRules({ sub }) {
 									ruleDetail={ruleDetail}
 									index={index}
 									key={index}
+									rules={sub.rules}
+									subredditId={sub.id}
 								></RuleContainer>
 							);
 						})}

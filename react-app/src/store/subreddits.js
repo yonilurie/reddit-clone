@@ -9,6 +9,7 @@ const CREATE_POST = "/subreddits/CREATE_POST";
 const EDIT_POST = "/subredddits/EDIT_POST";
 const CREATE_SUB = "/subreddits/CREATE_SUB";
 
+
 const addSub = (sub) => ({
 	type: GET_SUB,
 	sub,
@@ -53,6 +54,8 @@ const createSub = (sub) => ({
 	type: CREATE_SUB,
 	sub,
 });
+
+
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditName}`, {
@@ -213,6 +216,7 @@ export const createASub = (formData) => async (dispatch) => {
 	}
 };
 
+
 const initialState = {};
 
 export default function subreddits(state = initialState, action) {
@@ -288,6 +292,8 @@ export default function subreddits(state = initialState, action) {
 			newState = { ...state };
 			newState[action.sub.name] = action.sub;
 			return newState;
+		
+	
 		default:
 			return state;
 	}

@@ -179,7 +179,6 @@
 	display: none;
 }
 
-
 .fa-gear {
 	display: flex;
 	justify-content: center;
@@ -187,4 +186,34 @@
 	padding: 0px;
 	margin: 0px;
 	margin-right: 10px;
+}
+
+.rule-modal-container {
+	width: 500px;
+	height: fit-content;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 10px;
+}
+
+.rule-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.rule-modal-input {
+	display: flex;
+	flex-direction: column;
+}
+
+#rule-input-rule,
+#rule-input-details {
+	border: none;
+	border: solid 1px lightgray;
+	border-radius: 4px;
+	outline: none;
+	padding: 5px;
 }

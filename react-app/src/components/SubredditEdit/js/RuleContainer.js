@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RuleModal from "./RuleModal";
-function RuleContainer({ ruleTitle, ruleDetail, index }) {
+function RuleContainer({ ruleTitle, ruleDetail, index, rules, subredditId }) {
 	const [showRuleDetail, setShowRuleDetail] = useState(false);
 	const [showRuleModal, setShowRuleModal] = useState(false);
 	return (
@@ -42,6 +42,10 @@ function RuleContainer({ ruleTitle, ruleDetail, index }) {
 			<RuleModal
 				showRuleModal={showRuleModal}
 				setShowRuleModal={setShowRuleModal}
+				ruleTitle={ruleTitle}
+				ruleDetail={ruleDetail}
+				rules={rules}
+				subredditId={subredditId}
 			></RuleModal>
 		</div>
 	);

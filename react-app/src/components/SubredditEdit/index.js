@@ -1,11 +1,14 @@
 import "./index.css";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch} from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import SubredditEditPlaceholder from "./js/Placeholder";
 import SubredditRules from "./js/Rules";
 import RuleModal from "./js/RuleModal";
+import { useEffect } from "react";
+
 
 function SubredditEdit() {
+	const dispatch = useDispatch()
 	const { subreddit, section } = useParams();
 	const sub = useSelector(
 		(state) => state.session.user.subreddits[subreddit]
