@@ -13,5 +13,5 @@ def subreddit_exists(form, field):
         raise ValidationError(f'r/{subreddit_name} is already taken, please choose another name')
 
 class SubredditForm(FlaskForm):
-    subreddit_name = StringField('subreddit_name', validators=[DataRequired(), subreddit_exists, Length(min=1, max=2)])
+    subreddit_name = StringField('subreddit_name', validators=[DataRequired(), subreddit_exists, Length(min=1, max=21)])
     owner_id = IntegerField("owner_id", validators=[DataRequired(message='Ownerid is required')])

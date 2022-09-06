@@ -21,6 +21,7 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 		formData.append("subreddit_name", newSubredditName);
 		formData.append("owner_id", currentUser.id);
 		dispatch(createASub(formData)).then((data) => {
+			console.log(data)
 			if (data.errors) return setErrors(data.errors);
 			setNewSubredditName("");
 			setShowSubModal(false);
@@ -30,7 +31,12 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 	return (
 		<div>
 			{showSubModal && (
-				<Modal onClose={() => setShowSubModal(false)}>
+				<Modal
+					onClose={() => {
+						setNewSubredditName("");
+						setShowSubModal(false);
+					}}
+				>
 					<form
 						className="create-subreddit-modal"
 						onSubmit={onSubmit}
@@ -38,7 +44,10 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 						<div className="modal-title-subreddit">
 							<div>Create a community</div>
 							<div
-								onClick={() => setShowSubModal(false)}
+								onClick={() => {
+									setNewSubredditName("");
+									setShowSubModal(false);
+								}}
 								className="exit"
 							>
 								X
@@ -88,7 +97,10 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 
 						<div className="button-container">
 							<div
-								onClick={() => setShowSubModal(false)}
+								onClick={() => {
+									setNewSubredditName("");
+									setShowSubModal(false);
+								}}
 								className="cancel-button"
 							>
 								Cancel
