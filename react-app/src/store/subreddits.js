@@ -230,7 +230,6 @@ export default function subreddits(state = initialState, action) {
 				action.posts.forEach((post) => {
 					posts[post.id] = post;
 				});
-
 				newState[subName].posts = posts;
 			}
 			return newState;

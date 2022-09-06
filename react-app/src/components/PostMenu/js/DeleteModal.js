@@ -42,7 +42,7 @@ function DeletePostModal({ showModal, setShowModal, post }) {
 												post.subreddit_name
 											)
 										);
-										dispatch(
+										await dispatch(
 											getSubInfo(post.subreddit_name)
 										);
 										dispatch(getPosts(post.subreddit_name));

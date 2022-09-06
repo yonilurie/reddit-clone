@@ -23,13 +23,16 @@ const Subreddit = () => {
 
 	useEffect(() => {
 		if (!subreddits[subreddit]) {
-			const subInfo = async () => await dispatch(getSubInfo(subreddit));
-			subInfo();
-			dispatch(getPosts(subreddit));
-			setLoaded(false);
+			dispatch(getSubInfo(subreddit));
 		}
+		if (subreddits[subreddit]) {
+			dispatch(getPosts(subreddit));
+				setLoaded(false);
+		}
+	
 		setSub(subreddits[subreddit]);
 	}, [dispatch, subreddits, subreddit]);
+
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
