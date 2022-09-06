@@ -272,8 +272,11 @@ export default function subreddits(state = initialState, action) {
 			return newState;
 		case EDIT_POST:
 			newState = { ...state };
-			newState[action.post.user.username].posts[action.post.id] =
-				action.post;
+			console.log(newState);
+			if (newState[action.post.user.username]) {
+				newState[action.post.user.username].posts[action.post.id] =
+					action.post;
+			}
 			newState[action.post.subreddit_name].posts[action.post.id] =
 				action.post;
 			return newState;

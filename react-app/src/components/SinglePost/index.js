@@ -32,7 +32,7 @@ function SinglePostPage() {
 		if (currentUser) {
 			dispatch(authenticate());
 		}
-	}, [postId]);
+	}, [postId, dispatch]);
 
 	useEffect(() => {
 		if (!subreddits[subreddit]) {
@@ -41,7 +41,7 @@ function SinglePostPage() {
 			subInfo();
 			postInfo();
 		}
-	}, [dispatch, subreddits, subreddit]);
+	}, [dispatch, subreddits, subreddit, edit]);
 
 	useEffect(() => {
 		let editPost = false;
