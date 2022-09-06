@@ -113,10 +113,15 @@ export default function reducer(state = initialState, action) {
 			votesArr.forEach((vote) => {
 				votes[vote.post_id] = vote;
 			});
+			const subredditsArr = action.payload.subreddits;
+			const subreddits = {};
+			subredditsArr.forEach((sub) => {
+				subreddits[sub.name] = sub;
+			});
 			newState = { user: action.payload };
 
 			newState.user.votes = votes;
-
+			newState.user.subreddits = subreddits;
 			return newState;
 		case REMOVE_USER:
 			return { user: null };

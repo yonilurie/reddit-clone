@@ -15,3 +15,7 @@ def subreddit_exists(form, field):
 class SubredditForm(FlaskForm):
     subreddit_name = StringField('subreddit_name', validators=[DataRequired(), subreddit_exists, Length(min=1, max=21)])
     owner_id = IntegerField("owner_id", validators=[DataRequired(message='Ownerid is required')])
+
+
+class SubredditRulesForm(FlaskForm):
+    rules = StringField('rules', validators=[DataRequired()])

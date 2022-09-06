@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from app.models import SubReddit, Post, db
 from app.forms.post_form import PostForm, PostFormEdit
 from app.forms.delete_form import DeleteForm
-from app.forms.subreddit_form import SubredditForm
+from app.forms.subreddit_form import SubredditForm, SubredditRulesForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_object)
 import random
@@ -204,6 +204,15 @@ def create_post_image(id):
         return jsonify(form.errors)
 
 
-# @subreddit_routes.route('/<int:id>/post', methods=['PUT'])
-# @login_required
-# def edit_post(id):
+@subreddit_routes.route('/<int:id>/rules', methods=['PUT'])
+@login_required
+def edit_rules(id): 
+    form = SubredditRulesForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        sub = SubReddit.query.get(id)
+        sub.rules = form.data['rules']
+        db.session.commit()
+        return sub.to_dict()
+    else: 
+        jsonify(form.errors)

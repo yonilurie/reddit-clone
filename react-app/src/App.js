@@ -8,6 +8,7 @@ import Profile from "./components/Profile/index";
 import Subreddit from "./components/Subreddit";
 import HomePage from "./components/HomePage";
 import SinglePostPage from "./components/SinglePost";
+import SubredditEdit from "./components/SubredditEdit";
 import { authenticate } from "./store/session";
 
 import SubredditLoading from "./components/Subreddit/SubredditLoading";
@@ -42,6 +43,9 @@ function App() {
 				<Route path="/r/:subreddit" exact={true}>
 					<Subreddit></Subreddit>
 				</Route>
+				<ProtectedRoute path="/r/:subreddit/:section" exact={true}>
+					<SubredditEdit></SubredditEdit>
+				</ProtectedRoute>
 				<Route path="/r/:subreddit/:postId/:postTitle" exact={true}>
 					<SinglePostPage></SinglePostPage>
 				</Route>
