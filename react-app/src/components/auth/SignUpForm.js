@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { login } from "../../store/session";
+import { signUp } from "../../store/session";
 import "./index.css";
 
-const LoginForm = ({ action , setShowModal}) => {
+const LoginForm = ({ action, setShowModal }) => {
 	const [errors, setErrors] = useState([]);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("");
 
 	const dispatch = useDispatch();
 
 	const onLogin = async (e) => {
 		e.preventDefault();
-		const data = await dispatch(login(email, password));
+		const data = await dispatch(signUp(email, password));
 		if (data) {
 			setErrors(data);
-    } else {
-      setShowModal(false)
-    }
-  
+		} else {
+			setShowModal(false);
+		}
 	};
 
 	const updateEmail = (e) => {
@@ -32,7 +32,13 @@ const LoginForm = ({ action , setShowModal}) => {
 
 	return (
 		<div className="login-form-container">
-			<div onClick={() => setShowModal(false)}>XXXX</div>
+			<div className="exit-container">
+				{" "}
+				<div onClick={() => setShowModal(false)} className="exit">
+					X
+				</div>
+			</div>
+
 			<div className="modal-title">
 				<div className="modal-title-text">
 					<h2>{action}</h2>
@@ -55,6 +61,21 @@ const LoginForm = ({ action , setShowModal}) => {
 						onChange={updateEmail}
 						required={true}
 						maxLength={"255"}
+					/>
+					<label htmlFor="email" className={`input-label `}>
+						Email
+					</label>
+				</div>
+				<div className="input-container">
+					<input
+						name="username"
+						type="text"
+						className="signup-login-input"
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+						required={true}
+						maxLength="64"
+						minLength='1'
 					/>
 					<label htmlFor="email" className={`input-label `}>
 						Username

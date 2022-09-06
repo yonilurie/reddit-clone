@@ -7,6 +7,7 @@ const ADD_USER = "/subreddits/GET_USER";
 const DELETE_POST = "/subreddits/DELETE_POST";
 const CREATE_POST = "/subreddits/CREATE_POST";
 const EDIT_POST = "/subredddits/EDIT_POST";
+const CREATE_SUB = "/subreddits/CREATE_SUB";
 
 const addSub = (sub) => ({
 	type: GET_SUB,
@@ -45,6 +46,11 @@ const createPost = (post) => ({
 const editPost = (post) => ({
 	type: EDIT_POST,
 	post,
+});
+
+const createSub = (sub) => ({
+	type: CREATE_SUB,
+	sub,
 });
 
 const initialState = {};
@@ -141,7 +147,9 @@ export const postUserVote = (userVote, postId, currentUserId) => async (
 	}
 };
 
-export const deleteAPost = (postId, username) => async (dispatch) => {
+export const deleteAPost = (postId, username, subredditName) => async (
+	dispatch
+) => {
 	const response = await fetch(`/api/r/${postId}`, {
 		method: "DELETE",
 	});
@@ -151,6 +159,7 @@ export const deleteAPost = (postId, username) => async (dispatch) => {
 			deletePost({
 				username,
 				postId,
+				subredditName,
 			})
 		);
 	}
@@ -192,6 +201,19 @@ export const editAPost = (postId, formData) => async (dispatch) => {
 	}
 };
 
+export const createASub = (formData) => async (dispatch) => {
+	const response = await fetch(`/api/r/create`, {
+		method: "POST",
+		body: formData,
+	});
+	
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(createSub(data));
+		return data;
+	}
+};
+
 export default function subreddits(state = initialState, action) {
 	let newState = {};
 	switch (action.type) {
@@ -224,6 +246,9 @@ export default function subreddits(state = initialState, action) {
 		case DELETE_POST:
 			newState = { ...state };
 			delete newState[action.data.username].posts[action.data.postId];
+			// delete newState[action.data.subredditName].posts[
+			// 	action.data.postId
+			// ];
 			return newState;
 		case ADD_USER:
 			newState = { ...state };
@@ -253,6 +278,11 @@ export default function subreddits(state = initialState, action) {
 				action.post;
 			newState[action.post.subreddit_name].posts[action.post.id] =
 				action.post;
+			return newState;
+
+		case CREATE_SUB:
+			newState = { ...state };
+			newState[action.sub.name] = action.sub;
 			return newState;
 		default:
 			return state;

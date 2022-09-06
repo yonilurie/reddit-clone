@@ -33,11 +33,12 @@
 	cursor: pointer;
 	position: relative;
 	box-sizing: border-box;
+	border: solid 1px white;
 }
 
 .profile-toggle:hover,
 .active {
-	/* border: solid 1px rgb(242, 243, 245); */
+	border: solid 1px rgb(242, 243, 245);
 	box-sizing: border-box;
 }
 

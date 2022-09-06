@@ -77,7 +77,7 @@ const ProfileMenu = ({
 								className="profile-menu-el"
 								onClick={() => setShowSubModal(true)}
 							>
-								<div>Logo</div>
+								<i className="fa-brands fa-reddit-alien"></i>
 								<div>Create a community</div>
 							</div>
 						</>

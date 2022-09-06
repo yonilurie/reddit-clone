@@ -22,11 +22,16 @@
 input[type="text"],
 input[type="password"] {
 	border: solid 1px white;
+	outline: none;
 	transition: border 0.25s;
 }
-
-input[type="text"]:focus,
-input[type="password"]:focus {
+input:invalid {
+	box-shadow: none;
+	outline: none;
+	border: none;
+}
+input[type="text"]:focus.signup-login-input,
+input[type="password"]:focus.signup-login-input {
 	outline: none;
 	border: solid 1px red;
 	box-sizing: border-box;
@@ -108,7 +113,15 @@ input[type="password"]:hover {
 	justify-content: flex-start;
 	align-items: flex-start;
 	width: 65%;
+
 }
 .modal-title-text {
 	width: fit-content;
+}
+
+
+.exit-container {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
 }

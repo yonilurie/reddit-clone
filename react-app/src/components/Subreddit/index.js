@@ -40,7 +40,7 @@ const Subreddit = () => {
 							{sub &&
 								sub.posts &&
 								Object.values(sub.posts).length > 0 &&
-								Object.values(sub.posts).map((post) => (
+								Object.values(sub.posts).reverse().map((post) => (
 									<SubredditPostCard
 										post={post}
 										key={post.id}

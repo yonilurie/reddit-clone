@@ -1,28 +1,37 @@
 .create-subreddit-modal {
 	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .subreddit-input-container {
-	width: 100%;
+	width: 95%;
 	padding: 10px;
 	position: relative;
 	display: flex;
+
+	border-radius: 4px;
 }
 .subreddit-input-name {
-	width: 90%;
-	outline: none;
-	/* border: none; */
-	border: solid 1px black;
+	width: 100%;
+	background-color: rgb(246, 247, 248);
+	border-radius: 4px;
 	padding: 15px;
 	padding-left: 17px;
 	border-radius: 4px;
+	box-sizing: border-box;
+}
+.subreddit-input-name:focus,
+.subreddit-input-name:hover {
+	width: 100%;
 }
 
 .subreddit-input-name-label {
 	position: absolute;
 	top: 23px;
 	left: 15px;
-	color: red;
+	color: rgb(116, 112, 112);
 }
 
 .limit {
@@ -48,4 +57,22 @@
 	align-items: center;
 	font-weight: 700;
 	font-size: 14px;
+}
+
+.modal-title-subreddit {
+	display: flex;
+	justify-content: space-between;
+}
+
+.exit {
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.exit:hover {
+	background-color: rgb(246, 247, 248);
+	border-radius: 4px;
 }

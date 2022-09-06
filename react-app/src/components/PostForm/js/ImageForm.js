@@ -5,7 +5,7 @@ function ImageForm({ image, setImage }) {
 	};
 	return (
         <div className="image-form-container">
-            <label for='file' className='file-input'>Upload</label>
+            <label htmlFor='file' className='file-input'>Upload</label>
             <input id='file' type="file" accept="image/png, image/jpg, image/jpeg, image/gif" onChange={updateImage} ></input>
 		</div>
 	);

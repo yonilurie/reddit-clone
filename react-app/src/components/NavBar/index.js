@@ -66,7 +66,7 @@ function NavBar() {
 						to={`/user/${user.username}/submit`}
 						className="submit-post-link"
 					>
-						<i class="fa-thin fa-plus"></i>
+						<i className="fa-thin fa-plus"></i>
 					</Link>
 				)}
 				<div
@@ -87,9 +87,9 @@ function NavBar() {
 									<div className="profile-menu-username">
 										{user.username}
 									</div>
-									<div className="profile-menu-karma">
+									{/* <div className="profile-menu-karma">
 										{user.karma} karma
-									</div>
+									</div> */}
 								</div>
 							</div>
 							<i className="fa-solid fa-angle-down"></i>

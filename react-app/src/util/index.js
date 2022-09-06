@@ -15,7 +15,6 @@ export const getTimeElapsed = (createdAt) => {
 
 export const getPercentUpvoted = (votes) => {
 	const { upvote_count, downvote_count } = votes;
-	console.log(votes);
 	if (downvote_count === 0 && upvote_count > 0) {
 		return "100% Upvoted";
 	}
@@ -46,5 +45,4 @@ export const postVote = async (vote, postId, currentUserId) => {
 		body: formData,
 	});
 	const res = await data.json();
-	console.log(res);
 };

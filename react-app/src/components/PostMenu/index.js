@@ -22,7 +22,7 @@ function PostMenu({ post }) {
 						setShowMenu((showMenu) => !showMenu);
 					}}
 				>
-					<i class="fa-solid fa-ellipsis"></i>
+					<i className="fa-solid fa-ellipsis"></i>
 				</div>
 				{showMenu && (
 					<div className="post-menu">

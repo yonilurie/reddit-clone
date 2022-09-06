@@ -108,15 +108,15 @@ const SubredditPostCard = ({ post }) => {
 						<i className="fa-regular fa-message"></i>
 						<div>{post.comment_count}</div>
 					</div>
-
+{/* 
 					<div className="share">
 						<i className="fa-solid fa-share"></i>
 						<div>share</div>
-					</div>
-					{currentUser &&
+					</div> */}
+					{/* {currentUser &&
 						currentUser.username === post.user.username && (
 							<div className="edit">...</div>
-						)}
+						)} */}
 				</div>
 			</div>
 		</div>

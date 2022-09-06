@@ -100,8 +100,6 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
-
-
 export const changeUserVote = (postId) => async (dispatch) => {
 	dispatch(changeVote(postId));
 };
@@ -116,7 +114,9 @@ export default function reducer(state = initialState, action) {
 				votes[vote.post_id] = vote;
 			});
 			newState = { user: action.payload };
+
 			newState.user.votes = votes;
+
 			return newState;
 		case REMOVE_USER:
 			return { user: null };

@@ -31,7 +31,13 @@ const LoginForm = ({ action, setShowModal }) => {
 
 	return (
 		<div className="login-form-container">
-			<div onClick={() => setShowModal(false)}>Xssss</div>
+			<div className="exit-container">
+				{" "}
+				<div onClick={() => setShowModal(false)} className="exit">
+					X
+				</div>
+			</div>
+
 			<div className="modal-title">
 				<div className="modal-title-text">
 					<h2>{action}</h2>
@@ -55,8 +61,13 @@ const LoginForm = ({ action, setShowModal }) => {
 						required={true}
 						maxLength={"255"}
 					/>
-					<label htmlFor="email" className={`input-label `}>
-						Username
+					<label
+						htmlFor="email"
+						className={`input-label ${
+							email.length > 0 ? "move-up-label" : ""
+						}`}
+					>
+						Email
 					</label>
 				</div>
 				<div className="input-container">
