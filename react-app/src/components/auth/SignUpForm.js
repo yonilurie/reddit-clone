@@ -8,6 +8,7 @@ const LoginForm = ({ action, setShowModal }) => {
 	const [errors, setErrors] = useState([]);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 	const [username, setUsername] = useState("");
 
 	useEffect(() => {
@@ -20,6 +21,9 @@ const LoginForm = ({ action, setShowModal }) => {
 
 	const updatePassword = (e) => {
 		setPassword(e.target.value);
+	};
+	const updateConfirmPassword = (e) => {
+		setConfirmPassword(e.target.value);
 	};
 
 	const onLogin = async (e) => {
@@ -98,6 +102,25 @@ const LoginForm = ({ action, setShowModal }) => {
 						}`}
 					>
 						Password
+					</label>
+				</div>
+				<div className="input-container">
+					<input
+						name="confirm-password"
+						type="password"
+						htmlFor="confirm-password"
+						className={`signup-login-input`}
+						value={confirmPassword}
+						onChange={updateConfirmPassword}
+						required={true}
+						minLength="6"
+					></input>
+					<label
+						className={`input-label ${
+							password.length > 0 ? "move-up-label" : ""
+						}`}
+					>
+						Confirm Password
 					</label>
 				</div>
 				<button className="signup-login-form-button">Log In</button>

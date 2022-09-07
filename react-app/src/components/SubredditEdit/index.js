@@ -1,19 +1,18 @@
 import "./index.css";
-import { useSelector , useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import SubredditEditPlaceholder from "./js/Placeholder";
 import SubredditRules from "./js/Rules";
+import DeleteSubreddit from './js/DeleteSubreddit'
 import RuleModal from "./js/RuleModal";
 import { useEffect } from "react";
 
-
 function SubredditEdit() {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 	const { subreddit, section } = useParams();
 	const sub = useSelector(
 		(state) => state.session.user.subreddits[subreddit]
 	);
-
 
 	return (
 		<>
@@ -45,13 +44,14 @@ function SubredditEdit() {
 					<div className="edit-subreddit-page-container-inner">
 						<div className="edit-subreddit-sidebar">
 							<div className="profile-menu-section-title">
+								<i className="fa-brands fa-reddit"></i>
 								<div>About</div>
 							</div>
 							<Link
 								to={`/r/${subreddit}/about`}
 								className="profile-menu-el user-links"
 							>
-								ABOUT
+								Mod Tools
 							</Link>
 							<div className="profile-menu-section-title">
 								<i className="fa-solid fa-scroll"></i>
@@ -73,9 +73,20 @@ function SubredditEdit() {
 							>
 								Community Settings
 							</Link>
+							<div className="profile-menu-section-title">
+								<i className="fa-solid fa-trash-can"></i>
+								<div>DELETE</div>
+							</div>
+							<Link
+								to={`/r/${subreddit}/delete`}
+								className="profile-menu-el user-links delete-sub"
+							>
+								Delete this Community
+							</Link>
 						</div>
 						{section === "about" && <SubredditEditPlaceholder />}
 						{section === "rules" && <SubredditRules sub={sub} />}
+						{section === "delete" && <DeleteSubreddit sub={sub} />}
 					</div>
 				</div>
 			)}

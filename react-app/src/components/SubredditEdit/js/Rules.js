@@ -7,7 +7,7 @@ function SubredditRules({ sub }) {
 	const [showRuleModal, setShowRuleModal] = useState(false);
 	const [editedRules, setEditedRules] = useState(rules);
 	return (
-		<div>
+		<div className="rules-main-container">
 			<RuleModal
 				showRuleModal={showRuleModal}
 				setShowRuleModal={setShowRuleModal}
@@ -34,7 +34,7 @@ function SubredditRules({ sub }) {
 				{sub.rules && rules && (
 					<div className="edit-subreddit-rules-map">
 						{rules.map((rule, index) => {
-							console.log(rule);
+							if (!rule) return 
 							const [ruleTitle, ruleDetail] = rule.split(":");
 							return (
 								<RuleContainer
@@ -44,6 +44,7 @@ function SubredditRules({ sub }) {
 									key={index}
 									rules={sub.rules}
 									subredditId={sub.id}
+									newRule={false}
 								></RuleContainer>
 							);
 						})}

@@ -6,7 +6,7 @@ function SubredditInfoRules({ sub }) {
 				<div className="subreddit-info-card-rules">
 					{sub.rules && rules.length > 0 ? (
 						rules.map((rule, idx) => {
-							console.log(rule);
+							if (!rule) return
 							const [ruleTitle, ruleDetail] = rule.split(":");
 							return (
 								<div key={idx + 1} className="rule">

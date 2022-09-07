@@ -54,7 +54,7 @@ const LoginForm = ({ action, setShowModal }) => {
 				<div className="input-container">
 					<input
 						name="email"
-						type="text"
+						type="email"
 						className="signup-login-input"
 						value={email}
 						onChange={updateEmail}

@@ -22,7 +22,7 @@ class SubReddit(db.Model):
 
     owner = db.relationship("User", back_populates="subreddits")
     members = db.relationship("Member", back_populates="subreddits", cascade="all, delete-orphan")
-    posts = db.relationship("Post", back_populates="subreddit")
+    posts = db.relationship("Post", back_populates="subreddit", cascade='all, delete-orphan')
     def to_dict(self):
         return {
             "id": self.id,

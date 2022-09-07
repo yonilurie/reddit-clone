@@ -18,4 +18,4 @@ class SubredditForm(FlaskForm):
 
 
 class SubredditRulesForm(FlaskForm):
-    rules = StringField('rules', validators=[DataRequired()])
+    rules = StringField('rules')

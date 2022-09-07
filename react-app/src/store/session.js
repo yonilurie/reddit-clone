@@ -3,6 +3,7 @@ const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const CHANGE_VOTE = "session/CHANGE_VOTE";
 const EDIT_RULES = "/subreddits/EDIT_RULES";
+const DELETE_SUB = "subreddits/DELETE_SUB";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -16,6 +17,16 @@ const removeUser = () => ({
 const changeVote = (postId) => ({
 	type: CHANGE_VOTE,
 	postId,
+});
+
+const editRules = (sub) => ({
+	type: EDIT_RULES,
+	sub,
+});
+
+const deleteSub = (subredditName) => ({
+	type: DELETE_SUB,
+	subredditName,
 });
 
 const initialState = { user: null };
@@ -35,10 +46,6 @@ export const authenticate = () => async (dispatch) => {
 		dispatch(setUser(data));
 	}
 };
-const editRules = (sub) => ({
-	type: EDIT_RULES,
-	sub,
-});
 
 export const login = (email, password) => async (dispatch) => {
 	const response = await fetch("/api/auth/login", {
@@ -120,6 +127,31 @@ export const editARule = (formData, subredditId) => async (dispatch) => {
 		dispatch(editRules(data));
 	}
 };
+export const deleteARule = (formData, subredditId) => async (dispatch) => {
+	const response = await fetch(`/api/r/${subredditId}/rules`, {
+		method: "PUT",
+		body: formData,
+	});
+	if (response.ok) {
+		const data = await response.json();
+		console.log(data);
+		dispatch(editRules(data));
+	}
+};
+
+export const deleteASubreddit = (subredditId, subredditName) => async (
+	dispatch
+) => {
+	const response = await fetch(`/api/r/${subredditId}/delete-subreddit`, {
+		method: "DELETE",
+	});
+	console.log('here')
+	if (response.ok) {
+		const data = await response.json();
+
+		dispatch(deleteSub(subredditName));
+	}
+};
 
 export default function reducer(state = initialState, action) {
 	let newState = {};
@@ -155,6 +187,10 @@ export default function reducer(state = initialState, action) {
 			console.log(action);
 			console.log(newState);
 			newState.user.subreddits[action.sub.name].rules = action.sub.rules;
+			return newState;
+		case DELETE_SUB:
+			newState = { ...state };
+			delete newState.user.subreddits[action.subredditName];
 			return newState;
 		default:
 			return state;

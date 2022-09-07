@@ -16,27 +16,32 @@ function RuleModal({
 	const dispatch = useDispatch();
 	const [title, setTitle] = useState(ruleTitle || "");
 	const [detail, setDetail] = useState(ruleDetail || "");
-	// useEffect(() => {
-	// 	if (ruleTitle) setTitle(ruleTitle);
-	// 	if (ruleDetail) setDetail(ruleDetail);
-	// }, []);
-	console.log(rules);
+
+	useEffect(() => {
+		if (!newRule && ruleTitle) setTitle(ruleTitle);
+		if (!newRule && ruleDetail) setDetail(ruleDetail);
+	}, []);
+
 	const onSubmit = () => {
+		if (!title) return;
 		const formData = new FormData();
 		let formattedRule = `${title}:${detail}`;
 		let subRules = rules;
 		let newRules = ruleTitle
-			? subRules.replace(`${ruleTitle}:${ruleDetail}`, formattedRule)
-			: (subRules += "%" + formattedRule);
+			? subRules.replace(`${ruleTitle}:${ruleDetail}%`, formattedRule)
+			: (subRules += formattedRule += "%");
 		formData.append("rules", newRules);
 		formData.append("subreddit_id", subredditId);
 
 		dispatch(editARule(formData, subredditId)).then((data) => {
 			dispatch(authenticate());
 		});
+		setTitle("");
+		setDetail("");
 		setShowRuleModal(false);
 	};
 
+	console.log(title);
 	return (
 		<div>
 			{showRuleModal && (
@@ -58,9 +63,14 @@ function RuleModal({
 								id="rule-input-rule"
 								value={title}
 								onChange={(e) => setTitle(e.target.value)}
+								maxLength="100"
 							></input>
 							<div className="characters-left">
-								100 characters remaining
+								{title.length === 99
+									? `1 character remaining`
+									: `${
+											100 - title.length
+									  } characters remaining`}
 							</div>
 						</div>
 						<div className="rule-modal-input detail">
@@ -69,9 +79,14 @@ function RuleModal({
 								id="rule-input-details"
 								value={detail}
 								onChange={(e) => setDetail(e.target.value)}
+								maxLength="100"
 							></input>
 							<div className="characters-left">
-								100 characters remaining
+								{detail.length === 99
+									? `1 character remaining`
+									: `${
+											100 - detail.length
+									  } characters remaining`}
 							</div>
 						</div>
 						<div className="button-container">
@@ -83,10 +98,12 @@ function RuleModal({
 							</div>
 
 							<div
-								className="submit-post-button rules"
+								className={`submit-post-button rules ${
+									!title ? "disabled" : ""
+								}`}
 								onClick={onSubmit}
 							>
-								{ruleTitle ? "Update Rule" : "Add Rule"}
+								{ruleTitle ? "Add Rule" : "Update Rule"}
 							</div>
 						</div>
 					</div>

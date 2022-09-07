@@ -216,3 +216,21 @@ def edit_rules(id):
         return sub.to_dict()
     else: 
        return  jsonify(form.errors)
+
+
+
+@subreddit_routes.route('/<int:id>/delete-subreddit', methods=['DELETE'])
+@login_required
+def delete_subreddit(id):
+    form = DeleteForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        sub = SubReddit.query.get(id)
+        db.session.delete(sub)
+        db.session.commit()
+        return jsonify({
+            "message": 'succesfully deleted'
+        })
+        
+    else:
+        return jsonify(form.errors)
