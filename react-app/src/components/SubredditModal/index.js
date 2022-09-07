@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import { createASub } from "../../store/subreddits";
+import {authenticate} from '../../store/session'
 import "./index.css";
 function SubredditModal({ showSubModal, setShowSubModal }) {
 	const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 		dispatch(createASub(formData)).then((data) => {
 			console.log(data)
 			if (data.errors) return setErrors(data.errors);
+			dispatch(authenticate())
 			setNewSubredditName("");
 			setShowSubModal(false);
 			return history.push(`/r/${data.name}`);

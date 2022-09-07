@@ -80,7 +80,9 @@ function User() {
 						</div>
 						<div>
 							<UserInfoCard user={user}></UserInfoCard>
-							<UserModCard user={user}></UserModCard>
+							{Object.values(user.subreddits).length > 0 && (
+								<UserModCard user={user}></UserModCard>
+							)}
 						</div>
 					</div>
 				</>

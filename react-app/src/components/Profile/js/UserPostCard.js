@@ -65,7 +65,7 @@ function UserPostCard({ postId, post }) {
 							>
 								<img
 									src={post.image}
-									alt='post'
+									alt="post"
 									className="image-box"
 								></img>
 							</a>
@@ -94,6 +94,19 @@ function UserPostCard({ postId, post }) {
 								</div>
 							</a>
 						)}
+
+						{!post.link && !post.text && !post.image && (
+							<a
+								href={`/r/${post.subreddit_name}/${post.id}/${post.title}`}
+								target="_blank"
+								rel="noreferrer"
+							>
+								<div className="image-box">
+									<i className="fa-solid fa-align-justify"></i>
+								</div>
+							</a>
+						)}
+
 						<div className="profile-post-text">
 							<Link
 								to={`/r/${post.subreddit_name}/${post.id}/${post.title}`}
@@ -126,15 +139,15 @@ function UserPostCard({ postId, post }) {
 							</div>
 							{/* {user && user.username === post.user.username && ( */}
 							<div className="profile-post-bottom-bar">
-								<div className="single-post-comments-count">
+								{/* <div className="single-post-comments-count">
 									<i className="fa-regular fa-message"></i>
 									<div>{post.comment_count}</div>
-								</div>
+								</div> */}
 
-								<div className="share">
+								{/* <div className="share">
 									<i className="fa-solid fa-share"></i>
 									<div>share</div>
-								</div>
+								</div> */}
 								{user &&
 									user.username === post.user.username && (
 										<PostMenu post={post}></PostMenu>

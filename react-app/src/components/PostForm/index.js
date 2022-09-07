@@ -41,16 +41,17 @@ function PostForm() {
 		const res = subreddits();
 		res.then((data) => {
 			setSubredditsList(data);
-			setSubredditId(data[0].id);
 		});
 		let postSubId;
 		try {
+			console.log(location.state);
 			if (location.state.postSubId) {
 				postSubId = location.state.postSubId;
-				location.state = {};
+				history.replace();
 			}
 		} catch (e) {}
 		if (postSubId) {
+			console.log("here");
 			setSubredditId(postSubId);
 		}
 	}, [username, location]);
@@ -112,7 +113,7 @@ function PostForm() {
 					name="subreddits"
 					className="choose-subreddit"
 					value={subredditId}
-					onChange={(e) => setSubredditInfo(e.target)}
+					onChange={setSubredditInfo}
 				>
 					{subredditsList.length > 0 &&
 						subredditsList.map((s) => {
