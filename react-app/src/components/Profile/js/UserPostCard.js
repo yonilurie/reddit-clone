@@ -10,7 +10,7 @@ import LoginFormModal from "../../auth/LoginFormModal";
 function UserPostCard({ postId, post }) {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.session.user);
-	const subreddits = useSelector(state => state.subreddits)
+	const subreddits = useSelector((state) => state.subreddits);
 	const [showModal, setShowModal] = useState(false);
 	return (
 		<div className="user-post-container">
@@ -27,11 +27,8 @@ function UserPostCard({ postId, post }) {
 							if (!user) return setShowModal(true);
 							await dispatch(
 								postUserVote("true", post.id, user.id)
-							
 							);
-								if (subreddits[post.subreddit_name]) {
-									dispatch(updateSubState())
-								}
+
 							dispatch(authenticate());
 						}}
 					>
