@@ -67,7 +67,7 @@ function RuleModal({
 						</div>
 						<div>
 							Rule and Rule detail may only contain alphanumeric
-							values
+							values, commas, and periods.
 						</div>
 						<div className="rule-modal-input rule">
 							<label htmlFor="rule-input-rule">Rule</label>
@@ -78,7 +78,7 @@ function RuleModal({
 									removeWhiteSpace(e.target.value, setTitle)
 								}
 								maxLength="100"
-								pattern="[A-Za-z0-9\s]+"
+								pattern="[A-Za-z0-9\s\d.\d,]+"
 							></input>
 							<div
 								className={`characters-left ${
@@ -103,7 +103,7 @@ function RuleModal({
 									removeWhiteSpace(e.target.value, setDetail)
 								}
 								maxLength="100"
-								pattern="[A-Za-z0-9\s]+"
+								pattern="[A-Za-z0-9\s\d.\d,]+"
 							></input>
 							<div
 								className={`characters-left ${
