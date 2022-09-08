@@ -41,14 +41,18 @@ function RuleModal({
 		setShowRuleModal(false);
 	};
 
-	console.log(title);
+	const removeWhiteSpace = (input, setterCb) => {
+		const str = input.split("  ").join(" ");
+		setterCb(str);
+	};
 	return (
 		<div>
 			{showRuleModal && (
 				<Modal onClose={() => setShowRuleModal(false)}>
-					<div className="rule-modal-container">
+					<form className="rule-modal-container" onSubmit={onSubmit}>
 						<div className="rule-modal-header">
 							<h3 className="rule-modal-title">Rule</h3>
+
 							<div
 								className="exit"
 								onClick={() => setShowRuleModal(false)}
@@ -56,16 +60,26 @@ function RuleModal({
 								X
 							</div>
 						</div>
-
+						<div>
+							Rule and Rule detail may only contain alphanumeric
+							values
+						</div>
 						<div className="rule-modal-input rule">
 							<label htmlFor="rule-input-rule">Rule</label>
 							<input
 								id="rule-input-rule"
 								value={title}
-								onChange={(e) => setTitle(e.target.value)}
+								onChange={(e) =>
+									removeWhiteSpace(e.target.value, setTitle)
+								}
 								maxLength="100"
+								pattern="[A-Za-z0-9]+"
 							></input>
-							<div className="characters-left">
+							<div
+								className={`characters-left ${
+									title.length === 100 ? "limit" : ""
+								}`}
+							>
 								{title.length === 99
 									? `1 character remaining`
 									: `${
@@ -74,14 +88,23 @@ function RuleModal({
 							</div>
 						</div>
 						<div className="rule-modal-input detail">
-							<label htmlFor="rule-input-detail">Rule</label>
+							<label htmlFor="rule-input-detail">
+								Rule detail
+							</label>
 							<input
 								id="rule-input-details"
 								value={detail}
-								onChange={(e) => setDetail(e.target.value)}
+								onChange={(e) =>
+									removeWhiteSpace(e.target.value, setDetail)
+								}
 								maxLength="100"
+								pattern="[A-Za-z0-9]+"
 							></input>
-							<div className="characters-left">
+							<div
+								className={`characters-left ${
+									detail.length === 100 ? "limit" : ""
+								}`}
+							>
 								{detail.length === 99
 									? `1 character remaining`
 									: `${
@@ -97,16 +120,16 @@ function RuleModal({
 								Cancel
 							</div>
 
-							<div
+							<button
 								className={`submit-post-button rules ${
 									!title ? "disabled" : ""
 								}`}
-								onClick={onSubmit}
+								// onClick={onSubmit}
 							>
 								{ruleTitle ? "Add Rule" : "Update Rule"}
-							</div>
+							</button>
 						</div>
-					</div>
+					</form>
 				</Modal>
 			)}
 		</div>

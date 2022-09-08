@@ -10,7 +10,7 @@ const SubredditInfoCard = ({ sub, title }) => {
 		<div className="subreddit-info-card">
 			<div className="subreddit-info-card-top">
 				<div>{title}</div>
-				{title === "About Community" && currentUser.id === sub.owner.owner_id && (
+				{title === "About Community" && currentUser && currentUser.id === sub.owner.owner_id && (
 					<div>
 						<Link
 							to={`/r/${sub.name}/about`}

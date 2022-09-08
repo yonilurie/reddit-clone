@@ -28,11 +28,22 @@ const LoginForm = ({ action, setShowModal }) => {
 
 	const onLogin = async (e) => {
 		e.preventDefault();
-		const data = await dispatch(signUp(email, password));
-		
-		if (data) setErrors(data);
-		else setShowModal(false);
+
+		if (password !== confirmPassword) {
+			return setErrors(["Password and current password must match"]);
+		}
+
+		const data = await dispatch(signUp(username, email, password));
+
+		if (data) {
+			setErrors(data);
+			console.log(data);
+		} else setShowModal(false);
 	};
+
+	useEffect(() => {
+		setErrors([]);
+	}, [email, username, password, confirmPassword]);
 
 	return (
 		<div className="login-form-container">
@@ -42,24 +53,23 @@ const LoginForm = ({ action, setShowModal }) => {
 					X
 				</div>
 			</div>
-
 			<div className="modal-title">
 				<div className="modal-title-text">
 					<h2>{action}</h2>
 				</div>
+			</div>{" "}
+			<div className="errors-container">
+				{errors.map((error, ind) => (
+					<div key={ind} className="error">
+						{error}
+					</div>
+				))}
 			</div>
 			<form onSubmit={onLogin} className="login-form">
-				<div className="errors-container">
-					{errors.map((error, ind) => (
-						<div key={ind} className="error">
-							{error}
-						</div>
-					))}
-				</div>
 				<div className="input-container">
 					<input
 						name="email"
-						type="text"
+						type="email"
 						className="signup-login-input"
 						value={email}
 						onChange={updateEmail}
@@ -78,8 +88,8 @@ const LoginForm = ({ action, setShowModal }) => {
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 						required={true}
+						minLength="4"
 						maxLength="64"
-						minLength="1"
 					/>
 					<label htmlFor="email" className={`input-label `}>
 						Username
@@ -95,6 +105,7 @@ const LoginForm = ({ action, setShowModal }) => {
 						onChange={updatePassword}
 						required={true}
 						minLength="6"
+						maxLength="64"
 					></input>
 					<label
 						className={`input-label ${
@@ -114,6 +125,7 @@ const LoginForm = ({ action, setShowModal }) => {
 						onChange={updateConfirmPassword}
 						required={true}
 						minLength="6"
+						maxLength="64"
 					></input>
 					<label
 						className={`input-label ${
@@ -123,7 +135,12 @@ const LoginForm = ({ action, setShowModal }) => {
 						Confirm Password
 					</label>
 				</div>
-				<button className="signup-login-form-button">Log In</button>
+				<button
+					className="signup-login-form-button"
+					// disabled={password !== confirmPassword}
+				>
+					{action}
+				</button>
 			</form>
 		</div>
 	);

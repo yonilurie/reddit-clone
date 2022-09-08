@@ -264,7 +264,7 @@
 	/* background-color: white; */
 	width: 100%;
 	height: 100%;
-	padding-left: 20px;
+	padding-left: 25px;
 	padding-top: 15px;
 }
 
@@ -340,4 +340,56 @@
 	color: red;
 	background-color: white;
 	cursor: pointer;
+}
+
+.community-settings-container-main {
+	width: 100%;
+	height: 100%;
+	padding-top: 15px;
+	padding-left: 25px;
+}
+
+.community-settings-container {
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	max-height: 800px;
+	max-width: 600px;
+	padding: 15px 20px;
+	border-radius: 4px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.community-settings-title {
+	margin: 0px;
+}
+
+.community-settings-subtitle {
+	width: 100%;
+	padding-bottom: 5px;
+	border-bottom: solid 1px rgb(237, 239, 241);
+}
+
+.community-settings-input-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+#sub-name,
+#sub-description {
+	padding: 10px;
+	height: 48px;
+	box-sizing: border-box;
+	border: solid 1px rgb(237, 239, 241);
+	border-radius: 4px;
+}
+
+.community-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 }

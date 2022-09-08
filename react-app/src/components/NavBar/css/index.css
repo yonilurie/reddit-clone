@@ -13,7 +13,7 @@
 
 .nav-logo {
 	height: 32px;
-	border: none;
+	/* border: none; */
 }
 
 .nav-login-signup-container {
@@ -36,8 +36,7 @@
 	border: solid 1px white;
 }
 
-.profile-toggle:hover,
-.active {
+.profile-toggle:hover {
 	border: solid 1px rgb(242, 243, 245);
 	box-sizing: border-box;
 }

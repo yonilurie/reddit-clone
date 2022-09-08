@@ -27,11 +27,9 @@
 
 .single-post-votes-container {
 	background-color: rgb(248, 249, 250);
-	width: 32px;
-	height: 100%;
-	
+	width: 40px;
 	min-height: 100%;
-	min-width: 32px;
+	min-width: 40px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -87,4 +85,13 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.sub-text-box.single {
+	height: fit-content;
+	max-height: 100%;
+}
+
+.sub-post-info.single {
+	height: fit-content;
 }

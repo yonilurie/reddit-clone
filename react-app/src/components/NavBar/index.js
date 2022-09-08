@@ -9,7 +9,7 @@ function NavBar() {
 	const dispatch = useDispatch();
 	const [showMenu, setShowMenu] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const [action, setAction] = useState("");
+	const [action, setAction] = useState("Log In");
 	const user = useSelector((state) => state.session.user);
 
 	return (

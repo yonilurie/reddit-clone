@@ -8,7 +8,9 @@ from app.models import SubReddit
 
 def subreddit_exists(form, field):
     subreddit_id = field.data
+    print(subreddit_id)
     subreddit = SubReddit.query.get(subreddit_id)
+    print(subreddit)
     if not subreddit:
         raise ValidationError('Subreddit not found')
 
@@ -26,4 +28,4 @@ class PostForm(FlaskForm):
     
 class PostFormEdit(FlaskForm):
     text = StringField("text", validators=[Length(min=0, max=10000, message='Text must be less than 10,000 characters')])
-    link = StringField("link" )
+    link = StringField('link', validators=[URL()])

@@ -5,7 +5,7 @@ function LoginFormModal({ showModal, setShowModal, action }) {
 	return (
 		<>
 			{showModal && action === "Log In" && (
-				<Modal>
+				<Modal onClose={() => setShowModal(false)}>
 					<LoginForm
 						action={action}
 						setShowModal={setShowModal}
@@ -13,7 +13,7 @@ function LoginFormModal({ showModal, setShowModal, action }) {
 				</Modal>
 			)}
 			{showModal && action === "Sign Up" && (
-				<Modal>
+				<Modal onClose={() => setShowModal(false)}>
 					<SignUpForm
 						action={action}
 						setShowModal={setShowModal}

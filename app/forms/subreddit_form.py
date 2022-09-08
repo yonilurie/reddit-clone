@@ -19,3 +19,7 @@ class SubredditForm(FlaskForm):
 
 class SubredditRulesForm(FlaskForm):
     rules = StringField('rules')
+
+class SubredditCommunityForm(FlaskForm):
+    display_name = StringField('display_name', validators=[Length(min=0, max=100)])
+    description = StringField('description', validators=[Length(min=0, max=500)])

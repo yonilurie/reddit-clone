@@ -3,7 +3,6 @@ import RuleContainer from "./RuleContainer";
 import RuleModal from "./RuleModal";
 function SubredditRules({ sub }) {
 	const rules = sub.rules.split("%");
-	console.log(rules);
 	const [showRuleModal, setShowRuleModal] = useState(false);
 	const [editedRules, setEditedRules] = useState(rules);
 	return (
@@ -27,9 +26,7 @@ function SubredditRules({ sub }) {
 				<h2 className="edit-subreddit-header rules">Rules</h2>
 				<h3 className="rules-header-details">
 					These are rules that visitors must follow to participate.
-					They can be used as reasons to report or ban posts,
-					comments, and users. Communities can have a maximum of 15
-					rules.
+					
 				</h3>
 				{sub.rules && rules && (
 					<div className="edit-subreddit-rules-map">

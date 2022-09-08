@@ -80,7 +80,7 @@
 
 .karma-cakeday-container {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 }
 
@@ -219,7 +219,7 @@
 
 .profile-post-title {
 	text-overflow: ellipsis;
-	max-width: 50%;
+	max-width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 }

@@ -16,7 +16,7 @@ function UserInfoCard({ user }) {
 						<img
 							src={user.profile_image}
 							className="user-profile-page-profile-image"
-							alt='profile'
+							alt="profile"
 						></img>
 					</div>
 					<h3 className="h3-username">
@@ -24,18 +24,18 @@ function UserInfoCard({ user }) {
 					</h3>
 					<div className="user-profile-username">
 						<div>u/{user.username}</div>
-						<Link to={`/user/${user.username}/settings`}>
+						{/* <Link to={`/user/${user.username}/settings`}>
 							<i className="fa-solid fa-gear"></i>
-						</Link>
+						</Link> */}
 					</div>
 
 					<div className="karma-cakeday-container">
-						<div className="karma-container">
+						{/* <div className="karma-container">
 							<div>Karma</div>
 							<div className="karma">
 								{user.karma > 0 ? user.karma : 0}
 							</div>
-						</div>
+						</div> */}
 						<div className="cakeday-container">
 							<div>Cake day</div>
 							<div className="cakeday">
@@ -51,12 +51,12 @@ function UserInfoCard({ user }) {
 						currentUser.id === user.id &&
 						location.pathname.split("/")[3] !== "submit" && (
 							<>
-								<div className="social-links">
+								{/* <div className="social-links">
 									<button className="add-social-links-button">
 										<i className="fa-solid fa-plus"></i>
 										<div> Add Social Link</div>
 									</button>
-								</div>
+								</div> */}
 								<Link
 									to={`/user/${user.username}/submit`}
 									className="new-post-button-container"

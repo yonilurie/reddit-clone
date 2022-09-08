@@ -1,6 +1,7 @@
 // constants
 const GET_SUB = "subreddits/GET_SUB";
 const GET_POSTS = "subreddits/GET_POSTS";
+const HOME_POSTS = "subreddits/HOME_POSTS";
 const POST_VOTE = "/subreddits/POST_VOTE";
 const USER_VOTE = "/subreddits/USER_VOTE";
 const ADD_USER = "/subreddits/GET_USER";
@@ -9,7 +10,6 @@ const CREATE_POST = "/subreddits/CREATE_POST";
 const EDIT_POST = "/subredddits/EDIT_POST";
 const CREATE_SUB = "/subreddits/CREATE_SUB";
 
-
 const addSub = (sub) => ({
 	type: GET_SUB,
 	sub,
@@ -17,6 +17,11 @@ const addSub = (sub) => ({
 
 const addPosts = (posts, subredditName) => ({
 	type: GET_POSTS,
+	posts,
+	subredditName,
+});
+const homePosts = (posts, subredditName) => ({
+	type: HOME_POSTS,
 	posts,
 	subredditName,
 });
@@ -54,8 +59,6 @@ const createSub = (sub) => ({
 	type: CREATE_SUB,
 	sub,
 });
-
-
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditName}`, {
@@ -102,6 +105,25 @@ export const getPosts = (subredditName) => async (dispatch) => {
 		const data = await response.json();
 		dispatch(addPosts(data, subredditName));
 		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+export const getHomePosts = () => async (dispatch) => {
+	const response = await fetch(`/api/r/home`, {
+		method: "GET",
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(homePosts(data, "all"));
+		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
@@ -216,7 +238,6 @@ export const createASub = (formData) => async (dispatch) => {
 	}
 };
 
-
 const initialState = {};
 
 export default function subreddits(state = initialState, action) {
@@ -235,7 +256,24 @@ export default function subreddits(state = initialState, action) {
 					posts[post.id] = post;
 				});
 			}
+			// newState[action.subredditName] = {};
 			newState[action.subredditName].posts = posts;
+			return newState;
+		case HOME_POSTS:
+			newState = { ...state };
+			const homePosts = {};
+			if (action.posts.length > 0) {
+				action.posts.forEach((post) => {
+					homePosts[post.id] = post;
+					if (!newState[post.subreddit_name]) {
+						newState[post.subreddit_name] = {};
+						newState[post.subreddit_name].posts = {};
+					}
+					newState[post.subreddit_name].posts[post.id] = post;
+				});
+			}
+			newState[action.subredditName] = {};
+			newState[action.subredditName].posts = homePosts;
 			return newState;
 		case ADD_USER:
 			newState = { ...state };
@@ -257,6 +295,9 @@ export default function subreddits(state = initialState, action) {
 			newState = { ...state };
 			newState[action.post.subreddit_name].posts[action.post.id] =
 				action.post;
+			if (newState["all"] && newState["all"].posts[action.post.id]) {
+				newState["all"].posts[action.post.id] = action.post;
+			}
 			return newState;
 		case USER_VOTE:
 			newState = { ...state };
@@ -268,9 +309,7 @@ export default function subreddits(state = initialState, action) {
 			if (newState[action.data.username]) {
 				delete newState[action.data.username].posts[action.data.postId];
 			}
-
 			return newState;
-
 		case CREATE_POST:
 			newState = { ...state };
 			newState[action.post.user.username].posts[action.post.id] =
@@ -279,7 +318,6 @@ export default function subreddits(state = initialState, action) {
 			return newState;
 		case EDIT_POST:
 			newState = { ...state };
-			console.log(newState);
 			if (newState[action.post.user.username]) {
 				newState[action.post.user.username].posts[action.post.id] =
 					action.post;
@@ -292,8 +330,7 @@ export default function subreddits(state = initialState, action) {
 			newState = { ...state };
 			newState[action.sub.name] = action.sub;
 			return newState;
-		
-	
+
 		default:
 			return state;
 	}

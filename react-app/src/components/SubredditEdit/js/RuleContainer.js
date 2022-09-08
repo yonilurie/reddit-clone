@@ -15,11 +15,8 @@ function RuleContainer({
 	const [showRuleModal, setShowRuleModal] = useState(false);
 
 	const deleteARule = () => {
-		console.log(rules);
-		console.log(`${ruleTitle}:${ruleDetail}`);
 		let newRules = rules.replace(`${ruleTitle}:${ruleDetail}%`, "");
 		const formData = new FormData();
-		console.log("new rules", newRules);
 		formData.append("subreddit_id", subredditId);
 		formData.append("rules", newRules);
 		dispatch(editARule(formData, subredditId)).then((data) => {

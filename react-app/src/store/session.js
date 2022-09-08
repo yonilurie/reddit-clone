@@ -3,6 +3,7 @@ const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const CHANGE_VOTE = "session/CHANGE_VOTE";
 const EDIT_RULES = "/subreddits/EDIT_RULES";
+const EDIT_COMMUNITY = "/subreddits/EDIT_COMMUNITY";
 const DELETE_SUB = "subreddits/DELETE_SUB";
 
 const setUser = (user) => ({
@@ -21,6 +22,11 @@ const changeVote = (postId) => ({
 
 const editRules = (sub) => ({
 	type: EDIT_RULES,
+	sub,
+});
+
+const editCommunity = (sub) => ({
+	type: EDIT_COMMUNITY,
 	sub,
 });
 
@@ -123,10 +129,24 @@ export const editARule = (formData, subredditId) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
 		dispatch(editRules(data));
 	}
 };
+
+export const editCommunitySettings = (formData, subredditId) => async (
+	dispatch
+) => {
+	const response = await fetch(`/api/r/${subredditId}/community`, {
+		method: "PUT",
+		body: formData,
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(editCommunity(data));
+	}
+};
+
 export const deleteARule = (formData, subredditId) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditId}/rules`, {
 		method: "PUT",
@@ -134,7 +154,6 @@ export const deleteARule = (formData, subredditId) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
 		dispatch(editRules(data));
 	}
 };
@@ -145,10 +164,9 @@ export const deleteASubreddit = (subredditId, subredditName) => async (
 	const response = await fetch(`/api/r/${subredditId}/delete-subreddit`, {
 		method: "DELETE",
 	});
-	console.log('here')
+	console.log("here");
 	if (response.ok) {
 		const data = await response.json();
-
 		dispatch(deleteSub(subredditName));
 	}
 };
@@ -171,6 +189,7 @@ export default function reducer(state = initialState, action) {
 
 			newState.user.votes = votes;
 			newState.user.subreddits = subreddits;
+
 			return newState;
 		case REMOVE_USER:
 			return { user: null };
@@ -184,9 +203,14 @@ export default function reducer(state = initialState, action) {
 
 		case EDIT_RULES:
 			newState = { ...state };
-			console.log(action);
-			console.log(newState);
 			newState.user.subreddits[action.sub.name].rules = action.sub.rules;
+			return newState;
+		case EDIT_COMMUNITY:
+			newState = { ...state };
+			newState.user.subreddits[action.sub.name].description =
+				action.sub.description;
+			newState.user.subreddits[action.sub.name].display_name =
+				action.sub.display_name;
 			return newState;
 		case DELETE_SUB:
 			newState = { ...state };

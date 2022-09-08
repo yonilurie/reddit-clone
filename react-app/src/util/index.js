@@ -4,7 +4,9 @@ export const getTimeElapsed = (createdAt) => {
 	let diff = today.getTime() - newDate.getTime();
 	let days = diff / (1000 * 3600 * 24);
 
-	if (days * 24 < 1) {
+	if (days * 24 * 60 < 1) {
+		return "Just now";
+	} else if (days * 24 < 1) {
 		return `${Math.floor(days * 24 * 60)} minutes ago`;
 	} else if (days < 1) {
 		return `${Math.floor(days * 24)} hours ago`;

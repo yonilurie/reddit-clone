@@ -20,7 +20,7 @@ function PostForm() {
 	const { username } = useParams();
 
 	const [subredditsList, setSubredditsList] = useState([]);
-	const [subredditId, setSubredditId] = useState(0);
+	const [subredditId, setSubredditId] = useState(1);
 	const [typeOfPost, setTypeOfPost] = useState("text");
 	const [title, setTitle] = useState("");
 	// const [tags, setTags] = useState("");
@@ -41,19 +41,19 @@ function PostForm() {
 		const res = subreddits();
 		res.then((data) => {
 			setSubredditsList(data);
+			
+			setSubredditId(data[0].id)
 		});
 		let postSubId;
 		try {
-			console.log(location.state);
 			if (location.state.postSubId) {
 				postSubId = location.state.postSubId;
-				history.replace();
+				// history.replace();
 			}
 		} catch (e) {}
 		if (postSubId) {
-			console.log("here");
 			setSubredditId(postSubId);
-		}
+		} 
 	}, [username, location]);
 
 	const resizeInput = (e) => {
@@ -63,7 +63,7 @@ function PostForm() {
 	};
 
 	const setSubredditInfo = (e) => {
-		setSubredditId(e.value);
+		setSubredditId(e.target.value);
 	};
 
 	const onSubmit = async (e) => {
@@ -168,6 +168,7 @@ function PostForm() {
 							value={title}
 							onChange={(e) => resizeInput(e)}
 							maxLength="300"
+							pattern="[A-Za-z0-9]+"
 						></textarea>
 					</div>
 					{typeOfPost === "text" && (
@@ -189,12 +190,12 @@ function PostForm() {
 
 					{/* <div>tags</div> */}
 					<div className="submit-post-container">
-						<button
+						<div
 							className="cancel-button"
 							onClick={() => history.push(`/user/${username}`)}
 						>
 							Cancel
-						</button>
+						</div>
 						<button
 							className={`submit-post-button ${
 								(typeOfPost === "text" && !title) ||

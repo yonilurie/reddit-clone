@@ -28,11 +28,11 @@ function UserModCard({ user }) {
 							</Link>
 						</div>
 
-						<div className="subreddit-link-right">
+						<Link to={`/r/s${subreddit.name}`} className="subreddit-link-right">
 							<button className="subreddit-link-join-button">
-								Join
+								Visit
 							</button>
-						</div>
+						</Link>
 					</div>
 				);
 			})}

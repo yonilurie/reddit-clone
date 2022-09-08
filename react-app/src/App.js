@@ -10,10 +10,8 @@ import HomePage from "./components/HomePage";
 import SinglePostPage from "./components/SinglePost";
 import SubredditEdit from "./components/SubredditEdit";
 import { authenticate } from "./store/session";
-
-import SubredditLoading from "./components/Subreddit/SubredditLoading";
-
 import SubmitPage from "./components/SubmitPage";
+import Error404 from "./components/ErrorPages/404";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -37,9 +35,6 @@ function App() {
 				<Route path="/" exact={true}>
 					<HomePage></HomePage>
 				</Route>
-				<Route path="/test">
-					<SubredditLoading></SubredditLoading>
-				</Route>
 				<Route path="/r/:subreddit" exact={true}>
 					<Subreddit></Subreddit>
 				</Route>
@@ -60,6 +55,9 @@ function App() {
 				</ProtectedRoute>
 				<Route path="/user/:username/:tab" exact={true}>
 					<Profile />
+				</Route>
+				<Route>
+					<Error404></Error404>
 				</Route>
 			</Switch>
 		</BrowserRouter>

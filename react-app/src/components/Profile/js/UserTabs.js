@@ -23,14 +23,14 @@ function UserTabs({ user }) {
 			>
 				POSTS
 			</Link>
-			<Link
+			{/* <Link
 				to={`/user/${user.username}/comments`}
 				className={`profile-tab-link ${
 					params.tab == "comments" ? "atpage" : ""
 				}`}
 			>
 				COMMENTS
-			</Link>
+			</Link> */}
 			{currentUser && currentUser.username === username && (
 				<Link
 					to={`/user/${user.username}/upvoted`}

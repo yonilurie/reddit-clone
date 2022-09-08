@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import SubredditEditPlaceholder from "./js/Placeholder";
 import SubredditRules from "./js/Rules";
 import DeleteSubreddit from './js/DeleteSubreddit'
+import CommunitySettings from "./js/CommunitySettings";
 import RuleModal from "./js/RuleModal";
 import { useEffect } from "react";
 
@@ -87,6 +88,7 @@ function SubredditEdit() {
 						{section === "about" && <SubredditEditPlaceholder />}
 						{section === "rules" && <SubredditRules sub={sub} />}
 						{section === "delete" && <DeleteSubreddit sub={sub} />}
+						{section === "community-settings" && <CommunitySettings sub={sub} />}
 					</div>
 				</div>
 			)}

@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from app.models import SubReddit, Post, db
 from app.forms.post_form import PostForm, PostFormEdit
 from app.forms.delete_form import DeleteForm
-from app.forms.subreddit_form import SubredditForm, SubredditRulesForm
+from app.forms.subreddit_form import SubredditForm, SubredditRulesForm, SubredditCommunityForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_object)
 import random
@@ -28,6 +28,25 @@ def all_subreddits():
     subs = SubReddit.query.all()
 
     return jsonify([sub.to_dict() for sub in subs])
+
+@subreddit_routes.route('/home')
+def home_page():
+    pass
+    subs = SubReddit.query.all()
+    list_of_subs = [sub.to_dict() for sub in subs]
+    random_five = random.sample(list_of_subs, k=5)
+    rand_posts = []
+    for subreddit in random_five:
+        posts = Post.query.filter(Post.subreddit_id == subreddit['id'])
+        [rand_posts.append(post.to_dict()) for post in posts]
+
+
+    home_posts = None
+    if len(rand_posts) > 20:
+        home_posts = random.sample(rand_posts, k=20)
+    else:
+        home_posts = random.sample(rand_posts, k=len(rand_posts))
+    return jsonify(home_posts)
 
 
 
@@ -104,7 +123,7 @@ def get_subreddit(name):
 @subreddit_routes.route('/<string:sub_name>/posts')
 def get_newest_subreddit_posts(sub_name, page=0):
     """
-    Returns a single subreddits newest 
+    Returns a single subreddits newest posts
     """
     sub = SubReddit.query.filter(SubReddit.name == sub_name).first() 
     if sub is None:
@@ -123,6 +142,7 @@ def create_post(id):
     Post to a subreddit
     '''
     form = PostForm()
+    print(form['subreddit_id'])
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -212,6 +232,24 @@ def edit_rules(id):
     if form.validate_on_submit():
         sub = SubReddit.query.get(id)
         sub.rules = form.data['rules']
+        db.session.commit()
+        return sub.to_dict()
+    else: 
+       return  jsonify(form.errors)
+
+@subreddit_routes.route('/<int:id>/community', methods=['PUT'])
+@login_required
+def edit_community_settings(id): 
+    form = SubredditCommunityForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        sub = SubReddit.query.get(id)
+        if not sub:
+            return jsonify({
+                "errors": 'Subreddit not found'
+            })
+        sub.description = form.data['description']
+        sub.display_name = form.data['display_name']
         db.session.commit()
         return sub.to_dict()
     else: 

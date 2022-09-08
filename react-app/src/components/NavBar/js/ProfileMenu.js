@@ -27,12 +27,15 @@ const ProfileMenu = ({
 		if (!showMenu) return;
 		const closeMenu = () => setShowMenu(false);
 		document.addEventListener("click", closeMenu);
+
 		return () => document.removeEventListener("click", closeMenu);
 	}, [showMenu, setShowMenu]);
 
 	const onLogout = async (e) => {
 		await dispatch(logout());
 	};
+
+
 	return (
 		<div className="profile-menu-container">
 			<LoginFormModal
@@ -60,12 +63,12 @@ const ProfileMenu = ({
 								Profile
 							</Link>
 
-							<Link
+							{/* <Link
 								to={`/settings`}
 								className="profile-menu-el user-links"
 							>
 								User Settings
-							</Link>
+							</Link> */}
 							<div
 								className="profile-menu-el"
 								onClick={() => setShowSubModal(true)}
@@ -86,13 +89,14 @@ const ProfileMenu = ({
 							<div>Logout</div>
 						</div>
 					) : (
-						<div className="auth-container-profile-menu profile-menu-el">
+						<div
+							className="auth-container-profile-menu profile-menu-el"
+							onClick={() => setShowModal(true)}
+						>
 							<div>
 								<i className="fa-regular fa-circle-user"></i>
 							</div>
-							<div onClick={() => setShowModal(true)}>
-								Sign up or log in{" "}
-							</div>
+							<div>Log in </div>
 						</div>
 					)}
 					<div className="no-copyright">

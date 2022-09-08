@@ -1,33 +1,33 @@
 from app.models import db, User
 
-
-# Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        username='acidicsister', email='marnie@aa.io', password='password')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username='elementarydepth', email='bobbie@aa.io', password='password')
     todd = User(
-        username='todd', email='todd@aa.io', password='password')
+        username='infiniteidea', email='todd@aa.io', password='password')
     bob = User(
-        username='bob', email='bob@aa.io', password='password')
+        username='aheadweakness', email='bob@aa.io', password='password')
     beth = User(
-        username='beth', email='beth@aa.io', password='password')
+        username='harmfulcampaign', email='beth@aa.io', password='password')
     buck = User(
-        username='buck', email='buck@aa.io', password='password')
+        username='mereborder', email='buck@aa.io', password='password')
     mandy = User(
-        username='mandy', email='mandy@aa.io', password='password')
+        username='overduebonus', email='mandy@aa.io', password='password')
     veronica = User(
-        username='veronica', email='veronica@aa.io', password='password')
-
+        username='pointedboss', email='veronica@aa.io', password='password')
     leo = User(
-        username='leo', email='leo@aa.io', password='password')
+        username='absentmagazine', email='leo@aa.io', password='password')
     jocelyn = User(
-        username='jocelyn', email='jocelyn@aa.io', password='password')
+        username='eighthistorianl', email='jocelyn@aa.io', password='password')
     chuck = User(
-        username='chuck', email='chuck@aa.io', password='password')
+        username='uttermostaside', email='chuck@aa.io', password='password')
+    sally = User(
+         username='stupidcriticism', email='sally@aa.io', password='password')
+
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -41,6 +41,7 @@ def seed_users():
     db.session.add(leo)
     db.session.add(jocelyn)
     db.session.add(chuck)
+    db.session.add(sally)
 
     db.session.commit()
 

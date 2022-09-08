@@ -6,6 +6,7 @@ import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
 import TextForm from "../PostForm/js/TextForm";
 import PostMenu from "../PostMenu";
+import LoginFormModal from "../auth/LoginFormModal";
 import { getTimeElapsed, getPercentUpvoted } from "../../util/index.js";
 import {
 	postVote,
@@ -21,7 +22,7 @@ function SinglePostPage() {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const { subreddit, postId } = useParams();
-
+	const [showModal, setShowModal] = useState(false);
 	const [edit, setEdit] = useState(false);
 	const [text, setText] = useState("");
 
@@ -35,7 +36,7 @@ function SinglePostPage() {
 	}, [postId, dispatch]);
 
 	useEffect(() => {
-		if (!subreddits[subreddit]) {
+		if (!subreddits[subreddit] || !subreddits[subreddit].id) {
 			dispatch(getSubInfo(subreddit));
 		}
 		if (subreddits[subreddit] && !subreddits[subreddit].posts) {
@@ -68,6 +69,7 @@ function SinglePostPage() {
 	return (
 		<>
 			{subreddits[subreddit] &&
+				subreddits[subreddit].id &&
 				subreddits[subreddit].posts &&
 				subreddits[subreddit].posts[postId] && (
 					<>
@@ -80,10 +82,16 @@ function SinglePostPage() {
 							<div className="single-post-container">
 								<div className="single-post">
 									<div className="single-post-votes-container">
+										<LoginFormModal
+											showModal={showModal}
+											setShowModal={setShowModal}
+											action={"Sign Up"}
+										></LoginFormModal>
 										<div
 											className="vote upvote"
 											onClick={async () => {
-												if (!currentUser) return;
+												if (!currentUser)
+													return setShowModal(true);
 												await dispatch(
 													postVote(
 														"true",
@@ -115,7 +123,8 @@ function SinglePostPage() {
 										<div
 											className="vote downvote"
 											onClick={async () => {
-												if (!currentUser) return;
+												if (!currentUser)
+													return setShowModal(true);
 												await dispatch(
 													postVote(
 														"false",
@@ -138,7 +147,7 @@ function SinglePostPage() {
 										</div>
 									</div>
 									<div className="single-post-details">
-										<div className="sub-post-info">
+										<div className="sub-post-info single">
 											<div className="sub-post-text">
 												<div className="profile-post-subreddit-time">
 													<div className="profile-post-subreddit">
@@ -226,7 +235,7 @@ function SinglePostPage() {
 														{subreddits[subreddit]
 															.posts[postId]
 															.text ? (
-															<div className="sub-text-box">
+															<div className="sub-text-box single">
 																{
 																	subreddits[
 																		subreddit
@@ -291,7 +300,7 @@ function SinglePostPage() {
 										</div>
 										<div className="single-post-bottom-bar">
 											<div className="single-post-bottom-bar-left">
-												<div className="single-post-comments-count">
+												{/* <div className="single-post-comments-count">
 													<i className="fa-regular fa-message"></i>
 													<div>
 														{
@@ -301,7 +310,7 @@ function SinglePostPage() {
 																.comment_count
 														}
 													</div>
-												</div>
+												</div> */}
 
 												{/* <div className="share">
 												<i className="fa-solid fa-share"></i>

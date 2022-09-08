@@ -1,21 +1,29 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { postUserVote } from "../../../store/subreddits";
 import { authenticate } from "../../../store/session.js";
 import PostMenu from "../../PostMenu/index.js";
+import { getTimeElapsed } from "../../../util/index.js";
+import LoginFormModal from "../../auth/LoginFormModal";
 
 function UserPostCard({ postId, post }) {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.session.user);
-
+	const [showModal, setShowModal] = useState(false);
 	return (
 		<div className="user-post-container">
 			<>
 				<div className="votes-container">
+					<LoginFormModal
+						showModal={showModal}
+						setShowModal={setShowModal}
+						action={"Sign Up"}
+					></LoginFormModal>
 					<div
 						className="vote upvote"
 						onClick={async () => {
-							if (!user) return;
+							if (!user) return setShowModal(true);
 							await dispatch(
 								postUserVote("true", post.id, user.id)
 							);
@@ -38,7 +46,7 @@ function UserPostCard({ postId, post }) {
 					<div
 						className="vote downvote"
 						onClick={async () => {
-							if (!user) return;
+							if (!user) return setShowModal(true);
 							await dispatch(
 								postUserVote("false", post.id, user.id)
 							);
@@ -131,8 +139,8 @@ function UserPostCard({ postId, post }) {
 										>
 											<span className="profile-post-username">
 												u/{post.user.username}
-											</span>
-											1 days ago
+											</span>{" "}
+											{getTimeElapsed(post.created_at)}{" "}
 										</Link>
 									</span>
 								</div>

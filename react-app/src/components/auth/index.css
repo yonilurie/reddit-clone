@@ -5,25 +5,23 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-    padding: 40px;
-    box-sizing: border-box;
-
+	padding: 40px;
+	box-sizing: border-box;
 }
 .signup-login-input {
-	border: 0px;
 	background-color: rgb(246, 247, 248);
 	padding: 22px 36px 10px 16px;
 	border-radius: 9999px;
 	min-width: 280px;
 	box-sizing: border-box;
-	height: 100%;
+	height: 46px;
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
 	border: solid 1px white;
 	outline: none;
-	transition: border 0.25s;
 }
 input:invalid {
 	box-shadow: none;
@@ -31,16 +29,10 @@ input:invalid {
 	border: none;
 }
 input[type="text"]:focus.signup-login-input,
-input[type="password"]:focus.signup-login-input {
-	outline: none;
-	border: solid 1px red;
+input[type="password"]:focus.signup-login-input,
+input[type="email"]:focus.signup-login-input {
+	outline: solid rgb(204, 85, 42) 1px;
 	box-sizing: border-box;
-}
-
-input[type="text"]:hover,
-input[type="password"]:hover {
-	top: 5px;
-	border: solid 1px rgb(116, 112, 112);
 }
 
 .login-form {
@@ -63,15 +55,15 @@ input[type="password"]:hover {
 }
 
 .input-label:hover {
-	font-size: 12px;
-	color: rgb(115, 117, 119);
-	font-weight: 400;
+	/* font-size: 12px; */
+	color: rgb(217, 58, 0);
+	/* font-weight: 400; */
 }
 
 .move-up-label {
-	top: 5px;
-	font-size: 12px;
-	color: rgb(115, 117, 119);
+	/* top: 5px; */
+	/* font-size: 12px; */
+	/* color: rgb(115, 117, 119); */
 }
 
 .signup-login-form-button {
@@ -107,18 +99,18 @@ input[type="password"]:hover {
 .errors-container {
 	display: flex;
 	justify-content: center;
+	margin: 5px;
+	font-size: 14px;
 }
 .modal-title {
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-start;
 	width: 65%;
-
 }
 .modal-title-text {
 	width: fit-content;
 }
-
 
 .exit-container {
 	width: 100%;

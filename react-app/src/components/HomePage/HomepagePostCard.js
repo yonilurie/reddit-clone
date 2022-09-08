@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getTimeElapsed } from "../../../util/index.js";
-import { authenticate } from "../../../store/session.js";
-import { postVote } from "../../../store/subreddits.js";
-import LoginFormModal from "../../auth/LoginFormModal";
-const SubredditPostCard = ({ post }) => {
+import { getTimeElapsed } from "../../util/index.js";
+import { authenticate } from "../../store/session.js";
+import { postVote } from "../../store/subreddits.js";
+import LoginFormModal from "../auth/LoginFormModal.js";
+const HomepagePostCard = ({ post }) => {
 	const dispatch = useDispatch();
 	const [showModal, setShowModal] = useState();
 	const currentUser = useSelector((state) => state.session.user);
@@ -66,6 +66,11 @@ const SubredditPostCard = ({ post }) => {
 						<div className="profile-post-subreddit-time">
 							<div className="profile-post-subreddit">
 								<span className="profile-post-time">
+									<Link to={`/r/${post.subreddit_name}`}>
+										<span className="sub-post-time subreddit">
+											r/{post.subreddit_name}
+										</span>{" "}
+									</Link>
 									{`Posted by `}
 									<Link to={`/user/${post.user.username}`}>
 										<span className="sub-post-time username">
@@ -136,4 +141,4 @@ const SubredditPostCard = ({ post }) => {
 	);
 };
 
-export default SubredditPostCard;
+export default HomepagePostCard;

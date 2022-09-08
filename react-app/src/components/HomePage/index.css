@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	margin: 20px;
 	font-size: 20px;
 	background-color: white;
 	width: 310px;
@@ -32,6 +31,17 @@
 	align-items: flex-end;
 }
 
+.reccomended-title-text,
+.reccomended-sub-name,
+.reccomended-sub-number {
+	font-family: "IBM Plex Sans Medium", sans-serif;
+	font-size: 18px;
+	font-weight: 500px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .reccomended-subs-container {
 	width: 100%;
 	height: fit-content;
@@ -47,4 +57,28 @@
 	width: 100%;
 	box-sizing: border-box;
 	padding: 5px 20px;
+}
+
+.home-page-container-main {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	gap: 20px;
+	flex-direction: column;
+	margin-bottom: 50px;
+}
+
+.home-page-container {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+
+	gap: 30px;
+}
+
+.home-page-feed {
+	width: 630px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import { createASub } from "../../store/subreddits";
-import {authenticate} from '../../store/session'
+import { authenticate } from "../../store/session";
 import "./index.css";
 function SubredditModal({ showSubModal, setShowSubModal }) {
 	const dispatch = useDispatch();
@@ -22,13 +22,18 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 		formData.append("subreddit_name", newSubredditName);
 		formData.append("owner_id", currentUser.id);
 		dispatch(createASub(formData)).then((data) => {
-			console.log(data)
+
 			if (data.errors) return setErrors(data.errors);
-			dispatch(authenticate())
+			dispatch(authenticate());
 			setNewSubredditName("");
 			setShowSubModal(false);
 			return history.push(`/r/${data.name}`);
 		});
+	};
+
+	const removeWhiteSpace = (input, setterCb) => {
+		const str = input.split(" ").join("");
+		setterCb(str);
 	};
 	return (
 		<div>
@@ -61,6 +66,9 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 								Community names including capitalization cannot
 								be changed.
 							</div>
+							<div style={{ textAlign: "center" }}>
+								Only use letters
+							</div>
 						</div>
 
 						<div className="subreddit-input-container">
@@ -77,9 +85,13 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 								minLength="1"
 								maxLength="21"
 								required={true}
+								pattern="[A-Za-z]+"
 								value={newSubredditName}
 								onChange={(e) =>
-									setNewSubredditName(e.target.value)
+									removeWhiteSpace(
+										e.target.value,
+										setNewSubredditName
+									)
 								}
 							></input>
 						</div>
@@ -113,7 +125,7 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 										? "disabled"
 										: ""
 								}`}
-								onClick={onSubmit}
+								// onClick={onSubmit}
 								disabled={newSubredditName.length === 0}
 							>
 								Create Community
