@@ -118,10 +118,6 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
-export const changeUserVote = (postId) => async (dispatch) => {
-	dispatch(changeVote(postId));
-};
-
 export const editARule = (formData, subredditId) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditId}/rules`, {
 		method: "PUT",

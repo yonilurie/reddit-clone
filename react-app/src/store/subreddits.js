@@ -303,6 +303,9 @@ export default function subreddits(state = initialState, action) {
 			newState = { ...state };
 			newState[action.post.user.username].posts[action.post.id] =
 				action.post;
+			if (newState[action.post.name][action.post.id]) {
+				newState[action.post.name][action.post.id] = action.post
+			}
 			return newState;
 		case DELETE_POST:
 			newState = { ...state };
