@@ -8,7 +8,7 @@ function SubredditInfoRules({ sub }) {
 				<div className="subreddit-info-card-rules">
 					{sub.rules && rules.length > 0 ? (
 						rules.map((rule, idx) => {
-							if (!rule) return;
+							if (!rule) return null;
 							const [ruleTitle, ruleDetail] = rule.split(":");
 							return (
 								<Rule
@@ -16,6 +16,7 @@ function SubredditInfoRules({ sub }) {
 									ruleTitle={ruleTitle}
 									ruleDetail={ruleDetail}
 									idx={idx}
+									key={idx}
 								></Rule>
 							);
 						})

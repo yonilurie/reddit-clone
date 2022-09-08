@@ -66,7 +66,7 @@ function NavBar() {
 						to={`/user/${user.username}/submit`}
 						className="submit-post-link"
 					>
-						<i className="fa-thin fa-plus"></i>
+						<i className="fa-regular fa-thin fa-square-plus fa-plus"></i>
 					</Link>
 				)}
 				<div

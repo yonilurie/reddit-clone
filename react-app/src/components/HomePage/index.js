@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSubInfo, getPosts, getHomePosts } from "../../store/subreddits";
+import { getHomePosts } from "../../store/subreddits";
 import HomepagePostCard from "./HomepagePostCard";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import "./index.css";
@@ -22,13 +22,13 @@ function HomePage() {
 		if (!all) {
 			dispatch(getHomePosts()).then((data) => {});
 		}
-	}, []);
+	}, [all, dispatch]);
 
 	useEffect(() => {
 		if (posts && all) {
 			setPosts(Object.values(all.posts));
 		}
-	}, [dispatch, user, all]);
+	}, [dispatch, user, all, posts]);
 
 	return (
 		<div className="home-page-container-main">
@@ -49,19 +49,31 @@ function HomePage() {
 				{subs.length > 0 && (
 					<div className="home-sub-list">
 						<div className="reccomended-title">
-							<div className="reccomended-title-text">Communities to Check Out</div>
+							<div className="reccomended-title-text">
+								Communities to Check Out
+							</div>
 						</div>
 						<div className="reccomended-subs-container">
 							{subs.map((sub, idx) => {
 								return (
-									<Link to={`/r/${sub.name}`} key={sub.name}>
-										<div className="reccomended-container">
-											<div className="reccomended-content">
-												<div className="reccomended-sub-number">{idx + 1}</div>
-												<div className="reccomended-sub-name">r/{sub.name}</div>
+									<div
+										className="reccomended-container"
+										key={sub.name}
+									>
+										<div className="reccomended-content">
+											<div className="reccomended-sub-number">
+												{idx + 1}
 											</div>
+											<Link
+												className="sub-home-link"
+												to={`/r/${sub.name}`}
+											>
+												<div className="reccomended-sub-name">
+													r/{sub.name}
+												</div>
+											</Link>
 										</div>
-									</Link>
+									</div>
 								);
 							})}
 						</div>

@@ -13,7 +13,7 @@ import { authenticate } from "./store/session";
 import SubmitPage from "./components/SubmitPage";
 import Error404 from "./components/ErrorPages/404";
 import About from "./components/About";
-
+import Footer from "./components/About/Footer";
 function App() {
 	const [loaded, setLoaded] = useState(false);
 	const dispatch = useDispatch();
@@ -37,7 +37,7 @@ function App() {
 					<HomePage></HomePage>
 				</Route>
 				<Route path="/about" exact={true}>
-				<About></About>
+					<About></About>
 				</Route>
 				<Route path="/r/:subreddit" exact={true}>
 					<Subreddit></Subreddit>
@@ -64,6 +64,7 @@ function App() {
 					<Error404></Error404>
 				</Route>
 			</Switch>
+			<Footer></Footer>
 		</BrowserRouter>
 	);
 }
