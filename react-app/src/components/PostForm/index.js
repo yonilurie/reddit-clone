@@ -34,7 +34,7 @@ function PostForm() {
 	}, [dispatch, username]);
 
 	useEffect(() => {
-		if (!subredditsList.length) {
+		if (!subredditsList.length && !subredditId) {
 			const subreddits = async () => {
 				const res = await fetch("/api/r/list-all");
 				return await res.json();
@@ -42,22 +42,25 @@ function PostForm() {
 			const res = subreddits();
 			res.then((data) => {
 				if (!subredditId) {
-					setSubredditId(data[0].id);
+					// setSubredditId(data[0].id);
 				}
 				setSubredditsList(data);
 			});
 		}
-		let postSubId;
+		let postSubId = null;
 		try {
 			if (location.state.postSubId) {
+				console.log("here");
 				postSubId = location.state.postSubId;
 				setSubredditId(postSubId);
 				history.replace();
 			}
 		} catch (e) {}
-		if (postSubId) {
-			setSubredditId(postSubId);
+		if (subredditsList.length > 0 && !subredditId) {
+			setSubredditId(subredditsList[0].id);
 		}
+		console.log(subredditId);
+		console.log(postSubId);
 	}, [username, location]);
 
 	const resizeInput = (e) => {

@@ -118,7 +118,7 @@ const SubredditPostCard = ({ post }) => {
 									? `${post.link.slice(0, 50)}...`
 									: post.link}
 
-								<i class="fa-solid fa-up-right-from-square"></i>
+								<i className="fa-solid fa-up-right-from-square"></i>
 							</div>
 						</a>
 					)}
