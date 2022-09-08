@@ -27,7 +27,7 @@ function UserPostCard({ postId, post }) {
 							if (!user) return setShowModal(true);
 							await dispatch(
 								postUserVote("true", post.id, user.id)
-							);
+							).then((data) => {});
 
 							dispatch(authenticate());
 						}}
