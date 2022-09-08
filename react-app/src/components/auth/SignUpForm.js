@@ -89,7 +89,7 @@ const LoginForm = ({ action, setShowModal }) => {
 						onChange={(e) => setUsername(e.target.value)}
 						required={true}
 						minLength="4"
-						maxLength="64"
+						maxLength="40"
 					/>
 					<label htmlFor="email" className={`input-label `}>
 						Username

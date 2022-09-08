@@ -22,7 +22,7 @@ function HomePage() {
 		if (!all) {
 			dispatch(getHomePosts()).then((data) => {});
 		}
-	}, [all, dispatch]);
+	}, []);
 
 	useEffect(() => {
 		if (posts && all) {
