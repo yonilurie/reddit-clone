@@ -2,9 +2,9 @@
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const CHANGE_VOTE = "session/CHANGE_VOTE";
-const EDIT_RULES = "/subreddits/EDIT_RULES";
-const EDIT_COMMUNITY = "/subreddits/EDIT_COMMUNITY";
-const DELETE_SUB = "subreddits/DELETE_SUB";
+const EDIT_RULES = "/session/EDIT_RULES";
+const EDIT_COMMUNITY = "/session/EDIT_COMMUNITY";
+const DELETE_SUB = "session/DELETE_SUB";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -36,6 +36,24 @@ const deleteSub = (subredditName) => ({
 });
 
 const initialState = { user: null };
+
+
+export const changeAVote = (userVote, postId, currentUserId) => async (dispatch) => {
+	const formData = new FormData();
+	formData.append("post_id", postId);
+	formData.append("user_id", currentUserId);
+	formData.append("upvote", userVote);
+
+	const response = await fetch("/api/vote", {
+		method: "POST",
+		body: formData,
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(changeVote(data.id));
+	}
+}
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {

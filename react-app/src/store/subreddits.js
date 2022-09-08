@@ -10,7 +10,7 @@ const CREATE_POST = "/subreddits/CREATE_POST";
 const EDIT_POST = "/subredddits/EDIT_POST";
 const CREATE_SUB = "/subreddits/CREATE_SUB";
 const EDIT_RULE = "subreddits/EDIT_RULE";
-const EDIT_SETTING = "subreddits/EDIT_SETTING"
+const EDIT_SETTING = "subreddits/EDIT_SETTING";
 const addSub = (sub) => ({
 	type: GET_SUB,
 	sub,
@@ -68,8 +68,8 @@ const editRule = (sub) => ({
 
 const editSubSettings = (sub) => ({
 	type: EDIT_SETTING,
-	sub
-})
+	sub,
+});
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditName}`, {
@@ -253,10 +253,8 @@ export const editSubRules = (sub) => async (dispatch) => {
 	dispatch(editRule(sub));
 };
 
-export const editSubCommunitySettings = (sub) => async (
-	dispatch
-) => {
-	dispatch(editSubSettings(sub))
+export const editSubCommunitySettings = (sub) => async (dispatch) => {
+	dispatch(editSubSettings(sub));
 };
 
 const initialState = {};
@@ -314,14 +312,23 @@ export default function subreddits(state = initialState, action) {
 			return newState;
 		case POST_VOTE:
 			newState = { ...state };
-			newState[action.post.subreddit_name].posts[action.post.id] =
-				action.post;
+			if (newState[action.post.subreddit_name]) {
+				newState[action.post.subreddit_name].posts[action.post.id] =
+					action.post;
+			}
+
 			if (newState["all"] && newState["all"].posts[action.post.id]) {
 				newState["all"].posts[action.post.id] = action.post;
 			}
 			return newState;
 		case USER_VOTE:
 			newState = { ...state };
+			if (
+				newState[action.post.user.username] &&
+				newState[action.post.user.username].posts &&
+				newState[action.post.user.username].posts[action.post.id]
+			) {
+			}
 			newState[action.post.user.username].posts[action.post.id] =
 				action.post;
 			console.log(action.post);
@@ -359,7 +366,7 @@ export default function subreddits(state = initialState, action) {
 		case CREATE_SUB:
 			newState = { ...state };
 			newState[action.sub.name] = action.sub;
-			newState[action.sub.name].posts = {}
+			newState[action.sub.name].posts = {};
 			return newState;
 
 		case EDIT_RULE:
@@ -373,10 +380,11 @@ export default function subreddits(state = initialState, action) {
 		case EDIT_SETTING:
 			newState = { ...state };
 			if (newState[action.sub.name]) {
-				newState[action.sub.name].display_name = action.sub.display_name
-				newState[action.sub.name].description = action.sub.description
+				newState[action.sub.name].display_name =
+					action.sub.display_name;
+				newState[action.sub.name].description = action.sub.description;
 			}
-			return state
+			return state;
 		default:
 			return state;
 	}

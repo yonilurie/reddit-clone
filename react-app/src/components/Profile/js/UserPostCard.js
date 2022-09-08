@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { postUserVote } from "../../../store/subreddits";
-import { authenticate } from "../../../store/session.js";
+import { postUserVote, postVote } from "../../../store/subreddits";
+import { authenticate, changeVote } from "../../../store/session.js";
 import PostMenu from "../../PostMenu/index.js";
 import { getTimeElapsed } from "../../../util/index.js";
 import LoginFormModal from "../../auth/LoginFormModal";
@@ -25,9 +25,15 @@ function UserPostCard({ postId, post }) {
 						className="vote upvote"
 						onClick={async () => {
 							if (!user) return setShowModal(true);
-							await dispatch(
-								postUserVote("true", post.id, user.id)
-							).then((data) => {});
+							if (post.user.username === user.username) {
+								await dispatch(
+									postUserVote("true", post.id, user.id)
+								).then((data) => {});
+							} else {
+								await dispatch(
+									postVote("true", post.id, user.id)
+								).then((data) => {});
+							}
 
 							dispatch(authenticate());
 						}}
@@ -49,9 +55,15 @@ function UserPostCard({ postId, post }) {
 						className="vote downvote"
 						onClick={async () => {
 							if (!user) return setShowModal(true);
-							await dispatch(
-								postUserVote("false", post.id, user.id)
-							);
+							if (post.user.username === user.username) {
+								await dispatch(
+									postUserVote("false", post.id, user.id)
+								).then((data) => {});
+							} else {
+								await dispatch(
+									postVote("false", post.id, user.id)
+								).then((data) => {});
+							}
 							dispatch(authenticate());
 						}}
 					>

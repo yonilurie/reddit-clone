@@ -368,3 +368,12 @@
 	gap: 10px;
 	position: relative;
 }
+
+.placeholder-posts-container-main {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	height: fit-content;
+	/* background-color: slightgrey; */
+	position: relative;
+}
