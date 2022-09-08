@@ -1,0 +1,44 @@
+.about-container-main {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+}
+.about-container {
+	margin-top: 50px;
+	background-color: white;
+	width: 50%;
+	height: 50%;
+	border-radius: 4px;
+	display: flex;
+	flex-direction: column;
+	padding: 25px;
+}
+
+.about-about {
+}
+
+.external-link {
+	/* padding: 3px; */
+	color: blue;
+}
+
+.external-link:hover {
+	text-decoration: underline;
+}
+
+.technologies {
+	height: 20px;
+}
+
+ul {
+	display: flex;
+	justify-content: space-between;
+	gap: 5px;
+}
+
+.list-title {
+	font-family: "IBM Plex Sans Bold", sans-serif;
+	font-size: 18px;
+    margin-bottom: 5px;
+}

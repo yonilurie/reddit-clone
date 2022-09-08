@@ -420,6 +420,19 @@ h1 {
 	animation-direction: alternate;
 }
 
+.subreddit-url {
+	color: blue;
+	max-width: 100%;
+	white-space: pre-wrap;
+	word-break: break-all;
+	display: flex;
+	gap: 5px;
+}
+
+.subreddit-url:hover {
+	text-decoration: underline;
+}
+
 @keyframes gradient {
 	0% {
 		background-color: rgb(228, 226, 226);

@@ -126,6 +126,7 @@ export const editARule = (formData, subredditId) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(editRules(data));
+		return data;
 	}
 };
 
@@ -140,6 +141,7 @@ export const editCommunitySettings = (formData, subredditId) => async (
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(editCommunity(data));
+		return data;
 	}
 };
 
@@ -151,6 +153,7 @@ export const deleteARule = (formData, subredditId) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(editRules(data));
+		return data;
 	}
 };
 

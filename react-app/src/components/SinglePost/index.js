@@ -151,49 +151,42 @@ function SinglePostPage() {
 											<div className="sub-post-text">
 												<div className="profile-post-subreddit-time">
 													<div className="profile-post-subreddit">
-														<Link
-															to={`/user/${subreddits[subreddit].posts[postId].user.username}`}
-														>
-															<span className="profile-post-time">
-																{`Posted by u/${
-																	subreddits[
-																		subreddit
-																	].posts[
-																		postId
-																	].user
-																		.username
-																} ${getTimeElapsed(
-																	subreddits[
+														<span className="profile-post-time">
+															{`Posted by u/`}
+															<Link
+																to={`/user/${subreddits[subreddit].posts[postId].user.username}`}
+															>
+																<span className="profile-post-username">
+																	{`${subreddits[subreddit].posts[postId].user.username} `}{" "}
+																</span>
+															</Link>
+
+															{`
+														${getTimeElapsed(subreddits[subreddit].posts[postId].created_at)}`}
+															{subreddits[
+																subreddit
+															].posts[postId]
+																.updated_at && (
+																<span>
+																	Edited:{" "}
+																	{subreddits[
 																		subreddit
 																	].posts[
 																		postId
 																	].created_at
-																)}`}{" "}
-																{subreddits[
-																	subreddit
-																].posts[postId]
-																	.updated_at && (
-																	<span>
-																		Edited:{" "}
-																		{subreddits[
-																			subreddit
-																		].posts[
-																			postId
-																		].created_at
-																			.split(
-																				" "
-																			)
-																			.splice(
-																				1,
-																				4
-																			)
-																			.join(
-																				" "
-																			)}
-																	</span>
-																)}
-															</span>
-														</Link>
+																		.split(
+																			" "
+																		)
+																		.splice(
+																			1,
+																			4
+																		)
+																		.join(
+																			" "
+																		)}
+																</span>
+															)}
+														</span>
 													</div>
 												</div>{" "}
 												<div className="sub-post-title">
@@ -268,7 +261,7 @@ function SinglePostPage() {
 																	]
 																}
 															></TextForm>
-															<button>
+															<button className="submit-post-button">
 																Submit
 															</button>
 														</form>
@@ -276,6 +269,7 @@ function SinglePostPage() {
 															onClick={() =>
 																setEdit(false)
 															}
+															className="cancel-button"
 														>
 															Cancel
 														</button>
@@ -291,9 +285,23 @@ function SinglePostPage() {
 													target="_blank"
 													rel="noreferrer"
 												>
-													<div className="image-box">
-														<i className="fa-solid fa-link"></i>
-														<i className="fa-solid fa-arrow-up-right-from-square"></i>
+													<div className="subreddit-url">
+														{/* {subreddits[subreddit]
+															.posts[postId].link
+															.length > 50
+															? `${subreddits[
+																	subreddit
+															  ].posts[
+																	postId
+															  ].link.slice(
+																	0,
+																	50
+															  )}...`
+															: subreddits[
+																	subreddit
+															  ].posts[postId]
+																	.link} */}
+													{subreddits[subreddit].posts[postId].link}
 													</div>
 												</a>
 											)}

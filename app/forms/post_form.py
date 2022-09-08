@@ -19,13 +19,11 @@ class PostForm(FlaskForm):
     tags = StringField("tags")
     title = StringField("title", validators=[DataRequired(message='Title is required'), Length(min=1, max=300, message='Post title must be between 1 and 300 characters')])
     type_of_post = StringField("type_of_post", validators=[DataRequired(message='Must include type of post')])
-    link = StringField("link", 
-    # validators=[URL(require_tld=True, message='Must be a valid URL')]
-    )
+    link = StringField("link")
     image = StringField("image")
     text = StringField("text", validators=[Length(min=0, max=10000, message='Text must be less than 10,000 characters')])
 
     
 class PostFormEdit(FlaskForm):
     text = StringField("text", validators=[Length(min=0, max=10000, message='Text must be less than 10,000 characters')])
-    link = StringField('link', validators=[URL()])
+    link = StringField('link')

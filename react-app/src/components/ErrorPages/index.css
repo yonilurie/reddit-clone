@@ -46,3 +46,20 @@
 .go-home-button:hover {
 	background-color: rgb(21, 132, 215);
 }
+
+.not-found-main-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	border-radius: 4px;
+	width: 30%;
+	margin: auto;
+	margin-top: 30%;
+	padding: 20px;
+}
+
+.not-found-title {
+	font-size: 36px;
+}

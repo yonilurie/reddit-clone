@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editCommunitySettings } from "../../../store/session";
+import { editSubCommunitySettings } from "../../../store/subreddits";
 
 function CommunitySettings({ sub }) {
 	const dispatch = useDispatch();
@@ -17,7 +18,11 @@ function CommunitySettings({ sub }) {
 		const formData = new FormData();
 		formData.append("display_name", subDisplayName);
 		formData.append("description", subDescription);
-		dispatch(editCommunitySettings(formData, sub.id));
+		dispatch(editCommunitySettings(formData, sub.id)).then((data) => {
+			console.log(data)
+			dispatch(editSubCommunitySettings(data));
+			alert("Changes Submitted");
+		});
 	};
 
 	const removeWhiteSpace = (input, setterCb) => {
@@ -45,6 +50,7 @@ function CommunitySettings({ sub }) {
 						<input
 							id="sub-name"
 							value={subDisplayName}
+							placeholder="Community display name will default to subreddits name"
 							maxLength="100"
 							onChange={(e) =>
 								removeWhiteSpace(
@@ -71,6 +77,7 @@ function CommunitySettings({ sub }) {
 						</label>
 						<textarea
 							id="sub-description"
+							placeholder="Community description will be left blank"
 							value={subDescription}
 							maxLength="500"
 							onChange={(e) =>

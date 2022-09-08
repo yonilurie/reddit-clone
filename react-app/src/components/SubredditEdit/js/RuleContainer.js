@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RuleModal from "./RuleModal";
 import { editARule, authenticate } from "../../../store/session";
+import { editSubRules } from "../../../store/subreddits";
 import { useDispatch } from "react-redux";
 function RuleContainer({
 	ruleTitle,
@@ -20,6 +21,7 @@ function RuleContainer({
 		formData.append("subreddit_id", subredditId);
 		formData.append("rules", newRules);
 		dispatch(editARule(formData, subredditId)).then((data) => {
+			dispatch(editSubRules(data))
 			dispatch(authenticate());
 		});
 	};
@@ -70,8 +72,8 @@ function RuleContainer({
 			<RuleModal
 				showRuleModal={showRuleModal}
 				setShowRuleModal={setShowRuleModal}
-				// ruleTitle={ruleTitle}
-				// ruleDetail={ruleDetail}
+				ruleTitle={ruleTitle}
+				ruleDetail={ruleDetail}
 				rules={rules}
 				subredditId={subredditId}
 			></RuleModal>

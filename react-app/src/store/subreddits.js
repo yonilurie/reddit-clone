@@ -9,7 +9,8 @@ const DELETE_POST = "/subreddits/DELETE_POST";
 const CREATE_POST = "/subreddits/CREATE_POST";
 const EDIT_POST = "/subredddits/EDIT_POST";
 const CREATE_SUB = "/subreddits/CREATE_SUB";
-
+const EDIT_RULE = "subreddits/EDIT_RULE";
+const EDIT_SETTING = "subreddits/EDIT_SETTING"
 const addSub = (sub) => ({
 	type: GET_SUB,
 	sub,
@@ -59,6 +60,16 @@ const createSub = (sub) => ({
 	type: CREATE_SUB,
 	sub,
 });
+
+const editRule = (sub) => ({
+	type: EDIT_RULE,
+	sub,
+});
+
+const editSubSettings = (sub) => ({
+	type: EDIT_SETTING,
+	sub
+})
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditName}`, {
@@ -238,6 +249,16 @@ export const createASub = (formData) => async (dispatch) => {
 	}
 };
 
+export const editSubRules = (sub) => async (dispatch) => {
+	dispatch(editRule(sub));
+};
+
+export const editSubCommunitySettings = (sub) => async (
+	dispatch
+) => {
+	dispatch(editSubSettings(sub))
+};
+
 const initialState = {};
 
 export default function subreddits(state = initialState, action) {
@@ -303,12 +324,13 @@ export default function subreddits(state = initialState, action) {
 			newState = { ...state };
 			newState[action.post.user.username].posts[action.post.id] =
 				action.post;
-			console.log(action.post)
+			console.log(action.post);
 			if (
 				newState[action.post.subreddit_name] &&
 				newState[action.post.subreddit_name].posts[action.post.id]
 			) {
-				newState[action.post.subreddit_name].posts[action.post.id] = action.post;
+				newState[action.post.subreddit_name].posts[action.post.id] =
+					action.post;
 			}
 			return newState;
 		case DELETE_POST:
@@ -325,6 +347,7 @@ export default function subreddits(state = initialState, action) {
 			return newState;
 		case EDIT_POST:
 			newState = { ...state };
+
 			if (newState[action.post.user.username]) {
 				newState[action.post.user.username].posts[action.post.id] =
 					action.post;
@@ -336,8 +359,24 @@ export default function subreddits(state = initialState, action) {
 		case CREATE_SUB:
 			newState = { ...state };
 			newState[action.sub.name] = action.sub;
+			newState[action.sub.name].posts = {}
 			return newState;
 
+		case EDIT_RULE:
+			newState = { ...state };
+			if (newState[action.sub.name]) {
+				newState[action.sub.name].rules = action.sub.rules;
+				return newState;
+			}
+
+			return state;
+		case EDIT_SETTING:
+			newState = { ...state };
+			if (newState[action.sub.name]) {
+				newState[action.sub.name].display_name = action.sub.display_name
+				newState[action.sub.name].description = action.sub.description
+			}
+			return state
 		default:
 			return state;
 	}

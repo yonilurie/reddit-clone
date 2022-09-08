@@ -8,7 +8,9 @@ function TextForm({ text, setText, post }) {
 	}, [post]);
 
 	const resizeInput = (e) => {
-		setText(e.target.value);
+		let tempText = e.target.value.replace("  ", " ");
+
+		setText(tempText);
 		e.target.style.height = "auto";
 		e.target.style.height = e.target.scrollHeight + "px";
 	};

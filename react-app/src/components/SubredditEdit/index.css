@@ -12,7 +12,7 @@
 	box-sizing: border-box;
 	background-color: white;
 	height: 40px;
-
+	max-width: 100%;
 	display: flex;
 	align-items: center;
 }
@@ -93,6 +93,8 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+	/* width: 100%; */
+	/* max-width: 67%; */
 }
 .submit-post-button.rules {
 	width: fit-content;
@@ -146,18 +148,24 @@
 	flex-direction: column;
 	gap: 1px;
 }
-
+.rules-main-container {
+	width: 100%;
+	/* max-width: 67%; */
+}
 .rule-container {
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	max-width: 100%;
+	width: 100%;
 }
 .rule-title {
 	max-height: 51px;
 	padding: 10px;
 	width: 100%;
+	max-width: 100%;
 	border-radius: 4px;
 	background-color: white;
 	display: flex;
@@ -245,10 +253,6 @@
 
 .interactive.fa-trash-can:hover {
 	color: red;
-}
-
-.rules-main-container {
-	width: 100%;
 }
 
 .rule-index-edit {

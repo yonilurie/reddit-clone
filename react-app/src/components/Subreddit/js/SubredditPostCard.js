@@ -109,9 +109,16 @@ const SubredditPostCard = ({ post }) => {
 					)}
 					{post.link && (
 						<a href={post.link} target="_blank" rel="noreferrer">
-							<div className="image-box">
+							{/* <div className="image-box">
 								<i className="fa-solid fa-link"></i>
 								<i className="fa-solid fa-arrow-up-right-from-square"></i>
+							</div> */}
+							<div className="subreddit-url">
+								{post.link.length > 50
+									? `${post.link.slice(0, 50)}...`
+									: post.link}
+
+								<i class="fa-solid fa-up-right-from-square"></i>
 							</div>
 						</a>
 					)}

@@ -5,7 +5,7 @@ import TextForm from "./js/TextForm";
 import LinkForm from "./js/LinkForm";
 import "./css/index.css";
 import ImageForm from "./js/ImageForm";
-import {
+import subreddits, {
 	createAPostImage,
 	createAPost,
 	getUserInfo,
@@ -20,7 +20,7 @@ function PostForm() {
 	const { username } = useParams();
 
 	const [subredditsList, setSubredditsList] = useState([]);
-	const [subredditId, setSubredditId] = useState(1);
+	const [subredditId, setSubredditId] = useState(0);
 	const [typeOfPost, setTypeOfPost] = useState("text");
 	const [title, setTitle] = useState("");
 	// const [tags, setTags] = useState("");
@@ -34,30 +34,37 @@ function PostForm() {
 	}, [dispatch, username]);
 
 	useEffect(() => {
-		const subreddits = async () => {
-			const res = await fetch("/api/r/list-all");
-			return await res.json();
-		};
-		const res = subreddits();
-		res.then((data) => {
-			setSubredditsList(data);
-			
-			setSubredditId(data[0].id)
-		});
+		if (!subredditsList.length) {
+			const subreddits = async () => {
+				const res = await fetch("/api/r/list-all");
+				return await res.json();
+			};
+			const res = subreddits();
+			res.then((data) => {
+				if (!subredditId) {
+					setSubredditId(data[0].id);
+				}
+				setSubredditsList(data);
+			});
+		}
 		let postSubId;
 		try {
 			if (location.state.postSubId) {
 				postSubId = location.state.postSubId;
-				// history.replace();
+				setSubredditId(postSubId);
+				history.replace();
 			}
 		} catch (e) {}
 		if (postSubId) {
 			setSubredditId(postSubId);
-		} 
+		}
 	}, [username, location]);
 
 	const resizeInput = (e) => {
-		setTitle(e.target.value);
+		let tempTitle = e.target.value.replace(/[%/\\?&]/, "");
+
+		tempTitle = tempTitle.replace("  ", " ");
+		setTitle(tempTitle);
 		e.target.style.height = "auto";
 		e.target.style.height = e.target.scrollHeight + "px";
 	};
@@ -85,6 +92,7 @@ function PostForm() {
 		if (typeOfPost === "image") {
 			formData.append("image", image);
 			dispatch(createAPostImage(subredditId, formData)).then((data) => {
+				history.replace();
 				history.push(
 					`/r/${data.subreddit_name}/${data.id}/${data.title}`
 				);
@@ -94,7 +102,7 @@ function PostForm() {
 				dispatch(getSubInfo(data.subreddit_name)).then((data) => {
 					dispatch(getPosts(data.name));
 				});
-
+				history.replace();
 				history.push(
 					`/r/${data.subreddit_name}/${data.id}/${data.title}`
 				);
@@ -166,9 +174,10 @@ function PostForm() {
 							type="text"
 							placeholder="Title"
 							value={title}
-							onChange={(e) => resizeInput(e)}
+							onChange={(e) => {
+								resizeInput(e);
+							}}
 							maxLength="300"
-							pattern="[A-Za-z0-9]+"
 						></textarea>
 					</div>
 					{typeOfPost === "text" && (
@@ -188,7 +197,6 @@ function PostForm() {
 						></ImageForm>
 					)}
 
-					{/* <div>tags</div> */}
 					<div className="submit-post-container">
 						<div
 							className="cancel-button"

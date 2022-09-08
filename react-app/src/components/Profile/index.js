@@ -31,7 +31,7 @@ function User() {
 					<UserTabs user={user}></UserTabs>
 					<div className="profile-content-container-wide">
 						<div className="profile-content-wide">
-							{params.tab === "submitted" &&
+							{(params.tab === "submitted" || params.tab === undefined) &&
 								Object.values(user.posts).length > 0 &&
 								Object.values(user.posts).reverse().map((post) => {
 									return (

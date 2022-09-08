@@ -2,6 +2,7 @@ import { Modal } from "../../../context/Modal";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { editARule, authenticate } from "../../../store/session";
+import { editSubRules } from "../../../store/subreddits";
 import "../index.css";
 
 function RuleModal({
@@ -22,18 +23,21 @@ function RuleModal({
 		if (!newRule && ruleDetail) setDetail(ruleDetail);
 	}, []);
 
-	const onSubmit = () => {
+	const onSubmit = (e) => {
+		e.preventDefault();
 		if (!title) return;
 		const formData = new FormData();
-		let formattedRule = `${title}:${detail}`;
+		let formattedRule = `${title}:${detail}%`;
 		let subRules = rules;
 		let newRules = ruleTitle
 			? subRules.replace(`${ruleTitle}:${ruleDetail}%`, formattedRule)
-			: (subRules += formattedRule += "%");
+			: (subRules += formattedRule);
 		formData.append("rules", newRules);
 		formData.append("subreddit_id", subredditId);
 
 		dispatch(editARule(formData, subredditId)).then((data) => {
+			console.log(data);
+			dispatch(editSubRules(data));
 			dispatch(authenticate());
 		});
 		setTitle("");
@@ -42,7 +46,8 @@ function RuleModal({
 	};
 
 	const removeWhiteSpace = (input, setterCb) => {
-		const str = input.split("  ").join(" ");
+		let str = input.replace(/[%/\\?&]/, "");
+		str = str.split("  ").join(" ");
 		setterCb(str);
 	};
 	return (
@@ -73,7 +78,7 @@ function RuleModal({
 									removeWhiteSpace(e.target.value, setTitle)
 								}
 								maxLength="100"
-								pattern="[A-Za-z0-9]+"
+								pattern="[A-Za-z0-9\s]+"
 							></input>
 							<div
 								className={`characters-left ${
@@ -98,7 +103,7 @@ function RuleModal({
 									removeWhiteSpace(e.target.value, setDetail)
 								}
 								maxLength="100"
-								pattern="[A-Za-z0-9]+"
+								pattern="[A-Za-z0-9\s]+"
 							></input>
 							<div
 								className={`characters-left ${
@@ -126,7 +131,7 @@ function RuleModal({
 								}`}
 								// onClick={onSubmit}
 							>
-								{ruleTitle ? "Add Rule" : "Update Rule"}
+								{ruleTitle ? "Update Rule" : "Add Rule"}
 							</button>
 						</div>
 					</form>

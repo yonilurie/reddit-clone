@@ -12,6 +12,7 @@ import SubredditEdit from "./components/SubredditEdit";
 import { authenticate } from "./store/session";
 import SubmitPage from "./components/SubmitPage";
 import Error404 from "./components/ErrorPages/404";
+import About from "./components/About";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -34,6 +35,9 @@ function App() {
 			<Switch>
 				<Route path="/" exact={true}>
 					<HomePage></HomePage>
+				</Route>
+				<Route path="/about" exact={true}>
+				<About></About>
 				</Route>
 				<Route path="/r/:subreddit" exact={true}>
 					<Subreddit></Subreddit>

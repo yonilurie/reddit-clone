@@ -147,7 +147,6 @@ function UserPostCard({ postId, post }) {
 									</span>
 								</div>
 							</div>
-							{/* {user && user.username === post.user.username && ( */}
 							<div className="profile-post-bottom-bar">
 								{/* <div className="single-post-comments-count">
 									<i className="fa-regular fa-message"></i>

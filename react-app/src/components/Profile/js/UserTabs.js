@@ -7,18 +7,18 @@ function UserTabs({ user }) {
 	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<div className="user-profile-tabs">
-			<Link
+			{/* <Link
 				to={`/user/${user.username}`}
 				className={`profile-tab-link ${
 					params.tab == undefined ? "atpage" : ""
 				}`}
 			>
 				OVERVIEW
-			</Link>
+			</Link> */}
 			<Link
 				to={`/user/${user.username}/submitted`}
 				className={`profile-tab-link ${
-					params.tab == "submitted" ? "atpage" : ""
+					(params.tab == "submitted" || params.tab === undefined) ? "atpage" : ""
 				}`}
 			>
 				POSTS

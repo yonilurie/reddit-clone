@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import SubredditEditPlaceholder from "./js/Placeholder";
 import SubredditRules from "./js/Rules";
-import DeleteSubreddit from './js/DeleteSubreddit'
+import DeleteSubreddit from "./js/DeleteSubreddit";
 import CommunitySettings from "./js/CommunitySettings";
 import RuleModal from "./js/RuleModal";
 import { useEffect } from "react";
@@ -50,7 +50,9 @@ function SubredditEdit() {
 							</div>
 							<Link
 								to={`/r/${subreddit}/about`}
-								className="profile-menu-el user-links"
+								className={`profile-menu-el user-links  ${
+									section === "about" ? "selected" : ""
+								}`}
 							>
 								Mod Tools
 							</Link>
@@ -60,7 +62,9 @@ function SubredditEdit() {
 							</div>
 							<Link
 								to={`/r/${subreddit}/rules`}
-								className="profile-menu-el user-links"
+								className={`profile-menu-el user-links  ${
+									section === "rules" ? "selected" : ""
+								}`}
 							>
 								Rules
 							</Link>
@@ -70,7 +74,11 @@ function SubredditEdit() {
 							</div>
 							<Link
 								to={`/r/${subreddit}/community-settings`}
-								className="profile-menu-el user-links"
+								className={`profile-menu-el user-links  ${
+									section === "community-settings"
+										? "selected"
+										: ""
+								}`}
 							>
 								Community Settings
 							</Link>
@@ -80,7 +88,9 @@ function SubredditEdit() {
 							</div>
 							<Link
 								to={`/r/${subreddit}/delete`}
-								className="profile-menu-el user-links delete-sub"
+								className={`profile-menu-el user-links delete-sub ${
+									section === "delete" ? "selected" : ""
+								}`}
 							>
 								Delete this Community
 							</Link>
@@ -88,7 +98,9 @@ function SubredditEdit() {
 						{section === "about" && <SubredditEditPlaceholder />}
 						{section === "rules" && <SubredditRules sub={sub} />}
 						{section === "delete" && <DeleteSubreddit sub={sub} />}
-						{section === "community-settings" && <CommunitySettings sub={sub} />}
+						{section === "community-settings" && (
+							<CommunitySettings sub={sub} />
+						)}
 					</div>
 				</div>
 			)}

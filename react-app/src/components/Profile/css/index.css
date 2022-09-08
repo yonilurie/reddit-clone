@@ -183,7 +183,9 @@
 	padding: 0px;
 	margin: 0px;
 }
-
+.votes {
+	font-family: "IBM Plex Sans Bold", sans-serif;
+}
 .fa-arrow-up:hover,
 .fa-arrow-down:hover {
 	background-color: rgb(225, 226, 228);
@@ -222,6 +224,7 @@
 	max-width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
+	font-family: "IBM Plex Sans Bold", sans-serif;
 }
 .profile-post-subreddit {
 	color: rgb(28, 28, 28);

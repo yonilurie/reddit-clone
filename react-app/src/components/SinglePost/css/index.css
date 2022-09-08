@@ -20,8 +20,8 @@
 
 .single-post {
 	display: flex;
-	min-width: 641px;
-	max-width: 641px;
+	min-width: 640px;
+	max-width: 640px;
 	/* max-width: 60%; */
 }
 
