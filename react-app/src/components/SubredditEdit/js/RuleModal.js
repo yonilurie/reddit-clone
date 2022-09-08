@@ -46,8 +46,8 @@ function RuleModal({
 	};
 
 	const removeWhiteSpace = (input, setterCb) => {
-		let str = input.replace(/[%/\\?&]/, "");
-		str = str.split("  ").join(" ");
+		// let str = input.replace(/[%/\\?&]/, "");
+		let str = input.split("  ").join(" ");
 		setterCb(str);
 	};
 	return (

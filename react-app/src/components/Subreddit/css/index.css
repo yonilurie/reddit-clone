@@ -421,7 +421,7 @@ h1 {
 }
 
 .subreddit-url {
-	color: blue;
+	color: rgb(51, 168, 255);
 	max-width: 100%;
 	white-space: pre-wrap;
 	word-break: break-all;
@@ -431,6 +431,25 @@ h1 {
 
 .subreddit-url:hover {
 	text-decoration: underline;
+}
+.sub-rule-title {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.has-rule-detail {
+	cursor: pointer;
+}
+
+.has-rule-detail:hover {
+	color: rgb(51, 168, 255);
+}
+
+.sub-rule-detail {
+	padding: 10px;
+	white-space: pre-wrap;
+	word-break: break-all;
+	color: #7c7c7c;
 }
 
 @keyframes gradient {

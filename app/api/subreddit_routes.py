@@ -173,10 +173,10 @@ def edit_post(id):
 
     if form.validate_on_submit():
         post = Post.query.get(id)
-        if form.data['text']:
-            post.text = form.data['text']
-        elif form.data['link']:
-            post.link = form.data['link']
+        # if form.data['text']:
+        post.text = form.data['text']
+        # elif form.data['link']:
+        post.link = form.data['link']
         db.session.commit()
         updated_post = Post.query.get(id)
         return updated_post.to_dict()

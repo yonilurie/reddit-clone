@@ -51,7 +51,7 @@ function CommunitySettings({ sub }) {
 							id="sub-name"
 							value={subDisplayName}
 							placeholder="Community display name will default to subreddits name"
-							maxLength="100"
+							maxLength="50"
 							onChange={(e) =>
 								removeWhiteSpace(
 									e.target.value,
@@ -61,13 +61,13 @@ function CommunitySettings({ sub }) {
 						></input>
 						<div
 							className={`${
-								subDisplayName.length === 100 ? "limit" : ""
+								subDisplayName.length === 50 ? "limit" : ""
 							}`}
 						>
-							{subDisplayName.length === 99
+							{subDisplayName.length === 49
 								? `1 character remaining`
 								: `${
-										100 - subDisplayName.length
+										50 - subDisplayName.length
 								  } characters remaining`}
 						</div>
 					</div>

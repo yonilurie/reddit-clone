@@ -41,9 +41,6 @@ function PostForm() {
 			};
 			const res = subreddits();
 			res.then((data) => {
-				if (!subredditId) {
-					// setSubredditId(data[0].id);
-				}
 				setSubredditsList(data);
 			});
 		}
@@ -59,8 +56,6 @@ function PostForm() {
 		if (subredditsList.length > 0 && !subredditId) {
 			setSubredditId(subredditsList[0].id);
 		}
-		console.log(subredditId);
-		console.log(postSubId);
 	}, [username, location]);
 
 	const resizeInput = (e) => {

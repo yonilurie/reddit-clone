@@ -242,7 +242,7 @@ function SinglePostPage() {
 												)}
 
 											{subreddits[subreddit].posts[postId]
-												.text &&
+												.type_of_post === 'text' &&
 												edit === true && (
 													<>
 														<form
