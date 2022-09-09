@@ -26,13 +26,22 @@ function HomePage() {
 
 	useEffect(() => {
 		if (posts && all) {
-			setPosts(Object.values(all.posts));
+			setPosts(Object.values(all.posts).reverse());
 		}
-	}, [dispatch, user, all, posts]);
+	}, [dispatch, user, all]);
 
 	return (
 		<div className="home-page-container-main">
 			<SubredditBanner sub={sub}></SubredditBanner>
+			{!user && (
+				<div className="splash-info-container">
+					<div className="splash-info-content">
+						Welcome to Teddir! Login or Sign Up to create a
+						community for users to post in, make a post, or vote on content.
+					</div>
+					<Link to='/about' className="splash-info-content splash-about">About</Link>
+				</div>
+			)}
 			<div className="home-page-container">
 				<div className="home-page-feed">
 					{posts &&
@@ -45,6 +54,14 @@ function HomePage() {
 								></HomepagePostCard>
 							);
 						})}
+
+					{posts && !posts.length && (
+						<div className="homepage-no-posts-container">
+							<div className="homepage-no-posts-text">
+								No random posts loaded, try refreshing the page!
+							</div>
+						</div>
+					)}
 				</div>
 				{subs.length > 0 && (
 					<div className="home-sub-list">

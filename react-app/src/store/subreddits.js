@@ -96,7 +96,7 @@ export const getUserInfo = (username) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(addUser(data));
-		return null;
+		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
@@ -115,7 +115,7 @@ export const getPosts = (subredditName) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(addPosts(data, subredditName));
-		return null;
+		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
@@ -295,28 +295,40 @@ export default function subreddits(state = initialState, action) {
 			newState[action.subredditName].posts = homePosts;
 			return newState;
 		case ADD_USER:
-			newState = { ...state };
-			action.user["subreddit_name"] = action.user.username;
-			if (action.user.posts.length > 0) {
-				const posts = {};
-				let karma = 0;
-				action.user.posts.forEach((post) => {
-					posts[post.id] = post;
-					karma += post.votes.upvote_count;
-					karma -= post.votes.downvote_count;
-				});
-				action.user.posts = posts;
-				action.user.karma = karma;
+			if (!action.user.error) {
+				newState = { ...state };
+				action.user["subreddit_name"] = action.user.username;
+
+				if (action.user.posts.length > 0) {
+					const posts = {};
+					let karma = 0;
+					action.user.posts.forEach((post) => {
+						posts[post.id] = post;
+						karma += post.votes.upvote_count;
+						karma -= post.votes.downvote_count;
+					});
+					action.user.posts = posts;
+					action.user.karma = karma;
+				}
+				newState[action.user.username] = action.user;
+				return newState;
+			} else {
+				return state;
 			}
-			newState[action.user.username] = action.user;
-			return newState;
 		case POST_VOTE:
 			newState = { ...state };
 			if (newState[action.post.subreddit_name]) {
 				newState[action.post.subreddit_name].posts[action.post.id] =
 					action.post;
 			}
-
+			if (
+				newState[action.post.user.username] &&
+				newState[action.post.user.username].posts &&
+				newState[action.post.user.username].posts[action.post.id]
+			) {
+				newState[action.post.user.username].posts[action.post.id] =
+					action.post;
+			}
 			if (newState["all"] && newState["all"].posts[action.post.id]) {
 				newState["all"].posts[action.post.id] = action.post;
 			}
@@ -328,10 +340,10 @@ export default function subreddits(state = initialState, action) {
 				newState[action.post.user.username].posts &&
 				newState[action.post.user.username].posts[action.post.id]
 			) {
+				newState[action.post.user.username].posts[action.post.id] =
+					action.post;
 			}
-			newState[action.post.user.username].posts[action.post.id] =
-				action.post;
-			console.log(action.post);
+
 			if (
 				newState[action.post.subreddit_name] &&
 				newState[action.post.subreddit_name].posts[action.post.id]
@@ -348,6 +360,7 @@ export default function subreddits(state = initialState, action) {
 			return newState;
 		case CREATE_POST:
 			newState = { ...state };
+
 			newState[action.post.user.username].posts[action.post.id] =
 				action.post;
 			// newState[action.post.subreddit_name].posts[action.post.id] = action.post

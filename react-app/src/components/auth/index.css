@@ -89,7 +89,7 @@ input[type="email"]:focus.signup-login-input {
 }
 
 .errors {
-	border: solid 20px red;
+	/* border: solid 20px red; */
 }
 
 .error {
@@ -99,6 +99,7 @@ input[type="email"]:focus.signup-login-input {
 .errors-container {
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	margin: 5px;
 	font-size: 14px;
 }

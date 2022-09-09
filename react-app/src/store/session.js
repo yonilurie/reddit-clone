@@ -37,8 +37,9 @@ const deleteSub = (subredditName) => ({
 
 const initialState = { user: null };
 
-
-export const changeAVote = (userVote, postId, currentUserId) => async (dispatch) => {
+export const changeAVote = (userVote, postId, currentUserId) => async (
+	dispatch
+) => {
 	const formData = new FormData();
 	formData.append("post_id", postId);
 	formData.append("user_id", currentUserId);
@@ -53,7 +54,7 @@ export const changeAVote = (userVote, postId, currentUserId) => async (dispatch)
 		const data = await response.json();
 		dispatch(changeVote(data.id));
 	}
-}
+};
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -181,7 +182,7 @@ export const deleteASubreddit = (subredditId, subredditName) => async (
 	const response = await fetch(`/api/r/${subredditId}/delete-subreddit`, {
 		method: "DELETE",
 	});
-	console.log("here");
+	
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(deleteSub(subredditName));
@@ -224,10 +225,15 @@ export default function reducer(state = initialState, action) {
 			return newState;
 		case EDIT_COMMUNITY:
 			newState = { ...state };
-			newState.user.subreddits[action.sub.name].description =
-				action.sub.description;
-			newState.user.subreddits[action.sub.name].display_name =
-				action.sub.display_name;
+			if (newState.user.subreddits[action.sub.name]) {
+				newState.user.subreddits[action.sub.name].description =
+					action.sub.description;
+			}
+			if (newState.user.subreddits[action.sub.name]) {
+				newState.user.subreddits[action.sub.name].display_name =
+					action.sub.display_name;
+			}
+
 			return newState;
 		case DELETE_SUB:
 			newState = { ...state };

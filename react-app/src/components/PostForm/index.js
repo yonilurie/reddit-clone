@@ -20,7 +20,7 @@ function PostForm() {
 	const { username } = useParams();
 
 	const [subredditsList, setSubredditsList] = useState([]);
-	const [subredditId, setSubredditId] = useState(0);
+	const [subredditId, setSubredditId] = useState(1);
 	const [typeOfPost, setTypeOfPost] = useState("text");
 	const [title, setTitle] = useState("");
 	// const [tags, setTags] = useState("");
@@ -34,7 +34,7 @@ function PostForm() {
 	}, [dispatch, username]);
 
 	useEffect(() => {
-		if (!subredditsList.length && !subredditId) {
+		if (!subredditsList.length) {
 			const subreddits = async () => {
 				const res = await fetch("/api/r/list-all");
 				return await res.json();
@@ -47,12 +47,12 @@ function PostForm() {
 		let postSubId = null;
 		try {
 			if (location.state.postSubId) {
-				console.log("here");
 				postSubId = location.state.postSubId;
 				setSubredditId(postSubId);
 				history.replace();
 			}
 		} catch (e) {}
+
 		if (subredditsList.length > 0 && !subredditId) {
 			setSubredditId(subredditsList[0].id);
 		}
@@ -73,6 +73,7 @@ function PostForm() {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		
 		const formData = new FormData();
 		formData.append("subreddit_id", subredditId);
 		formData.append("title", title);

@@ -141,6 +141,8 @@ h1 {
 
 .subreddit-description {
 	font-size: 14px;
+	white-space: pre-wrap;
+	word-break: break-all;
 }
 
 .subreddit-stats {
@@ -294,10 +296,11 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	width: 640px;
+	/* width: 640px; */
+	width: 100%;
 	/* min-width: 100%; */
 	min-width: 640px;
-	max-width: 640px;
+	/* max-width: 640px; */
 	position: relative;
 }
 .empty-post-container {
@@ -450,6 +453,15 @@ h1 {
 	white-space: pre-wrap;
 	word-break: break-all;
 	color: #7c7c7c;
+}
+
+.moderator-name {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.moderator-name:hover {
+	text-decoration: underline;
 }
 
 @keyframes gradient {

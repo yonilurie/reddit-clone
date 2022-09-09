@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import "./css/index.css";
 import UserTabs from "./js/UserTabs";
 import UserInfoCard from "./js/UserInfoCard";
@@ -11,29 +11,49 @@ import PlaceholderPosts from "./js/PlaceholderPosts";
 import { getUserInfo } from "../../store/subreddits";
 function User() {
 	const dispatch = useDispatch();
-	const params = useParams();
-	const { username } = useParams();
+	const history = useHistory();
+	const { tab, username } = useParams();
+
 	const currentUser = useSelector((state) => state.session.user);
 	const user = useSelector((state) => state.subreddits[username]);
 
 	useEffect(() => {
 		if (!username) return;
-		dispatch(getUserInfo(username));
+		dispatch(getUserInfo(username)).then((data) => {
+			if (data.error) {
+				history.push("/");
+			}
+		});
+		if (
+			tab !== "submitted" &&
+			tab !== "upvoted" &&
+			tab !== "downvoted" &&
+			tab !== undefined
+		) {
+			history.push(`/user/${username}`);
+			return null;
+		}
 	}, [username]);
 
-	if (!user) {
-		return null;
-	}
+	useEffect(() => {
+		if (!user) {
+			return null;
+		}
+
+		if (tab === "upvoted" || tab === "downvoted") {
+			history.push(`/user/${username}`);
+			return null;
+		}
+	}, [username, user]);
 
 	return (
 		<>
-			{user.username && (
+			{user && user.username && (
 				<>
 					<UserTabs user={user}></UserTabs>
 					<div className="profile-content-container-wide">
 						<div className="profile-content-wide">
-							{(params.tab === "submitted" ||
-								params.tab === undefined) &&
+							{(tab === "submitted" || tab === undefined) &&
 								Object.values(user.posts).length > 0 &&
 								Object.values(user.posts)
 									.reverse()
@@ -46,15 +66,13 @@ function User() {
 											/>
 										);
 									})}
-							{params.tab === "submitted" &&
+							{(tab === "submitted" || tab === undefined) &&
 								Object.values(user.posts).length === 0 && (
 									<PlaceholderPosts user={user} />
 								)}
 							<>
-								{params.tab === "submit" && (
-									<PostForm></PostForm>
-								)}
-								{params.tab === "upvoted" &&
+								{tab === "submit" && <PostForm></PostForm>}
+								{tab === "upvoted" &&
 									currentUser &&
 									currentUser.username === user.username &&
 									Object.values(currentUser.votes).length >
@@ -69,7 +87,7 @@ function User() {
 												/>
 											) : null;
 										})}
-								{params.tab === "downvoted" &&
+								{tab === "downvoted" &&
 									currentUser &&
 									currentUser.username === user.username &&
 									Object.values(currentUser.votes).length >
@@ -84,56 +102,9 @@ function User() {
 												/>
 											) : null;
 										})}
-								{params.tab === "downvoted" &&
-									currentUser.username === user.username &&
-									Object.values(currentUser.votes).length ===
-										0 && (
-										<div className="placeholder-posts-container-main">
-											<div className="empty-post-main">
-												{[
-													1,
-													2,
-													3,
-													4,
-													5,
-													6,
-													7,
-													8,
-													9,
-													10,
-												].map((empty) => {
-													return (
-														<div
-															className="empty-post-container"
-															key={empty}
-														>
-															<div className="empty-votes">
-																<i
-																	className={`fa-solid fa-arrow-up `}
-																></i>
-																<i
-																	className={`fa-solid fa-arrow-down `}
-																></i>
-															</div>
-														</div>
-													);
-												})}
-												<div className="empty-post-text-container-flex">
-													<div className="empty-post-text">
-														<div className="empty-post-big-text">
-															hmm... seems u/
-															{user.username}{" "}
-															hasn't posted
-															anything
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									)}
 							</>
 						</div>
-						<div>
+						<div className="user-info-main-container">
 							<UserInfoCard user={user}></UserInfoCard>
 							{Object.values(user.subreddits).length > 0 && (
 								<UserModCard user={user}></UserModCard>

@@ -1,6 +1,6 @@
 .about-container-main {
 	width: 100vw;
-	height: 100vh;
+	height: fit-content;
 	display: flex;
 	justify-content: center;
 }
@@ -40,5 +40,17 @@ ul {
 .list-title {
 	font-family: "IBM Plex Sans Bold", sans-serif;
 	font-size: 18px;
-    margin-bottom: 5px;
+	margin-bottom: 5px;
+}
+
+@media screen and (max-width: 1100px) {
+	ul {
+		flex-direction: column;
+	}
+	.about-container-main {
+		min-width: fit-content;
+	}
+	.about-container {
+		min-width: fit-content;
+	}
 }

@@ -14,7 +14,7 @@ function LinkForm({ link, setLink, setValidURL, post }) {
 		<div className="text-form-container">
 			<textarea
 				className="link-input"
-				placeholder="Url"
+				placeholder="Please enter a URL prefixed with https://"
 				value={link}
 				onChange={(e) => resizeInput(e)}
 			></textarea>

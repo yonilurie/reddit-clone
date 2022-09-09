@@ -228,3 +228,8 @@ input[type="file"] {
 	background-color: rgb(131, 131, 131);
 	cursor: auto;
 }
+
+
+.image-upload-error {
+	color: red;
+}

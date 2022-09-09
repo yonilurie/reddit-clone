@@ -389,6 +389,8 @@
 	box-sizing: border-box;
 	border: solid 1px rgb(237, 239, 241);
 	border-radius: 4px;
+	max-width: 95%;
+	max-height: 95%;
 }
 
 .community-container {

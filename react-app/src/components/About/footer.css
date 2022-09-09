@@ -1,11 +1,9 @@
 #footer-container-main {
 	width: 100%;
 	height: 50px;
-
 	position: fixed;
 	bottom: 0px;
-	z-index: 20;
-
+	z-index: 10;
 	padding: 0px 50px;
 	box-sizing: border-box;
 	display: flex;
@@ -21,14 +19,28 @@
 	box-shadow: 1px 1px 5px 1px rgb(169, 169, 169);
 	border-radius: 4px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	gap: 50px;
-	width: fit-content;
+	width: 50%;
 	padding: 3px;
 	color: black;
 }
 
 #footer-text {
 	font-family: "IBM Plex Sans Bold", sans-serif;
+}
+
+
+@media screen and (max-width:750px) {
+	#footer-text {
+		display: none;
+	}
+	#footer-container-main {
+		min-width: fit-content;
+	}
+	#footer-inner-container {
+		gap: 10px	;
+		width: fit-content;
+	}
 }

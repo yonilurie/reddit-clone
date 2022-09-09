@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileMenu from "./js/ProfileMenu";
+import logo from  '../../images/teddir-logo.png'
 import * as sessionActions from "../../store/session";
 import "./css/index.css";
 
@@ -17,7 +18,7 @@ function NavBar() {
 			<div>
 				<NavLink to="/" exact={true}>
 					<img
-						src="https://logos-download.com/wp-content/uploads/2016/06/Reddit_logo_full_1.png"
+						src={logo}
 						className="nav-logo"
 						alt="logo"
 					></img>

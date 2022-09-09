@@ -30,6 +30,17 @@ function SinglePostPage() {
 	const currentUser = useSelector((state) => state.session.user);
 
 	useEffect(() => {
+		if (
+			subreddits[subreddit] &&
+			subreddits[subreddit].id &&
+			subreddits[subreddit].posts &&
+			!subreddits[subreddit].posts[postId]
+		) {
+			return history.push("/");
+		}
+	}, [subreddits]);
+
+	useEffect(() => {
 		if (currentUser) {
 			dispatch(authenticate());
 		}
@@ -41,10 +52,7 @@ function SinglePostPage() {
 		}
 		if (subreddits[subreddit] && !subreddits[subreddit].posts) {
 			dispatch(getPosts(subreddit));
-			// setLoaded(true);
 		}
-
-		// setSub(subreddits[subreddit]);
 	}, [dispatch, subreddits, subreddit]);
 
 	useEffect(() => {
@@ -242,7 +250,7 @@ function SinglePostPage() {
 												)}
 
 											{subreddits[subreddit].posts[postId]
-												.type_of_post === 'text' &&
+												.type_of_post === "text" &&
 												edit === true && (
 													<>
 														<form
@@ -301,7 +309,11 @@ function SinglePostPage() {
 																	subreddit
 															  ].posts[postId]
 																	.link} */}
-													{subreddits[subreddit].posts[postId].link}
+														{
+															subreddits[
+																subreddit
+															].posts[postId].link
+														}
 													</div>
 												</a>
 											)}

@@ -36,7 +36,7 @@ function RuleModal({
 		formData.append("subreddit_id", subredditId);
 
 		dispatch(editARule(formData, subredditId)).then((data) => {
-			console.log(data);
+			
 			dispatch(editSubRules(data));
 			dispatch(authenticate());
 		});

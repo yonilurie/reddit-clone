@@ -51,9 +51,6 @@ function App() {
 				<Route path="/user/:username" exact={true}>
 					<Profile />
 				</Route>
-				<ProtectedRoute path="/users" exact={true}>
-					<UsersList />
-				</ProtectedRoute>
 				<ProtectedRoute path="/user/:username/submit" exact={true}>
 					<SubmitPage />
 				</ProtectedRoute>

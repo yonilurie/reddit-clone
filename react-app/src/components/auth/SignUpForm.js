@@ -37,7 +37,6 @@ const LoginForm = ({ action, setShowModal }) => {
 
 		if (data) {
 			setErrors(data);
-			console.log(data);
 		} else setShowModal(false);
 	};
 

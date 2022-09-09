@@ -19,7 +19,7 @@ function CommunitySettings({ sub }) {
 		formData.append("display_name", subDisplayName);
 		formData.append("description", subDescription);
 		dispatch(editCommunitySettings(formData, sub.id)).then((data) => {
-			console.log(data)
+			
 			dispatch(editSubCommunitySettings(data));
 			alert("Changes Submitted");
 		});

@@ -13,12 +13,11 @@ import "./css/index.css";
 
 const Subreddit = () => {
 	const dispatch = useDispatch();
-	const history = useHistory()
+	const history = useHistory();
 	const { subreddit } = useParams();
 
 	const [sub, setSub] = useState(null);
 	const [loaded, setLoaded] = useState(false);
-	const [count, setCount] = useState(1);
 	const subreddits = useSelector((state) => state.subreddits);
 	const currentUser = useSelector((state) => state.session.user);
 
@@ -26,28 +25,25 @@ const Subreddit = () => {
 		if (!subreddits[subreddit] || !subreddits[subreddit].id) {
 			dispatch(getSubInfo(subreddit)).then((data) => {
 				if (data.error) {
-					return history.push('/')
+					return history.push("/");
 				}
 				dispatch(getPosts(subreddit)).then((data) => {
 					setLoaded(true);
 				});
 			});
 		}
-
-		// setCount(count => count += 1)
-
-		// if (subreddits[subreddit] && !subreddits[subreddit].posts) {
-		// 	;
-		// 	setLoaded(true);
-		// }
 		setSub(subreddits[subreddit]);
 	}, [dispatch, subreddits, subreddit]);
 
 	useEffect(() => {
-		const timeout = setTimeout(() => {
+		if (!subreddits[subreddit]) {
+			const timeout = setTimeout(() => {
+				setLoaded(true);
+			}, 500);
+			return () => clearTimeout(timeout);
+		} else {
 			setLoaded(true);
-		}, 500);
-		return () => clearTimeout(timeout);
+		}
 	}, []);
 
 	return (
@@ -57,12 +53,14 @@ const Subreddit = () => {
 					<SubredditBanner sub={sub} />
 
 					<div className="subreddit-inner-container">
-						{sub && sub.posts && (
-							<div className="subreddit-posts">
-								{sub &&
-									sub.posts &&
-									Object.values(sub.posts).length > 0 &&
-									Object.values(sub.posts)
+						{sub &&
+							sub.posts &&
+							Object.values(sub.posts).length > 0 && (
+								<div className="subreddit-posts">
+									{/* {sub &&
+										sub.posts &&
+										Object.values(sub.posts).length > 0 && */}
+									{Object.values(sub.posts)
 										.reverse()
 										.map((post) => (
 											<SubredditPostCard
@@ -70,14 +68,9 @@ const Subreddit = () => {
 												key={post.id}
 											></SubredditPostCard>
 										))}
-							</div>
-						)}
-						{!sub.posts && (
-							<div className="loading-posts">
-								<SubredditLoading></SubredditLoading>
-								<SubredditLoading></SubredditLoading>
-							</div>
-						)}
+								</div>
+							)}
+
 						{loaded &&
 							sub.posts &&
 							Object.keys(sub.posts).length === 0 && (
@@ -136,9 +129,13 @@ const Subreddit = () => {
 									</div>
 								</div>
 							)}
-
+						{!loaded && !sub.posts && (
+							<div className="loading-posts">
+								<SubredditLoading></SubredditLoading>
+								<SubredditLoading></SubredditLoading>
+							</div>
+						)}
 						<div className="subreddit-info">
-							{/* <div> */}
 							<div>
 								<SubredditInfoCard
 									sub={sub}
