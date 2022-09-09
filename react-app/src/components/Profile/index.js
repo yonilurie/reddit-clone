@@ -87,6 +87,15 @@ function User() {
 												/>
 											) : null;
 										})}
+
+								{tab === "upvoted" &&
+									!Object.values(currentUser.votes).some(
+										(ele) => ele.upvote === true
+									) && (
+											<div className="no-votes-container">
+											<div className="no-votes-text">No posts upvoted yet</div>
+										</div>
+									)}
 								{tab === "downvoted" &&
 									currentUser &&
 									currentUser.username === user.username &&
@@ -102,6 +111,14 @@ function User() {
 												/>
 											) : null;
 										})}
+								{tab === "downvoted" &&
+									!Object.values(currentUser.votes).some(
+										(ele) => ele.upvote === false
+									) && (
+										<div className="no-votes-container">
+											<div className="no-votes-text">No posts downvoted yet</div>
+										</div>
+									)}
 							</>
 						</div>
 						<div className="user-info-main-container">
