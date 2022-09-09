@@ -2,7 +2,7 @@
 
 ## Description
 This application is a exact clone of [Reddit.com](https://www.reddit.com/)
-User will be able to create subreddits, make posts, comments on posts, and upvote or downvote content
+User will be able to create subreddits, make posts, and upvote or downvote content
 
 ## Wiki Links
 ### [Database Schema](https://github.com/yonilurie/reddit-clone/wiki/Database-Schema)
