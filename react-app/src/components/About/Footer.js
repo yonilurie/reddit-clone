@@ -7,11 +7,15 @@ function Footer() {
 			{!about && (
 				<div id="footer-inner-container">
 					<div id="footer-text">Created By: Yoni Lurie</div>
-					<Link id="footer-text" to="/about">
+					<Link id="footer-text" to="/about" className="footer-about-link">
 						About
 					</Link>
 					<div>
-						<a href="https://github.com/yonilurie">
+						<a
+							href="https://github.com/yonilurie"
+							target="_blank"
+							rel="noreferrer"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -24,7 +28,11 @@ function Footer() {
 					</div>
 					<div>
 						{" "}
-						<a href="https://www.linkedin.com/in/yonatan-lurie-464266203">
+						<a
+							href="https://www.linkedin.com/in/yonatan-lurie-464266203"
+							target="_blank"
+							rel="noreferrer"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"

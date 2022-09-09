@@ -4,7 +4,7 @@ function Rule({ sub, idx, ruleTitle, ruleDetail }) {
 	return (
 		<div className="sub-rules-container" key={idx + 1}>
 			<div
-                className={`sub-rule-title ${ruleDetail ? 'has-rule-detail': ''}`}
+				className={`sub-rule-title has-rule-detail`}
 				onClick={() =>
 					setShowRuleDetail((showRuleDetail) => !showRuleDetail)
 				}
@@ -12,15 +12,9 @@ function Rule({ sub, idx, ruleTitle, ruleDetail }) {
 				{" "}
 				{idx + 1}. {ruleTitle}
 			</div>
-			{ruleDetail && (
-				<div
-					className={`sub-rule-detail ${
-						showRuleDetail ? "" : "hide"
-					}`}
-				>
-					-{ruleDetail}
-				</div>
-			)}
+			<div className={`sub-rule-detail ${showRuleDetail ? "" : "hide"}`}>
+				- {ruleDetail ? ruleDetail : "No details"}
+			</div>
 		</div>
 	);
 }

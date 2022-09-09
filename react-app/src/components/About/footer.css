@@ -31,8 +31,27 @@
 	font-family: "IBM Plex Sans Bold", sans-serif;
 }
 
+.about-link-container {
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+}
+.about-link-div {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.about-link-link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.footer-about-link:hover {
+	text-decoration: underline;
+	color: rgb(0, 121, 211);
+}
 
-@media screen and (max-width:750px) {
+@media screen and (max-width: 750px) {
 	#footer-text {
 		display: none;
 	}
@@ -40,7 +59,7 @@
 		min-width: fit-content;
 	}
 	#footer-inner-container {
-		gap: 10px	;
+		gap: 10px;
 		width: fit-content;
 	}
 }

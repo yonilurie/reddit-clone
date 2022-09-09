@@ -89,6 +89,7 @@ function User() {
 										})}
 
 								{tab === "upvoted" &&
+									currentUser && 
 									!Object.values(currentUser.votes).some(
 										(ele) => ele.upvote === true
 									) && (
@@ -112,6 +113,7 @@ function User() {
 											) : null;
 										})}
 								{tab === "downvoted" &&
+									currentUser && 
 									!Object.values(currentUser.votes).some(
 										(ele) => ele.upvote === false
 									) && (

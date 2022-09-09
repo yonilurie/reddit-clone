@@ -226,7 +226,8 @@ input[type="file"] {
 
 .disabled {
 	background-color: rgb(131, 131, 131);
-	cursor: auto;
+	cursor: not-allowed;
+
 }
 
 

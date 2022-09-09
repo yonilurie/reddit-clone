@@ -14,7 +14,7 @@ function PlaceholderPosts({ user }) {
 				})}
 				<div className="empty-post-text-container-flex">
 					<div className="empty-post-text">
-						<div className="empty-post-big-text">
+						<div className="empty-post-big-text" id='empty-post-big-text'>
 							hmm... seems u/{user.username} hasn't posted anything
 						</div>
 					</div>
