@@ -91,20 +91,25 @@ function PostForm() {
 		if (typeOfPost === "image") {
 			formData.append("image", image);
 			dispatch(createAPostImage(subredditId, formData)).then((data) => {
-				history.replace();
-				history.push(
-					`/r/${data.subreddit_name}/${data.id}/${data.title}`
-				);
+				dispatch(getSubInfo(data.subreddit_name)).then((subData) => {
+					dispatch(getPosts(subData.name)).then((postsData) => {
+						history.replace();
+						return history.push(
+							`/r/${data.subreddit_name}/${data.id}/${data.title}`
+						);
+					});
+				});
 			});
 		} else {
 			dispatch(createAPost(subredditId, formData)).then((data) => {
-				dispatch(getSubInfo(data.subreddit_name)).then((data) => {
-					dispatch(getPosts(data.name));
+				dispatch(getSubInfo(data.subreddit_name)).then((subData) => {
+					dispatch(getPosts(subData.name)).then((postsData) => {
+						history.replace();
+						return history.push(
+							`/r/${data.subreddit_name}/${data.id}/${data.title}`
+						);
+					});
 				});
-				history.replace();
-				history.push(
-					`/r/${data.subreddit_name}/${data.id}/${data.title}`
-				);
 			});
 		}
 	};
