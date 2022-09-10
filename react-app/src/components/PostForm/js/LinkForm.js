@@ -3,6 +3,9 @@ function LinkForm({ link, setLink, setValidURL, post }) {
 		try {
 			const URLCheck = new URL(e.target.value);
 			if (URLCheck) setValidURL(true);
+			if (URLCheck.protocol !== "https:") {
+				setValidURL(false);
+			}
 		} catch (e) {
 			setValidURL(false);
 		}
@@ -12,11 +15,17 @@ function LinkForm({ link, setLink, setValidURL, post }) {
 	};
 	return (
 		<div className="text-form-container">
+			{link.length > 0 && (
+				<label htmlFor="link-input">
+					URL to External Page ( https: at beginning of URL )
+				</label>
+			)}
 			<textarea
 				className="link-input"
-				placeholder="Please enter a URL prefixed with https://"
+				placeholder="Please enter a URL to an external page prefixed with https://"
 				value={link}
 				onChange={(e) => resizeInput(e)}
+				id="link-input"
 			></textarea>
 		</div>
 	);

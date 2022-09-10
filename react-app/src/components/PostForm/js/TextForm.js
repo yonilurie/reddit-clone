@@ -17,11 +17,13 @@ function TextForm({ text, setText, post }) {
 
 	return (
 		<div className="text-form-container">
+			{text.length > 0 && <label htmlFor="post-text">Text</label>}
 			<textarea
 				placeholder="Text(optional)"
+				id="post-text"
 				className="text-area"
 				value={text}
-				maxLength="10000"
+				maxLength="2000"
 				onChange={(e) => resizeInput(e)}
 			></textarea>
 		</div>

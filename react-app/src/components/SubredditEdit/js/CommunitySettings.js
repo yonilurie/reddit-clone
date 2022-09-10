@@ -7,8 +7,9 @@ function CommunitySettings({ sub }) {
 	const dispatch = useDispatch();
 	const [subDisplayName, setSubDisplayName] = useState(sub.display_name);
 	const [subDescription, setSubDescription] = useState(sub.description);
+
 	const resizeInput = (e) => {
-		setSubDescription(e.target.value);
+		// setSubDescription(e.target.value);
 		e.target.style.height = "auto";
 		e.target.style.height = e.target.scrollHeight + "px";
 	};
@@ -19,7 +20,6 @@ function CommunitySettings({ sub }) {
 		formData.append("display_name", subDisplayName);
 		formData.append("description", subDescription);
 		dispatch(editCommunitySettings(formData, sub.id)).then((data) => {
-			
 			dispatch(editSubCommunitySettings(data));
 			alert("Changes Submitted");
 		});
@@ -80,12 +80,13 @@ function CommunitySettings({ sub }) {
 							placeholder="Community description will be left blank"
 							value={subDescription}
 							maxLength="500"
-							onChange={(e) =>
+							onChange={(e) => {
 								removeWhiteSpace(
 									e.target.value,
 									setSubDescription
-								)
-							}
+								);
+								resizeInput(e);
+							}}
 						></textarea>
 						<div
 							className={`${

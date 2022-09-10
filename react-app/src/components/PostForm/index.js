@@ -73,7 +73,7 @@ function PostForm() {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		
+
 		const formData = new FormData();
 		formData.append("subreddit_id", subredditId);
 		formData.append("title", title);
@@ -165,6 +165,9 @@ function PostForm() {
 						</div>
 					</div>
 					<div className="post-title">
+						{title.length > 0 && (
+							<label htmlFor="post-title">Title</label>
+						)}
 						<div className="character-count">
 							{title.length > 0 ? `${title.length}/300` : "0/300"}
 						</div>
@@ -177,6 +180,7 @@ function PostForm() {
 								resizeInput(e);
 							}}
 							maxLength="300"
+							id="post-title"
 						></textarea>
 					</div>
 					{typeOfPost === "text" && (
