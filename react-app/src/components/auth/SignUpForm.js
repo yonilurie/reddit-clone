@@ -89,9 +89,10 @@ const LoginForm = ({ action, setShowModal }) => {
 						required={true}
 						minLength="4"
 						maxLength="40"
+						pattern="[A-Za-z0-9]+"
 					/>
 					<label htmlFor="email" className={`input-label `}>
-						Username
+						Username - Alphanumeric 
 					</label>
 				</div>
 				<div className="input-container">
