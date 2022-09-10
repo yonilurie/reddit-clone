@@ -1,6 +1,6 @@
 import "./index.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import SubredditEditPlaceholder from "./js/Placeholder";
 import SubredditRules from "./js/Rules";
 import DeleteSubreddit from "./js/DeleteSubreddit";
@@ -10,11 +10,19 @@ import { useEffect } from "react";
 
 function SubredditEdit() {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const { subreddit, section } = useParams();
 	const sub = useSelector(
 		(state) => state.session.user.subreddits[subreddit]
 	);
-
+	if (
+		section !== "about" &&
+		section !== "rules" &&
+		section !== "community-settings" &&
+		section !== "delete"
+	) {
+		history.push(`/r/${subreddit}/about`);
+	}
 	return (
 		<>
 			{sub && (
