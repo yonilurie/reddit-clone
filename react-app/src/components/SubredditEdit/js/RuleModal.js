@@ -94,7 +94,7 @@ function RuleModal({
 						</div>
 						<div className="rule-modal-input detail">
 							<label htmlFor="rule-input-detail">
-								Rule detail
+								Rule detail ( Optional )
 							</label>
 							<input
 								id="rule-input-details"

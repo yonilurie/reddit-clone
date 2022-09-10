@@ -1,7 +1,7 @@
 import { logout } from "../../../store/session";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import LoginFormModal from "../../auth/LoginFormModal";
 import SubredditModal from "../../SubredditModal";
 const ProfileMenu = ({
@@ -13,6 +13,7 @@ const ProfileMenu = ({
 	action,
 }) => {
 	const dispatch = useDispatch();
+	const history = useHistory()
 	const [showSubModal, setShowSubModal] = useState(false);
 
 	useEffect(() => {
@@ -33,6 +34,7 @@ const ProfileMenu = ({
 
 	const onLogout = async (e) => {
 		await dispatch(logout());
+		history.push('/')
 	};
 
 
