@@ -21,7 +21,7 @@ function SinglePostPage() {
 	const location = useLocation();
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const { subreddit, postId} = useParams();
+	const { subreddit, postId } = useParams();
 
 	const [showModal, setShowModal] = useState(false);
 	const [edit, setEdit] = useState(false);
@@ -29,6 +29,9 @@ function SinglePostPage() {
 
 	const subreddits = useSelector((state) => state.subreddits);
 	const currentUser = useSelector((state) => state.session.user);
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	useEffect(() => {
 		if (

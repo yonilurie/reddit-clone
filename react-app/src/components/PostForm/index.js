@@ -59,9 +59,9 @@ function PostForm() {
 	}, [username, location]);
 
 	const resizeInput = (e) => {
-		let tempTitle = e.target.value.replace(/[%/\\?&]/, "");
+		// let tempTitle = e.target.value.replace(/[%/\\?&]/, "");
 
-		tempTitle = tempTitle.replace("  ", " ");
+		let tempTitle = e.target.value.replace("  ", " ");
 		setTitle(tempTitle);
 		e.target.style.height = "auto";
 		e.target.style.height = e.target.scrollHeight + "px";

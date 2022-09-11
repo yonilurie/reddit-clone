@@ -30,7 +30,7 @@ function PostMenu({ post }) {
 							<Link
 								className="post-menu-option"
 								to={{
-									pathname: `/r/${post.subreddit_name}/${post.id}}`,
+									pathname: `/r/${post.subreddit_name}/${post.id}`,
 									state: { edit: true },
 								}}
 							>
