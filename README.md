@@ -21,6 +21,8 @@ Users will be able to create subreddits, make posts, and upvote or downvote cont
 
 ## Technologies used
 
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 
@@ -41,6 +43,7 @@ Users will be able to create subreddits, make posts, and upvote or downvote cont
 ## Screenshots
 
 ### Home page while logged out
+
 ![HomePage](./readme-screenshots/home-page.png)
 
 ### Sign up modal
@@ -48,16 +51,21 @@ Users will be able to create subreddits, make posts, and upvote or downvote cont
 ![Sign Up](./readme-screenshots/sign-up.png)
 
 ### Logged in Navbar Profile menu
+
 ![Nav logged in](./readme-screenshots/nav-loggedin.png)
 
 ### User profile
+
 ![User profile](./readme-screenshots/user-profile.png)
 
 ### User submit page with image uploaded
+
 ![User submit page with image uploaded](./readme-screenshots/user-submit-page.png)
 
 ### Subreddit page
+
 ![Subreddit](./readme-screenshots/subreddit-page.png)
 
 ### Mod tools for editing subreddit
+
 ![Mod tools](./readme-screenshots/mod-tools.png)
