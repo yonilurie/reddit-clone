@@ -39,7 +39,7 @@ function App() {
 				<Route path="/about" exact={true}>
 					<About></About>
 				</Route>
-				<Route path="/r/:subreddit" exact={true}>
+				<Route path="/r/:subreddit([A-Z]\w+)" exact={true}>
 					<Subreddit></Subreddit>
 				</Route>{" "}
 				<Route path="/r/:subreddit/:postId(\d+)" exact={true}>
