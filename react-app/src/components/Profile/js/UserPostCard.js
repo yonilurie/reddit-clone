@@ -95,7 +95,7 @@ function UserPostCard({ postId, post }) {
 
 						{post.text && (
 							<a
-								href={`/r/${post.subreddit_name}/${post.id}/${post.title}`}
+								href={`/r/${post.subreddit_name}/${post.id}`}
 								target="_blank"
 								rel="noreferrer"
 							>
@@ -119,7 +119,7 @@ function UserPostCard({ postId, post }) {
 
 						{!post.link && !post.text && !post.image && (
 							<a
-								href={`/r/${post.subreddit_name}/${post.id}/${post.title}`}
+								href={`/r/${post.subreddit_name}/${post.id}`}
 								target="_blank"
 								rel="noreferrer"
 							>
@@ -131,7 +131,7 @@ function UserPostCard({ postId, post }) {
 
 						<div className="profile-post-text">
 							<Link
-								to={`/r/${post.subreddit_name}/${post.id}/${post.title}`}
+								to={`/r/${post.subreddit_name}/${post.id}`}
 							>
 								<div className="profile-post-title">
 									{post.title}

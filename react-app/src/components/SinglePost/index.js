@@ -21,7 +21,8 @@ function SinglePostPage() {
 	const location = useLocation();
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const { subreddit, postId, postTitle } = useParams();
+	const { subreddit, postId} = useParams();
+
 	const [showModal, setShowModal] = useState(false);
 	const [edit, setEdit] = useState(false);
 	const [text, setText] = useState("");
@@ -35,15 +36,6 @@ function SinglePostPage() {
 			subreddits[subreddit].id &&
 			subreddits[subreddit].posts &&
 			!subreddits[subreddit].posts[postId]
-		) {
-			return history.push("/");
-		}
-		if (
-			subreddits[subreddit] &&
-			subreddits[subreddit].id &&
-			subreddits[subreddit].posts &&
-			subreddits[subreddit].posts[postId].title &&
-			subreddits[subreddit].posts[postId].title !== postTitle
 		) {
 			return history.push("/");
 		}
@@ -89,7 +81,7 @@ function SinglePostPage() {
 				subreddits[subreddit].id &&
 				subreddits[subreddit].posts &&
 				subreddits[subreddit].posts[postId] && (
-					<>
+					<div className="single-post-page-main-container">
 						<Link to={`/r/${subreddit}`}>
 							<SubredditBanner
 								sub={subreddits[subreddit]}
@@ -375,7 +367,7 @@ function SinglePostPage() {
 								title="About Community"
 							></SubredditInfoCard>
 						</div>
-					</>
+					</div>
 				)}
 		</>
 	);

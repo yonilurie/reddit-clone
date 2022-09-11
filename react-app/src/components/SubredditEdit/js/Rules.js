@@ -5,6 +5,8 @@ function SubredditRules({ sub }) {
 	const rules = sub.rules.split("%");
 	const [showRuleModal, setShowRuleModal] = useState(false);
 	const [editedRules, setEditedRules] = useState(rules);
+	console.log(rules);
+	console.log(rules.length);
 	return (
 		<div className="rules-main-container">
 			<RuleModal
@@ -16,8 +18,11 @@ function SubredditRules({ sub }) {
 			></RuleModal>
 			<div className="add-rule-container">
 				<button
-					className="submit-post-button rules"
+					className={`submit-post-button rules ${
+						rules.length >= 16 ? "disabled" : ""
+					}`}
 					onClick={() => setShowRuleModal(true)}
+					disabled={rules.length >= 16}
 				>
 					Add Rule
 				</button>
@@ -25,13 +30,13 @@ function SubredditRules({ sub }) {
 			<div className="edit-subreddit-main-content rules">
 				<h2 className="edit-subreddit-header rules">Rules</h2>
 				<h3 className="rules-header-details">
-					These are rules that visitors must follow to participate.
-					
+					These are rules that visitors must follow to participate. (
+					Maximum 15 Rules )
 				</h3>
 				{sub.rules && rules && (
 					<div className="edit-subreddit-rules-map">
 						{rules.map((rule, index) => {
-							if (!rule) return 
+							if (!rule) return;
 							const [ruleTitle, ruleDetail] = rule.split(":");
 							return (
 								<RuleContainer

@@ -8,6 +8,10 @@
 	gap: 20px;
 }
 
+.single-post-page-main-container {
+	margin-bottom: 100px;
+}
+
 .single-post-container {
 	width: fit-content;
 	display: flex;

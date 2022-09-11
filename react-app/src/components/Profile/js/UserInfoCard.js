@@ -23,7 +23,7 @@ function UserInfoCard({ user }) {
 						{user.display_name ? user.display_name : user.username}
 					</h3>
 					<div className="user-profile-username">
-						<div>u/{user.username}</div>
+						<div className="h3-username">u/{user.username}</div>
 						{/* <Link to={`/user/${user.username}/settings`}>
 							<i className="fa-solid fa-gear"></i>
 						</Link> */}

@@ -41,13 +41,13 @@ function App() {
 				</Route>
 				<Route path="/r/:subreddit" exact={true}>
 					<Subreddit></Subreddit>
+				</Route>{" "}
+				<Route path="/r/:subreddit/:postId(\d+)" exact={true}>
+					<SinglePostPage></SinglePostPage>
 				</Route>
 				<ProtectedRoute path="/r/:subreddit/:section" exact={true}>
 					<SubredditEdit></SubredditEdit>
 				</ProtectedRoute>
-				<Route path="/r/:subreddit/:postId/:postTitle" exact={true}>
-					<SinglePostPage></SinglePostPage>
-				</Route>
 				<Route path="/user/:username" exact={true}>
 					<Profile />
 				</Route>

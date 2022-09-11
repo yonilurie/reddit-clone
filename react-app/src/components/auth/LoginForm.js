@@ -80,6 +80,7 @@ const LoginForm = ({ action, setShowModal }) => {
 						onChange={updatePassword}
 						required={true}
 						minLength="6"
+						maxLength="64"
 					></input>
 					<label
 						className={`input-label ${

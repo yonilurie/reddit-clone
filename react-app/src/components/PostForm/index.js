@@ -95,7 +95,7 @@ function PostForm() {
 					dispatch(getPosts(subData.name)).then((postsData) => {
 						history.replace();
 						return history.push(
-							`/r/${data.subreddit_name}/${data.id}/${data.title}`
+							`/r/${data.subreddit_name}/${data.id}`
 						);
 					});
 				});
@@ -106,7 +106,7 @@ function PostForm() {
 					dispatch(getPosts(subData.name)).then((postsData) => {
 						history.replace();
 						return history.push(
-							`/r/${data.subreddit_name}/${data.id}/${data.title}`
+							`/r/${data.subreddit_name}/${data.id}`
 						);
 					});
 				});
