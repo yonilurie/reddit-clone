@@ -12,7 +12,7 @@ function Footer() {
 					</Link>
 					<div>
 						<a
-							href="https://github.com/yonilurie"
+							href="https://github.com/yonilurie/reddit-clone"
 							target="_blank"
 							rel="noreferrer"
 						>

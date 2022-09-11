@@ -42,7 +42,7 @@ function About() {
 					<div className="about-link-div">
 						<div>Github</div>
 						<a
-							href="https://github.com/yonilurie/yonilurie"
+							href="https://github.com/yonilurie/reddit-clone"
 							target="_blank"
 							rel="noreferrer"
 							className="about-link-link"
