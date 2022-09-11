@@ -179,11 +179,12 @@ function SinglePostPage() {
 
 															{`
 														${getTimeElapsed(subreddits[subreddit].posts[postId].created_at)}`}
-															{subreddits[
+															{/* {subreddits[
 																subreddit
 															].posts[postId]
 																.updated_at && (
 																<span>
+																	{" "}
 																	Edited:{" "}
 																	{subreddits[
 																		subreddit
@@ -195,13 +196,13 @@ function SinglePostPage() {
 																		)
 																		.splice(
 																			1,
-																			4
+																			3
 																		)
 																		.join(
 																			" "
 																		)}
 																</span>
-															)}
+															)} */}
 														</span>
 													</div>
 												</div>{" "}

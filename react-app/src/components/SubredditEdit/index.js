@@ -18,7 +18,7 @@ function SubredditEdit() {
 	if (
 		section !== "about" &&
 		section !== "rules" &&
-		section !== "community-settings" &&
+		section !== "communitysettings" &&
 		section !== "delete"
 	) {
 		history.push(`/`);
@@ -81,9 +81,9 @@ function SubredditEdit() {
 								<div>Settings</div>
 							</div>
 							<Link
-								to={`/r/${subreddit}/community-settings`}
+								to={`/r/${subreddit}/communitysettings`}
 								className={`profile-menu-el user-links  ${
-									section === "community-settings"
+									section === "communitysettings"
 										? "selected"
 										: ""
 								}`}
@@ -106,7 +106,7 @@ function SubredditEdit() {
 						{section === "about" && <SubredditEditPlaceholder />}
 						{section === "rules" && <SubredditRules sub={sub} />}
 						{section === "delete" && <DeleteSubreddit sub={sub} />}
-						{section === "community-settings" && (
+						{section === "communitysettings" && (
 							<CommunitySettings sub={sub} />
 						)}
 					</div>
