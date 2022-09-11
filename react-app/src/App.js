@@ -42,7 +42,7 @@ function App() {
 				<Route path="/r/:subreddit([A-Z]\w+)" exact={true}>
 					<Subreddit></Subreddit>
 				</Route>{" "}
-				<Route path="/r/:subreddit/:postId(\d+)" exact={true}>
+				<Route path="/r/:subreddit([A-Z]\w+)/:postId(\d+)" exact={true}>
 					<SinglePostPage></SinglePostPage>
 				</Route>
 				<ProtectedRoute
