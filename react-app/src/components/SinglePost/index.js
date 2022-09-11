@@ -52,7 +52,11 @@ function SinglePostPage() {
 
 	useEffect(() => {
 		if (!subreddits[subreddit] || !subreddits[subreddit].id) {
-			dispatch(getSubInfo(subreddit));
+			dispatch(getSubInfo(subreddit)).then((data) => {
+				if (data.error) {
+					return history.push("/");
+				}
+			});
 		}
 		if (subreddits[subreddit] && !subreddits[subreddit].posts) {
 			dispatch(getPosts(subreddit));

@@ -21,7 +21,7 @@ function SubredditEdit() {
 		section !== "community-settings" &&
 		section !== "delete"
 	) {
-		history.push(`/r/${subreddit}/about`);
+		history.push(`/`);
 	}
 	return (
 		<>
