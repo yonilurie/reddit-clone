@@ -136,7 +136,7 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 								Create Community
 							</button>
 						</div>
-						{errors && <>{errors}</>}
+						{errors && <div className="error">{errors}</div>}
 					</form>
 				</Modal>
 			)}
