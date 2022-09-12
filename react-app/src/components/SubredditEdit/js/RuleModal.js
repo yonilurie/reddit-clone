@@ -36,7 +36,6 @@ function RuleModal({
 		formData.append("subreddit_id", subredditId);
 
 		dispatch(editARule(formData, subredditId)).then((data) => {
-			
 			dispatch(editSubRules(data));
 			dispatch(authenticate());
 		});
@@ -70,15 +69,23 @@ function RuleModal({
 							values, commas, and periods.
 						</div>
 						<div className="rule-modal-input rule">
-							<label htmlFor="rule-input-rule">Rule</label>
+							<label htmlFor="rule-input-rule">Rule title (Required)</label>
 							<input
 								id="rule-input-rule"
 								value={title}
 								onChange={(e) =>
 									removeWhiteSpace(e.target.value, setTitle)
 								}
+								minLength='1'
 								maxLength="100"
 								pattern="[A-Za-z0-9\s\d.\d,]+"
+								required={true}
+								onInvalid={(e) =>
+									e.target.setCustomValidity(
+										"Rule title must be between 1 and 100 characters, with only alphanumeric values"
+									)
+								}
+								onInput={(e) => e.target.setCustomValidity("")}
 							></input>
 							<div
 								className={`characters-left ${
@@ -130,8 +137,10 @@ function RuleModal({
 									!title ? "disabled" : ""
 								}`}
 								// onClick={onSubmit}
+								disabled={!title}
 							>
 								{ruleTitle ? "Update Rule" : "Add Rule"}
+								
 							</button>
 						</div>
 					</form>

@@ -35,7 +35,7 @@ function ImageForm({ image, setImage }) {
 			></input>
 			{!image && (
 				<div className="image-upload-info">
-					Upload a file ending in: .png, .jpg, .jpeg, or .gif
+					Required - Upload a file ending in: .png, .jpg, .jpeg, or .gif
 				</div>
 			)}
 			{image && (

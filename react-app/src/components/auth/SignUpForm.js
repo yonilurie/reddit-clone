@@ -29,10 +29,10 @@ const LoginForm = ({ action, setShowModal }) => {
 	const onLogin = async (e) => {
 		e.preventDefault();
 
-		const [startEmail, endEmail] = email.split('@')
-		console.log()
-		if (endEmail.split('.').length !== 2) {
-			return setErrors(["Email must include proper domain name"])
+		const [startEmail, endEmail] = email.split("@");
+
+		if (endEmail.split(".").length !== 2) {
+			return setErrors(["Email must include proper domain name"]);
 		}
 
 		if (password !== confirmPassword) {
@@ -40,7 +40,7 @@ const LoginForm = ({ action, setShowModal }) => {
 		}
 
 		const data = await dispatch(signUp(username, email, password));
-
+		console.log(data);
 		if (data) {
 			setErrors(data);
 		} else setShowModal(false);
@@ -78,11 +78,18 @@ const LoginForm = ({ action, setShowModal }) => {
 						className="signup-login-input"
 						value={email}
 						onChange={updateEmail}
+							placeholder="(Maximum 255 characters)"
 						required={true}
+						onInvalid={(e) =>
+							e.target.setCustomValidity(
+								"Email must be under 255 characters and in proper email format, eg: email@email.com"
+							)
+						}
+						onInput={(e) => e.target.setCustomValidity("")}
 						maxLength={"255"}
 					/>
-					<label htmlFor="email" className={`input-label `}>
-						Email
+					<label htmlFor="email" className={`input-label`}>
+						Email 
 					</label>
 				</div>
 				<div className="input-container">
@@ -90,9 +97,17 @@ const LoginForm = ({ action, setShowModal }) => {
 						name="username"
 						type="text"
 						className="signup-login-input"
+					
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 						required={true}
+						onInvalid={(e) =>
+							e.target.setCustomValidity(
+								"Username must be between 4 and 40 characters, using only alphanumeric characters"
+							)
+						}
+						onInput={(e) => e.target.setCustomValidity("")}
+						placeholder="(Between 4 and 40 characters)"
 						minLength="4"
 						maxLength="40"
 						pattern="[A-Za-z0-9\s]+"
@@ -107,9 +122,16 @@ const LoginForm = ({ action, setShowModal }) => {
 						type="password"
 						htmlFor="password"
 						className={`signup-login-input`}
+						placeholder="(Between 6 and 64 characters)"
 						value={password}
 						onChange={updatePassword}
 						required={true}
+						onInvalid={(e) =>
+							e.target.setCustomValidity(
+								"Password must be between 6 and 64 characters"
+							)
+						}
+						onInput={(e) => e.target.setCustomValidity("")}
 						minLength="6"
 						maxLength="64"
 					></input>
@@ -130,6 +152,13 @@ const LoginForm = ({ action, setShowModal }) => {
 						value={confirmPassword}
 						onChange={updateConfirmPassword}
 						required={true}
+						onInvalid={(e) =>
+							e.target.setCustomValidity(
+								"Password must be between 6 and 64 characters and match password"
+							)
+						}
+						onInput={(e) => e.target.setCustomValidity("")}
+						placeholder="(Must match password)"
 						minLength="6"
 						maxLength="64"
 					></input>

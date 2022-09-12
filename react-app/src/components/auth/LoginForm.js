@@ -59,6 +59,12 @@ const LoginForm = ({ action, setShowModal }) => {
 						value={email}
 						onChange={updateEmail}
 						required={true}
+						onInvalid={(e) =>
+							e.target.setCustomValidity(
+								"Email must be under 255 characters and in proper email format, eg: email@email.com"
+							)
+						}
+						onInput={(e) => e.target.setCustomValidity("")}
 						maxLength={"255"}
 					/>
 					<label
@@ -79,6 +85,12 @@ const LoginForm = ({ action, setShowModal }) => {
 						value={password}
 						onChange={updatePassword}
 						required={true}
+						onInvalid={(e) =>
+							e.target.setCustomValidity(
+								"Password must be between 6 and 64 characters"
+							)
+						}
+						onInput={(e) => e.target.setCustomValidity("")}
 						minLength="6"
 						maxLength="64"
 					></input>

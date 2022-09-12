@@ -22,7 +22,6 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 		formData.append("subreddit_name", newSubredditName);
 		formData.append("owner_id", currentUser.id);
 		dispatch(createASub(formData)).then((data) => {
-
 			if (data.errors) return setErrors(data.errors);
 			dispatch(authenticate());
 			setNewSubredditName("");
@@ -82,10 +81,16 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 								id="subreddit-input-name"
 								className="subreddit-input-name"
 								type="text"
-								minLength="1"
+								minLength="2"
 								maxLength="21"
 								required={true}
 								pattern="[A-Za-z]+"
+								onInvalid={(e) =>
+									e.target.setCustomValidity(
+										"Subreddit name must be between 2 and 21 characters, using only letters"
+									)
+								}
+								onInput={(e) => e.target.setCustomValidity("")}
 								value={newSubredditName}
 								onChange={(e) =>
 									removeWhiteSpace(

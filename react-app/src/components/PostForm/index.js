@@ -171,7 +171,7 @@ function PostForm() {
 					</div>
 					<div className="post-title">
 						{title.length > 0 && (
-							<label htmlFor="post-title">Title</label>
+							<label htmlFor="post-title">Title (Required)</label>
 						)}
 						<div className="character-count">
 							{title.length > 0 ? `${title.length}/300` : "0/300"}
@@ -179,7 +179,7 @@ function PostForm() {
 						<textarea
 							className="title"
 							type="text"
-							placeholder="Title"
+							placeholder="Title(Required)"
 							value={title}
 							onChange={(e) => {
 								resizeInput(e);

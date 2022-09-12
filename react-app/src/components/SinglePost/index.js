@@ -350,7 +350,7 @@ function SinglePostPage() {
 													currentUser.username ===
 														subreddits[subreddit]
 															.posts[postId].user
-															.username && (
+															.username && !edit && (
 														<PostMenu
 															post={
 																subreddits[
