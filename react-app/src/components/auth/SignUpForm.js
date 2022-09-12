@@ -26,6 +26,11 @@ const LoginForm = ({ action, setShowModal }) => {
 		setConfirmPassword(e.target.value);
 	};
 
+	const updateUsername = (username) => {
+		let temp = username.replace(' ', '')
+		setUsername(temp)
+	}
+
 	const onLogin = async (e) => {
 		e.preventDefault();
 
@@ -105,7 +110,7 @@ const LoginForm = ({ action, setShowModal }) => {
 						className="signup-login-input"
 					
 						value={username}
-						onChange={(e) => setUsername(e.target.value)}
+						onChange={(e) => updateUsername(e.target.value)}
 						required={true}
 						onInvalid={(e) =>
 							e.target.setCustomValidity(
