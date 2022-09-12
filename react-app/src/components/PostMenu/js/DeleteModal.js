@@ -41,18 +41,18 @@ function DeletePostModal({ showModal, setShowModal, post }) {
 												post.user.username,
 												post.subreddit_name
 											)
+										).then((data) =>
+											dispatch(authenticate())
 										);
 
 										await dispatch(
 											getSubInfo(post.subreddit_name)
 										);
 										dispatch(getPosts(post.subreddit_name));
-										
+
 										return history.push(
 											`/user/${post.user.username}/submitted`
 										);
-									
-										
 									}}
 									className="submit-post-button"
 								>
