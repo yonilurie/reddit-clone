@@ -82,7 +82,7 @@ function RuleModal({
 								required={true}
 								onInvalid={(e) =>
 									e.target.setCustomValidity(
-										"Rule title must be between 1 and 100 characters, with only alphanumeric values"
+										"Rule title must be between 1 and 100 characters, with only alphanumeric values, commas, and periods"
 									)
 								}
 								onInput={(e) => e.target.setCustomValidity("")}
@@ -111,6 +111,12 @@ function RuleModal({
 								}
 								maxLength="100"
 								pattern="[A-Za-z0-9\s\d.\d,]+"
+								onInvalid={(e) =>
+									e.target.setCustomValidity(
+										"Rule title must be between 1 and 100 characters, with only alphanumeric values, commas, and periods"
+									)
+								}
+								onInput={(e) => e.target.setCustomValidity("")}
 							></input>
 							<div
 								className={`characters-left ${
