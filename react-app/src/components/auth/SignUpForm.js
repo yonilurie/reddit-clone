@@ -29,6 +29,12 @@ const LoginForm = ({ action, setShowModal }) => {
 	const onLogin = async (e) => {
 		e.preventDefault();
 
+		const [startEmail, endEmail] = email.split('@')
+		console.log()
+		if (endEmail.split('.').length !== 2) {
+			return setErrors(["Email must include proper domain name"])
+		}
+
 		if (password !== confirmPassword) {
 			return setErrors(["Password and current password must match"]);
 		}
