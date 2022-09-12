@@ -14,7 +14,12 @@ export const getTimeElapsed = (createdAt) => {
 			return `${num} minutes ago`;
 		}
 	} else if (days < 1) {
-		return `${Math.floor(days * 24)} hours ago`;
+		if (Math.floor(days * 24) === 1) {
+			return `${Math.floor(days * 24)} hour ago`;
+		} else {
+			return `${Math.floor(days * 24)} hours ago`;
+		}
+		
 	} else {
 		if (Math.floor(days) === 1) return `${Math.floor(days)} day ago`;
 		else return `${Math.floor(days)} days ago`;
