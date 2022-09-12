@@ -121,6 +121,7 @@ function PostForm() {
 			</div>
 
 			<div className="choose-subreddit-container">
+				Subreddit
 				<select
 					name="subreddits"
 					className="choose-subreddit"

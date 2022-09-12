@@ -145,6 +145,9 @@
 
 .choose-subreddit-container {
 	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px	;
 }
 .choose-subreddit {
 	border: solid 1px rgb(237, 239, 241);
