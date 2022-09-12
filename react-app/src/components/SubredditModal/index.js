@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal";
@@ -23,6 +23,7 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 		formData.append("owner_id", currentUser.id);
 		dispatch(createASub(formData)).then((data) => {
 			if (data.errors) return setErrors(data.errors);
+			setErrors(null)
 			dispatch(authenticate());
 			setNewSubredditName("");
 			setShowSubModal(false);
@@ -34,6 +35,11 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 		const str = input.split(" ").join("");
 		setterCb(str);
 	};
+
+	useEffect(() => {
+		setErrors(null)
+	}, [newSubredditName]);
+
 	return (
 		<div>
 			{showSubModal && (
