@@ -403,7 +403,7 @@
 #empty-post-big-text {
 	font-size: 30px;
 	word-break: break-all;
-	max-width: 70%;
+	max-width: 90%;
 }
 
 @media screen and (max-width: 1300px) {
