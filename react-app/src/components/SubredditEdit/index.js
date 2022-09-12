@@ -23,6 +23,12 @@ function SubredditEdit() {
 	) {
 		history.push(`/`);
 	}
+	useEffect(() => {
+		if (sub === undefined) {
+			return history.push(`/`);
+		}
+	}, []);
+
 	return (
 		<>
 			{sub && (

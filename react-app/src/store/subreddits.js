@@ -11,6 +11,7 @@ const EDIT_POST = "/subredddits/EDIT_POST";
 const CREATE_SUB = "/subreddits/CREATE_SUB";
 const EDIT_RULE = "subreddits/EDIT_RULE";
 const EDIT_SETTING = "subreddits/EDIT_SETTING";
+const REMOVE_SUB = 'subreddits/REMOVE_SUB'
 const addSub = (sub) => ({
 	type: GET_SUB,
 	sub,
@@ -70,6 +71,11 @@ const editSubSettings = (sub) => ({
 	type: EDIT_SETTING,
 	sub,
 });
+
+const removeSub = (subName) => ({
+	type: REMOVE_SUB,
+	subName
+})
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditName}`, {
@@ -257,6 +263,11 @@ export const editSubCommunitySettings = (sub) => async (dispatch) => {
 	dispatch(editSubSettings(sub));
 };
 
+
+export const removeASub = (subName) => async (dispatch) => {
+	dispatch(removeSub(subName))
+}
+
 const initialState = {};
 
 export default function subreddits(state = initialState, action) {
@@ -398,6 +409,12 @@ export default function subreddits(state = initialState, action) {
 				newState[action.sub.name].description = action.sub.description;
 			}
 			return state;
+		case REMOVE_SUB:
+			newState = { ...state };
+			if (newState[action.subName]) {
+				delete newState[action.subName]
+			}
+			return newState
 		default:
 			return state;
 	}

@@ -2,14 +2,16 @@ import { Modal } from "../../../context/Modal";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {deleteASubreddit, authenticate} from '../../../store/session'
+import { deleteASubreddit, authenticate } from '../../../store/session'
+import {removeASub} from '../../../store/subreddits'
 
 function DeleteSubreddit({ sub }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const dispatch = useDispatch()
     const history = useHistory()
     const deleteSub = () => {
-        dispatch(deleteASubreddit(sub.id, sub.name)).then(data => {
+		dispatch(deleteASubreddit(sub.id, sub.name)).then(data => {
+			dispatch(removeASub(sub.name)).then(data => {})
             dispatch(authenticate())
         }).then(data => {
             history.push(`/user/${sub.owner.username}`)
