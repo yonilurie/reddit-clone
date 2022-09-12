@@ -278,7 +278,7 @@ function SinglePostPage() {
 																	]
 																}
 															></TextForm>
-															<button className="submit-post-button">
+															<button className="submit-post-button" id='post-edit-submit-button'>
 																Submit
 															</button>
 														</form>
@@ -286,7 +286,8 @@ function SinglePostPage() {
 															onClick={() =>
 																setEdit(false)
 															}
-															className="cancel-button"
+													className="cancel-button"
+													id='post-edit-cancel-button'
 														>
 															Cancel
 														</button>

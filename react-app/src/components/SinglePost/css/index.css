@@ -99,3 +99,9 @@
 .sub-post-info.single {
 	height: fit-content;
 }
+
+#post-edit-cancel-button,
+#post-edit-submit-button{
+	width: fit-content;
+	margin-top: 5px;
+}
