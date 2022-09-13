@@ -278,7 +278,10 @@ function SinglePostPage() {
 																	]
 																}
 															></TextForm>
-															<button className="submit-post-button" id='post-edit-submit-button'>
+															<button
+																className="submit-post-button"
+																id="post-edit-submit-button"
+															>
 																Submit
 															</button>
 														</form>
@@ -286,8 +289,8 @@ function SinglePostPage() {
 															onClick={() =>
 																setEdit(false)
 															}
-													className="cancel-button"
-													id='post-edit-cancel-button'
+															className="cancel-button"
+															id="post-edit-cancel-button"
 														>
 															Cancel
 														</button>
@@ -330,7 +333,7 @@ function SinglePostPage() {
 										</div>
 										<div className="single-post-bottom-bar">
 											<div className="single-post-bottom-bar-left">
-												{/* <div className="single-post-comments-count">
+												<div className="single-post-comments-count">
 													<i className="fa-regular fa-message"></i>
 													<div>
 														{
@@ -340,7 +343,7 @@ function SinglePostPage() {
 																.comment_count
 														}
 													</div>
-												</div> */}
+												</div>
 
 												{/* <div className="share">
 												<i className="fa-solid fa-share"></i>
@@ -350,7 +353,8 @@ function SinglePostPage() {
 													currentUser.username ===
 														subreddits[subreddit]
 															.posts[postId].user
-															.username && !edit && (
+															.username &&
+													!edit && (
 														<PostMenu
 															post={
 																subreddits[
@@ -369,6 +373,67 @@ function SinglePostPage() {
 											</div>
 										</div>
 									</div>
+								</div>
+								<div className="single-post-gray-bar"></div>
+								<div className="single-post-comments-container">
+									{subreddits[subreddit] &&
+										subreddits[subreddit].posts &&
+										subreddits[subreddit].posts[postId] &&
+										subreddits[subreddit].posts[postId]
+											.comments.length > 0 &&
+										subreddits[subreddit].posts[
+											postId
+										].comments.map((comment) => {
+											return (
+												<div
+													key={comment.id}
+													className="single-post-page-comment"
+												>
+													<div className="single-post-comment-left">
+														<img
+															className="single-post-comment-profile-image"
+															src={
+																comment.user
+																	.profile_image
+															}
+														></img>
+														<div className="comment-collapse-bar"></div>
+													</div>
+
+													<div className="single-post-comment-right">
+														<div className="single-post-comment-user-info">
+															<span className="single-post-comment-username">
+																{
+																	comment.user
+																		.username
+																}
+															</span>
+															{" · "}
+															<span className="single-post-comment-time-elapsed">
+																{getTimeElapsed(
+																	comment.created_at
+																)}
+															</span>
+														</div>
+														<div className="single-post-comment-text">
+															{comment.text}
+														</div>
+														<div className="single-post-comment-interact">
+															<div className="single-post-comment-votes-container">
+																<div>
+																	<i className="fa-solid fa-arrow-up"></i>
+																</div>
+																<div>0</div>
+																<div>
+																	{" "}
+																	<i className="fa-solid fa-arrow-down"></i>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											);
+										})}
 								</div>
 							</div>
 							<SubredditInfoCard
