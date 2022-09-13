@@ -10,6 +10,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.subreddit_routes import subreddit_routes
 from .api.vote_routes import vote_routes
+from .api.comment_routes import comment_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -33,6 +34,7 @@ app.register_blueprint(user_routes, url_prefix='/api/u')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(subreddit_routes, url_prefix='/api/r')
 app.register_blueprint(vote_routes, url_prefix='/api/vote')
+app.register_blueprint(comment_routes, url_prefix='/api/comments')
 db.init_app(app)
 Migrate(app, db)
 
