@@ -13,7 +13,8 @@ const EDIT_RULE = "subreddits/EDIT_RULE";
 const EDIT_SETTING = "subreddits/EDIT_SETTING";
 const REMOVE_SUB = "subreddits/REMOVE_SUB";
 const ADD_COMMENT = "subreddits/ADD_COMMENT";
-const EDIT_COMMENT = "subreddits/EDIT_COMMENT"
+const EDIT_COMMENT = "subreddits/EDIT_COMMENT";
+const DELETE_COMMENT = "subreddits/DELETE_COMMENT";
 
 const addSub = (sub) => ({
 	type: GET_SUB,
@@ -89,6 +90,11 @@ const editComment = (post, subredditName) => ({
 	type: ADD_COMMENT,
 	post,
 	subredditName,
+});
+
+const deleteComment = (post) => ({
+	type: DELETE_COMMENT,
+	post,
 });
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
@@ -311,8 +317,20 @@ export const editAComment = (comment, commentId, subredditName) => async (
 
 	if (response.ok) {
 		const data = await response.json();
-		
+
 		dispatch(editComment(data, subredditName));
+		return data;
+	}
+};
+
+export const deleteAComment = (commentId) => async (dispatch) => {
+	const response = await fetch(`/api/comments/${commentId}/delete`, {
+		method: "DELETE",
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(editComment(data, data.subreddit_name));
 		return data;
 	}
 };
@@ -471,7 +489,8 @@ export default function subreddits(state = initialState, action) {
 				newState[action.subredditName] &&
 				newState[action.subredditName].posts[action.post.id]
 			) {
-				newState[action.subredditName].posts[action.post.id] = action.post
+				newState[action.subredditName].posts[action.post.id] =
+					action.post;
 			}
 			return newState;
 		default:

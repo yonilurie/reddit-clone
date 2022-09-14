@@ -155,6 +155,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	width: 100%;
 }
 
 .single-post-comment-profile-image {
@@ -240,4 +241,10 @@
 .disabled-comment {
 	background-color: rgb(112, 112, 112);
 	cursor: not-allowed;
+}
+
+.single-post-comment-interact {
+	display: flex;
+	align-items: center;
+	gap: 10px	;
 }

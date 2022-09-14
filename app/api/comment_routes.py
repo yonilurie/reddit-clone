@@ -43,11 +43,13 @@ def delete_comment(comment_id):
 
             db.session.delete(comment_to_delete)
             db.session.commit()
+            post = Post.query.get(comment_to_delete.post_id)
+            return post.to_dict()
         else:
             return jsonify({
                 'Message': "Can't delete another users comment"
             })
-        return jsonify({"Message": 'Comment Deleted'})
+        
     else:
         return jsonify(form.errors)
 

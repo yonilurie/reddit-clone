@@ -2,6 +2,8 @@ import { getTimeElapsed, getPercentUpvoted } from "../../util/index.js";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import SinglePostMakeComment from "./SinglePostMakeComment.js";
+import CommentMenu from "./CommentMenu.js";
+
 function SinglePostComment({ post, comment }) {
 	const [editComment, setEditComment] = useState(false);
 	const user = useSelector((state) => state.session.user);
@@ -37,15 +39,29 @@ function SinglePostComment({ post, comment }) {
 							<i className="fa-solid fa-arrow-down"></i>
 						</div>
 					</div>
+
 					{user.id === comment.user_id && (
 						<div className="edit-comment-dots-container">
-							<div onClick={() => setEditComment(true)}>...</div>
-							{editComment && (
-								<SinglePostMakeComment comment={comment}  post={post} ></SinglePostMakeComment>
-							)}
+							{/* {!editComment && (
+								<div onClick={() => setEditComment(true)}>
+									...
+								</div>
+							)} */}
+							<CommentMenu
+								setEditComment={setEditComment}
+								comment={comment}
+							></CommentMenu>
 						</div>
 					)}
 				</div>
+				{editComment && (
+					<SinglePostMakeComment
+						comment={comment}
+						post={post}
+						editComment={editComment}
+						setEditComment={setEditComment}
+					></SinglePostMakeComment>
+				)}
 			</div>
 		</div>
 	);

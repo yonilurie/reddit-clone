@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addAComment, editAComment } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
-function SinglePostMakeComment({ post, comment }) {
+function SinglePostMakeComment({ post, comment, setEditComment, editComment }) {
+	const user = useSelector(state => state.session.user)
 	const dispatch = useDispatch();
 	const [commentText, setCommentText] = useState("");
 	const onChange = (e) => {
@@ -11,6 +12,9 @@ function SinglePostMakeComment({ post, comment }) {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		if (!user) {
+			return
+		}
 		if (comment) {
 			if (commentText.length > 0 && commentText.length < 10000) {
 				dispatch(
@@ -19,6 +23,7 @@ function SinglePostMakeComment({ post, comment }) {
 					dispatch(authenticate());
 				});
 				setCommentText("");
+				setEditComment(false);
 			}
 		} else {
 			if (commentText.length > 0 && commentText.length < 10000) {
@@ -45,6 +50,9 @@ function SinglePostMakeComment({ post, comment }) {
 				onChange={(e) => onChange(e)}
 			></textarea>
 			<div className="make-comment-form-bottom-container">
+				{editComment &&
+				<div className="cancel-button" onClick={() => setEditComment(false)}>Cancel</div>
+				}
 				<button
 					className={`submit-comment-button ${
 						commentText.length === 0 ? "disabled-comment" : ""
