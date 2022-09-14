@@ -55,6 +55,7 @@ class User(db.Model, UserMixin):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "votes": [vote.to_dict()for vote in self.votes],
+            "comments": [comment.to_dict() for comment in self.comments]
         }
 
     def __comments__(self):

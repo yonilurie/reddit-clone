@@ -11,7 +11,9 @@ const EDIT_POST = "/subredddits/EDIT_POST";
 const CREATE_SUB = "/subreddits/CREATE_SUB";
 const EDIT_RULE = "subreddits/EDIT_RULE";
 const EDIT_SETTING = "subreddits/EDIT_SETTING";
-const REMOVE_SUB = 'subreddits/REMOVE_SUB'
+const REMOVE_SUB = "subreddits/REMOVE_SUB";
+const ADD_COMMENT = "subreddits/ADD_COMMENT";
+
 const addSub = (sub) => ({
 	type: GET_SUB,
 	sub,
@@ -74,8 +76,14 @@ const editSubSettings = (sub) => ({
 
 const removeSub = (subName) => ({
 	type: REMOVE_SUB,
-	subName
-})
+	subName,
+});
+
+const addComment = (post, subredditName) => ({
+	type: ADD_COMMENT,
+	post,
+	subredditName,
+});
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditName}`, {
@@ -263,10 +271,28 @@ export const editSubCommunitySettings = (sub) => async (dispatch) => {
 	dispatch(editSubSettings(sub));
 };
 
-
 export const removeASub = (subName) => async (dispatch) => {
-	dispatch(removeSub(subName))
-}
+	dispatch(removeSub(subName));
+};
+
+export const addAComment = (comment, postId, subredditName) => async (
+	dispatch
+) => {
+	console.log(comment);
+	const formData = new FormData();
+	formData.append("comment", comment);
+	const response = await fetch(`/api/comments/${postId}`, {
+		method: "POST",
+		body: formData,
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		console.log(data);
+		dispatch(addComment(data, subredditName));
+		return data;
+	}
+};
 
 const initialState = {};
 
@@ -412,9 +438,19 @@ export default function subreddits(state = initialState, action) {
 		case REMOVE_SUB:
 			newState = { ...state };
 			if (newState[action.subName]) {
-				delete newState[action.subName]
+				delete newState[action.subName];
 			}
-			return newState
+			return newState;
+
+		case ADD_COMMENT:
+			newState = { ...state };
+			if (
+				newState[action.subredditName] &&
+				newState[action.subredditName].posts[action.post.id]
+			) {
+				newState[action.subredditName].posts[action.post.id] = action.post
+			}
+			return newState;
 		default:
 			return state;
 	}

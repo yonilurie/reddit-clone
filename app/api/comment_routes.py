@@ -2,7 +2,7 @@
 
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user, user_logged_in
-from app.models import  db, Comment
+from app.models import  db, Comment, SubReddit, Post, post
 
 
 from app.forms.comment_form import CommentForm, DeleteCommentForm
@@ -22,7 +22,9 @@ def add_comment(post_id):
         )
         db.session.add(new_comment)
         db.session.commit()
-        return new_comment.to_dict()
+        post = Post.query.get(post_id)
+        return post.to_dict()
+
     else:
         return jsonify(form.errors)
 

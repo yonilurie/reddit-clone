@@ -2,20 +2,15 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
 import { useParams, Link } from "react-router-dom";
+import { getSubInfo, getPosts, editAPost } from "../../store/subreddits";
+import { authenticate } from "../../store/session";
+
+import "./css/index.css";
+import SinglePostContent from "./SinglePostContent";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
-import TextForm from "../PostForm/js/TextForm";
-import PostMenu from "../PostMenu";
-import LoginFormModal from "../auth/LoginFormModal";
-import { getTimeElapsed, getPercentUpvoted } from "../../util/index.js";
-import {
-	postVote,
-	getSubInfo,
-	getPosts,
-	editAPost,
-} from "../../store/subreddits";
-import { authenticate } from "../../store/session";
-import "./css/index.css";
+import SinglePostComment from "./SinglePostComment";
+import SinglePostCommentContainer from "./SinglePostCommentContainer";
 
 function SinglePostPage() {
 	const location = useLocation();
@@ -29,6 +24,7 @@ function SinglePostPage() {
 
 	const subreddits = useSelector((state) => state.subreddits);
 	const currentUser = useSelector((state) => state.session.user);
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
@@ -96,345 +92,20 @@ function SinglePostPage() {
 						</Link>
 						<div className="single-post-sub-info-container">
 							<div className="single-post-container">
-								<div className="single-post">
-									<div className="single-post-votes-container">
-										<LoginFormModal
-											showModal={showModal}
-											setShowModal={setShowModal}
-											action={"Sign Up"}
-										></LoginFormModal>
-										<div
-											className="vote upvote"
-											onClick={async () => {
-												if (!currentUser)
-													return setShowModal(true);
-												await dispatch(
-													postVote(
-														"true",
-														postId,
-														currentUser.id
-													)
-												);
-												dispatch(authenticate());
-											}}
-										>
-											<i
-												className={`fa-solid fa-arrow-up ${
-													currentUser &&
-													currentUser.votes[postId] &&
-													currentUser.votes[postId]
-														.upvote === true &&
-													"upvoted"
-												}`}
-											></i>
-										</div>
-										<div className="votes">
-											{" "}
-											{subreddits[subreddit].posts[postId]
-												.votes.upvote_count -
-												subreddits[subreddit].posts[
-													postId
-												].votes.downvote_count}
-										</div>
-										<div
-											className="vote downvote"
-											onClick={async () => {
-												if (!currentUser)
-													return setShowModal(true);
-												await dispatch(
-													postVote(
-														"false",
-														postId,
-														currentUser.id
-													)
-												);
-												dispatch(authenticate());
-											}}
-										>
-											<i
-												className={`fa-solid fa-arrow-down ${
-													currentUser &&
-													currentUser.votes[postId] &&
-													currentUser.votes[postId]
-														.upvote === false &&
-													"downvoted"
-												}`}
-											></i>
-										</div>
-									</div>
-									<div className="single-post-details">
-										<div className="sub-post-info single">
-											<div className="sub-post-text">
-												<div className="profile-post-subreddit-time">
-													<div className="profile-post-subreddit">
-														<span className="profile-post-time">
-															{`Posted by u/`}
-															<Link
-																to={`/user/${subreddits[subreddit].posts[postId].user.username}`}
-															>
-																<span className="profile-post-username">
-																	{`${subreddits[subreddit].posts[postId].user.username} `}{" "}
-																</span>
-															</Link>
-
-															{`
-														${getTimeElapsed(subreddits[subreddit].posts[postId].created_at)}`}
-															{/* {subreddits[
-																subreddit
-															].posts[postId]
-																.updated_at && (
-																<span>
-																	{" "}
-																	Edited:{" "}
-																	{subreddits[
-																		subreddit
-																	].posts[
-																		postId
-																	].created_at
-																		.split(
-																			" "
-																		)
-																		.splice(
-																			1,
-																			3
-																		)
-																		.join(
-																			" "
-																		)}
-																</span>
-															)} */}
-														</span>
-													</div>
-												</div>{" "}
-												<div className="sub-post-title">
-													{
-														subreddits[subreddit]
-															.posts[postId].title
-													}
-												</div>
-											</div>
-
-											{subreddits[subreddit].posts[postId]
-												.image && (
-												<a
-													href={
-														subreddits[subreddit]
-															.posts[postId].image
-													}
-													target="_blank"
-													rel="noreferrer"
-													className="single-post-image-link"
-												>
-													<img
-														src={
-															subreddits[
-																subreddit
-															].posts[postId]
-																.image
-														}
-														className="image-box-subreddit"
-														alt="subreddit"
-													></img>
-												</a>
-											)}
-
-											{subreddits[subreddit].posts[postId]
-												.text &&
-												!edit && (
-													<div>
-														{subreddits[subreddit]
-															.posts[postId]
-															.text ? (
-															<div className="sub-text-box single">
-																{
-																	subreddits[
-																		subreddit
-																	].posts[
-																		postId
-																	].text
-																}
-															</div>
-														) : null}
-													</div>
-												)}
-
-											{subreddits[subreddit].posts[postId]
-												.type_of_post === "text" &&
-												edit === true && (
-													<>
-														<form
-															onSubmit={onSubmit}
-														>
-															<TextForm
-																text={text}
-																setText={
-																	setText
-																}
-																post={
-																	subreddits[
-																		subreddit
-																	].posts[
-																		postId
-																	]
-																}
-															></TextForm>
-															<button
-																className="submit-post-button"
-																id="post-edit-submit-button"
-															>
-																Submit
-															</button>
-														</form>
-														<button
-															onClick={() =>
-																setEdit(false)
-															}
-															className="cancel-button"
-															id="post-edit-cancel-button"
-														>
-															Cancel
-														</button>
-													</>
-												)}
-											{subreddits[subreddit].posts[postId]
-												.link && (
-												<a
-													href={
-														subreddits[subreddit]
-															.posts[postId].link
-													}
-													target="_blank"
-													rel="noreferrer"
-												>
-													<div className="subreddit-url">
-														{/* {subreddits[subreddit]
-															.posts[postId].link
-															.length > 50
-															? `${subreddits[
-																	subreddit
-															  ].posts[
-																	postId
-															  ].link.slice(
-																	0,
-																	50
-															  )}...`
-															: subreddits[
-																	subreddit
-															  ].posts[postId]
-																	.link} */}
-														{
-															subreddits[
-																subreddit
-															].posts[postId].link
-														}
-													</div>
-												</a>
-											)}
-										</div>
-										<div className="single-post-bottom-bar">
-											<div className="single-post-bottom-bar-left">
-												<div className="single-post-comments-count">
-													<i className="fa-regular fa-message"></i>
-													<div>
-														{
-															subreddits[
-																subreddit
-															].posts[postId]
-																.comment_count
-														}
-													</div>
-												</div>
-
-												{/* <div className="share">
-												<i className="fa-solid fa-share"></i>
-												<div>share</div>
-											</div> */}
-												{currentUser &&
-													currentUser.username ===
-														subreddits[subreddit]
-															.posts[postId].user
-															.username &&
-													!edit && (
-														<PostMenu
-															post={
-																subreddits[
-																	subreddit
-																].posts[postId]
-															}
-														></PostMenu>
-													)}
-											</div>
-											<div className="vote-percent">
-												{getPercentUpvoted(
-													subreddits[subreddit].posts[
-														postId
-													].votes
-												)}
-											</div>
-										</div>
-									</div>
-								</div>
+								<SinglePostContent
+									post={subreddits[subreddit].posts[postId]}
+									showModal={showModal}
+									setShowModal={setShowModal}
+									edit={edit}
+									setEdit={setEdit}
+									onSubmit={onSubmit}
+									text={text}
+									setText={setText}
+								></SinglePostContent>
 								<div className="single-post-gray-bar"></div>
-								<div className="single-post-comments-container">
-									{subreddits[subreddit] &&
-										subreddits[subreddit].posts &&
-										subreddits[subreddit].posts[postId] &&
-										subreddits[subreddit].posts[postId]
-											.comments.length > 0 &&
-										subreddits[subreddit].posts[
-											postId
-										].comments.map((comment) => {
-											return (
-												<div
-													key={comment.id}
-													className="single-post-page-comment"
-												>
-													<div className="single-post-comment-left">
-														<img
-															className="single-post-comment-profile-image"
-															src={
-																comment.user
-																	.profile_image
-															}
-														></img>
-														<div className="comment-collapse-bar"></div>
-													</div>
-
-													<div className="single-post-comment-right">
-														<div className="single-post-comment-user-info">
-															<span className="single-post-comment-username">
-																{
-																	comment.user
-																		.username
-																}
-															</span>
-															{" · "}
-															<span className="single-post-comment-time-elapsed">
-																{getTimeElapsed(
-																	comment.created_at
-																)}
-															</span>
-														</div>
-														<div className="single-post-comment-text">
-															{comment.text}
-														</div>
-														<div className="single-post-comment-interact">
-															<div className="single-post-comment-votes-container">
-																<div>
-																	<i className="fa-solid fa-arrow-up"></i>
-																</div>
-																<div>0</div>
-																<div>
-																	{" "}
-																	<i className="fa-solid fa-arrow-down"></i>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											);
-										})}
-								</div>
+								<SinglePostCommentContainer
+									post={subreddits[subreddit].posts[postId]}
+								></SinglePostCommentContainer>
 							</div>
 							<SubredditInfoCard
 								sub={subreddits[subreddit]}
