@@ -7,11 +7,12 @@ import { authenticate } from "../../store/session.js";
 import CommentMenu from "./CommentMenu.js";
 
 function SinglePostComment({ post, comment }) {
+	console.log(comment);
 	const dispatch = useDispatch();
 	const [editComment, setEditComment] = useState(false);
 	const user = useSelector((state) => state.session.user);
 	return (
-		<div key={comment.id} className="single-post-page-comment">
+		<div className="single-post-page-comment">
 			<div className="single-post-comment-left">
 				<img
 					className="single-post-comment-profile-image"
@@ -34,8 +35,9 @@ function SinglePostComment({ post, comment }) {
 				<div className="single-post-comment-interact">
 					<div className="single-post-comment-votes-container">
 						<div
+							className="vote upvote"
 							onClick={async () => {
-								// if (!currentUser) return setShowModal(true);
+								if (!user) return;
 								await dispatch(
 									makeCommentVote(
 										"true",
@@ -62,8 +64,9 @@ function SinglePostComment({ post, comment }) {
 								comment.votes.downvote_count}
 						</div>
 						<div
+							className="vote downvote"
 							onClick={async () => {
-								// if (!currentUser) return setShowModal(true);
+								if (!user) return;
 								await dispatch(
 									makeCommentVote(
 										"false",
@@ -88,7 +91,7 @@ function SinglePostComment({ post, comment }) {
 						</div>
 					</div>
 
-					{user.id === comment.user_id && (
+					{user && user.id === comment.user_id && (
 						<div className="edit-comment-dots-container">
 							{/* {!editComment && (
 								<div onClick={() => setEditComment(true)}>
@@ -97,6 +100,7 @@ function SinglePostComment({ post, comment }) {
 							)} */}
 							<CommentMenu
 								setEditComment={setEditComment}
+								editComment={editComment}
 								comment={comment}
 							></CommentMenu>
 						</div>

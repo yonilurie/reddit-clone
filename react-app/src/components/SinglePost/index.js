@@ -81,7 +81,8 @@ function SinglePostPage() {
 
 	return (
 		<>
-			{subreddits[subreddit] &&
+			{subreddits &&
+				subreddits[subreddit] &&
 				subreddits[subreddit].id &&
 				subreddits[subreddit].posts &&
 				subreddits[subreddit].posts[postId] && (
@@ -105,10 +106,9 @@ function SinglePostPage() {
 								></SinglePostContent>
 								<div className="single-post-gray-bar"></div>
 								<SinglePostCommentContainer
-								post={subreddits[subreddit].posts[postId]}
-								editComment={editComment}
-								setEditComment={setEditComment}
-							
+									post={subreddits[subreddit].posts[postId]}
+									editComment={editComment}
+									setEditComment={setEditComment}
 								></SinglePostCommentContainer>
 							</div>
 							<SubredditInfoCard

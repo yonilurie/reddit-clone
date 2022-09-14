@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./css/index.css";
 import DeleteCommentModal from "./DeleteCommentModal";
 
-function CommentMenu({comment, setEditComment}) {
+function CommentMenu({comment,editComment ,setEditComment}) {
 	const [showMenu, setShowMenu] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
@@ -23,7 +23,7 @@ function CommentMenu({comment, setEditComment}) {
 						setShowMenu((showMenu) => !showMenu);
 					}}
 				>
-					<i className="fa-solid fa-ellipsis"></i>
+				{!editComment && 	<i className="fa-solid fa-ellipsis"></i>}
 				</div>
 				{showMenu && (
 					<div className="post-menu">
@@ -42,6 +42,7 @@ function CommentMenu({comment, setEditComment}) {
 							onClick={() => {
 								setShowMenu(false);
 								setEditComment(true)
+
 							}}
 						>
 							<i className="fa-solid fa-pencil"></i>

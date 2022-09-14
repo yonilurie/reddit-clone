@@ -26,7 +26,7 @@ function SinglePostMakeComment({ post, comment, setEditComment, editComment }) {
 				setEditComment(false);
 			}
 		} else {
-			if (commentText.length > 0 && commentText.length < 10000) {
+			if (commentText.length > 0 && commentText.length <= 10000) {
 				dispatch(
 					addAComment(commentText, post.id, post.subreddit_name)
 				).then((data) => {
@@ -48,6 +48,7 @@ function SinglePostMakeComment({ post, comment, setEditComment, editComment }) {
 				className="make-comment-input"
 				value={commentText}
 				onChange={(e) => onChange(e)}
+				maxLength='10000'
 			></textarea>
 			<div className="make-comment-form-bottom-container">
 				{editComment &&
