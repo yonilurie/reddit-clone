@@ -108,6 +108,14 @@
 	width: fit-content;
 	margin-top: 5px;
 }
+#comment-edit-cancel-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	height: 24px;
+	box-sizing: border-box;
+}
 
 .single-post-gray-bar {
 	height: 16px;
@@ -246,5 +254,5 @@
 .single-post-comment-interact {
 	display: flex;
 	align-items: center;
-	gap: 10px	;
+	gap: 10px;
 }

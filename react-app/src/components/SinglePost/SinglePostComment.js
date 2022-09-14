@@ -7,7 +7,6 @@ import { authenticate } from "../../store/session.js";
 import CommentMenu from "./CommentMenu.js";
 
 function SinglePostComment({ post, comment }) {
-	console.log(comment);
 	const dispatch = useDispatch();
 	const [editComment, setEditComment] = useState(false);
 	const user = useSelector((state) => state.session.user);

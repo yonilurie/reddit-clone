@@ -45,9 +45,7 @@ const LoginForm = ({ action, setShowModal }) => {
 		}
 
 		const data = await dispatch(signUp(username, email, password));
-		console.log(data);
 		if (data) {
-			console.log(data)
 			const dataErrors = []
 			data.forEach(e => {
 				let msg = e.split(':')[1]

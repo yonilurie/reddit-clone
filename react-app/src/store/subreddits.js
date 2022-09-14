@@ -292,7 +292,6 @@ export const removeASub = (subName) => async (dispatch) => {
 export const addAComment = (comment, postId, subredditName) => async (
 	dispatch
 ) => {
-	console.log(comment);
 	const formData = new FormData();
 	formData.append("comment", comment);
 	const response = await fetch(`/api/comments/${postId}`, {
@@ -302,7 +301,6 @@ export const addAComment = (comment, postId, subredditName) => async (
 
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
 		dispatch(addComment(data, subredditName));
 		return data;
 	}

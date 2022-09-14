@@ -52,7 +52,7 @@ function SinglePostMakeComment({ post, comment, setEditComment, editComment }) {
 			></textarea>
 			<div className="make-comment-form-bottom-container">
 				{editComment &&
-				<div className="cancel-button" onClick={() => setEditComment(false)}>Cancel</div>
+				<div id='comment-edit-cancel-button' className="cancel-button" onClick={() => setEditComment(false)}>Cancel</div>
 				}
 				<button
 					className={`submit-comment-button ${

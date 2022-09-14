@@ -5,8 +5,6 @@ function SubredditRules({ sub }) {
 	const rules = sub.rules.split("%");
 	const [showRuleModal, setShowRuleModal] = useState(false);
 	const [editedRules, setEditedRules] = useState(rules);
-	console.log(rules);
-	console.log(rules.length);
 	return (
 		<div className="rules-main-container">
 			<RuleModal
