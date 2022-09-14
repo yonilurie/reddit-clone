@@ -130,9 +130,7 @@ function UserPostCard({ postId, post }) {
 						)}
 
 						<div className="profile-post-text">
-							<Link
-								to={`/r/${post.subreddit_name}/${post.id}`}
-							>
+							<Link to={`/r/${post.subreddit_name}/${post.id}`}>
 								<div className="profile-post-title">
 									{post.title}
 								</div>
@@ -160,10 +158,14 @@ function UserPostCard({ postId, post }) {
 								</div>
 							</div>
 							<div className="profile-post-bottom-bar">
-								{/* <div className="single-post-comments-count">
-									<i className="fa-regular fa-message"></i>
-									<div>{post.comment_count}</div>
-								</div> */}
+								<Link
+									to={`/r/${post.subreddit_name}/${post.id}`}
+								>
+									<div className="single-post-comments-count">
+										<i className="fa-regular fa-message"></i>
+										<div>{post.comment_count}</div>
+									</div>
+								</Link>
 
 								{/* <div className="share">
 									<i className="fa-solid fa-share"></i>

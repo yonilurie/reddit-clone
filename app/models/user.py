@@ -27,6 +27,8 @@ class User(db.Model, UserMixin):
     subreddits = db.relationship("SubReddit", back_populates="owner", cascade="all, delete-orphan")
     member = db.relationship("Member", back_populates="users", cascade="all, delete-orphan")
 
+    comment_votes = db.relationship("CommentVote", back_populates="user", cascade="all, delete-orphan")
+
 
     @property
     def password(self):
@@ -55,6 +57,7 @@ class User(db.Model, UserMixin):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "votes": [vote.to_dict()for vote in self.votes],
+            "comment_votes":[vote.to_dict() for vote in self.comment_votes]  ,
             "comments": [comment.to_dict() for comment in self.comments]
         }
 

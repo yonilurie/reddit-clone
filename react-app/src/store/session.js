@@ -198,15 +198,24 @@ export default function reducer(state = initialState, action) {
 			votesArr.forEach((vote) => {
 				votes[vote.post_id] = vote;
 			});
+
 			const subredditsArr = action.payload.subreddits;
 			const subreddits = {};
 			subredditsArr.forEach((sub) => {
 				subreddits[sub.name] = sub;
 			});
+
+			const comment_votes = action.payload.comment_votes
+			const commentVotes = {}
+			comment_votes.forEach(cmntVote => {
+				commentVotes[cmntVote.comment_id] = cmntVote
+			})
+
 			newState = { user: action.payload };
 
 			newState.user.votes = votes;
 			newState.user.subreddits = subreddits;
+			newState.user.comment_votes = commentVotes
 
 			return newState;
 		case REMOVE_USER:

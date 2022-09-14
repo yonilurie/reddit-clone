@@ -1,10 +1,13 @@
 import { getTimeElapsed, getPercentUpvoted } from "../../util/index.js";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SinglePostMakeComment from "./SinglePostMakeComment.js";
+import { makeCommentVote } from "../../store/subreddits.js";
+import { authenticate } from "../../store/session.js";
 import CommentMenu from "./CommentMenu.js";
 
 function SinglePostComment({ post, comment }) {
+	const dispatch = useDispatch();
 	const [editComment, setEditComment] = useState(false);
 	const user = useSelector((state) => state.session.user);
 	return (
@@ -30,13 +33,58 @@ function SinglePostComment({ post, comment }) {
 				<div className="single-post-comment-text">{comment.text}</div>
 				<div className="single-post-comment-interact">
 					<div className="single-post-comment-votes-container">
-						<div>
-							<i className="fa-solid fa-arrow-up"></i>
+						<div
+							onClick={async () => {
+								// if (!currentUser) return setShowModal(true);
+								await dispatch(
+									makeCommentVote(
+										"true",
+										comment.id,
+										user.id,
+										post.id
+									)
+								);
+								dispatch(authenticate());
+							}}
+						>
+							<i
+								className={`fa-solid fa-arrow-up ${
+									user &&
+									user.comment_votes[comment.id] &&
+									user.comment_votes[comment.id].upvote ===
+										true &&
+									"upvoted"
+								}`}
+							></i>
 						</div>
-						<div>0</div>
 						<div>
+							{comment.votes.upvote_count -
+								comment.votes.downvote_count}
+						</div>
+						<div
+							onClick={async () => {
+								// if (!currentUser) return setShowModal(true);
+								await dispatch(
+									makeCommentVote(
+										"false",
+										comment.id,
+										user.id,
+										post.id
+									)
+								);
+								dispatch(authenticate());
+							}}
+						>
 							{" "}
-							<i className="fa-solid fa-arrow-down"></i>
+							<i
+								className={`fa-solid fa-arrow-down ${
+									user &&
+									user.comment_votes[comment.id] &&
+									user.comment_votes[comment.id].upvote ===
+										false &&
+									"downvoted"
+								}`}
+							></i>
 						</div>
 					</div>
 

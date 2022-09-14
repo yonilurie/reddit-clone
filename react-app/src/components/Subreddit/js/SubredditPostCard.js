@@ -5,6 +5,7 @@ import { getTimeElapsed } from "../../../util/index.js";
 import { authenticate } from "../../../store/session.js";
 import { postVote } from "../../../store/subreddits.js";
 import LoginFormModal from "../../auth/LoginFormModal";
+
 const SubredditPostCard = ({ post }) => {
 	const dispatch = useDispatch();
 	const [showModal, setShowModal] = useState();
@@ -76,9 +77,7 @@ const SubredditPostCard = ({ post }) => {
 								</span>
 							</div>
 						</div>
-						<Link
-							to={`/r/${post.subreddit_name}/${post.id}`}
-						>
+						<Link to={`/r/${post.subreddit_name}/${post.id}`}>
 							{" "}
 							<div className="sub-post-title">{post.title}</div>
 						</Link>
@@ -99,9 +98,7 @@ const SubredditPostCard = ({ post }) => {
 					)}
 
 					{post.text && (
-						<Link
-							to={`/r/${post.subreddit_name}/${post.id}`}
-						>
+						<Link to={`/r/${post.subreddit_name}/${post.id}`}>
 							{post.text ? (
 								<div className="sub-text-box">{post.text}</div>
 							) : null}
@@ -109,10 +106,6 @@ const SubredditPostCard = ({ post }) => {
 					)}
 					{post.link && (
 						<a href={post.link} target="_blank" rel="noreferrer">
-							{/* <div className="image-box">
-								<i className="fa-solid fa-link"></i>
-								<i className="fa-solid fa-arrow-up-right-from-square"></i>
-							</div> */}
 							<div className="subreddit-url">
 								{post.link.length > 50
 									? `${post.link.slice(0, 50)}...`
@@ -124,10 +117,12 @@ const SubredditPostCard = ({ post }) => {
 					)}
 				</div>
 				<div className="single-post-bottom-bar">
-					{/* <div className="single-post-comments-count">
+					<Link to={`/r/${post.subreddit_name}/${post.id}`}>
+					<div className="single-post-comments-count">
 						<i className="fa-regular fa-message"></i>
 						<div>{post.comment_count}</div>
-					</div> */}
+						</div>
+						</Link>
 					{/* 
 					<div className="share">
 						<i className="fa-solid fa-share"></i>

@@ -81,9 +81,7 @@ const HomepagePostCard = ({ post }) => {
 								</span>
 							</div>
 						</div>
-						<Link
-							to={`/r/${post.subreddit_name}/${post.id}`}
-						>
+						<Link to={`/r/${post.subreddit_name}/${post.id}`}>
 							{" "}
 							<div className="sub-post-title">{post.title}</div>
 						</Link>
@@ -104,9 +102,7 @@ const HomepagePostCard = ({ post }) => {
 					)}
 
 					{post.text && (
-						<Link
-							to={`/r/${post.subreddit_name}/${post.id}`}
-						>
+						<Link to={`/r/${post.subreddit_name}/${post.id}`}>
 							{post.text ? (
 								<div className="sub-text-box">{post.text}</div>
 							) : null}
@@ -124,10 +120,12 @@ const HomepagePostCard = ({ post }) => {
 					)}
 				</div>
 				<div className="single-post-bottom-bar">
-					{/* <div className="single-post-comments-count">
-						<i className="fa-regular fa-message"></i>
-						<div>{post.comment_count}</div>
-					</div> */}
+					{/* <Link to={`/r/${post.subreddit_name}/${post.id}`}>
+						<div className="single-post-comments-count">
+							<i className="fa-regular fa-message"></i>
+							<div>{post.comment_count}</div>
+						</div>
+					</Link> */}
 					{/* 
 					<div className="share">
 						<i className="fa-solid fa-share"></i>

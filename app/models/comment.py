@@ -15,6 +15,9 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), nullable=True, server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), nullable=True, onupdate=func.now())
 
+
+    votes = db.relationship("CommentVote", back_populates="comment", cascade="all, delete-orphan")
+    
     def to_dict(self):
         return {
             "id": self.id,
@@ -23,5 +26,21 @@ class Comment(db.Model):
             "text": self.text,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            "user": {"username": self.user.username, "profile_image": self.user.profile_image}
+            "user": {"username": self.user.username, "profile_image": self.user.profile_image},
+            "votes": self.__votes__()
         }
+
+    def __votes__(self):
+        votes_list = self.votes
+        total = 0
+        upvotes = 0
+        downvotes = 0
+        for vote in votes_list:
+            if vote.upvote:
+                upvotes += 1
+            else: 
+                downvotes += 1
+            total += 1
+    
+        vote_stats = {"upvote_count": upvotes, "downvote_count": downvotes, "total": total}
+        return vote_stats
