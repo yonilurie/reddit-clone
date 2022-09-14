@@ -62,8 +62,9 @@ def edit_comment(comment_id):
         if comment_to_edit.user_id == current_user.id:
             comment_to_edit.text = form.data['comment']
             db.session.commit()
-            return_comment = Comment.query.get(comment_id)
-            return return_comment.to_dict()
+    
+            post = Post.query.get(comment_to_edit.post_id)
+            return post.to_dict()
         else:
             return jsonify({'Message': 'Cannot edit another users comment'})
     else:

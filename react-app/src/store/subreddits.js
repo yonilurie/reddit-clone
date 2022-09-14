@@ -13,6 +13,7 @@ const EDIT_RULE = "subreddits/EDIT_RULE";
 const EDIT_SETTING = "subreddits/EDIT_SETTING";
 const REMOVE_SUB = "subreddits/REMOVE_SUB";
 const ADD_COMMENT = "subreddits/ADD_COMMENT";
+const EDIT_COMMENT = "subreddits/EDIT_COMMENT"
 
 const addSub = (sub) => ({
 	type: GET_SUB,
@@ -80,6 +81,11 @@ const removeSub = (subName) => ({
 });
 
 const addComment = (post, subredditName) => ({
+	type: ADD_COMMENT,
+	post,
+	subredditName,
+});
+const editComment = (post, subredditName) => ({
 	type: ADD_COMMENT,
 	post,
 	subredditName,
@@ -290,6 +296,23 @@ export const addAComment = (comment, postId, subredditName) => async (
 		const data = await response.json();
 		console.log(data);
 		dispatch(addComment(data, subredditName));
+		return data;
+	}
+};
+export const editAComment = (comment, commentId, subredditName) => async (
+	dispatch
+) => {
+	const formData = new FormData();
+	formData.append("comment", comment);
+	const response = await fetch(`/api/comments/${commentId}/edit`, {
+		method: "PUT",
+		body: formData,
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		
+		dispatch(editComment(data, subredditName));
 		return data;
 	}
 };

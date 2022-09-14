@@ -20,6 +20,7 @@ function SinglePostPage() {
 
 	const [showModal, setShowModal] = useState(false);
 	const [edit, setEdit] = useState(false);
+	const [editComment, setEditComment] = useState(false);
 	const [text, setText] = useState("");
 
 	const subreddits = useSelector((state) => state.subreddits);
@@ -104,7 +105,10 @@ function SinglePostPage() {
 								></SinglePostContent>
 								<div className="single-post-gray-bar"></div>
 								<SinglePostCommentContainer
-									post={subreddits[subreddit].posts[postId]}
+								post={subreddits[subreddit].posts[postId]}
+								editComment={editComment}
+								setEditComment={setEditComment}
+							
 								></SinglePostCommentContainer>
 							</div>
 							<SubredditInfoCard

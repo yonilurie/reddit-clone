@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addAComment } from "../../store/subreddits";
+import { addAComment, editAComment } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
 function SinglePostMakeComment({ post, comment }) {
 	const dispatch = useDispatch();
@@ -11,20 +11,29 @@ function SinglePostMakeComment({ post, comment }) {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (commentText.length > 0 && commentText.length < 10000) {
-			dispatch(
-				addAComment(commentText, post.id, post.subreddit_name)
-			).then((data) => {
-				dispatch(authenticate());
-			});
-			setCommentText("");
+		if (comment) {
+			if (commentText.length > 0 && commentText.length < 10000) {
+				dispatch(
+					editAComment(commentText, comment.id, post.subreddit_name)
+				).then((data) => {
+					dispatch(authenticate());
+				});
+				setCommentText("");
+			}
+		} else {
+			if (commentText.length > 0 && commentText.length < 10000) {
+				dispatch(
+					addAComment(commentText, post.id, post.subreddit_name)
+				).then((data) => {
+					dispatch(authenticate());
+				});
+				setCommentText("");
+			}
 		}
 	};
 
 	useEffect(() => {
-		if (comment) {
-			setCommentText(comment.text);
-		}
+		if (comment) setCommentText(comment.text);
 	}, []);
 
 	return (
@@ -41,7 +50,7 @@ function SinglePostMakeComment({ post, comment }) {
 						commentText.length === 0 ? "disabled-comment" : ""
 					} `}
 				>
-					Comment
+					{comment ? "Save Edits" : "Comment"}
 				</button>
 			</div>
 		</form>
