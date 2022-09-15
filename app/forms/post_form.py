@@ -8,9 +8,7 @@ from app.models import SubReddit
 
 def subreddit_exists(form, field):
     subreddit_id = field.data
-    print(subreddit_id)
     subreddit = SubReddit.query.get(subreddit_id)
-    print(subreddit)
     if not subreddit:
         raise ValidationError('Subreddit not found')
 

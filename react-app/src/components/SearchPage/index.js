@@ -166,7 +166,10 @@ function SearchPage() {
 								key={sub.name}
 								className="search-page-subreddit"
 							>
-								<Link to={`/r/${sub.name}` } className="search-subreddit-left">
+								<Link
+									to={`/r/${sub.name}`}
+									className="search-subreddit-left"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										viewBox="0 0 20 20"
@@ -178,7 +181,10 @@ function SearchPage() {
 										></path>
 									</svg>
 								</Link>
-								<Link to={`/r/${sub.name}` } className="search-subreddit-center">
+								<Link
+									to={`/r/${sub.name}`}
+									className="search-subreddit-center"
+								>
 									<div>r/{sub.name}</div>
 									<div className="search-sub-description">
 										{sub.description
@@ -199,7 +205,36 @@ function SearchPage() {
 					Object.values(searchResult).length > 0 &&
 					Object.values(searchResult.users).length > 0 &&
 					Object.values(searchResult.users).map((user) => {
-						return <div key={user.username}>{user.username}</div>;
+						return (
+							<div
+								key={user.username}
+								className="search-page-subreddit"
+							>
+								<Link
+									to={`/user/${user.username}`}
+									className="search-subreddit-left"
+								>
+									<img
+										src={user.profile_image}
+										className="search-post-user-profile"
+									></img>
+								</Link>
+								<Link
+									to={`/user/${user.username}`}
+									className="search-subreddit-center"
+								>
+									<div>u/{user.username}</div>
+									<div className="search-sub-description">
+										{user.karma}
+									</div>
+								</Link>
+								<div className="search-subreddit-right">
+									<button className="subreddit-join">
+										Join
+									</button>
+								</div>
+							</div>
+						);
 					})}
 			</div>
 		</div>

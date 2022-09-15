@@ -13,7 +13,7 @@ subreddit_routes = Blueprint('subreddits', __name__)
 @subreddit_routes.route('/list-five')
 def five_subreddits():
     """
-    Returns a list of all subreddits
+    Returns 5 random Subreddits
     """
     subs = SubReddit.query.all()
 
@@ -31,7 +31,9 @@ def all_subreddits():
 
 @subreddit_routes.route('/home')
 def home_page():
-    pass
+    '''
+    Returns random posts for the home page
+    '''
     subs = SubReddit.query.all()
     list_of_subs = [sub.to_dict() for sub in subs]
     random_five = random.sample(list_of_subs, k=5)
@@ -52,6 +54,9 @@ def home_page():
 
 @subreddit_routes.route('/create', methods=['POST'])
 def create_subreddit():
+    '''
+    Creates a subreddit
+    '''
     form = SubredditForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -142,7 +147,6 @@ def create_post(id):
     Post to a subreddit
     '''
     form = PostForm()
-    print(form['subreddit_id'])
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -166,7 +170,7 @@ def create_post(id):
 @login_required
 def edit_post(id):
     '''
-    Post to a subreddit
+    Edit a post 
     '''
     form = PostFormEdit()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -227,6 +231,9 @@ def create_post_image(id):
 @subreddit_routes.route('/<int:id>/rules', methods=['PUT'])
 @login_required
 def edit_rules(id): 
+    '''
+    Edit a subreddits rules
+    '''
     form = SubredditRulesForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -240,6 +247,9 @@ def edit_rules(id):
 @subreddit_routes.route('/<int:id>/community', methods=['PUT'])
 @login_required
 def edit_community_settings(id): 
+    '''
+    Edit a subreddits community settings
+    '''
     form = SubredditCommunityForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -260,6 +270,9 @@ def edit_community_settings(id):
 @subreddit_routes.route('/<int:id>/delete-subreddit', methods=['DELETE'])
 @login_required
 def delete_subreddit(id):
+    '''
+    Delete a subreddit
+    '''
     form = DeleteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
