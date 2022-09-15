@@ -13,10 +13,9 @@ function SearchBar() {
 	};
 
 	useEffect(() => {
-		if (s) {
-			setQuery(s);
-		}
-	}, []);
+		if (s) setQuery(s);
+		else setQuery("");
+	}, [s]);
 	return (
 		<div className="search-bar-container">
 			<input
