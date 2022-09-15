@@ -14,6 +14,8 @@ import SubmitPage from "./components/SubmitPage";
 import Error404 from "./components/ErrorPages/404";
 import About from "./components/About";
 import Footer from "./components/About/Footer";
+import SearchPage from "./components/SearchPage";
+
 function App() {
 	const [loaded, setLoaded] = useState(false);
 	const dispatch = useDispatch();
@@ -38,6 +40,9 @@ function App() {
 				</Route>
 				<Route path="/about" exact={true}>
 					<About></About>
+				</Route>
+				<Route path="/search">
+					<SearchPage></SearchPage>
 				</Route>
 				<Route path="/r/:subreddit([A-Z]\w+)" exact={true}>
 					<Subreddit></Subreddit>

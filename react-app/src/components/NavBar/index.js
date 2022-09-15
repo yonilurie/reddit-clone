@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileMenu from "./js/ProfileMenu";
+import SearchBar from "./js/SearchBar";
 import logo from  '../../images/teddir-logo.png'
 import * as sessionActions from "../../store/session";
 import "./css/index.css";
@@ -24,7 +25,7 @@ function NavBar() {
 					></img>
 				</NavLink>
 			</div>
-
+			<SearchBar></SearchBar>
 			<div className="login-signup-menu">
 				{!user && (
 					<div className="login-signup-container">

@@ -13,6 +13,7 @@ function HomePage() {
 	const sub = { display_name: "all", name: "all" };
 	const all = useSelector((state) => state.subreddits.all);
 	const user = useSelector((state) => state.session.user);
+	
 	useEffect(() => {
 		(async () => {
 			const response = await fetch(`/api/r/list-five`);
@@ -29,6 +30,11 @@ function HomePage() {
 			setPosts(Object.values(all.posts).reverse());
 		}
 	}, [dispatch, user, all]);
+
+	useEffect(() => {
+		const time = new Date(user.created_at)
+		console.log(time.getTimezoneOffset() / 60)
+	},[user])
 
 	return (
 		<div className="home-page-container-main">

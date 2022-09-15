@@ -21,6 +21,12 @@ function SinglePostContent({
 	const dispatch = useDispatch();
 	const currentUser = useSelector((state) => state.session.user);
 	const votes = post.votes;
+	const getTime = (time) => {
+		const tempDate = new Date(time);
+		const newTime = tempDate.toLocaleString();
+		console.log(newTime);
+		return newTime;
+	};
 	return (
 		<div className="single-post">
 			<div className="single-post-votes-container">
@@ -88,9 +94,9 @@ function SinglePostContent({
 										<span>
 											{" "}
 											Edited:{" "}
-											{post.created_at
+											{getTime(post.updated_at)
 												.split(" ")
-												.splice(1, 3)
+												.splice(0, 3)
 												.join(" ")}
 										</span>
 									)}
