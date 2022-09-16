@@ -1,9 +1,10 @@
 
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import SubReddit, Post, db
+from app.models import SubReddit, Post, db, Member
 from app.forms.post_form import PostForm, PostFormEdit
 from app.forms.delete_form import DeleteForm
+from app.forms.member_form import MemberForm
 from app.forms.subreddit_form import SubredditForm, SubredditRulesForm, SubredditCommunityForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_object)
@@ -283,5 +284,34 @@ def delete_subreddit(id):
             "message": 'succesfully deleted'
         })
         
+    else:
+        return jsonify(form.errors)
+
+
+
+@subreddit_routes.route('/join', methods=['POST'])
+@login_required
+def join_sub():
+    '''
+    Join a subreddit
+    '''
+    form = MemberForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        is_member = Member.query.filter(Member.subreddits_id == form.data['subreddit_id'], Member.users_id == current_user.id ).first()
+        print(is_member)
+        if not is_member:
+           join = Member(
+               users_id = current_user.id,
+               subreddits_id = form.data['subreddit_id']
+           )
+           db.session.add(join)
+           db.session.commit()
+           
+        else:
+            db.session.delete(is_member)
+            db.session.commit()
+        sub = SubReddit.query.get(form.data['subreddit_id'])
+        return jsonify(sub.to_dict())
     else:
         return jsonify(form.errors)

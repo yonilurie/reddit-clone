@@ -182,7 +182,7 @@ export const deleteASubreddit = (subredditId, subredditName) => async (
 	const response = await fetch(`/api/r/${subredditId}/delete-subreddit`, {
 		method: "DELETE",
 	});
-	
+
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(deleteSub(subredditName));
@@ -205,17 +205,24 @@ export default function reducer(state = initialState, action) {
 				subreddits[sub.name] = sub;
 			});
 
-			const comment_votes = action.payload.comment_votes
-			const commentVotes = {}
-			comment_votes.forEach(cmntVote => {
-				commentVotes[cmntVote.comment_id] = cmntVote
-			})
+			const comment_votes = action.payload.comment_votes;
+			const commentVotes = {};
+			comment_votes.forEach((cmntVote) => {
+				commentVotes[cmntVote.comment_id] = cmntVote;
+			});
+
+			const memberships = action.payload.member;
+			const member_obj = {};
+			memberships.forEach((member) => {
+				member_obj[member.subreddits_id] = member;
+			});
 
 			newState = { user: action.payload };
 
 			newState.user.votes = votes;
 			newState.user.subreddits = subreddits;
-			newState.user.comment_votes = commentVotes
+			newState.user.comment_votes = commentVotes;
+			newState.user.member = member_obj;
 
 			return newState;
 		case REMOVE_USER:

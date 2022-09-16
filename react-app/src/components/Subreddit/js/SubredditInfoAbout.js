@@ -11,10 +11,10 @@ function SubredditInfoAbout({ sub }) {
 							? sub.description
 							: "No description yet"}
 					</div>
-					{/* <div className="subreddit-stats">
+					<div className="subreddit-stats">
 						<div className="members-num">{sub.members}</div>
 						<div className="members-text">Members</div>
-					</div> */}
+					</div>
 					<div className="subreddit-created-at">
 						<i className="fa-solid fa-cake-candles"></i>
 						<div className="subreddit-created-date">
@@ -34,7 +34,9 @@ function SubredditInfoAbout({ sub }) {
 								New Post
 							</button>
 						</Link>
+						
 					)}
+					
 				</div>
 			)}
 		</>

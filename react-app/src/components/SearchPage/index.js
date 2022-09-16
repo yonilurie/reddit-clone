@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, Link } from "react-router-dom";
-import subreddits from "../../store/subreddits";
+import { toggleMembership } from "../../store/subreddits";
+import { authenticate } from "../../store/session";
 import { getTimeElapsed } from "../../util/index.js";
+
 import "./index.css";
 function SearchPage() {
 	const history = useHistory();
+	const dispatch = useDispatch();
 	const search = useLocation().search;
 	const s = new URLSearchParams(search).get("s");
+	const user = useSelector((state) => state.session.user);
 	const [type, setType] = useState("Posts");
 	const [searchResult, setSearchResult] = useState(null);
 
@@ -28,6 +33,13 @@ function SearchPage() {
 	const setTab = (e) => {
 		setType(e.target.innerText);
 	};
+
+	const toggleJoin = (subredditId) => {
+		dispatch(toggleMembership(subredditId)).then((data) => {
+			dispatch(authenticate());
+		});
+	};
+
 	return (
 		<div className="search-page-main-container">
 			<div className="search-page-tabs">
@@ -148,7 +160,9 @@ function SearchPage() {
 						</div>
 						<div className="search-posts-right">
 							<div className="search-post-communities">
-								<div className="search-post-side-title">Communities</div>
+								<div className="search-post-side-title">
+									Communities
+								</div>
 								{searchResult &&
 									Object.values(searchResult).length > 0 &&
 									Object.values(searchResult.subreddits)
@@ -157,15 +171,37 @@ function SearchPage() {
 										(sub, index) => {
 											if (index < 5) {
 												return (
-													<Link
+													<div
 														to={`/r/${sub.name}`}
 														className="search-post-community-small"
 													>
 														<div>r/{sub.name}</div>
-														<button className="subreddit-join">
-															Join
+														<button
+															className="subreddit-join"
+															onClick={() => {
+																if (!user) {
+																	return;
+																}
+
+																toggleJoin(
+																	sub.id
+																);
+															}}
+														>
+															{user &&
+																user.member[
+																	sub.id
+																] &&
+																"Joined"}
+															{user &&
+																!user.member[
+																	sub.id
+																] &&
+																"Join"}
+
+															{!user && "Join"}
 														</button>
-													</Link>
+													</div>
 												);
 											}
 										}
@@ -186,11 +222,13 @@ function SearchPage() {
 							</div>
 
 							<div className="search-post-users">
-								<div className="search-post-side-title">Users</div>
+								<div className="search-post-side-title">
+									Users
+								</div>
 								{searchResult &&
 									Object.values(searchResult).length > 0 &&
-									Object.values(searchResult.users)
-										.length > 0 &&
+									Object.values(searchResult.users).length >
+										0 &&
 									Object.values(searchResult.users).map(
 										(user, index) => {
 											if (index < 5) {
@@ -199,7 +237,9 @@ function SearchPage() {
 														to={`/user/${user.username}`}
 														className="search-post-users-small"
 													>
-														<div>u/{user.username}</div>
+														<div>
+															u/{user.username}
+														</div>
 														<button className="subreddit-join">
 															View
 														</button>
@@ -208,15 +248,13 @@ function SearchPage() {
 											}
 										}
 									)}
-									{searchResult &&
+								{searchResult &&
 									Object.values(searchResult).length > 0 &&
 									Object.values(searchResult.subreddits)
 										.length > 0 && (
 										<div
 											className="search-page-see-more"
-											onClick={() =>
-												setType("People")
-											}
+											onClick={() => setType("People")}
 										>
 											See More
 										</div>
@@ -263,8 +301,22 @@ function SearchPage() {
 									</div>
 								</Link>
 								<div className="search-subreddit-right">
-									<button className="subreddit-join">
-										Join
+									<button
+										className="subreddit-join"
+										onClick={() => {
+											if (!user) {
+												return;
+											}
+
+											toggleJoin(sub.id);
+										}}
+									>
+										{user &&
+											user.member[sub.id] &&
+											"Joined"}
+										{user && !user.member[sub.id] && "Join"}
+
+										{!user && "Join"}
 									</button>
 								</div>
 							</div>

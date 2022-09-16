@@ -18,4 +18,6 @@ class Member(db.Model):
             "users_id": self.users_id,
             "subreddits_id": self.subreddits_id,
             "moderator": self.moderator,
+            'subreddit_info': self.subreddits.to_dict(),
+            
         }

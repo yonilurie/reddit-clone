@@ -58,7 +58,8 @@ class User(db.Model, UserMixin):
             "updated_at": self.updated_at,
             "votes": [vote.to_dict()for vote in self.votes],
             "comment_votes":[vote.to_dict() for vote in self.comment_votes]  ,
-            "comments": [comment.to_dict() for comment in self.comments]
+            "comments": [comment.to_dict() for comment in self.comments],
+            "member": [member.to_dict() for member in self.member]
         }
 
     def __comments__(self):

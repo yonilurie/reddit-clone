@@ -16,6 +16,7 @@ const ADD_COMMENT = "subreddits/ADD_COMMENT";
 const EDIT_COMMENT = "subreddits/EDIT_COMMENT";
 const DELETE_COMMENT = "subreddits/DELETE_COMMENT";
 const COMMENT_VOTE = "subreddits/COMMENT_VOTE";
+const TOGGLE_MEMBER = "subreddits/TOGGLE_MEMBER";
 
 const addSub = (sub) => ({
 	type: GET_SUB,
@@ -96,6 +97,11 @@ const editComment = (post, subredditName) => ({
 const deleteComment = (post) => ({
 	type: DELETE_COMMENT,
 	post,
+});
+
+const toggleMember = (sub) => ({
+	type: TOGGLE_MEMBER,
+	sub,
 });
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
@@ -335,22 +341,40 @@ export const deleteAComment = (commentId) => async (dispatch) => {
 	}
 };
 
-export const makeCommentVote = (userVote, commentId, currentUserId, postId ) => async (dispatch) => {
+export const makeCommentVote = (
+	userVote,
+	commentId,
+	currentUserId,
+	postId
+) => async (dispatch) => {
 	const formData = new FormData();
 	formData.append("comment_id", commentId);
 	formData.append("user_id", currentUserId);
 	formData.append("upvote", userVote);
 	formData.append("post_id", postId);
 
-
 	const response = await fetch("/api/vote/comment", {
 		method: "POST",
-		body: formData
+		body: formData,
 	});
 
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(editComment(data, data.subreddit_name));
+		return data;
+	}
+};
+
+export const toggleMembership = (subredditId) => async (dispatch) => {
+	const formData = new FormData();
+	formData.append("subreddit_id", subredditId);
+	const response = await fetch("/api/r/join", {
+		method: "POST",
+		body: formData,
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(toggleMember(data));
 		return data;
 	}
 };

@@ -15,6 +15,7 @@ import Error404 from "./components/ErrorPages/404";
 import About from "./components/About";
 import Footer from "./components/About/Footer";
 import SearchPage from "./components/SearchPage";
+import UserHomePage from "./components/UserHomePage";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -38,6 +39,9 @@ function App() {
 				<Route path="/" exact={true}>
 					<HomePage></HomePage>
 				</Route>
+				<ProtectedRoute path="/home" exact={true}>
+					<UserHomePage></UserHomePage>
+				</ProtectedRoute>
 				<Route path="/about" exact={true}>
 					<About></About>
 				</Route>

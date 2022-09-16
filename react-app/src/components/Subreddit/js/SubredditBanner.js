@@ -7,7 +7,7 @@ const SubredditBanner = ({ sub }) => {
 						<img
 							src={sub.banner_image}
 							className="banner-image"
-							alt='banner'
+							alt="banner"
 						></img>
 					) : (
 						<div className="banner-image-placeholder"></div>
