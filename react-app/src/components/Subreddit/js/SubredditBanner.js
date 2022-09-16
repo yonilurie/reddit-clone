@@ -1,4 +1,16 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { toggleMembership } from "../../../store/subreddits";
+import { authenticate } from "../../../store/session";
 const SubredditBanner = ({ sub }) => {
+	const { subreddit } = useParams();
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.session.user);
+	const toggleJoin = (subredditId) => {
+		dispatch(toggleMembership(subredditId)).then((data) => {
+			dispatch(authenticate());
+		});
+	};
 	return (
 		<div className="subreddit-banner">
 			<div className="subreddit-banner-inner">
@@ -33,6 +45,23 @@ const SubredditBanner = ({ sub }) => {
 							<div className="sub-name">r/{sub.name}</div>
 						</div>
 					</div>
+					{subreddit && (
+						<button
+							className="subreddit-join"
+							onClick={() => {
+								if (!user) {
+									return;
+								}
+
+								toggleJoin(sub.id);
+							}}
+						>
+							{user && user.member[sub.id] && "Joined"}
+							{user && !user.member[sub.id] && "Join"}
+
+							{!user && "Join"}
+						</button>
+					)}
 				</div>
 			</div>
 		</div>

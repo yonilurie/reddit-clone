@@ -51,6 +51,9 @@
 	width: 100%;
 	box-sizing: border-box;
 	padding-left: 10%;
+	display: flex;
+	align-items: center;
+	gap: 30px;
 }
 
 .banner-title {
