@@ -1,6 +1,8 @@
 import { Modal } from "../../context/Modal";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
+
+//Modal for both login and sign up forms
 function LoginFormModal({ showModal, setShowModal, action }) {
 	return (
 		<>

@@ -4,9 +4,11 @@ import { authenticate } from "../../../store/session";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+//Modal to confirm deleting a post
 function DeletePostModal({ showModal, setShowModal, post }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
+
 	return (
 		<>
 			{showModal && (
@@ -34,8 +36,8 @@ function DeletePostModal({ showModal, setShowModal, post }) {
 									Cancel
 								</button>
 								<button
-									onClick={async () => {
-										await dispatch(
+									onClick={() => {
+										dispatch(
 											deleteAPost(
 												post.id,
 												post.user.username,
@@ -44,12 +46,13 @@ function DeletePostModal({ showModal, setShowModal, post }) {
 										).then((data) =>
 											dispatch(authenticate())
 										);
-
-										await dispatch(
+										dispatch(
 											getSubInfo(post.subreddit_name)
+										).then((data) =>
+											dispatch(
+												getPosts(post.subreddit_name)
+											)
 										);
-										dispatch(getPosts(post.subreddit_name));
-
 										return history.push(
 											`/user/${post.user.username}/submitted`
 										);

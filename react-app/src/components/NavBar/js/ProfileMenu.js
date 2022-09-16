@@ -1,9 +1,13 @@
-import { logout } from "../../../store/session";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+
+import { logout } from "../../../store/session";
+
 import LoginFormModal from "../../auth/LoginFormModal";
 import SubredditModal from "../../SubredditModal";
+
+//The profile menu in the navbar
 const ProfileMenu = ({
 	showMenu,
 	setShowMenu,
@@ -13,30 +17,32 @@ const ProfileMenu = ({
 	action,
 }) => {
 	const dispatch = useDispatch();
-	const history = useHistory()
+	const history = useHistory();
+
 	const [showSubModal, setShowSubModal] = useState(false);
 
+	//If modal is active, disable scroll
 	useEffect(() => {
-		if (showModal) {
+		if (showModal || showSubModal) {
 			document.body.style.overflow = "hidden";
 		} else {
 			document.body.style.overflow = "unset";
 		}
-	}, [showModal]);
+	}, [showModal, showSubModal]);
 
+	//Add event listener to page to close profile menu if user clicks
+	//anywhere else on the page
 	useEffect(() => {
 		if (!showMenu) return;
 		const closeMenu = () => setShowMenu(false);
 		document.addEventListener("click", closeMenu);
-
 		return () => document.removeEventListener("click", closeMenu);
 	}, [showMenu, setShowMenu]);
 
 	const onLogout = async (e) => {
 		await dispatch(logout());
-		history.push('/')
+		history.push("/");
 	};
-
 
 	return (
 		<div className="profile-menu-container">

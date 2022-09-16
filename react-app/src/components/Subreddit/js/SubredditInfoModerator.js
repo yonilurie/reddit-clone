@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+
+//Subreddit moderator card
 function SubredditInfoModerator({ sub }) {
 	return (
 		<>

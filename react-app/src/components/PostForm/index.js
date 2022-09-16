@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import TextForm from "./js/TextForm";
 import LinkForm from "./js/LinkForm";
-import "./css/index.css";
 import ImageForm from "./js/ImageForm";
-import subreddits, {
+
+import "./css/index.css";
+
+import {
 	createAPostImage,
 	createAPost,
 	getUserInfo,
@@ -29,10 +32,12 @@ function PostForm() {
 	const [image, setImage] = useState(null);
 	const [validURL, setValidURL] = useState(true);
 
+	//get the info for the user for the side bar
 	useEffect(() => {
 		dispatch(getUserInfo(username));
 	}, [dispatch, username]);
 
+	// Get the list of all subreddits for the subreddit selector
 	useEffect(() => {
 		if (!subredditsList.length) {
 			const subreddits = async () => {
@@ -45,6 +50,8 @@ function PostForm() {
 			});
 		}
 		let postSubId = null;
+		// If the user was redirected from another subreddit then set the subreddit
+		// to the one held in the location state
 		try {
 			if (location.state.postSubId) {
 				postSubId = location.state.postSubId;
@@ -56,21 +63,22 @@ function PostForm() {
 		if (subredditsList.length > 0 && !subredditId) {
 			setSubredditId(subredditsList[0].id);
 		}
-	}, [username, location]);
+	}, [username, location, history, subredditId, subredditsList]);
 
+	// Resize the title input field as user types and remove white space
 	const resizeInput = (e) => {
-		// let tempTitle = e.target.value.replace(/[%/\\?&]/, "");
-
 		let tempTitle = e.target.value.replace("  ", " ");
 		setTitle(tempTitle);
 		e.target.style.height = "auto";
 		e.target.style.height = e.target.scrollHeight + "px";
 	};
 
+	// For changing subreddit to post to
 	const setSubredditInfo = (e) => {
 		setSubredditId(e.target.value);
 	};
 
+	//Submit function for submitting a new post
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
@@ -78,16 +86,11 @@ function PostForm() {
 		formData.append("subreddit_id", subredditId);
 		formData.append("title", title);
 		formData.append("type_of_post", typeOfPost);
+		// if (tags) formData.append("tags", tags);
+		if (typeOfPost === "link") formData.append("link", link);
+		if (typeOfPost === "text") formData.append("text", text);
 
-		// if (tags) {
-		// 	formData.append("tags", tags);
-		// }
-		if (typeOfPost === "link") {
-			formData.append("link", link);
-		}
-		if (typeOfPost === "text") {
-			formData.append("text", text);
-		}
+		//There is a different route for image posting since this involved AWS s3
 		if (typeOfPost === "image") {
 			formData.append("image", image);
 			dispatch(createAPostImage(subredditId, formData)).then((data) => {
@@ -128,6 +131,7 @@ function PostForm() {
 					value={subredditId}
 					onChange={setSubredditInfo}
 				>
+					{/* Map out the list of subreddits as options on a select field */}
 					{subredditsList.length > 0 &&
 						subredditsList.map((s) => {
 							return (
@@ -140,7 +144,7 @@ function PostForm() {
 			</div>
 			<div className="post-form-flex">
 				<form className="post-form" onSubmit={(e) => onSubmit(e)}>
-					{/* <div className="post-form"> */}
+					{/* based on the type of post chosen based on the tabs, different user inputs will show */}
 					<div className="input-types">
 						<div
 							className={`input-type ${
@@ -171,9 +175,6 @@ function PostForm() {
 						</div>
 					</div>
 					<div className="post-title">
-						{title.length > 0 && (
-							<label htmlFor="post-title">Title (Required)</label>
-						)}
 						<div className="character-count">
 							{title.length > 0 ? `${title.length}/300` : "0/300"}
 						</div>
@@ -189,6 +190,7 @@ function PostForm() {
 							id="post-title"
 						></textarea>
 					</div>
+					{/* Different types of post inputs */}
 					{typeOfPost === "text" && (
 						<TextForm setText={setText} text={text}></TextForm>
 					)}
@@ -205,7 +207,6 @@ function PostForm() {
 							image={image}
 						></ImageForm>
 					)}
-
 					<div className="submit-post-container">
 						<div
 							className="cancel-button"
@@ -234,7 +235,6 @@ function PostForm() {
 							Post
 						</button>
 					</div>
-					{/* </div> */}
 				</form>
 			</div>
 		</div>

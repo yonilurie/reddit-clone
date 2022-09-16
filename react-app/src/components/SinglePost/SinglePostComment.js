@@ -1,21 +1,27 @@
-import { getTimeElapsed, getPercentUpvoted } from "../../util/index.js";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import SinglePostMakeComment from "./SinglePostMakeComment.js";
+
 import { makeCommentVote } from "../../store/subreddits.js";
 import { authenticate } from "../../store/session.js";
+
+import { getTimeElapsed } from "../../util/index.js";
 import CommentMenu from "./CommentMenu.js";
+import SinglePostMakeComment from "./SinglePostMakeComment.js";
 
 function SinglePostComment({ post, comment }) {
 	const dispatch = useDispatch();
+
 	const [editComment, setEditComment] = useState(false);
+
 	const user = useSelector((state) => state.session.user);
+
 	return (
 		<div className="single-post-page-comment">
 			<div className="single-post-comment-left">
 				<img
 					className="single-post-comment-profile-image"
 					src={comment.user.profile_image}
+					alt='profile'
 				></img>
 				<div className="comment-collapse-bar"></div>
 			</div>
@@ -35,17 +41,16 @@ function SinglePostComment({ post, comment }) {
 					<div className="single-post-comment-votes-container">
 						<div
 							className="vote upvote"
-							onClick={async () => {
+							onClick={() => {
 								if (!user) return;
-								await dispatch(
+								dispatch(
 									makeCommentVote(
 										"true",
 										comment.id,
 										user.id,
 										post.id
 									)
-								);
-								dispatch(authenticate());
+								).then(() => dispatch(authenticate()));
 							}}
 						>
 							<i
@@ -64,17 +69,16 @@ function SinglePostComment({ post, comment }) {
 						</div>
 						<div
 							className="vote downvote"
-							onClick={async () => {
+							onClick={() => {
 								if (!user) return;
-								await dispatch(
+								dispatch(
 									makeCommentVote(
 										"false",
 										comment.id,
 										user.id,
 										post.id
 									)
-								);
-								dispatch(authenticate());
+								).then(() => dispatch(authenticate()));
 							}}
 						>
 							{" "}

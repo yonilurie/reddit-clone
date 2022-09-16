@@ -3,12 +3,14 @@ import { useDispatch } from "react-redux";
 import { login } from "../../store/session";
 import "./index.css";
 
+//Login form, renders inside of modal
 const LoginForm = ({ action, setShowModal }) => {
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
+	//Remove errors once user changes their input
 	useEffect(() => {
 		setErrors([]);
 	}, [email, password]);

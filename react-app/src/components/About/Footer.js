@@ -1,5 +1,7 @@
 import "./footer.css";
 import { Link, useParams } from "react-router-dom";
+
+//Footer for the site, container developers information and link to about page
 function Footer() {
 	const { about } = useParams();
 	return (

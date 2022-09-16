@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { signUp } from "../../store/session";
 import "./index.css";
 
-const LoginForm = ({ action, setShowModal }) => {
+const SignUpForm = ({ action, setShowModal }) => {
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);
 	const [email, setEmail] = useState("");
@@ -34,12 +34,7 @@ const LoginForm = ({ action, setShowModal }) => {
 	const onLogin = async (e) => {
 		e.preventDefault();
 
-		const [startEmail, endEmail] = email.split("@");
-
-		if (endEmail.split(".").length !== 2) {
-			return setErrors(["Email must include proper domain name"]);
-		}
-
+		//Checks if passwords are matching
 		if (password !== confirmPassword) {
 			return setErrors(["Password and current password must match"]);
 		}
@@ -47,6 +42,7 @@ const LoginForm = ({ action, setShowModal }) => {
 		const data = await dispatch(signUp(username, email, password));
 		if (data) {
 			const dataErrors = []
+			//Formats any errors
 			data.forEach(e => {
 				let msg = e.split(':')[1]
 				dataErrors.push(msg)
@@ -55,6 +51,7 @@ const LoginForm = ({ action, setShowModal }) => {
 		} else setShowModal(false);
 	};
 
+	// Remove erros if user starts typing
 	useEffect(() => {
 		setErrors([]);
 	}, [email, username, password, confirmPassword]);
@@ -190,4 +187,4 @@ const LoginForm = ({ action, setShowModal }) => {
 	);
 };
 
-export default LoginForm;
+export default SignUpForm;

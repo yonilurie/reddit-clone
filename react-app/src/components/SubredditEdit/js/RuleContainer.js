@@ -1,27 +1,26 @@
 import { useState } from "react";
-import RuleModal from "./RuleModal";
+import { useDispatch } from "react-redux";
+
 import { editARule, authenticate } from "../../../store/session";
 import { editSubRules } from "../../../store/subreddits";
-import { useDispatch } from "react-redux";
-function RuleContainer({
-	ruleTitle,
-	ruleDetail,
-	index,
-	rules,
-	subredditId,
-	newRule,
-}) {
+
+import RuleModal from "./RuleModal";
+
+//Container for subreddit rules in edit page
+function RuleContainer({ ruleTitle, ruleDetail, index, rules, subredditId }) {
 	const dispatch = useDispatch();
+
 	const [showRuleDetail, setShowRuleDetail] = useState(false);
 	const [showRuleModal, setShowRuleModal] = useState(false);
 
+	//Deletes a rule
 	const deleteARule = () => {
 		let newRules = rules.replace(`${ruleTitle}:${ruleDetail}%`, "");
 		const formData = new FormData();
 		formData.append("subreddit_id", subredditId);
 		formData.append("rules", newRules);
 		dispatch(editARule(formData, subredditId)).then((data) => {
-			dispatch(editSubRules(data))
+			dispatch(editSubRules(data));
 			dispatch(authenticate());
 		});
 	};

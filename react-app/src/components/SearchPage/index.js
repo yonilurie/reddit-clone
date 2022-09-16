@@ -1,44 +1,47 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+
 import { toggleMembership } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
+
 import { getTimeElapsed } from "../../util/index.js";
 
 import "./index.css";
+
 function SearchPage() {
-	const history = useHistory();
 	const dispatch = useDispatch();
 	const search = useLocation().search;
 	const s = new URLSearchParams(search).get("s");
+
 	const user = useSelector((state) => state.session.user);
+
 	const [type, setType] = useState("Posts");
 	const [searchResult, setSearchResult] = useState(null);
 
+	//Execute a search for all subreddits, posts, and users that match the query
 	const executeSearch = async (query) => {
 		const response = await fetch(`/api/search?s=${query}`);
 		const data = await response.json();
+		setSearchResult(data);
 		return data;
 	};
 
-	useEffect(async () => {
-		if (s) {
-			const result = await executeSearch(s);
-			console.log(result);
-			setSearchResult(result);
-		} else {
-			setSearchResult({});
-		}
-	}, [search]);
-	const setTab = (e) => {
-		setType(e.target.innerText);
-	};
-
+	//Toggle a user joining a subreddit
 	const toggleJoin = (subredditId) => {
 		dispatch(toggleMembership(subredditId)).then((data) => {
 			dispatch(authenticate());
 		});
 	};
+
+	//If a query is in the url, set the query in state
+	useEffect(() => {
+		if (s) executeSearch(s);
+		else setSearchResult({});
+	}, [s]);
+
+	//Set the tab based on user input
+	const setTab = (e) => setType(e.target.innerText);
 
 	return (
 		<div className="search-page-main-container">
@@ -69,12 +72,6 @@ function SearchPage() {
 				</div>
 			</div>
 			<div className="search-page-results">
-				{/* <div>Users</div> */}
-				{/* {searchResult &&
-				Object.values(searchResult.users).length > 0 &&
-				Object.values(searchResult.users).map((user) => {
-					return <div key={user.username}>{user.username}</div>;
-				})} */}
 				{type === "Posts" && (
 					<div className="search-posts-outer-container">
 						<div className="search-posts-left">
@@ -135,6 +132,7 @@ function SearchPage() {
 															<img
 																src={post.image}
 																className="search-post-image"
+																alt='search post'
 															></img>
 														</a>
 													)}
@@ -203,6 +201,8 @@ function SearchPage() {
 														</button>
 													</div>
 												);
+											} else {
+												return null
 											}
 										}
 									)}
@@ -245,6 +245,8 @@ function SearchPage() {
 														</button>
 													</Link>
 												);
+											} else {
+												return null
 											}
 										}
 									)}
@@ -304,10 +306,7 @@ function SearchPage() {
 									<button
 										className="subreddit-join"
 										onClick={() => {
-											if (!user) {
-												return;
-											}
-
+											if (!user) return;
 											toggleJoin(sub.id);
 										}}
 									>
@@ -315,7 +314,6 @@ function SearchPage() {
 											user.member[sub.id] &&
 											"Joined"}
 										{user && !user.member[sub.id] && "Join"}
-
 										{!user && "Join"}
 									</button>
 								</div>
@@ -339,6 +337,7 @@ function SearchPage() {
 									<img
 										src={user.profile_image}
 										className="search-post-user-profile"
+										alt='user profile'
 									></img>
 								</Link>
 								<Link

@@ -1,10 +1,15 @@
+import { Modal } from "../../context/Modal";
+
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Modal } from "../../context/Modal";
+
 import { createASub } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
+
 import "./index.css";
+
+//Modal for creating a subreddit
 function SubredditModal({ showSubModal, setShowSubModal }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -14,6 +19,7 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 
 	const currentUser = useSelector((state) => state.session.user);
 
+	//Handle new subreddit submission
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
@@ -23,7 +29,7 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 		formData.append("owner_id", currentUser.id);
 		dispatch(createASub(formData)).then((data) => {
 			if (data.errors) return setErrors(data.errors);
-			setErrors(null)
+			setErrors(null);
 			dispatch(authenticate());
 			setNewSubredditName("");
 			setShowSubModal(false);
@@ -31,14 +37,13 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 		});
 	};
 
+	//Remove whitespace from subreddit input
 	const removeWhiteSpace = (input, setterCb) => {
-		const str = input.split(" ").join("");
-		setterCb(str);
+		setterCb(input.split(" ").join(""));
 	};
 
-	useEffect(() => {
-		setErrors(null)
-	}, [newSubredditName]);
+	//After user types remove errors
+	useEffect(() => setErrors(null), [newSubredditName]);
 
 	return (
 		<div>
@@ -136,7 +141,6 @@ function SubredditModal({ showSubModal, setShowSubModal }) {
 										? "disabled"
 										: ""
 								}`}
-								// onClick={onSubmit}
 								disabled={newSubredditName.length === 0}
 							>
 								Create Community

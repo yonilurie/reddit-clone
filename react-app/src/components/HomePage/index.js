@@ -1,19 +1,34 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getHomePosts } from "../../store/subreddits";
+
+import { getHomePosts, toggleMembership } from "../../store/subreddits";
+import { authenticate } from "../../store/session";
+
 import HomepagePostCard from "./HomepagePostCard";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
+
 import "./index.css";
+
+//This page will load posts from five random subreddits
 function HomePage() {
 	const dispatch = useDispatch();
 	const [subs, setSubs] = useState([]);
 	const [posts, setPosts] = useState([]);
 
+	//Subreddit information for home page
 	const sub = { display_name: "all", name: "all" };
 	const all = useSelector((state) => state.subreddits.all);
 	const user = useSelector((state) => state.session.user);
-	
+
+	//Toggles user joining a subreddit
+	const toggleJoin = (subredditId) => {
+		dispatch(toggleMembership(subredditId)).then((data) => {
+			dispatch(authenticate());
+		});
+	};
+
+	//gets five random subreddits for the reccomended communities
 	useEffect(() => {
 		(async () => {
 			const response = await fetch(`/api/r/list-five`);
@@ -21,20 +36,16 @@ function HomePage() {
 			setSubs(subredditInfo);
 		})();
 		if (!all) {
-			dispatch(getHomePosts()).then((data) => {});
+			dispatch(getHomePosts()).then(() => {});
 		}
-	}, []);
+	}, [all, dispatch]);
 
+	//Sets rnadom posts in state
 	useEffect(() => {
 		if (posts && all) {
 			setPosts(Object.values(all.posts).reverse());
 		}
 	}, [dispatch, user, all]);
-
-	useEffect(() => {
-		const time = new Date(user.created_at)
-		console.log(time.getTimezoneOffset() / 60)
-	},[user])
 
 	return (
 		<div className="home-page-container-main">
@@ -43,9 +54,15 @@ function HomePage() {
 				<div className="splash-info-container">
 					<div className="splash-info-content">
 						Welcome to Teddir! Login or Sign Up to create a
-						community for users to post in, make a post, or vote on content.
+						community for users to post in, make a post, or vote on
+						content.
 					</div>
-					<Link to='/about' className="splash-info-content splash-about">About</Link>
+					<Link
+						to="/about"
+						className="splash-info-content splash-about"
+					>
+						About
+					</Link>
 				</div>
 			)}
 			<div className="home-page-container">
@@ -95,6 +112,24 @@ function HomePage() {
 													r/{sub.name}
 												</div>
 											</Link>
+											<button
+												className="subreddit-join"
+												onClick={() => {
+													if (!user) {
+														return;
+													}
+
+													toggleJoin(sub.id);
+												}}
+											>
+												{user &&
+													user.member[sub.id] &&
+													"Joined"}
+												{user &&
+													!user.member[sub.id] &&
+													"Join"}
+												{!user && "Join"}
+											</button>
 										</div>
 									</div>
 								);

@@ -8,6 +8,7 @@ import TextForm from "../PostForm/js/TextForm";
 import PostMenu from "../PostMenu";
 import LoginFormModal from "../auth/LoginFormModal";
 
+//Show content for single post
 function SinglePostContent({
 	post,
 	showModal,
@@ -19,14 +20,18 @@ function SinglePostContent({
 	setText,
 }) {
 	const dispatch = useDispatch();
+
 	const currentUser = useSelector((state) => state.session.user);
+
 	const votes = post.votes;
+
+	//Format time
 	const getTime = (time) => {
 		const tempDate = new Date(time);
 		const newTime = tempDate.toLocaleString();
-		console.log(newTime);
 		return newTime;
 	};
+
 	return (
 		<div className="single-post">
 			<div className="single-post-votes-container">
@@ -37,12 +42,11 @@ function SinglePostContent({
 				></LoginFormModal>
 				<div
 					className="vote upvote"
-					onClick={async () => {
+					onClick={() => {
 						if (!currentUser) return setShowModal(true);
-						await dispatch(
+						dispatch(
 							postVote("true", post.id, currentUser.id)
-						);
-						dispatch(authenticate());
+						).then((data) => dispatch(authenticate()));
 					}}
 				>
 					<i
@@ -59,12 +63,11 @@ function SinglePostContent({
 				</div>
 				<div
 					className="vote downvote"
-					onClick={async () => {
+					onClick={() => {
 						if (!currentUser) return setShowModal(true);
-						await dispatch(
+						dispatch(
 							postVote("false", post.id, currentUser.id)
-						);
-						dispatch(authenticate());
+						).then((data) => dispatch(authenticate()));
 					}}
 				>
 					<i

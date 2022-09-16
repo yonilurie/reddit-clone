@@ -1,10 +1,14 @@
 import { Modal } from "../../../context/Modal";
+
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+
 import { editARule, authenticate } from "../../../store/session";
 import { editSubRules } from "../../../store/subreddits";
+
 import "../index.css";
 
+//Modal for editing/adding rules
 function RuleModal({
 	showRuleModal,
 	setShowRuleModal,
@@ -15,14 +19,17 @@ function RuleModal({
 	newRule,
 }) {
 	const dispatch = useDispatch();
+
 	const [title, setTitle] = useState(ruleTitle || "");
 	const [detail, setDetail] = useState(ruleDetail || "");
 
+	//If a rule is passed as a prop set state
 	useEffect(() => {
 		if (!newRule && ruleTitle) setTitle(ruleTitle);
 		if (!newRule && ruleDetail) setDetail(ruleDetail);
-	}, []);
+	}, [newRule, ruleTitle, ruleDetail]);
 
+	//Handle rule submit
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (!title) return;
@@ -43,11 +50,9 @@ function RuleModal({
 		setDetail("");
 		setShowRuleModal(false);
 	};
-
+	//Remove whitespace from rule
 	const removeWhiteSpace = (input, setterCb) => {
-		// let str = input.replace(/[%/\\?&]/, "");
-		let str = input.split("  ").join(" ");
-		setterCb(str);
+		setterCb(input.split("  ").join(" "));
 	};
 	return (
 		<div>
@@ -69,14 +74,16 @@ function RuleModal({
 							values, commas, and periods.
 						</div>
 						<div className="rule-modal-input rule">
-							<label htmlFor="rule-input-rule">Rule title (Required)</label>
+							<label htmlFor="rule-input-rule">
+								Rule title (Required)
+							</label>
 							<input
 								id="rule-input-rule"
 								value={title}
 								onChange={(e) =>
 									removeWhiteSpace(e.target.value, setTitle)
 								}
-								minLength='1'
+								minLength="1"
 								maxLength="100"
 								pattern="[A-Za-z0-9\s\d.\d,]+"
 								required={true}
@@ -142,11 +149,9 @@ function RuleModal({
 								className={`submit-post-button rules ${
 									!title ? "disabled" : ""
 								}`}
-								// onClick={onSubmit}
 								disabled={!title}
 							>
 								{ruleTitle ? "Update Rule" : "Add Rule"}
-								
 							</button>
 						</div>
 					</form>

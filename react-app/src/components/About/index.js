@@ -1,5 +1,6 @@
 import "./index.css";
 
+//The about page, contains list of technologies and contact information
 function About() {
 	return (
 		<div className="about-container-main">

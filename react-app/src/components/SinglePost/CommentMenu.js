@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "./css/index.css";
+
 import DeleteCommentModal from "./DeleteCommentModal";
 
-function CommentMenu({comment,editComment ,setEditComment}) {
+import "./css/index.css";
+
+function CommentMenu({ comment, editComment, setEditComment }) {
 	const [showMenu, setShowMenu] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
+	// Add event listener to page so menu closes if user clicks anywhere else
 	useEffect(() => {
 		if (!showMenu) return;
 		const closeMenu = () => setShowMenu(false);
@@ -19,11 +21,9 @@ function CommentMenu({comment,editComment ,setEditComment}) {
 			<div className="post-menu-container">
 				<div
 					className="edit"
-					onClick={() => {
-						setShowMenu((showMenu) => !showMenu);
-					}}
+					onClick={() => setShowMenu((showMenu) => !showMenu)}
 				>
-				{!editComment && 	<i className="fa-solid fa-ellipsis"></i>}
+					{!editComment && <i className="fa-solid fa-ellipsis"></i>}
 				</div>
 				{showMenu && (
 					<div className="post-menu">
@@ -41,8 +41,7 @@ function CommentMenu({comment,editComment ,setEditComment}) {
 							className="post-menu-option"
 							onClick={() => {
 								setShowMenu(false);
-								setEditComment(true)
-
+								setEditComment(true);
 							}}
 						>
 							<i className="fa-solid fa-pencil"></i>
@@ -50,7 +49,11 @@ function CommentMenu({comment,editComment ,setEditComment}) {
 						</div>
 					</div>
 				)}
-				<DeleteCommentModal comment={comment} showModal={showModal} setShowModal={setShowModal}></DeleteCommentModal>
+				<DeleteCommentModal
+					comment={comment}
+					showModal={showModal}
+					setShowModal={setShowModal}
+				></DeleteCommentModal>
 			</div>
 		</>
 	);

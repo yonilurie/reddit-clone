@@ -9,6 +9,9 @@ search_routes = Blueprint('search', __name__)
 
 @search_routes.route('')
 def general_search():
+    '''
+    Search in navabar, queries for posts subreddits and users
+    '''
     result = {}
     search = request.args.get('s')
 

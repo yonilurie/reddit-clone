@@ -1,6 +1,7 @@
 import { useParams, Link, useHistory } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getSubInfo, getPosts } from "../../store/subreddits";
 
 import SubredditPostCard from "./js/SubredditPostCard";
@@ -9,8 +10,10 @@ import SubredditBanner from "./js/SubredditBanner";
 import SubredditInfoAbout from "./js/SubredditInfoAbout";
 import SubredditInfoRules from "./js/SubredditInfoRules";
 import SubredditLoading from "./SubredditLoading";
+
 import "./css/index.css";
 
+//Main compoonent for subreddit
 const Subreddit = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -18,33 +21,30 @@ const Subreddit = () => {
 
 	const [sub, setSub] = useState(null);
 	const [loaded, setLoaded] = useState(false);
+
 	const subreddits = useSelector((state) => state.subreddits);
 	const currentUser = useSelector((state) => state.session.user);
 
+	//If the sub info is not in store then fetch it
 	useEffect(() => {
 		if (!subreddits[subreddit] || !subreddits[subreddit].id) {
 			dispatch(getSubInfo(subreddit)).then((data) => {
-				if (data.error) {
-					return history.push("/");
-				}
-				dispatch(getPosts(subreddit)).then((data) => {
+				if (data.error) return history.push("/");
+				dispatch(getPosts(subreddit)).then(() => {
 					setLoaded(true);
 				});
 			});
 		}
 		setSub(subreddits[subreddit]);
-	}, [dispatch, subreddits, subreddit]);
+	}, [dispatch, subreddits, subreddit, history]);
 
+	//If subreddit is not loaded, create a timeout
 	useEffect(() => {
 		if (!subreddits[subreddit]) {
-			const timeout = setTimeout(() => {
-				setLoaded(true);
-			}, 500);
+			const timeout = setTimeout(() => setLoaded(true), 500);
 			return () => clearTimeout(timeout);
-		} else {
-			setLoaded(true);
-		}
-	}, []);
+		} else setLoaded(true);
+	}, [subreddit, subreddits]);
 
 	return (
 		<div className="subreddit-outer-container">

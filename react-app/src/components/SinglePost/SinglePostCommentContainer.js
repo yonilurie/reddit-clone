@@ -1,6 +1,7 @@
 import SinglePostComment from "./SinglePostComment";
 import SinglePostMakeComment from "./SinglePostMakeComment";
 
+//Container for a posts comments
 function SinglePostCommentContainer({ post, editComment, setEditComment }) {
 	return (
 		<div className="single-post-comments-container">

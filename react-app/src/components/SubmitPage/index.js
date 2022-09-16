@@ -1,10 +1,13 @@
-import PostForm from "../PostForm";
-import "./css/index.css";
-import UserInfoCard from "../Profile/js/UserInfoCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
+import PostForm from "../PostForm";
+import UserInfoCard from "../Profile/js/UserInfoCard";
+
 import NoPermission from "../ErrorPages/NoPermission";
+
+import "./css/index.css";
 
 function SubmitPage() {
 	const { username } = useParams();
@@ -13,6 +16,7 @@ function SubmitPage() {
 
 	const currentUser = useSelector((state) => state.session.user);
 
+	// If currentuser does not match the users submit page, show no permission page
 	useEffect(() => {
 		if (!username) return;
 		(async () => {

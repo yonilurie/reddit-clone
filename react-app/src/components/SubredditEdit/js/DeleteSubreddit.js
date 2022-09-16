@@ -1,23 +1,31 @@
 import { Modal } from "../../../context/Modal";
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { deleteASubreddit, authenticate } from '../../../store/session'
-import {removeASub} from '../../../store/subreddits'
 
+import { deleteASubreddit, authenticate } from "../../../store/session";
+import { removeASub } from "../../../store/subreddits";
+
+//Delete a subreddit page
 function DeleteSubreddit({ sub }) {
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const dispatch = useDispatch()
-    const history = useHistory()
-    const deleteSub = () => {
-		dispatch(deleteASubreddit(sub.id, sub.name)).then(data => {
-			dispatch(removeASub(sub.name)).then(data => {})
-            dispatch(authenticate())
-        }).then(data => {
-            history.push(`/user/${sub.owner.username}`)
-        })
-        return
-    }
+	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+	//handle deleting a subreddit
+	const deleteSub = () => {
+		dispatch(deleteASubreddit(sub.id, sub.name))
+			.then(() => {
+				dispatch(removeASub(sub.name)).then(() => {});
+				dispatch(authenticate());
+			})
+			.then(() => {
+				history.push(`/user/${sub.owner.username}`);
+			});
+		return;
+	};
 	return (
 		<div className="delete-sub-container-main">
 			<div className="delete-sub-container">
@@ -50,7 +58,10 @@ function DeleteSubreddit({ sub }) {
 						>
 							Never mind
 						</button>
-						<button className="sub-delete-confirm-button" onClick={deleteSub}>
+						<button
+							className="sub-delete-confirm-button"
+							onClick={deleteSub}
+						>
 							Yes, Delete r/{sub.name}
 						</button>
 					</div>

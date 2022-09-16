@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
+import { authenticate } from "./store/session";
+
 import NavBar from "./components/NavBar/index";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
 import Profile from "./components/Profile/index";
 import Subreddit from "./components/Subreddit";
 import HomePage from "./components/HomePage";
 import SinglePostPage from "./components/SinglePost";
 import SubredditEdit from "./components/SubredditEdit";
-import { authenticate } from "./store/session";
 import SubmitPage from "./components/SubmitPage";
 import Error404 from "./components/ErrorPages/404";
 import About from "./components/About";
@@ -18,8 +19,9 @@ import SearchPage from "./components/SearchPage";
 import UserHomePage from "./components/UserHomePage";
 
 function App() {
-	const [loaded, setLoaded] = useState(false);
 	const dispatch = useDispatch();
+
+	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
 		(async () => {
@@ -28,9 +30,7 @@ function App() {
 		})();
 	}, [dispatch]);
 
-	if (!loaded) {
-		return null;
-	}
+	if (!loaded) return null;
 
 	return (
 		<BrowserRouter>

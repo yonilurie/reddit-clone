@@ -1,3 +1,4 @@
+// Plaveholder if a user has no posts
 function PlaceholderPosts({ user }) {
 	return (
 		<div className="placeholder-posts-container-main">

@@ -1,14 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getTimeElapsed } from "../../../util/index.js";
+
 import { authenticate } from "../../../store/session.js";
 import { postVote } from "../../../store/subreddits.js";
+
 import LoginFormModal from "../../auth/LoginFormModal";
 
+import { getTimeElapsed } from "../../../util/index.js";
+
+//Inidividual post on subreddit
 const SubredditPostCard = ({ post }) => {
 	const dispatch = useDispatch();
+
 	const [showModal, setShowModal] = useState();
+
 	const currentUser = useSelector((state) => state.session.user);
 
 	return (
@@ -21,12 +27,11 @@ const SubredditPostCard = ({ post }) => {
 				></LoginFormModal>
 				<div
 					className="vote upvote"
-					onClick={async () => {
+					onClick={() => {
 						if (!currentUser) return setShowModal(true);
-						await dispatch(
+						dispatch(
 							postVote("true", post.id, currentUser.id)
-						);
-						dispatch(authenticate());
+						).then(() => dispatch(authenticate()));
 					}}
 				>
 					<i
@@ -43,12 +48,11 @@ const SubredditPostCard = ({ post }) => {
 				</div>
 				<div
 					className="vote downvote"
-					onClick={async () => {
+					onClick={() => {
 						if (!currentUser) return setShowModal(true);
-						await dispatch(
+						dispatch(
 							postVote("false", post.id, currentUser.id)
-						);
-						dispatch(authenticate());
+						).then(() => dispatch(authenticate()));
 					}}
 				>
 					<i
@@ -99,9 +103,9 @@ const SubredditPostCard = ({ post }) => {
 
 					{post.text && (
 						<Link to={`/r/${post.subreddit_name}/${post.id}`}>
-							{post.text ? (
+							{post.text && (
 								<div className="sub-text-box">{post.text}</div>
-							) : null}
+							)}
 						</Link>
 					)}
 					{post.link && (
@@ -118,11 +122,11 @@ const SubredditPostCard = ({ post }) => {
 				</div>
 				<div className="single-post-bottom-bar">
 					<Link to={`/r/${post.subreddit_name}/${post.id}`}>
-					<div className="single-post-comments-count">
-						<i className="fa-regular fa-message"></i>
-						<div>{post.comment_count}</div>
+						<div className="single-post-comments-count">
+							<i className="fa-regular fa-message"></i>
+							<div>{post.comment_count}</div>
 						</div>
-						</Link>
+					</Link>
 					{/* 
 					<div className="share">
 						<i className="fa-solid fa-share"></i>

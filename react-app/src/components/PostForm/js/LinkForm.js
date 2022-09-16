@@ -1,5 +1,8 @@
-function LinkForm({ link, setLink, setValidURL, post }) {
+function LinkForm({ link, setLink, setValidURL}) {
+
+	//Auto resize the textarea as user types
 	const resizeInput = (e) => {
+		//Sets valid url as user types, if it is false the submit button will be disabled
 		try {
 			const URLCheck = new URL(e.target.value);
 			if (URLCheck) setValidURL(true);
@@ -15,15 +18,15 @@ function LinkForm({ link, setLink, setValidURL, post }) {
 	};
 	return (
 		<div className="text-form-container">
-			{link.length > 0 && (
+			{/* {link.length > 0 && (
 				<label htmlFor="link-input">
 					URL to External Page with https: at beginning of URL
 					(Required)
 				</label>
-			)}
+			)} */}
 			<textarea
 				className="link-input"
-				placeholder="Please enter a URL to an external page prefixed with https:// (Required)"
+				placeholder="Please enter a URL to an external page prefixed with https://"
 				value={link}
 				onChange={(e) => resizeInput(e)}
 				id="link-input"

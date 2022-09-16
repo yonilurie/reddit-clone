@@ -2,16 +2,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { postUserVote, postVote } from "../../../store/subreddits";
-import { authenticate, changeVote } from "../../../store/session.js";
+import { authenticate } from "../../../store/session.js";
 import PostMenu from "../../PostMenu/index.js";
 import { getTimeElapsed } from "../../../util/index.js";
 import LoginFormModal from "../../auth/LoginFormModal";
 
+//Post on a users profile page
 function UserPostCard({ postId, post }) {
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.session.user);
-	const subreddits = useSelector((state) => state.subreddits);
+
 	const [showModal, setShowModal] = useState(false);
+
+	const user = useSelector((state) => state.session.user);
+
 	return (
 		<div className="user-post-container">
 			<>
@@ -23,19 +26,17 @@ function UserPostCard({ postId, post }) {
 					></LoginFormModal>
 					<div
 						className="vote upvote"
-						onClick={async () => {
+						onClick={() => {
 							if (!user) return setShowModal(true);
 							if (post.user.username === user.username) {
-								await dispatch(
+								dispatch(
 									postUserVote("true", post.id, user.id)
-								).then((data) => {});
+								).then((data) => dispatch(authenticate()));
 							} else {
-								await dispatch(
+								dispatch(
 									postVote("true", post.id, user.id)
-								).then((data) => {});
+								).then((data) => dispatch(authenticate()));
 							}
-
-							dispatch(authenticate());
 						}}
 					>
 						<i
@@ -53,18 +54,17 @@ function UserPostCard({ postId, post }) {
 					</div>
 					<div
 						className="vote downvote"
-						onClick={async () => {
+						onClick={() => {
 							if (!user) return setShowModal(true);
 							if (post.user.username === user.username) {
-								await dispatch(
+								dispatch(
 									postUserVote("false", post.id, user.id)
-								).then((data) => {});
+								).then((data) => dispatch(authenticate()));
 							} else {
-								await dispatch(
+								dispatch(
 									postVote("false", post.id, user.id)
-								).then((data) => {});
+								).then((data) => dispatch(authenticate()));
 							}
-							dispatch(authenticate());
 						}}
 					>
 						<i
@@ -176,7 +176,6 @@ function UserPostCard({ postId, post }) {
 										<PostMenu post={post}></PostMenu>
 									)}
 							</div>
-							{/* )} */}
 						</div>
 					</div>
 				</div>

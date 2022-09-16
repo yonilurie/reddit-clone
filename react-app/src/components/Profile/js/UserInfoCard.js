@@ -1,8 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+//Info about a user on their profile page
 function UserInfoCard({ user }) {
 	const location = useLocation();
+
 	const currentUser = useSelector((state) => state.session.user);
 	return (
 		<>
@@ -67,8 +69,6 @@ function UserInfoCard({ user }) {
 								</Link>
 							</>
 						)}
-
-					{/* </div> */}
 				</div>
 			)}
 		</>

@@ -1,10 +1,14 @@
 import { useState } from "react";
+
 import RuleContainer from "./RuleContainer";
 import RuleModal from "./RuleModal";
+
+//Subreddit edit page rules contaniner
 function SubredditRules({ sub }) {
-	const rules = sub.rules.split("%");
 	const [showRuleModal, setShowRuleModal] = useState(false);
-	const [editedRules, setEditedRules] = useState(rules);
+
+	const rules = sub.rules.split("%");
+
 	return (
 		<div className="rules-main-container">
 			<RuleModal
@@ -34,7 +38,7 @@ function SubredditRules({ sub }) {
 				{sub.rules && rules && (
 					<div className="edit-subreddit-rules-map">
 						{rules.map((rule, index) => {
-							if (!rule) return;
+							if (!rule) return null
 							const [ruleTitle, ruleDetail] = rule.split(":");
 							return (
 								<RuleContainer

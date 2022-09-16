@@ -1,4 +1,6 @@
 import Rule from "./Rule";
+
+// Card with subreddit rules
 function SubredditInfoRules({ sub }) {
 	const rules = sub.rules.split("%");
 

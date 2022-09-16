@@ -1,10 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 import { getTimeElapsed } from "../../util/index.js";
+
 import { authenticate } from "../../store/session.js";
 import { postVote } from "../../store/subreddits.js";
+
 import LoginFormModal from "../auth/LoginFormModal.js";
+
 const HomepagePostCard = ({ post }) => {
 	const dispatch = useDispatch();
 	const [showModal, setShowModal] = useState();

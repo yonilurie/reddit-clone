@@ -1,6 +1,9 @@
 import { useState } from "react";
-function Rule({ sub, idx, ruleTitle, ruleDetail }) {
+
+//Individual rule fo rusbreddit rule card
+function Rule({ idx, ruleTitle, ruleDetail }) {
 	const [showRuleDetail, setShowRuleDetail] = useState(false);
+
 	return (
 		<div className="sub-rules-container" key={idx + 1}>
 			<div

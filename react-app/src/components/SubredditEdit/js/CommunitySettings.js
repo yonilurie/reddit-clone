@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { editCommunitySettings } from "../../../store/session";
 import { editSubCommunitySettings } from "../../../store/subreddits";
 
+//Component for community settings, (Display name and description)
 function CommunitySettings({ sub }) {
 	const dispatch = useDispatch();
+
 	const [subDisplayName, setSubDisplayName] = useState(sub.display_name);
 	const [subDescription, setSubDescription] = useState(sub.description);
 
+	//Resize textarea input as user types
 	const resizeInput = (e) => {
-		// setSubDescription(e.target.value);
 		e.target.style.height = "auto";
 		e.target.style.height = e.target.scrollHeight + "px";
 	};
 
+	//handle submit for both display name and description
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData();
@@ -26,8 +30,7 @@ function CommunitySettings({ sub }) {
 	};
 
 	const removeWhiteSpace = (input, setterCb) => {
-		const str = input.split("  ").join(" ");
-		setterCb(str);
+		setterCb(input.split("  ").join(" "));
 	};
 
 	return (

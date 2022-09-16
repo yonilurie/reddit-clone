@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+//Subreddit info card
 function SubredditInfoAbout({ sub }) {
 	const user = useSelector((state) => state.session.user);
+
 	return (
 		<>
 			{sub.name && (
@@ -26,7 +29,7 @@ function SubredditInfoAbout({ sub }) {
 						<Link
 							to={{
 								pathname: `/user/${user.username}/submit`,
-								state: { postSubId: sub.id},
+								state: { postSubId: sub.id },
 							}}
 							className="new-post-button-container"
 						>
@@ -34,9 +37,7 @@ function SubredditInfoAbout({ sub }) {
 								New Post
 							</button>
 						</Link>
-						
 					)}
-					
 				</div>
 			)}
 		</>

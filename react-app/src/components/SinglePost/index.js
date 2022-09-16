@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
 import { useParams, Link } from "react-router-dom";
-import { getSubInfo, getPosts, editAPost } from "../../store/subreddits";
-import { authenticate } from "../../store/session";
 
-import "./css/index.css";
+import { getSubInfo, getPosts, editAPost } from "../../store/subreddits";
+
 import SinglePostContent from "./SinglePostContent";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
-import SinglePostComment from "./SinglePostComment";
 import SinglePostCommentContainer from "./SinglePostCommentContainer";
+
+import "./css/index.css";
 
 function SinglePostPage() {
 	const location = useLocation();
@@ -24,12 +24,11 @@ function SinglePostPage() {
 	const [text, setText] = useState("");
 
 	const subreddits = useSelector((state) => state.subreddits);
-	const currentUser = useSelector((state) => state.session.user);
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+	//Scroll to top on render
+	useEffect(() => window.scrollTo(0, 0), []);
 
+	// Ig post does not exist return to home
 	useEffect(() => {
 		if (
 			subreddits[subreddit] &&
@@ -39,38 +38,35 @@ function SinglePostPage() {
 		) {
 			return history.push("/");
 		}
-	}, [subreddits]);
+	}, [subreddits, postId, subreddit, history]);
 
-	useEffect(() => {
-		if (currentUser) {
-			dispatch(authenticate());
-		}
-	}, [postId, dispatch]);
+	// useEffect(() => {
+	// 	if (currentUser) dispatch(authenticate());
+	// }, [postId, dispatch]);
 
+	// If subreddit does not exist, return
 	useEffect(() => {
 		if (!subreddits[subreddit] || !subreddits[subreddit].id) {
 			dispatch(getSubInfo(subreddit)).then((data) => {
-				if (data.error) {
-					return history.push("/");
-				}
+				if (data.error) return history.push("/");
 			});
 		}
 		if (subreddits[subreddit] && !subreddits[subreddit].posts) {
 			dispatch(getPosts(subreddit));
 		}
-	}, [dispatch, subreddits, subreddit]);
+	}, [dispatch, subreddits, subreddit, history]);
 
+	//If user is redirected from clicking edit, set edit
 	useEffect(() => {
-		let editPost = false;
 		try {
 			if (location.state.edit) {
-				editPost = location.state.edit;
+				setEdit(location.state.edit);
 				history.replace();
-				setEdit(editPost);
 			}
 		} catch (e) {}
 	}, [dispatch, history, setEdit, location]);
 
+	//Handle submit form
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData();

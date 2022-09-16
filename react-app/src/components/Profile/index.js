@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import "./css/index.css";
+
 import UserTabs from "./js/UserTabs";
 import UserInfoCard from "./js/UserInfoCard";
 import UserPostCard from "./js/UserPostCard";
 import UserModCard from "./js/UserModCard";
 import PostForm from "../PostForm";
 import PlaceholderPosts from "./js/PlaceholderPosts";
+
+import "./css/index.css";
+
 import { getUserInfo } from "../../store/subreddits";
+
+//Profile page for a user
 function User() {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -17,12 +22,12 @@ function User() {
 	const currentUser = useSelector((state) => state.session.user);
 	const user = useSelector((state) => state.subreddits[username]);
 
+	//Get the info for the current pages user, if the user accesses
+	// somehting they dont have access to, return
 	useEffect(() => {
 		if (!username) return;
 		dispatch(getUserInfo(username)).then((data) => {
-			if (data.error) {
-				history.push("/");
-			}
+			if (data.error) history.push("/");
 		});
 		if (
 			tab !== "submitted" &&
@@ -33,18 +38,16 @@ function User() {
 			history.push(`/user/${username}`);
 			return null;
 		}
-	}, [username]);
+	}, [username, dispatch, history, tab]);
 
+	//If the user does not exist or the page is not the current users, return
 	useEffect(() => {
-		if (!user) {
-			return null;
-		}
-
+		if (!user) return null;
 		if (tab === "upvoted" || tab === "downvoted") {
 			history.push(`/user/${username}`);
 			return null;
 		}
-	}, [username, user]);
+	}, [username, user, history,tab]);
 
 	return (
 		<>
@@ -89,12 +92,14 @@ function User() {
 										})}
 
 								{tab === "upvoted" &&
-									currentUser && 
+									currentUser &&
 									!Object.values(currentUser.votes).some(
 										(ele) => ele.upvote === true
 									) && (
-											<div className="no-votes-container">
-											<div className="no-votes-text">No posts upvoted yet</div>
+										<div className="no-votes-container">
+											<div className="no-votes-text">
+												No posts upvoted yet
+											</div>
 										</div>
 									)}
 								{tab === "downvoted" &&
@@ -113,12 +118,14 @@ function User() {
 											) : null;
 										})}
 								{tab === "downvoted" &&
-									currentUser && 
+									currentUser &&
 									!Object.values(currentUser.votes).some(
 										(ele) => ele.upvote === false
 									) && (
 										<div className="no-votes-container">
-											<div className="no-votes-text">No posts downvoted yet</div>
+											<div className="no-votes-text">
+												No posts downvoted yet
+											</div>
 										</div>
 									)}
 							</>

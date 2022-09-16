@@ -1,20 +1,24 @@
-import "./index.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
+import { useEffect } from "react";
+
 import SubredditEditPlaceholder from "./js/Placeholder";
 import SubredditRules from "./js/Rules";
 import DeleteSubreddit from "./js/DeleteSubreddit";
 import CommunitySettings from "./js/CommunitySettings";
-import RuleModal from "./js/RuleModal";
-import { useEffect } from "react";
 
+import "./index.css";
+
+//Subreddit edit Page
 function SubredditEdit() {
-	const dispatch = useDispatch();
 	const history = useHistory();
 	const { subreddit, section } = useParams();
+
 	const sub = useSelector(
 		(state) => state.session.user.subreddits[subreddit]
 	);
+
+	//If url is incorrent return to home
 	if (
 		section !== "about" &&
 		section !== "rules" &&
@@ -24,10 +28,8 @@ function SubredditEdit() {
 		history.push(`/`);
 	}
 	useEffect(() => {
-		if (sub === undefined) {
-			return history.push(`/`);
-		}
-	}, []);
+		if (sub === undefined) return history.push(`/`);
+	}, [history, sub]);
 
 	return (
 		<>

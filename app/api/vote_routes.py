@@ -9,6 +9,9 @@ vote_routes = Blueprint('votes', __name__)
 @vote_routes.route('', methods=['POST'])
 @login_required
 def upvote():
+    '''
+    Toggles a users vote on a post
+    '''
     form = VoteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -51,6 +54,9 @@ def upvote():
 @vote_routes.route('/comment', methods=['POST'])
 @login_required
 def upvote_comment():
+        '''
+        Toggles a users vote on a comment
+        '''
         form = CommentVoteForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():

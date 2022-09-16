@@ -7,11 +7,14 @@ import logo from  '../../images/teddir-logo.png'
 import * as sessionActions from "../../store/session";
 import "./css/index.css";
 
+//The navbar, with login/signup/logout functionality as well as search bar
 function NavBar() {
 	const dispatch = useDispatch();
+
 	const [showMenu, setShowMenu] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [action, setAction] = useState("Log In");
+
 	const user = useSelector((state) => state.session.user);
 
 	return (

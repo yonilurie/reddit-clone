@@ -1,13 +1,13 @@
 import { Modal } from "../../context/Modal";
+
+import { useDispatch } from "react-redux";
+
 import { deleteAComment } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 
+//Delete comment modal so user can confirm delete
 function DeleteCommentModal({ showModal, setShowModal, comment }) {
 	const dispatch = useDispatch();
-    const history = useHistory();
-    
 	return (
 		<>
 			{showModal && (

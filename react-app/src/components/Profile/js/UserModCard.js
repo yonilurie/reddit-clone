@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
+//Card which shows the subreddits a user is a moderator of
 function UserModCard({ user }) {
+
 	return (
 		<div className="moderator-card">
 			<h2 className="moderator-title">Moderator of these communities</h2>
@@ -27,7 +29,6 @@ function UserModCard({ user }) {
 								r/{subreddit.name}
 							</Link>
 						</div>
-
 						<Link to={`/r/${subreddit.name}`} className="subreddit-link-right">
 							<button className="subreddit-link-join-button">
 								Visit

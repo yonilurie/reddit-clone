@@ -1,3 +1,4 @@
+//Plaveholder for editing a subreddit
 function SubredditEditPlaceholder() {
 	return (
 		<div className="edit-subreddit-main-content">
@@ -7,6 +8,7 @@ function SubredditEditPlaceholder() {
 					<img
 						className="kitteh"
 						src="https://www.redditstatic.com/desktop2x/img/snoomoji/cat_blep.png"
+						alt='Kitteh!'
 					></img>
 					<div className="kitteh-message">
 						Edit your subreddit here using the tabs on the left!

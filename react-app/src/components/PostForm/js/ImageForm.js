@@ -1,11 +1,14 @@
 import { useState } from "react";
 function ImageForm({ image, setImage }) {
 	const [imageError, setImageError] = useState("");
+
+	//Updates image when user inoputs file
+	// Also checks for any errors witht the image
 	const updateImage = (e) => {
 		const file = e.target.files[0];
 		setImageError(null);
 		let testImage = new Image();
-
+		// If file size is too large show an error
 		testImage.onload = function () {
 			if (file.size > 5000000) {
 				setImage(null);
@@ -13,11 +16,12 @@ function ImageForm({ image, setImage }) {
 			}
 			setImage(file);
 		};
+		// If image does not load show an error
 		testImage.onerror = function () {
 			setImage(null);
 			setImageError("Invalid Image, please try another one");
 		};
-
+		//Create image to run previous tests
 		testImage.src = URL.createObjectURL(file);
 	};
 	return (
@@ -35,7 +39,7 @@ function ImageForm({ image, setImage }) {
 			></input>
 			{!image && (
 				<div className="image-upload-info">
-					Required - Upload a file ending in: .png, .jpg, .jpeg, or .gif
+					Upload a file ending in: .png, .jpg, .jpeg, or .gif
 				</div>
 			)}
 			{image && (
@@ -45,6 +49,7 @@ function ImageForm({ image, setImage }) {
 				<img
 					className="preview-image-upload"
 					src={URL.createObjectURL(image)}
+					alt="preview"
 				></img>
 			)}
 		</div>
