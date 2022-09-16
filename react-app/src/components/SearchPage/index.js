@@ -146,13 +146,83 @@ function SearchPage() {
 									}
 								)}
 						</div>
-						<div className="search-posts-right"></div>
-						{/* <div>Subreddits</div>
-			{searchResult &&
-				Object.values(searchResult.subreddits).length > 0 &&
-				Object.values(searchResult.subreddits).map((subreddit) => {
-					return <div key={subreddit.name}>{subreddit.name}</div>;
-				})} */}
+						<div className="search-posts-right">
+							<div className="search-post-communities">
+								<div className="search-post-side-title">Communities</div>
+								{searchResult &&
+									Object.values(searchResult).length > 0 &&
+									Object.values(searchResult.subreddits)
+										.length > 0 &&
+									Object.values(searchResult.subreddits).map(
+										(sub, index) => {
+											if (index < 5) {
+												return (
+													<Link
+														to={`/r/${sub.name}`}
+														className="search-post-community-small"
+													>
+														<div>r/{sub.name}</div>
+														<button className="subreddit-join">
+															Join
+														</button>
+													</Link>
+												);
+											}
+										}
+									)}
+								{searchResult &&
+									Object.values(searchResult).length > 0 &&
+									Object.values(searchResult.subreddits)
+										.length > 0 && (
+										<div
+											className="search-page-see-more"
+											onClick={() =>
+												setType("Communities")
+											}
+										>
+											See More
+										</div>
+									)}
+							</div>
+
+							<div className="search-post-users">
+								<div className="search-post-side-title">Users</div>
+								{searchResult &&
+									Object.values(searchResult).length > 0 &&
+									Object.values(searchResult.users)
+										.length > 0 &&
+									Object.values(searchResult.users).map(
+										(user, index) => {
+											if (index < 5) {
+												return (
+													<Link
+														to={`/user/${user.username}`}
+														className="search-post-users-small"
+													>
+														<div>u/{user.username}</div>
+														<button className="subreddit-join">
+															View
+														</button>
+													</Link>
+												);
+											}
+										}
+									)}
+									{searchResult &&
+									Object.values(searchResult).length > 0 &&
+									Object.values(searchResult.subreddits)
+										.length > 0 && (
+										<div
+											className="search-page-see-more"
+											onClick={() =>
+												setType("People")
+											}
+										>
+											See More
+										</div>
+									)}
+							</div>
+						</div>
 					</div>
 				)}
 
@@ -224,15 +294,18 @@ function SearchPage() {
 									className="search-subreddit-center"
 								>
 									<div>u/{user.username}</div>
-									<div className="search-sub-description">
+									{/* <div className="search-sub-description">
 										{user.karma}
-									</div>
+									</div> */}
 								</Link>
-								<div className="search-subreddit-right">
+								<Link
+									to={`/user/${user.username}`}
+									className="search-subreddit-right"
+								>
 									<button className="subreddit-join">
-										Join
+										View
 									</button>
-								</div>
+								</Link>
 							</div>
 						);
 					})}
