@@ -8,7 +8,7 @@
 	align-items: center;
 	padding: 24px;
 	gap: 20px;
-    margin: auto;
+	margin: auto;
 }
 
 .search-page-results {
@@ -88,7 +88,11 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-    
+}
+
+.search-post-subreddit:hover {
+	text-decoration: underline;
+	color: blue;
 }
 .search-post-top {
 	display: flex;
@@ -130,6 +134,11 @@
 .search-posted-by {
 	color: rgb(135, 138, 140);
 	font-size: 12px;
+}
+
+.search-posted-by-user:hover {
+	text-decoration: underline;
+	color: blue;
 }
 
 .search-post-subreddit {

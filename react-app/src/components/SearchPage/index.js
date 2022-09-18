@@ -101,12 +101,15 @@ function SearchPage() {
 																></path>
 															</svg>
 														</div>
-														<div className="search-post-subreddit">
+														<Link
+															to={`/r/${post.subreddit_name}`}
+															className="search-post-subreddit"
+														>
 															r/
 															{
 																post.subreddit_name
 															}
-														</div>
+														</Link>
 													</div>
 													<div className="search-dot">
 														{"•"}{" "}
@@ -114,7 +117,8 @@ function SearchPage() {
 													<div className="search-posted-by">
 														Posted by{" "}
 														<Link
-															to={`/user/${post.user.username}`}
+															className="search-posted-by-user"
+															to={`/user/${post.user.username}/submitted`}
 														>
 															u/
 															{post.user.username}
@@ -124,7 +128,10 @@ function SearchPage() {
 														)}
 													</div>
 												</div>
-												<div className="search-post-middle">
+												<Link
+													to={`/r/${post.subreddit_name}/${post.id}`}
+													className="search-post-middle"
+												>
 													<div className="search-post-title">
 														{post.title}
 													</div>
@@ -139,7 +146,7 @@ function SearchPage() {
 													)}
 													{post.text && <div></div>}
 													{post.link && <div></div>}
-												</div>
+												</Link>
 												<div className="search-post-bottom">
 													<div className="search-post-votes">
 														{post.votes.total > 0
