@@ -39,9 +39,9 @@ function App() {
 				<Route path="/" exact={true}>
 					<HomePage></HomePage>
 				</Route>
-				<ProtectedRoute path="/home" exact={true}>
+				{/* <ProtectedRoute path="/home" exact={true}>
 					<UserHomePage></UserHomePage>
-				</ProtectedRoute>
+				</ProtectedRoute> */}
 				<Route path="/about" exact={true}>
 					<About></About>
 				</Route>

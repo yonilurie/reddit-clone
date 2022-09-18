@@ -20,4 +20,5 @@ class Member(db.Model):
             "moderator": self.moderator,
             'subreddit_info': self.subreddits.to_dict(),
             
+            
         }

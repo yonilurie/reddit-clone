@@ -29,25 +29,21 @@ function User() {
 		dispatch(getUserInfo(username)).then((data) => {
 			if (data.error) history.push("/");
 		});
-		if (
-			tab !== "submitted" &&
-			tab !== "upvoted" &&
-			tab !== "downvoted" &&
-			tab !== undefined
-		) {
-			history.push(`/user/${username}`);
+		if (tab !== "submitted" && tab !== "upvoted" && tab !== "downvoted") {
+			history.push(`/user/${username}/submitted`);
 			return null;
 		}
 	}, [username, dispatch, history, tab]);
 
 	//If the user does not exist or the page is not the current users, return
 	useEffect(() => {
-		if (!user) return null;
-		if (tab === "upvoted" || tab === "downvoted") {
-			history.push(`/user/${username}`);
-			return null;
+		if (
+			(tab === "upvoted" || tab === "downvoted") &&
+			currentUser.id !== user.id
+		) {
+			return history.push(`/user/${username}`);
 		}
-	}, [username, user, history,tab]);
+	}, [username, user, history, tab]);
 
 	return (
 		<>

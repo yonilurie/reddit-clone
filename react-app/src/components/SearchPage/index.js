@@ -42,6 +42,7 @@ function SearchPage() {
 
 	//Set the tab based on user input
 	const setTab = (e) => setType(e.target.innerText);
+	console.log(type);
 
 	return (
 		<div className="search-page-main-container">
@@ -76,9 +77,9 @@ function SearchPage() {
 					<div className="search-posts-outer-container">
 						<div className="search-posts-left">
 							{type === "Posts" &&
-								searchResult &&
-								Object.values(searchResult).length > 0 &&
-								Object.values(searchResult.posts).length > 0 &&
+							searchResult &&
+							Object.values(searchResult).length > 0 &&
+							Object.values(searchResult.posts).length > 0 ? (
 								Object.values(searchResult.posts).map(
 									(post) => {
 										return (
@@ -132,7 +133,7 @@ function SearchPage() {
 															<img
 																src={post.image}
 																className="search-post-image"
-																alt='search post'
+																alt="search post"
 															></img>
 														</a>
 													)}
@@ -154,7 +155,14 @@ function SearchPage() {
 											</div>
 										);
 									}
-								)}
+								)
+							) : (
+								<div className="search-post-card">
+									<div className="search-post-top">
+										No Posts found
+									</div>
+								</div>
+							)}
 						</div>
 						<div className="search-posts-right">
 							<div className="search-post-communities">
@@ -162,9 +170,9 @@ function SearchPage() {
 									Communities
 								</div>
 								{searchResult &&
-									Object.values(searchResult).length > 0 &&
-									Object.values(searchResult.subreddits)
-										.length > 0 &&
+								Object.values(searchResult).length > 0 &&
+								Object.values(searchResult.subreddits).length >
+									0 ? (
 									Object.values(searchResult.subreddits).map(
 										(sub, index) => {
 											if (index < 5) {
@@ -202,10 +210,17 @@ function SearchPage() {
 													</div>
 												);
 											} else {
-												return null
+												return null;
 											}
 										}
-									)}
+									)
+								) : (
+									<div className="search-post-card">
+										<div className="search-post-top">
+											No Communities found
+										</div>
+									</div>
+								)}
 								{searchResult &&
 									Object.values(searchResult).length > 0 &&
 									Object.values(searchResult.subreddits)
@@ -226,9 +241,8 @@ function SearchPage() {
 									Users
 								</div>
 								{searchResult &&
-									Object.values(searchResult).length > 0 &&
-									Object.values(searchResult.users).length >
-										0 &&
+								Object.values(searchResult).length > 0 &&
+								Object.values(searchResult.users).length > 0 ? (
 									Object.values(searchResult.users).map(
 										(user, index) => {
 											if (index < 5) {
@@ -246,10 +260,17 @@ function SearchPage() {
 													</Link>
 												);
 											} else {
-												return null
+												return null;
 											}
 										}
-									)}
+									)
+								) : (
+									<div className="search-post-card">
+										<div className="search-post-top">
+											No Users found
+										</div>
+									</div>
+								)}
 								{searchResult &&
 									Object.values(searchResult).length > 0 &&
 									Object.values(searchResult.subreddits)
@@ -267,99 +288,115 @@ function SearchPage() {
 				)}
 
 				{type === "Communities" &&
-					searchResult &&
-					Object.values(searchResult).length > 0 &&
-					Object.values(searchResult.subreddits).length > 0 &&
-					Object.values(searchResult.subreddits).map((sub) => {
-						return (
-							<div
-								key={sub.name}
-								className="search-page-subreddit"
-							>
-								<Link
-									to={`/r/${sub.name}`}
-									className="search-subreddit-left"
+				searchResult &&
+				Object.values(searchResult).length > 0 &&
+				Object.values(searchResult.subreddits).length > 0
+					? Object.values(searchResult.subreddits).map((sub) => {
+							return (
+								<div
+									key={sub.name}
+									className="search-page-subreddit"
 								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 20 20"
-										className="search-post-sub"
+									<Link
+										to={`/r/${sub.name}`}
+										className="search-subreddit-left"
 									>
-										<path
-											d="M16.5,2.924,11.264,15.551H9.91L15.461,2.139h.074a9.721,9.721,0,1,0,.967.785ZM8.475,8.435a1.635,1.635,0,0,0-.233.868v4.2H6.629V6.2H8.174v.93h.041a2.927,2.927,0,0,1,1.008-.745,3.384,3.384,0,0,1,1.453-.294,3.244,3.244,0,0,1,.7.068,1.931,1.931,0,0,1,.458.151l-.656,1.558a2.174,2.174,0,0,0-1.067-.246,2.159,2.159,0,0,0-.981.215A1.59,1.59,0,0,0,8.475,8.435Z"
-											className="sub-icon"
-										></path>
-									</svg>
-								</Link>
-								<Link
-									to={`/r/${sub.name}`}
-									className="search-subreddit-center"
-								>
-									<div>r/{sub.name}</div>
-									<div className="search-sub-description">
-										{sub.description
-											? `${sub.description}`
-											: ""}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											className="search-post-sub"
+										>
+											<path
+												d="M16.5,2.924,11.264,15.551H9.91L15.461,2.139h.074a9.721,9.721,0,1,0,.967.785ZM8.475,8.435a1.635,1.635,0,0,0-.233.868v4.2H6.629V6.2H8.174v.93h.041a2.927,2.927,0,0,1,1.008-.745,3.384,3.384,0,0,1,1.453-.294,3.244,3.244,0,0,1,.7.068,1.931,1.931,0,0,1,.458.151l-.656,1.558a2.174,2.174,0,0,0-1.067-.246,2.159,2.159,0,0,0-.981.215A1.59,1.59,0,0,0,8.475,8.435Z"
+												className="sub-icon"
+											></path>
+										</svg>
+									</Link>
+									<Link
+										to={`/r/${sub.name}`}
+										className="search-subreddit-center"
+									>
+										<div>r/{sub.name}</div>
+										<div className="search-sub-description">
+											{sub.description
+												? `${sub.description}`
+												: ""}
+										</div>
+									</Link>
+									<div className="search-subreddit-right">
+										<button
+											className="subreddit-join"
+											onClick={() => {
+												if (!user) return;
+												toggleJoin(sub.id);
+											}}
+										>
+											{user &&
+												user.member[sub.id] &&
+												"Joined"}
+											{user &&
+												!user.member[sub.id] &&
+												"Join"}
+											{!user && "Join"}
+										</button>
 									</div>
-								</Link>
-								<div className="search-subreddit-right">
-									<button
-										className="subreddit-join"
-										onClick={() => {
-											if (!user) return;
-											toggleJoin(sub.id);
-										}}
-									>
-										{user &&
-											user.member[sub.id] &&
-											"Joined"}
-										{user && !user.member[sub.id] && "Join"}
-										{!user && "Join"}
-									</button>
+								</div>
+							);
+					  })
+					: type === "Communities" && (
+							<div className="search-page-subreddit">
+								<div className="search-post-top">
+									No Communities found
 								</div>
 							</div>
-						);
-					})}
+					  )}
 				{type === "People" &&
-					searchResult &&
-					Object.values(searchResult).length > 0 &&
-					Object.values(searchResult.users).length > 0 &&
-					Object.values(searchResult.users).map((user) => {
-						return (
-							<div
-								key={user.username}
-								className="search-page-subreddit"
-							>
-								<Link
-									to={`/user/${user.username}`}
-									className="search-subreddit-left"
+				searchResult &&
+				Object.values(searchResult).length > 0 &&
+				Object.values(searchResult.users).length > 0
+					? Object.values(searchResult.users).map((user) => {
+							return (
+								<div
+									key={user.username}
+									className="search-page-subreddit"
 								>
-									<img
-										src={user.profile_image}
-										className="search-post-user-profile"
-										alt='user profile'
-									></img>
-								</Link>
-								<Link
-									to={`/user/${user.username}`}
-									className="search-subreddit-center"
-								>
-									<div>u/{user.username}</div>
-									{/* <div className="search-sub-description">
+									<Link
+										to={`/user/${user.username}`}
+										className="search-subreddit-left"
+									>
+										<img
+											src={user.profile_image}
+											className="search-post-user-profile"
+											alt="user profile"
+										></img>
+									</Link>
+									<Link
+										to={`/user/${user.username}`}
+										className="search-subreddit-center"
+									>
+										<div>u/{user.username}</div>
+										{/* <div className="search-sub-description">
 										{user.karma}
 									</div> */}
-								</Link>
-								<Link
-									to={`/user/${user.username}`}
-									className="search-subreddit-right"
-								>
-									<button className="subreddit-join">
-										View
-									</button>
-								</Link>
+									</Link>
+									<Link
+										to={`/user/${user.username}`}
+										className="search-subreddit-right"
+									>
+										<button className="subreddit-join">
+											View
+										</button>
+									</Link>
+								</div>
+							);
+					  })
+					: type === "People" && (
+							<div className="search-page-subreddit">
+								<div className="search-post-top">
+									No Users found
+								</div>
 							</div>
-						);
-					})}
+					  )}
 			</div>
 		</div>
 	);
