@@ -23,12 +23,13 @@ function NavBar() {
 
 	return (
 		<nav className="nav-container">
-			<div>
+			<div className="logo-and-subscribed">
 				<NavLink to="/" exact={true}>
 					<img src={logo} className="nav-logo" alt="logo"></img>
 				</NavLink>
+				{user && <SubscribedSubreddits></SubscribedSubreddits>}
 			</div>
-			{user && <SubscribedSubreddits></SubscribedSubreddits>}
+			
 			<SearchBar></SearchBar>
 			<div className="login-signup-menu">
 				{!user && (

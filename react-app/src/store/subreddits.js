@@ -17,6 +17,12 @@ const EDIT_COMMENT = "subreddits/EDIT_COMMENT";
 const DELETE_COMMENT = "subreddits/DELETE_COMMENT";
 const COMMENT_VOTE = "subreddits/COMMENT_VOTE";
 const TOGGLE_MEMBER = "subreddits/TOGGLE_MEMBER";
+const GET_MEMBERS = "subreddits/GET_MEMBERS";
+
+const getMembers = (sub) => ({
+	type: GET_MEMBERS,
+	sub,
+});
 
 const addSub = (sub) => ({
 	type: GET_SUB,
@@ -103,6 +109,17 @@ const toggleMember = (sub) => ({
 	type: TOGGLE_MEMBER,
 	sub,
 });
+
+export const getSubMembers = (subredditName) => async (dispatch) => {
+	const response = await fetch(`/api/r/${subredditName}`, {
+		method: "GET",
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(getMembers(data));
+		return data;
+	}
+};
 
 export const getSubInfo = (subredditName) => async (dispatch) => {
 	const response = await fetch(`/api/r/${subredditName}`, {
@@ -535,6 +552,12 @@ export default function subreddits(state = initialState, action) {
 			) {
 				newState[action.subredditName].posts[action.post.id] =
 					action.post;
+			}
+			return newState;
+		case GET_MEMBERS:
+			newState = { ...state };
+			if (newState[action.sub.name]) {
+				newState[action.sub.name].members = action.sub.members;
 			}
 			return newState;
 		default:

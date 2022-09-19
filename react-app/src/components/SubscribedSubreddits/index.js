@@ -6,16 +6,22 @@ function SubscribedSubreddits() {
 	const [currentSub, setCurrentSub] = useState("all");
 	const [showMenu, setShowMenu] = useState(false);
 
-	const { subreddit } = useParams();
+	const { subreddit, username } = useParams();
 
 	const user = useSelector((state) => state.session.user);
 
 	useEffect(() => {
 		if (subreddit) {
 			setCurrentSub(`r/${subreddit}`);
-			document.title = `Teddit - r/${subreddit}`;
-		} else setCurrentSub("r/all");
-	}, [subreddit]);
+			document.title = `Teddir - r/${subreddit}`;
+		} else if (username) {
+			setCurrentSub(`u/${username}`);
+			document.title = `Teddir - u/${username}`;
+		} else {
+			setCurrentSub("r/all");
+			document.title = `Teddir - Dive into anything`;
+		}
+	}, [subreddit, username]);
 
 	useEffect(() => {
 		if (!showMenu) return;
@@ -29,10 +35,12 @@ function SubscribedSubreddits() {
 			className="subscribed-subs-container"
 			onClick={() => setShowMenu(true)}
 		>
-			<div>{currentSub}</div>
+			<div className="current-sub">{currentSub}</div>
 			{showMenu && (
 				<div className="subscribed-menu">
-					{Object.values(user.member).length > 0 &&
+					<div>Your Communities</div>
+					<br></br>
+					{Object.values(user.member).length > 0 ? (
 						Object.values(user.member).map((sub) => {
 							return (
 								<Link
@@ -40,10 +48,15 @@ function SubscribedSubreddits() {
 									key={sub.id}
 									className="subscribed-sub-link"
 								>
-									{sub.subreddit_info.name}
+									r/{sub.subreddit_info.name}
 								</Link>
 							);
-						})}
+						})
+					) : (
+						<div className="no-subscribed-communities">
+							Nothing here
+						</div>
+					)}
 				</div>
 			)}
 		</div>

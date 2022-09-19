@@ -52,7 +52,6 @@ def home_page():
     return jsonify(home_posts)
 
 
-
 @subreddit_routes.route('/create', methods=['POST'])
 def create_subreddit():
     '''
@@ -125,6 +124,7 @@ def get_subreddit(name):
         return jsonify({
             "error": "Subreddit not found"
         })
+
 
 @subreddit_routes.route('/<string:sub_name>/posts')
 def get_newest_subreddit_posts(sub_name, page=0):

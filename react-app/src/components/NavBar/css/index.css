@@ -16,6 +16,11 @@
 	/* border: none; */
 }
 
+.logo-and-subscribed {
+	display: flex;
+	gap: 20px;
+}
+
 .nav-login-signup-container {
 	display: flex;
 	box-sizing: border-box;

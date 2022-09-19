@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getHomePosts, toggleMembership } from "../../store/subreddits";
+import { getHomePosts, toggleMembership, getSubMembers } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
 
 import HomepagePostCard from "./HomepagePostCard";
@@ -22,9 +22,11 @@ function HomePage() {
 	const user = useSelector((state) => state.session.user);
 
 	//Toggles user joining a subreddit
-	const toggleJoin = (subredditId) => {
+	const toggleJoin = (subredditId, subredditName) => {
 		dispatch(toggleMembership(subredditId)).then((data) => {
-			dispatch(authenticate());
+			dispatch(authenticate()).then(() => {
+				dispatch(getSubMembers(subredditName));
+			});
 		});
 	};
 
@@ -119,7 +121,7 @@ function HomePage() {
 														return;
 													}
 
-													toggleJoin(sub.id);
+													toggleJoin(sub.id, sub.name);
 												}}
 											>
 												{user &&

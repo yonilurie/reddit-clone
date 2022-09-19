@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { toggleMembership } from "../../../store/subreddits";
+import { toggleMembership, getSubMembers } from "../../../store/subreddits";
 import { authenticate } from "../../../store/session";
 
 //Banner for a subreddit
@@ -14,7 +14,9 @@ const SubredditBanner = ({ sub }) => {
 	//Toggles user joining a subreddit
 	const toggleJoin = (subredditId) => {
 		dispatch(toggleMembership(subredditId)).then(() => {
-			dispatch(authenticate());
+			dispatch(authenticate()).then(() => {
+				dispatch(getSubMembers(subreddit));
+			});
 		});
 	};
 

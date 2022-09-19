@@ -27,13 +27,20 @@
 	z-index: 5;
 	display: flex;
 	flex-direction: column;
+    gap: 5px   ;
+	cursor: auto;
 }
 
-.subscribed-menu:hover {
-}
 
+.current-sub {
+    font-size: 14px;
+}
 .subscribed-sub-link:hover {
 	cursor: pointer;
 	text-decoration: underline;
 	color: blue;
+}
+
+.no-subscribed-communities {
+    cursor: auto;
 }
