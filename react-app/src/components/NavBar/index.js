@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
 import ProfileMenu from "./js/ProfileMenu";
 import SearchBar from "./js/SearchBar";
-import logo from  '../../images/teddir-logo.png'
+import SubscribedSubreddits from "../SubscribedSubreddits";
+
+import logo from "../../images/teddir-logo.png";
+
 import * as sessionActions from "../../store/session";
 import "./css/index.css";
 
@@ -21,13 +25,10 @@ function NavBar() {
 		<nav className="nav-container">
 			<div>
 				<NavLink to="/" exact={true}>
-					<img
-						src={logo}
-						className="nav-logo"
-						alt="logo"
-					></img>
+					<img src={logo} className="nav-logo" alt="logo"></img>
 				</NavLink>
 			</div>
+			{user && <SubscribedSubreddits></SubscribedSubreddits>}
 			<SearchBar></SearchBar>
 			<div className="login-signup-menu">
 				{!user && (

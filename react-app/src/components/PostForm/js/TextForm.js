@@ -20,7 +20,7 @@ function TextForm({ text, setText, post }) {
 	//If a post is passed in as a prop, laod the textarea with the posts description
 	useEffect(() => {
 		if (post) setText(post.text);
-	}, [post, text, setText]);
+	}, [post, setText]);
 
 	//Change initial size of textarea
 	useEffect(() => {

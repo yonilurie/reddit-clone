@@ -18,7 +18,6 @@ const Subreddit = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { subreddit } = useParams();
-
 	const [sub, setSub] = useState(null);
 	const [loaded, setLoaded] = useState(false);
 
