@@ -6,7 +6,7 @@ function SubredditInfoModerator({ sub }) {
 		<>
 			{sub.name && (
 				<div className="subreddit-info-card-moderator">
-					<Link to={`/user/${sub.owner.username}`}>
+					<Link to={`/user/${sub.owner.username}/submitted`}>
 						<div className="moderator-name">{sub.owner.username}</div>
 					</Link>
 				</div>

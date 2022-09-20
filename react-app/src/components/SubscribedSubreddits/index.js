@@ -38,8 +38,8 @@ function SubscribedSubreddits() {
 			<div className="current-sub">{currentSub}</div>
 			{showMenu && (
 				<div className="subscribed-menu">
-					<div>Your Communities</div>
-					<br></br>
+					<h6 style={{ margin: "0px" }}>Your Communities</h6>
+
 					{Object.values(user.member).length > 0 ? (
 						Object.values(user.member).map((sub) => {
 							return (

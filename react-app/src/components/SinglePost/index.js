@@ -9,6 +9,7 @@ import SinglePostContent from "./SinglePostContent";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
 import SinglePostCommentContainer from "./SinglePostCommentContainer";
+import AboutSideCard from "../About/AboutSideCard";
 
 import "./css/index.css";
 
@@ -83,11 +84,10 @@ function SinglePostPage() {
 				subreddits[subreddit].posts &&
 				subreddits[subreddit].posts[postId] && (
 					<div className="single-post-page-main-container">
-						<Link to={`/r/${subreddit}`}>
-							<SubredditBanner
-								sub={subreddits[subreddit]}
-							></SubredditBanner>
-						</Link>
+						<SubredditBanner
+							sub={subreddits[subreddit]}
+						></SubredditBanner>
+
 						<div className="single-post-sub-info-container">
 							<div className="single-post-container">
 								<SinglePostContent
@@ -107,10 +107,15 @@ function SinglePostPage() {
 									setEditComment={setEditComment}
 								></SinglePostCommentContainer>
 							</div>
-							<SubredditInfoCard
-								sub={subreddits[subreddit]}
-								title="About Community"
-							></SubredditInfoCard>
+							<div className="subreddit-info">
+								<SubredditInfoCard
+									sub={subreddits[subreddit]}
+									title="About Community"
+								></SubredditInfoCard>
+								<div>
+									<AboutSideCard></AboutSideCard>
+								</div>
+							</div>
 						</div>
 					</div>
 				)}

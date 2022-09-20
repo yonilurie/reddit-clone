@@ -16,7 +16,9 @@ function SubredditInfoAbout({ sub }) {
 					</div>
 					<div className="subreddit-stats">
 						<div className="members-num">{sub.members}</div>
-						<div className="members-text">Members</div>
+						<div className="members-text">
+							{sub.members === 1 ? "Member" : "Members"}
+						</div>
 					</div>
 					<div className="subreddit-created-at">
 						<i className="fa-solid fa-cake-candles"></i>

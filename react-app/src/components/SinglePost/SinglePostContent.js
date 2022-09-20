@@ -87,7 +87,7 @@ function SinglePostContent({
 							<div className="profile-post-subreddit">
 								<span className="profile-post-time">
 									{`Posted by `}
-									<Link to={`/user/${post.user.username}`}>
+									<Link to={`/user/${post.user.username}/submitted`}>
 										<span className="profile-post-username">
 											{`u/${post.user.username} `}{" "}
 										</span>

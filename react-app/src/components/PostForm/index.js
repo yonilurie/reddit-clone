@@ -210,7 +210,7 @@ function PostForm() {
 					<div className="submit-post-container">
 						<div
 							className="cancel-button"
-							onClick={() => history.push(`/user/${username}`)}
+							onClick={() => history.push(`/user/${username}/submitted`)}
 						>
 							Cancel
 						</div>

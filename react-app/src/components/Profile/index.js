@@ -41,7 +41,7 @@ function User() {
 			(tab === "upvoted" || tab === "downvoted") &&
 			currentUser.id !== user.id
 		) {
-			return history.push(`/user/${username}`);
+			return history.push(`/user/${username}/submitted`);
 		}
 	}, [username, user, history, tab]);
 

@@ -37,9 +37,6 @@ function App() {
 					<NavBar />
 					<HomePage></HomePage>
 				</Route>
-				{/* <ProtectedRoute path="/home" exact={true}>
-					<UserHomePage></UserHomePage>
-				</ProtectedRoute> */}
 				<Route path="/about" exact={true}>
 					<NavBar />
 					<About></About>
@@ -63,7 +60,7 @@ function App() {
 					<NavBar />
 					<SubredditEdit></SubredditEdit>
 				</ProtectedRoute>
-				<Route path="/user/:username" exact={true}>
+				<Route path="/user/:username/submitted" exact={true}>
 					<NavBar />
 					<Profile />
 				</Route>
@@ -80,7 +77,7 @@ function App() {
 					<Error404></Error404>
 				</Route>
 			</Switch>
-			<Footer></Footer>
+			{/* <Footer></Footer> */}
 		</BrowserRouter>
 	);
 }

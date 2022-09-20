@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getHomePosts, toggleMembership, getSubMembers } from "../../store/subreddits";
+import {
+	getHomePosts,
+	toggleMembership,
+	getSubMembers,
+} from "../../store/subreddits";
 import { authenticate } from "../../store/session";
 
 import HomepagePostCard from "./HomepagePostCard";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
+import AboutSideCard from "../About/AboutSideCard";
 
 import "./index.css";
 
@@ -88,57 +93,65 @@ function HomePage() {
 						</div>
 					)}
 				</div>
-				{subs.length > 0 && (
-					<div className="home-sub-list">
-						<div className="reccomended-title">
-							<div className="reccomended-title-text">
-								Communities to Check Out
+				<div className="subreddit-info">
+					{subs.length > 0 && (
+						<div className="home-sub-list">
+							<div className="reccomended-title">
+								<div className="reccomended-title-text">
+									Communities to Check Out
+								</div>
+							</div>
+							<div className="reccomended-subs-container">
+								{subs.map((sub, idx) => {
+									return (
+										<div
+											className="reccomended-container"
+											key={sub.name}
+										>
+											<div className="reccomended-content">
+												<div className="reccomended-sub-number">
+													{idx + 1}
+												</div>
+												<Link
+													className="sub-home-link"
+													to={`/r/${sub.name}`}
+												>
+													<div className="reccomended-sub-name">
+														r/{sub.name}
+													</div>
+												</Link>
+												<button
+													className="subreddit-join"
+													onClick={() => {
+														if (!user) {
+															return;
+														}
+
+														toggleJoin(
+															sub.id,
+															sub.name
+														);
+													}}
+												>
+													{user &&
+														user.member[sub.id] &&
+														"Joined"}
+													{user &&
+														!user.member[sub.id] &&
+														"Join"}
+													{!user && "Join"}
+												</button>
+											</div>
+										</div>
+									);
+								})}
 							</div>
 						</div>
-						<div className="reccomended-subs-container">
-							{subs.map((sub, idx) => {
-								return (
-									<div
-										className="reccomended-container"
-										key={sub.name}
-									>
-										<div className="reccomended-content">
-											<div className="reccomended-sub-number">
-												{idx + 1}
-											</div>
-											<Link
-												className="sub-home-link"
-												to={`/r/${sub.name}`}
-											>
-												<div className="reccomended-sub-name">
-													r/{sub.name}
-												</div>
-											</Link>
-											<button
-												className="subreddit-join"
-												onClick={() => {
-													if (!user) {
-														return;
-													}
-
-													toggleJoin(sub.id, sub.name);
-												}}
-											>
-												{user &&
-													user.member[sub.id] &&
-													"Joined"}
-												{user &&
-													!user.member[sub.id] &&
-													"Join"}
-												{!user && "Join"}
-											</button>
-										</div>
-									</div>
-								);
-							})}
-						</div>
+					)}
+					<div>
+						<AboutSideCard></AboutSideCard>
 					</div>
-				)}
+				</div>
 			</div>
 		</div>
 	);

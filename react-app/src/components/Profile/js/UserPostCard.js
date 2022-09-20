@@ -147,7 +147,7 @@ function UserPostCard({ postId, post }) {
 									<span className="profile-post-time">
 										{`Posted by `}
 										<Link
-											to={`/user/${post.user.username}`}
+											to={`/user/${post.user.username}/submitted`}
 										>
 											<span className="profile-post-username">
 												u/{post.user.username}

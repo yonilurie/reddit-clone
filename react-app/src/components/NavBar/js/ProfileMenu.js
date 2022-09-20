@@ -65,7 +65,7 @@ const ProfileMenu = ({
 							</div>
 
 							<Link
-								to={`/user/${user.username}`}
+								to={`/user/${user.username}/submitted`}
 								className="profile-menu-el user-links"
 							>
 								Profile

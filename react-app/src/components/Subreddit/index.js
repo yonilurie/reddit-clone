@@ -10,6 +10,7 @@ import SubredditBanner from "./js/SubredditBanner";
 import SubredditInfoAbout from "./js/SubredditInfoAbout";
 import SubredditInfoRules from "./js/SubredditInfoRules";
 import SubredditLoading from "./SubredditLoading";
+import AboutSideCard from "../About/AboutSideCard";
 
 import "./css/index.css";
 
@@ -156,6 +157,9 @@ const Subreddit = () => {
 									sub={sub}
 									title="Moderator"
 								></SubredditInfoCard>
+							</div>
+							<div>
+								<AboutSideCard></AboutSideCard>
 							</div>
 						</div>
 					</div>

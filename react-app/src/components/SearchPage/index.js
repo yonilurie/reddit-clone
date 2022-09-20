@@ -255,7 +255,7 @@ function SearchPage() {
 											if (index < 5) {
 												return (
 													<Link
-														to={`/user/${user.username}`}
+														to={`/user/${user.username}/submitted`}
 														className="search-post-users-small"
 													>
 														<div>
@@ -368,7 +368,7 @@ function SearchPage() {
 									className="search-page-subreddit"
 								>
 									<Link
-										to={`/user/${user.username}`}
+										to={`/user/${user.username}/submitted`}
 										className="search-subreddit-left"
 									>
 										<img
@@ -378,7 +378,7 @@ function SearchPage() {
 										></img>
 									</Link>
 									<Link
-										to={`/user/${user.username}`}
+										to={`/user/${user.username}/submitted`}
 										className="search-subreddit-center"
 									>
 										<div>u/{user.username}</div>
@@ -387,7 +387,7 @@ function SearchPage() {
 									</div> */}
 									</Link>
 									<Link
-										to={`/user/${user.username}`}
+										to={`/user/${user.username}/submitted`}
 										className="search-subreddit-right"
 									>
 										<button className="subreddit-join">

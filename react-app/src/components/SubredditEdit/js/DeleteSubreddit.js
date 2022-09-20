@@ -22,7 +22,7 @@ function DeleteSubreddit({ sub }) {
 				dispatch(authenticate());
 			})
 			.then(() => {
-				history.push(`/user/${sub.owner.username}`);
+				history.push(`/user/${sub.owner.username}/submitted`);
 			});
 		return;
 	};

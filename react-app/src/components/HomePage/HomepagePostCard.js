@@ -76,7 +76,7 @@ const HomepagePostCard = ({ post }) => {
 										</span>{" "}
 									</Link>
 									{`Posted by `}
-									<Link to={`/user/${post.user.username}`}>
+									<Link to={`/user/${post.user.username}/submitted`}>
 										<span className="sub-post-time username">
 											u/{post.user.username}
 										</span>{" "}
