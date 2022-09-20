@@ -37,11 +37,10 @@ function User() {
 
 	//If the user does not exist or the page is not the current users, return
 	useEffect(() => {
-		if (
-			(tab === "upvoted" || tab === "downvoted") &&
-			currentUser.id !== user.id
-		) {
-			return history.push(`/user/${username}/submitted`);
+		if (tab === "upvoted" || tab === "downvoted") {
+			if (currentUser && user && currentUser.id !== user.id) {
+				return history.push(`/user/${username}/submitted`);
+			}
 		}
 	}, [username, user, history, tab]);
 

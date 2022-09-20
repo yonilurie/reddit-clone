@@ -60,6 +60,10 @@ function App() {
 					<NavBar />
 					<SubredditEdit></SubredditEdit>
 				</ProtectedRoute>
+				<Route path="/user/:username" exact={true}>
+					<NavBar />
+					<Profile />
+				</Route>
 				<Route path="/user/:username/submitted" exact={true}>
 					<NavBar />
 					<Profile />
