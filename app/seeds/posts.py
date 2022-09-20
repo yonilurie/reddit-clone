@@ -13,7 +13,7 @@ def seed_posts():
     post4 = Post(
         subreddit_id=2, user_id=2, title='Great info about cats', type_of_post='link', link='https://en.wikipedia.org/wiki/Cat')
     post5 = Post(
-        subreddit_id=2, user_id=2, title='Cats the musical', type_of_post='cats', link='https://www.catsthemusical.com/')
+        subreddit_id=2, user_id=2, title='Cats the musical', type_of_post='link', link='https://www.catsthemusical.com/')
     post6 = Post(
         subreddit_id=2,user_id=2, title='Why cats are better than dogs', type_of_post='link', link='https://www.thesprucepets.com/why-cats-are-better-than-dogs-554880')
     post7 = Post(
@@ -34,6 +34,7 @@ def seed_posts():
         subreddit_id=5, user_id=5, title='Reccomendations for an RPG', type_of_post='text', text="Hello r/games, I was wondering if there are any good RPG's you could reccomend? I loved Fallout 3 and the Elder Scrolls series.")
     post15 = Post(
         subreddit_id=5,user_id=5, title='Hey gamers', type_of_post='text', text='Wazzapp')
+    
 
     list = [post1,post2,post3,post4,post5,post6,post7,post8,post9,post10,post11,post12,post13,post14,post15]
     for post in list:

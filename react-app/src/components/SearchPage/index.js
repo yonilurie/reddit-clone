@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 
-import { toggleMembership } from "../../store/subreddits";
+import { toggleMembership, getSubMembers } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
 
 import { getTimeElapsed } from "../../util/index.js";
@@ -29,8 +29,10 @@ function SearchPage() {
 
 	//Toggle a user joining a subreddit
 	const toggleJoin = (subredditId) => {
-		dispatch(toggleMembership(subredditId)).then(() => {
-			dispatch(authenticate());
+		dispatch(toggleMembership(subredditId)).then((data) => {
+			dispatch(authenticate()).then(() => {
+				dispatch(getSubMembers(data.name));
+			});
 		});
 	};
 
