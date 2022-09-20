@@ -396,6 +396,10 @@
 	max-height: 300px;
 }
 
+#sub-color {
+	cursor: pointer;
+}
+
 #sub-description {
 	resize: vertical;
 }

@@ -29,3 +29,4 @@ class SubredditRulesForm(FlaskForm):
 class SubredditCommunityForm(FlaskForm):
     display_name = StringField('display_name', validators=[Length(min=0, max=100)])
     description = StringField('description', validators=[Length(min=0, max=500)])
+    color = StringField('color')

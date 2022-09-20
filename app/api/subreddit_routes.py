@@ -261,10 +261,11 @@ def edit_community_settings(id):
             })
         sub.description = form.data['description']
         sub.display_name = form.data['display_name']
+        sub.color = form.data['color']
         db.session.commit()
         return sub.to_dict()
     else: 
-       return  jsonify(form.errors)
+       return jsonify(form.errors)
 
 
 

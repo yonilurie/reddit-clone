@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { editCommunitySettings } from "../../../store/session";
@@ -10,6 +10,7 @@ function CommunitySettings({ sub }) {
 
 	const [subDisplayName, setSubDisplayName] = useState(sub.display_name);
 	const [subDescription, setSubDescription] = useState(sub.description);
+	const [color, setColor] = useState(sub.color);
 
 	//Resize textarea input as user types
 	const resizeInput = (e) => {
@@ -23,6 +24,7 @@ function CommunitySettings({ sub }) {
 		const formData = new FormData();
 		formData.append("display_name", subDisplayName);
 		formData.append("description", subDescription);
+		formData.append("color", color);
 		dispatch(editCommunitySettings(formData, sub.id)).then((data) => {
 			dispatch(editSubCommunitySettings(data));
 			alert("Changes Submitted");
@@ -102,6 +104,15 @@ function CommunitySettings({ sub }) {
 										500 - subDescription.length
 								  } characters remaining`}
 						</div>
+					</div>
+					<div className="community-settings-input-container">
+						<label htmlFor="sub-color">Subreddit Color</label>
+						<input
+							id="sub-color"
+							type="color"
+							value={color}
+							onChange={(e) => setColor(e.target.value)}
+						></input>
 					</div>
 				</div>
 			</div>

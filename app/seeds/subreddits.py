@@ -4,17 +4,17 @@ from app.models import db, SubReddit
 # Adds a demo user, you can add other users here if you want
 def seed_subreddits():
     sub1 = SubReddit(
-        name='dogs', owner_id=1, color='rgb(245, 224, 174)')
+        name='dogs', owner_id=1, color='#f5e0ae')
     sub2 = SubReddit(
-        name='cats', owner_id=2, color='rgb(252, 165, 71)')
+        name='cats', owner_id=2, color='#fca547')
     sub3 = SubReddit(
-        name='views', owner_id=3, color='rgb(135, 104, 227)')
+        name='views', owner_id=3, color='#8768e3')
     sub4 = SubReddit(
-        name='seattle', owner_id=4, color='rgb(45, 56, 125)')
+        name='seattle', owner_id=4, color='#2d387d')
     sub5 = SubReddit(
-        name='gaming', owner_id=5, color='rgb(245, 66, 66)')
+        name='gaming', owner_id=5, color='#f54242')
     sub6 = SubReddit(
-        name='appacademy', owner_id=6 , color='rgb(192,10,10)')
+        name='appacademy', owner_id=6 , color='#c00a0a')
 
     db.session.add(sub1)
     db.session.add(sub2)

@@ -249,6 +249,10 @@ export default function reducer(state = initialState, action) {
 				newState.user.subreddits[action.sub.name].display_name =
 					action.sub.display_name;
 			}
+			if (newState.user.subreddits[action.sub.name]) {
+				newState.user.subreddits[action.sub.name].color =
+					action.sub.color;
+			}
 
 			return newState;
 		case DELETE_SUB:
