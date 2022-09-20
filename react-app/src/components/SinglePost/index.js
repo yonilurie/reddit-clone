@@ -113,7 +113,9 @@ function SinglePostPage() {
 									title="About Community"
 								></SubredditInfoCard>
 								<div>
-									<AboutSideCard></AboutSideCard>
+									<AboutSideCard
+										sub={subreddits[subreddit]}
+									></AboutSideCard>
 								</div>
 							</div>
 						</div>

@@ -10,7 +10,7 @@ const SubredditInfoCard = ({ sub, title }) => {
 
 	return (
 		<div className="subreddit-info-card">
-			<div className="subreddit-info-card-top">
+			<div className="subreddit-info-card-top" style={{ backgroundColor: `${sub.color}` }}>
 				<div>{title}</div>
 				{title === "About Community" &&
 					currentUser &&

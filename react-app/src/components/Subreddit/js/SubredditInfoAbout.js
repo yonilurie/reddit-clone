@@ -35,7 +35,10 @@ function SubredditInfoAbout({ sub }) {
 							}}
 							className="new-post-button-container"
 						>
-							<button className="new-post-button">
+							<button
+								className="new-post-button"
+								style={{ backgroundColor: `${sub.color}` }}
+							>
 								New Post
 							</button>
 						</Link>

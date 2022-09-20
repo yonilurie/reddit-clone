@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function AboutSideCard() {
+function AboutSideCard({ sub }) {
+	useEffect(() => {});
 	return (
 		<>
-			<div className="subreddit-info-card-top">
+			<div
+				className="subreddit-info-card-top"
+				style={{ backgroundColor: `${sub ? `${sub.color}` : ""}` }}
+			>
 				Site created By Yonatan Lurie
 			</div>
 			<div className="info-card-created">

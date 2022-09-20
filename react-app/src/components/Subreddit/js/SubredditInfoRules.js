@@ -7,7 +7,7 @@ function SubredditInfoRules({ sub }) {
 	return (
 		<>
 			{sub.name && (
-				<div className="subreddit-info-card-rules">
+				<div className="subreddit-info-card-rules" >
 					{sub.rules && rules.length > 0 ? (
 						rules.map((rule, idx) => {
 							if (!rule) return null;

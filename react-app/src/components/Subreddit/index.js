@@ -159,7 +159,7 @@ const Subreddit = () => {
 								></SubredditInfoCard>
 							</div>
 							<div>
-								<AboutSideCard></AboutSideCard>
+								<AboutSideCard sub={sub}></AboutSideCard>
 							</div>
 						</div>
 					</div>
