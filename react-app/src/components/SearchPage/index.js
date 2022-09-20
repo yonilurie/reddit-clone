@@ -184,11 +184,16 @@ function SearchPage() {
 										(sub, index) => {
 											if (index < 5) {
 												return (
-													<div
-														to={`/r/${sub.name}`}
-														className="search-post-community-small"
-													>
-														<div>r/{sub.name}</div>
+													<div className="search-post-community-small">
+														<Link
+															to={`/r/${sub.name}`}
+														>
+															{" "}
+															<div>
+																r/{sub.name}
+															</div>
+														</Link>
+
 														<button
 															className="subreddit-join"
 															onClick={() => {
@@ -231,7 +236,7 @@ function SearchPage() {
 								{searchResult &&
 									Object.values(searchResult).length > 0 &&
 									Object.values(searchResult.subreddits)
-										.length > 0 && (
+										.length > 5 && (
 										<div
 											className="search-page-see-more"
 											onClick={() =>
@@ -272,7 +277,7 @@ function SearchPage() {
 										}
 									)
 								) : (
-									<div className="search-post-card">
+									<div className="search-posst-card">
 										<div className="search-post-top">
 											No Users found
 										</div>
@@ -280,8 +285,8 @@ function SearchPage() {
 								)}
 								{searchResult &&
 									Object.values(searchResult).length > 0 &&
-									Object.values(searchResult.subreddits)
-										.length > 0 && (
+									Object.values(searchResult.users).length >
+										5 && (
 										<div
 											className="search-page-see-more"
 											onClick={() => setType("People")}
