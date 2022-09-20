@@ -23,7 +23,7 @@ const SubredditBanner = ({ sub }) => {
 	return (
 		<div className="subreddit-banner">
 			<div className="subreddit-banner-inner">
-				<Link to={`/r/${subreddit}`}>
+				<Link to={subreddit ? `/r/${subreddit}` : ""}>
 					<div className="banner">
 						<div
 							className="banner-image"
@@ -33,7 +33,7 @@ const SubredditBanner = ({ sub }) => {
 					</div>
 				</Link>
 				<div className="banner-title-container">
-					<Link to={`/r/${subreddit}`}>
+					<Link to={subreddit ? `/r/${subreddit}` : ""}>
 						<div className="banner-title">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

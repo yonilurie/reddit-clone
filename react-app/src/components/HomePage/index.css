@@ -12,10 +12,9 @@
 .reccomended-container {
 	display: flex;
 	justify-content: space-between;
-	border-top: solid 1px grey;
+	/* border-top: solid 1px grey; */
 	height: 50px;
 	min-height: 50px;
-	
 }
 
 .reccomended-title {
@@ -53,7 +52,7 @@
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
-	border-bottom: solid 1px grey;
+	/* border-bottom: solid 1px grey; */
 	border-radius: 4px;
 }
 

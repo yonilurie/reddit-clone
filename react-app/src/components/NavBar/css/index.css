@@ -254,7 +254,7 @@ a {
 
 .search-bar:focus {
 	background-color: white;
-	border: solid 1px blue;
+	border: solid 1px rgb(168, 170, 171);
 }
 
 @media screen and (max-width: 1100px) {

@@ -29,20 +29,18 @@ function SearchPage() {
 
 	//Toggle a user joining a subreddit
 	const toggleJoin = (subredditId) => {
-		dispatch(toggleMembership(subredditId)).then((data) => {
+		dispatch(toggleMembership(subredditId)).then(() => {
 			dispatch(authenticate());
 		});
 	};
 
 	//If a query is in the url, set the query in state
 	useEffect(() => {
-		if (s) executeSearch(s);
-		else setSearchResult({});
+		s ? executeSearch(s) : setSearchResult({});
 	}, [s]);
 
 	//Set the tab based on user input
 	const setTab = (e) => setType(e.target.innerText);
-	console.log(type);
 
 	return (
 		<div className="search-page-main-container">
@@ -277,7 +275,7 @@ function SearchPage() {
 										}
 									)
 								) : (
-									<div className="search-posst-card">
+									<div className="search-post-card">
 										<div className="search-post-top">
 											No Users found
 										</div>

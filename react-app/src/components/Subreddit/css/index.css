@@ -139,7 +139,7 @@ h1 {
 }
 
 .mod-tools-container:hover {
-	background-color: rgb(4, 111, 192);
+	background-color: rgba(0, 0, 0, 0.2);
 }
 
 .subreddit-info-card-info,

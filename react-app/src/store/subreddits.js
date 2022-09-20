@@ -535,6 +535,7 @@ export default function subreddits(state = initialState, action) {
 				newState[action.sub.name].display_name =
 					action.sub.display_name;
 				newState[action.sub.name].description = action.sub.description;
+				newState[action.sub.name].color = action.sub.color;
 			}
 			return state;
 		case REMOVE_SUB:
