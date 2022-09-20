@@ -95,7 +95,7 @@ function PostForm() {
 			formData.append("image", image);
 			dispatch(createAPostImage(subredditId, formData)).then((data) => {
 				dispatch(getSubInfo(data.subreddit_name)).then((subData) => {
-					dispatch(getPosts(subData.name)).then((postsData) => {
+					dispatch(getPosts(subData.name)).then(() => {
 						history.replace();
 						return history.push(
 							`/r/${data.subreddit_name}/${data.id}`

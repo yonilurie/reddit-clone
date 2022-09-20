@@ -13,9 +13,6 @@ const EDIT_RULE = "subreddits/EDIT_RULE";
 const EDIT_SETTING = "subreddits/EDIT_SETTING";
 const REMOVE_SUB = "subreddits/REMOVE_SUB";
 const ADD_COMMENT = "subreddits/ADD_COMMENT";
-const EDIT_COMMENT = "subreddits/EDIT_COMMENT";
-const DELETE_COMMENT = "subreddits/DELETE_COMMENT";
-const COMMENT_VOTE = "subreddits/COMMENT_VOTE";
 const TOGGLE_MEMBER = "subreddits/TOGGLE_MEMBER";
 const GET_MEMBERS = "subreddits/GET_MEMBERS";
 
@@ -98,11 +95,6 @@ const editComment = (post, subredditName) => ({
 	type: ADD_COMMENT,
 	post,
 	subredditName,
-});
-
-const deleteComment = (post) => ({
-	type: DELETE_COMMENT,
-	post,
 });
 
 const toggleMember = (sub) => ({
