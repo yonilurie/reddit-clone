@@ -15,6 +15,10 @@ def seed_subreddits():
         name='gaming', owner_id=5, color='#f54242')
     sub6 = SubReddit(
         name='appacademy', owner_id=6 , color='#c00a0a')
+    sub7 = SubReddit(
+        name='askTeddir', owner_id=1 , color='#c00a0a', allowed_post_types='text,')
+    sub8 = SubReddit(
+        name='programmerhumor', owner_id=1 , color='#c00a0a')
 
     db.session.add(sub1)
     db.session.add(sub2)
@@ -22,6 +26,8 @@ def seed_subreddits():
     db.session.add(sub4)
     db.session.add(sub5)
     db.session.add(sub6)
+    db.session.add(sub7)
+    db.session.add(sub8)
 
     db.session.commit()
 

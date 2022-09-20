@@ -300,7 +300,6 @@ def join_sub():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         is_member = Member.query.filter(Member.subreddits_id == form.data['subreddit_id'], Member.users_id == current_user.id ).first()
-        print(is_member)
         if not is_member:
            join = Member(
                users_id = current_user.id,
