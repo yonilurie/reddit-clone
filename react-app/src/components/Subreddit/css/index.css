@@ -316,7 +316,7 @@ h1 {
 	width: 100%;
 	/* min-width: 100%; */
 	min-width: 640px;
-	/* max-width: 640px; */
+	max-width: 640px;
 	position: relative;
 }
 .empty-post-container {
@@ -326,6 +326,7 @@ h1 {
 	border: solid 1px rgb(204, 204, 204);
 	border-radius: 2px;
 	color: rgb(230, 230, 230);
+	max-width: 640px;
 }
 
 .empty-votes {
@@ -344,6 +345,7 @@ h1 {
 	background-color: rgba(131, 132, 133, 0.039);
 	width: 100%;
 	height: 100%;
+		max-width: 640px;
 	display: flex;
 	justify-content: center;
 }
