@@ -100,6 +100,12 @@
 	align-items: center;
 }
 
+.loading-posts-search {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 15px;
+}
+
 .search-post-subreddit-info {
 	display: flex;
 	gap: 10px;

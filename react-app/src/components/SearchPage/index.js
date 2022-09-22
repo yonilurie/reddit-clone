@@ -77,9 +77,9 @@ function SearchPage() {
 					<div className="search-posts-outer-container">
 						<div className="search-posts-left">
 							{type === "Posts" &&
-							searchResult &&
-							Object.values(searchResult).length > 0 &&
-							Object.values(searchResult.posts).length > 0 ? (
+								searchResult &&
+								Object.values(searchResult).length > 0 &&
+								Object.values(searchResult.posts).length > 0 &&
 								Object.values(searchResult.posts).map(
 									(post) => {
 										return (
@@ -162,14 +162,31 @@ function SearchPage() {
 											</div>
 										);
 									}
-								)
-							) : (
-								<div className="search-post-card">
-									<div className="search-post-top">
-										No Posts found
+								)}
+
+							{type === "Posts" &&
+								searchResult &&
+								Object.values(searchResult).length > 0 &&
+								Object.values(searchResult.posts).length ===
+									0 && (
+									<div className="search-post-card">
+										<div className="search-post-top">
+											No Posts found
+										</div>
 									</div>
-								</div>
-							)}
+								)}
+							{type === "Posts" &&
+								!searchResult &&
+								[1, 2, 3, 4, 5].map(() => {
+									return (
+										<div className="search-post-card">
+											<div className="search-post-top loading-posts-search">
+												<div className="loading-subheader"></div>
+												<div className="loading-header"></div>
+											</div>
+										</div>
+									);
+								})}
 						</div>
 						<div className="search-posts-right">
 							<div className="search-post-communities">
