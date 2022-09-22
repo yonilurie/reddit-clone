@@ -47,10 +47,9 @@ const Subreddit = () => {
 
 	return (
 		<div className="subreddit-outer-container">
+			{sub && <SubredditBanner sub={sub} />}
 			{sub && sub.id && (
 				<>
-					<SubredditBanner sub={sub} />
-
 					<div className="subreddit-inner-container">
 						{sub.posts && Object.values(sub.posts).length > 0 && (
 							<div className="subreddit-posts">
