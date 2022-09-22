@@ -12,6 +12,7 @@ import { authenticate } from "../../store/session";
 import HomepagePostCard from "./HomepagePostCard";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import AboutSideCard from "../About/AboutSideCard";
+import SubredditLoading from "../Subreddit/SubredditLoading";
 
 import "./index.css";
 
@@ -20,6 +21,7 @@ function HomePage() {
 	const dispatch = useDispatch();
 	const [subs, setSubs] = useState([]);
 	const [posts, setPosts] = useState([]);
+	const [loaded, setLoaded] = useState(false);
 
 	//Subreddit information for home page
 	const sub = { display_name: "all", name: "all" };
@@ -43,7 +45,8 @@ function HomePage() {
 			setSubs(subredditInfo);
 		})();
 		if (!all) {
-			dispatch(getHomePosts()).then(() => {});
+			dispatch(getHomePosts()).then(() => { });
+			setLoaded(true)
 		}
 	}, [all, dispatch]);
 
@@ -51,6 +54,7 @@ function HomePage() {
 	useEffect(() => {
 		if (posts && all) {
 			setPosts(Object.values(all.posts).reverse());
+			
 		}
 	}, [dispatch, user, all]);
 
@@ -84,8 +88,13 @@ function HomePage() {
 								></HomepagePostCard>
 							);
 						})}
-
-					{posts && !posts.length && (
+					{posts.length === 0 && (
+						<>
+							<SubredditLoading></SubredditLoading>
+							<SubredditLoading></SubredditLoading>
+						</>
+					)}
+					{posts && !posts.length > 0 && (
 						<div className="homepage-no-posts-container">
 							<div className="homepage-no-posts-text">
 								No random posts loaded, try refreshing the page!
@@ -94,60 +103,81 @@ function HomePage() {
 					)}
 				</div>
 				<div className="subreddit-info">
-					{subs.length > 0 && (
-						<div className="home-sub-list">
-							<div className="reccomended-title">
-								<div className="reccomended-title-text">
-									Communities to Check Out
-								</div>
+					{/* {subs.length > 0 && ( */}
+					<div className="home-sub-list">
+						<div className="reccomended-title">
+							<div className="reccomended-title-text">
+								Communities to Check Out
 							</div>
-							<div className="reccomended-subs-container">
-								{subs.map((sub, idx) => {
+						</div>
+						<div className="reccomended-subs-container">
+							{subs.length === 0 &&
+								[1, 2, 3, 4, 5].map((placeholder) => {
 									return (
 										<div
 											className="reccomended-container"
 											key={sub.name}
 										>
 											<div className="reccomended-content">
-												<div className="reccomended-sub-number">
-													{idx + 1}
-												</div>
-												<Link
-													className="sub-home-link"
-													to={`/r/${sub.name}`}
-												>
-													<div className="reccomended-sub-name">
-														r/{sub.name}
-													</div>
-												</Link>
-												<button
-													className="subreddit-join"
-													onClick={() => {
-														if (!user) {
-															return;
-														}
+												<div className="reccomended-sub-number"></div>
 
-														toggleJoin(
-															sub.id,
-															sub.name
-														);
-													}}
-												>
-													{user &&
-														user.member[sub.id] &&
-														"Joined"}
-													{user &&
-														!user.member[sub.id] &&
-														"Join"}
-													{!user && "Join"}
+												<div className="reccomended-sub-name">
+													<div className="loading-header"></div>
+												</div>
+
+												<button className="subreddit-join">
+													Join
 												</button>
 											</div>
 										</div>
 									);
 								})}
-							</div>
+							{subs.map((sub, idx) => {
+								return (
+									<div
+										className="reccomended-container"
+										key={sub.name}
+									>
+										<div className="reccomended-content">
+											<div className="reccomended-sub-number">
+												{idx + 1}
+											</div>
+											<Link
+												className="sub-home-link"
+												to={`/r/${sub.name}`}
+											>
+												<div className="reccomended-sub-name">
+													r/{sub.name}
+												</div>
+											</Link>
+											<button
+												className="subreddit-join"
+												onClick={() => {
+													if (!user) {
+														return;
+													}
+
+													toggleJoin(
+														sub.id,
+														sub.name
+													);
+												}}
+											>
+												{user &&
+													user.member[sub.id] &&
+													"Joined"}
+												{user &&
+													!user.member[sub.id] &&
+													"Join"}
+												{!user && "Join"}
+											</button>
+										</div>
+									</div>
+								);
+							})}
 						</div>
-					)}
+					</div>
+					{/* )} */}
 					<div>
 						<AboutSideCard></AboutSideCard>
 					</div>

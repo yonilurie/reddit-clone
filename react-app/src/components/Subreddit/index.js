@@ -30,12 +30,11 @@ const Subreddit = () => {
 		if (!subreddits[subreddit] || !subreddits[subreddit].id) {
 			dispatch(getSubInfo(subreddit)).then((data) => {
 				if (data.error) return history.push("/");
-				dispatch(getPosts(subreddit)).then(() => {
-					setLoaded(true);
-				});
+				dispatch(getPosts(subreddit)).then(() => {});
 			});
 		}
 		setSub(subreddits[subreddit]);
+		setLoaded(true);
 	}, [dispatch, subreddits, subreddit, history]);
 
 	//If subreddit is not loaded, create a timeout
@@ -53,23 +52,21 @@ const Subreddit = () => {
 					<SubredditBanner sub={sub} />
 
 					<div className="subreddit-inner-container">
-						{sub &&
-							sub.posts &&
-							Object.values(sub.posts).length > 0 && (
-								<div className="subreddit-posts">
-									{/* {sub &&
+						{sub.posts && Object.values(sub.posts).length > 0 && (
+							<div className="subreddit-posts">
+								{/* {sub &&
 										sub.posts &&
 										Object.values(sub.posts).length > 0 && */}
-									{Object.values(sub.posts)
-										.reverse()
-										.map((post) => (
-											<SubredditPostCard
-												post={post}
-												key={post.id}
-											></SubredditPostCard>
-										))}
-								</div>
-							)}
+								{Object.values(sub.posts)
+									.reverse()
+									.map((post) => (
+										<SubredditPostCard
+											post={post}
+											key={post.id}
+										></SubredditPostCard>
+									))}
+							</div>
+						)}
 
 						{loaded &&
 							sub.posts &&
@@ -129,39 +126,41 @@ const Subreddit = () => {
 									</div>
 								</div>
 							)}
-						{!loaded && !sub.posts && (
+						{!sub.posts && (
 							<div className="loading-posts">
 								<SubredditLoading></SubredditLoading>
 								<SubredditLoading></SubredditLoading>
 							</div>
 						)}
-						<div className="subreddit-info">
-							<div>
-								<SubredditInfoCard
-									sub={sub}
-									title="About Community"
-								>
-									<SubredditInfoAbout></SubredditInfoAbout>
-								</SubredditInfoCard>
+						{loaded && (
+							<div className="subreddit-info">
+								<div>
+									<SubredditInfoCard
+										sub={sub}
+										title="About Community"
+									>
+										<SubredditInfoAbout></SubredditInfoAbout>
+									</SubredditInfoCard>
+								</div>
+								<div>
+									<SubredditInfoCard
+										sub={sub}
+										title={`r/${sub.name} Rules`}
+									>
+										<SubredditInfoRules></SubredditInfoRules>
+									</SubredditInfoCard>
+								</div>
+								<div>
+									<SubredditInfoCard
+										sub={sub}
+										title="Moderator"
+									></SubredditInfoCard>
+								</div>
+								<div>
+									<AboutSideCard sub={sub}></AboutSideCard>
+								</div>
 							</div>
-							<div>
-								<SubredditInfoCard
-									sub={sub}
-									title={`r/${sub.name} Rules`}
-								>
-									<SubredditInfoRules></SubredditInfoRules>
-								</SubredditInfoCard>
-							</div>
-							<div>
-								<SubredditInfoCard
-									sub={sub}
-									title="Moderator"
-								></SubredditInfoCard>
-							</div>
-							<div>
-								<AboutSideCard sub={sub}></AboutSideCard>
-							</div>
-						</div>
+						)}
 					</div>
 				</>
 			)}
