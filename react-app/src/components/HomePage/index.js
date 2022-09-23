@@ -116,7 +116,7 @@ function HomePage() {
 									return (
 										<div
 											className="reccomended-container"
-											key={sub.name}
+											key={placeholder * 5}
 										>
 											<div className="reccomended-content">
 												<div className="reccomended-sub-number"></div>

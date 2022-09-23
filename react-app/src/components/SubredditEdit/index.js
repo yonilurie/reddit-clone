@@ -17,7 +17,7 @@ function SubredditEdit() {
 	const sub = useSelector(
 		(state) => state.session.user.subreddits[subreddit]
 	);
-
+		const user = useSelector(state => state.session.user)
 	//If url is incorrent return to home
 	if (
 		section !== "about" &&
@@ -25,10 +25,10 @@ function SubredditEdit() {
 		section !== "communitysettings" &&
 		section !== "delete"
 	) {
-		history.push(`/`);
+		history.push(`/user/${user.username}/submitted`);
 	}
 	useEffect(() => {
-		if (sub === undefined) return history.push(`/`);
+		if (sub === undefined) return history.push(`/user/${user.username}/submitted`);
 	}, [history, sub]);
 
 	return (
