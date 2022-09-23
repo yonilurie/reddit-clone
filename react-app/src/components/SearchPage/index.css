@@ -97,6 +97,7 @@
 .search-post-top {
 	display: flex;
 	height: 52px;
+	width: 270px;
 	align-items: center;
 }
 
@@ -140,6 +141,7 @@
 .search-posted-by {
 	color: rgb(135, 138, 140);
 	font-size: 12px;
+	min-width: fit-content;
 }
 
 .search-posted-by-user:hover {

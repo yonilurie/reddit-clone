@@ -5,7 +5,7 @@ import { useLocation, Link } from "react-router-dom";
 import { toggleMembership, getSubMembers } from "../../store/subreddits";
 import { authenticate } from "../../store/session";
 
-import { getTimeElapsed } from "../../util/index.js";
+import { getTimeElapsed, getPercentUpvoted } from "../../util/index.js";
 
 import "./index.css";
 
@@ -149,10 +149,9 @@ function SearchPage() {
 												</Link>
 												<div className="search-post-bottom">
 													<div className="search-post-votes">
-														{post.votes.total > 0
-															? post.votes.total
-															: 0}{" "}
-														upvotes
+														{getPercentUpvoted(
+															post.votes
+														)}
 													</div>
 													<div className="search-post-comment-count">
 														{post.comment_count}{" "}
@@ -177,7 +176,7 @@ function SearchPage() {
 								)}
 							{type === "Posts" &&
 								!searchResult &&
-								[1, 2, 3, 4, 5].map(() => {
+								[1, 2, 3, 4, 5].map((ele) => {
 									return (
 										<div className="search-post-card">
 											<div className="search-post-top loading-posts-search">
@@ -244,7 +243,7 @@ function SearchPage() {
 										}
 									)
 								) : (
-									<div className="search-post-card">
+									<div className="search-post-community-small">
 										<div className="search-post-top">
 											No Communities found
 										</div>
@@ -294,7 +293,7 @@ function SearchPage() {
 										}
 									)
 								) : (
-									<div className="search-post-card">
+									<div className="search-post-community-small">
 										<div className="search-post-top">
 											No Users found
 										</div>
