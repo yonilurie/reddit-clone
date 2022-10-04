@@ -23,8 +23,6 @@ function HomePage() {
 	const [posts, setPosts] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 
-	//Subreddit information for home page
-	const sub = { display_name: "all", name: "all" };
 	const all = useSelector((state) => state.subreddits.all);
 	const user = useSelector((state) => state.session.user);
 
@@ -45,8 +43,8 @@ function HomePage() {
 			setSubs(subredditInfo);
 		})();
 		if (!all) {
-			dispatch(getHomePosts()).then(() => { });
-			setLoaded(true)
+			dispatch(getHomePosts()).then(() => {});
+			setLoaded(true);
 		}
 	}, [all, dispatch]);
 
@@ -54,14 +52,12 @@ function HomePage() {
 	useEffect(() => {
 		if (posts && all) {
 			setPosts(Object.values(all.posts).reverse());
-			
 		}
 	}, [dispatch, user, all]);
 
 	return (
 		<div className="home-page-container-main">
-			<SubredditBanner sub={sub}></SubredditBanner>
-			{!user && (
+			{/* {!user && (
 				<div className="splash-info-container">
 					<div className="splash-info-content">
 						Welcome to Teddir! Login or Sign Up to create a
@@ -75,7 +71,7 @@ function HomePage() {
 						About
 					</Link>
 				</div>
-			)}
+			)} */}
 			<div className="home-page-container">
 				<div className="home-page-feed">
 					{posts &&
