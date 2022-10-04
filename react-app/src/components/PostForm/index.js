@@ -16,6 +16,8 @@ import {
 	getPosts,
 } from "../../store/subreddits";
 
+import { authenticate } from "../../store/session";
+
 function PostForm() {
 	const history = useHistory();
 	const location = useLocation();
@@ -96,6 +98,7 @@ function PostForm() {
 			dispatch(createAPostImage(subredditId, formData)).then((data) => {
 				dispatch(getSubInfo(data.subreddit_name)).then((subData) => {
 					dispatch(getPosts(subData.name)).then(() => {
+						dispatch(authenticate());
 						history.replace();
 						return history.push(
 							`/r/${data.subreddit_name}/${data.id}`
@@ -107,6 +110,7 @@ function PostForm() {
 			dispatch(createAPost(subredditId, formData)).then((data) => {
 				dispatch(getSubInfo(data.subreddit_name)).then((subData) => {
 					dispatch(getPosts(subData.name)).then((postsData) => {
+						dispatch(authenticate());
 						history.replace();
 						return history.push(
 							`/r/${data.subreddit_name}/${data.id}`
@@ -210,7 +214,9 @@ function PostForm() {
 					<div className="submit-post-container">
 						<div
 							className="cancel-button"
-							onClick={() => history.push(`/user/${username}/submitted`)}
+							onClick={() =>
+								history.push(`/user/${username}/submitted`)
+							}
 						>
 							Cancel
 						</div>

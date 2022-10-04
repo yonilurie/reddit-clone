@@ -250,6 +250,16 @@ export const createAPostImage = (subredditId, formData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
+
+		// Make an upvote when you post a post
+		const formData = new FormData();
+		formData.append("upvote", true);
+		formData.append("post_id", data.id);
+		const upvoteResponse = await fetch("/api/vote", {
+			method: "POST",
+			body: formData,
+		});
+
 		dispatch(createPost(data));
 		return data;
 	}
@@ -261,6 +271,16 @@ export const createAPost = (subredditId, formData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
+
+		// Make an upvote when you post a post
+		const formData = new FormData();
+		formData.append("upvote", true);
+		formData.append("post_id", data.id);
+		const upvoteResponse = await fetch("/api/vote", {
+			method: "POST",
+			body: formData,
+		});
+
 		dispatch(createPost(data));
 		return data;
 	}
