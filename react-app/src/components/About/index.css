@@ -53,13 +53,16 @@ ul {
 }
 
 @media screen and (max-width: 1100px) {
-	ul {
-		flex-direction: column;
-	}
 	.about-container-main {
 		min-width: fit-content;
 	}
 	.about-container {
 		min-width: fit-content;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.about-container {
+		width: 90vw;
 	}
 }

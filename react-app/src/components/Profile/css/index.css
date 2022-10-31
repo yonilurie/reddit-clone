@@ -411,3 +411,32 @@
 		display: none;
 	}
 }
+
+@media screen and (max-width: 1000px) {
+	.user-profile-tabs {
+		justify-content: center;
+	}
+
+	.profile-content-container-wide {
+		margin: 0px;
+		padding: 0px;
+		width: 100vw;
+		max-width: 100%;
+		margin-top: 15px;
+	}
+
+	.profile-content-wide {
+		width: 100vw;
+		max-width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.user-post-container {
+		padding: 0px;
+		margin: 0px;
+		width: 100%;
+		max-width: 100%;
+	}
+}
