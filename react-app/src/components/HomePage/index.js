@@ -21,7 +21,6 @@ function HomePage() {
 	const dispatch = useDispatch();
 	const [subs, setSubs] = useState([]);
 	const [posts, setPosts] = useState([]);
-	const [loaded, setLoaded] = useState(false);
 
 	const all = useSelector((state) => state.subreddits.all);
 	const user = useSelector((state) => state.session.user);
@@ -44,7 +43,6 @@ function HomePage() {
 		})();
 		if (!all) {
 			dispatch(getHomePosts()).then(() => {});
-			setLoaded(true);
 		}
 	}, [all, dispatch]);
 
@@ -90,7 +88,7 @@ function HomePage() {
 							<SubredditLoading></SubredditLoading>
 						</>
 					)}
-					{posts && !posts.length > 0 && (
+					{!subs && posts && posts.length === 0 && (
 						<div className="homepage-no-posts-container">
 							<div className="homepage-no-posts-text">
 								No random posts loaded, try refreshing the page!

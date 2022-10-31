@@ -130,3 +130,16 @@
 .splash-about:hover {
 	color: rgb(0, 121, 211);
 }
+
+@media screen and (max-width: 1000px) {
+	.sub-post-container {
+		width: 95vw;
+		height: 10vh;
+	}
+
+	.home-page-feed {
+		width: 100vw;
+		display: flex;
+		align-items: center;
+	}
+}
