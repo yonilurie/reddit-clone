@@ -29,7 +29,7 @@ function NavBar() {
 				</NavLink>
 				{user && <SubscribedSubreddits></SubscribedSubreddits>}
 			</div>
-			
+
 			<SearchBar></SearchBar>
 			<div className="login-signup-menu">
 				{!user && (

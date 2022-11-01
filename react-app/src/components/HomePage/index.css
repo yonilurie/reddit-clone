@@ -134,7 +134,7 @@
 @media screen and (max-width: 1000px) {
 	.sub-post-container {
 		width: 100vw;
-		height: 10vh;
+		height: 20vh;
 	}
 
 	.home-page-feed {
@@ -145,5 +145,24 @@
 
 	.subreddit-posts {
 		row-gap: 0px;
+	}
+
+	.home-page-container {
+		flex-direction: column-reverse;
+		gap: 0px;
+	}
+
+	.home-page-container > .subreddit-info {
+		align-items: center;
+		gap: 5px;
+	}
+
+	.home-sub-list,
+	.reccomended-title {
+		width: 100vw;
+	}
+
+	.home-page-container-main {
+		margin-top: 0px;
 	}
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function AboutSideCard({ sub }) {
 	useEffect(() => {});
 	return (
-		<>
+		<div className="subreddit-info-card">
 			<div
 				className="subreddit-info-card-top"
 				style={{ backgroundColor: `${sub ? `${sub.color}` : ""}` }}
@@ -33,7 +33,7 @@ function AboutSideCard({ sub }) {
 					About the project
 				</Link>
 			</div>
-		</>
+		</div>
 	);
 }
 

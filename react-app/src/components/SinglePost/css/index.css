@@ -278,4 +278,7 @@
 	.vote-percent {
 		margin-right: 10px;
 	}
+	.sub-post-container {
+		height: fit-content;
+	}
 }

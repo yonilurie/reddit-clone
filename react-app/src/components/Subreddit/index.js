@@ -133,31 +133,26 @@ const Subreddit = () => {
 						)}
 						{loaded && (
 							<div className="subreddit-info">
-								<div>
-									<SubredditInfoCard
-										sub={sub}
-										title="About Community"
-									>
-										<SubredditInfoAbout></SubredditInfoAbout>
-									</SubredditInfoCard>
-								</div>
-								<div>
-									<SubredditInfoCard
-										sub={sub}
-										title={`r/${sub.name} Rules`}
-									>
-										<SubredditInfoRules></SubredditInfoRules>
-									</SubredditInfoCard>
-								</div>
-								<div>
-									<SubredditInfoCard
-										sub={sub}
-										title="Moderator"
-									></SubredditInfoCard>
-								</div>
-								<div>
-									<AboutSideCard sub={sub}></AboutSideCard>
-								</div>
+								<SubredditInfoCard
+									sub={sub}
+									title="About Community"
+								>
+									<SubredditInfoAbout></SubredditInfoAbout>
+								</SubredditInfoCard>
+
+								<SubredditInfoCard
+									sub={sub}
+									title={`r/${sub.name} Rules`}
+								>
+									<SubredditInfoRules></SubredditInfoRules>
+								</SubredditInfoCard>
+
+								<SubredditInfoCard
+									sub={sub}
+									title="Moderator"
+								></SubredditInfoCard>
+
+								<AboutSideCard sub={sub}></AboutSideCard>
 							</div>
 						)}
 					</div>
