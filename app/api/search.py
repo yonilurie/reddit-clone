@@ -16,17 +16,17 @@ def general_search():
     search = request.args.get('s')
 
     posts_obj = {}
-    posts = Post.query.filter(Post.title.like(f"%{search}%"))
+    posts = Post.query.filter(Post.title.ilike(f"%{search}%"))
     for post in posts:
         posts_obj[post.id] = post.to_dict()
 
     users_obj = {}
-    users = User.query.filter(User.username.like(f"%{search}%"))
+    users = User.query.filter(User.username.ilike(f"%{search}%"))
     for user in users:
         users_obj[user.id] = user.to_dict()
 
     subreddits_obj = {}
-    subs = SubReddit.query.filter(SubReddit.name.like(f"%{search}%"))
+    subs = SubReddit.query.filter(SubReddit.name.ilike(f"%{search}%"))
     for sub in subs:
         subreddits_obj[sub.id] = sub.to_dict()
 
