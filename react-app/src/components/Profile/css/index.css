@@ -440,15 +440,9 @@
 		max-width: 100%;
 	}
 
+	.profile-post-text,
+	.profile-post-info-container,
 	.user-post-container {
-		width: 100%;
-	}
-
-	.profile-post-info-container {
-		width: 100%;
-	}
-
-	.profile-post-text {
 		width: 100%;
 	}
 

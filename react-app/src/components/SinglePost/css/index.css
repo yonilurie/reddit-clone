@@ -258,14 +258,12 @@
 }
 
 @media screen and (max-width: 1000px) {
-	.single-post-sub-info-container {
-		width: 100vw;
-		max-width: 100vw;
-	}
+	.single-post-sub-info-container,
 	.single-post-container {
 		width: 100vw;
 		max-width: 100vw;
 	}
+
 	.single-post {
 		width: 100vw;
 		max-width: 100vw;

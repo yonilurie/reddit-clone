@@ -286,18 +286,11 @@ a {
 		width: 40%;
 	}
 
-	.subscribed-subs-container {
-		display: none;
-	}
-
 	.logo-and-subscribed {
 		align-items: center;
 	}
 
-	.login-signup-menu {
-		height: 100%;
-	}
-
+	.login-signup-menu,
 	.submit-post-link {
 		height: 100%;
 	}
@@ -339,7 +332,8 @@ a {
 		padding: 0px;
 	}
 
-	.fa-angle-down {
+	.fa-angle-down,
+	.subscribed-subs-container {
 		display: none;
 	}
 }
