@@ -273,15 +273,16 @@ a {
 
 @media screen and (max-width: 1000px) {
 	.nav-container {
-		height: 5vh;
+		height: 50px;
+		padding: 5px;
 	}
 
 	.nav-logo {
-		height: 40px;
+		height: 30px;
 	}
 
 	.search-bar-container {
-		height: 64px;
+		height: 40px;
 		width: 40%;
 	}
 
@@ -302,16 +303,15 @@ a {
 	}
 
 	.profile-toggle {
+		width: fit-content;
 		height: 100%;
-	}
-
-	.submit-post-link {
-		display: none;
 	}
 
 	.profile-menu-user-info {
 		height: 100%;
 		width: 100%;
+		max-width: 100%;
+		min-width: none;
 	}
 
 	.profile-menu-profile-image {
@@ -321,5 +321,25 @@ a {
 
 	.profile-menu-username {
 		font-size: 20px;
+	}
+
+	.login-signup-container {
+		margin: 0px;
+	}
+	.login-signup-container > button {
+		width: 75px;
+		height: 32px;
+	}
+	.login-signup-container > div {
+		width: 75px;
+		height: 32px;
+	}
+
+	.profile-menu-user-stats {
+		padding: 0px;
+	}
+
+	.fa-angle-down {
+		display: none;
 	}
 }

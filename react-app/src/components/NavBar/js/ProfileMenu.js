@@ -15,6 +15,7 @@ const ProfileMenu = ({
 	showModal,
 	setShowModal,
 	action,
+	setAction,
 }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -99,12 +100,30 @@ const ProfileMenu = ({
 					) : (
 						<div
 							className="auth-container-profile-menu profile-menu-el"
-							onClick={() => setShowModal(true)}
+							onClick={() => {
+								setAction("Log In");
+								setShowModal(true);
+							}}
 						>
 							<div>
 								<i className="fa-regular fa-circle-user"></i>
 							</div>
 							<div>Log in </div>
+						</div>
+					)}
+
+					{!user && (
+						<div
+							className="auth-container-profile-menu profile-menu-el"
+							onClick={() => {
+								setAction("Sign Up");
+								setShowModal(true);
+							}}
+						>
+							<div>
+								<i className="fa-regular fa-circle-user"></i>
+							</div>
+							<div>Sign up </div>
 						</div>
 					)}
 					<div className="no-copyright">

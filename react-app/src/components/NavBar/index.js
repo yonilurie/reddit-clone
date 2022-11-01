@@ -47,7 +47,7 @@ function NavBar() {
 						>
 							Demo User
 						</div>
-						<button
+						{/* <button
 							className="login-button"
 							onClick={() => {
 								setAction("Log In");
@@ -65,7 +65,7 @@ function NavBar() {
 							}}
 						>
 							Sign Up
-						</button>
+						</button> */}
 					</div>
 				)}
 				{user && (
@@ -114,6 +114,7 @@ function NavBar() {
 						showModal={showModal}
 						setShowModal={setShowModal}
 						action={action}
+						setAction={setAction}
 					></ProfileMenu>
 				</div>
 			</div>

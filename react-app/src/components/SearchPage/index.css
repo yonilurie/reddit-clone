@@ -254,4 +254,9 @@
 	.search-post-card {
 		width: 100vw;
 	}
+
+	.search-post-bottom {
+		width: fit-content;
+		gap: 5px	;
+	}
 }

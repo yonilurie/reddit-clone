@@ -135,11 +135,23 @@
 	.sub-post-container {
 		width: 100vw;
 		height: 20vh;
+		min-width: 100vw;
+		max-width: 100%;
+	}
+	.sub-post-info {
+		min-width: 100%;
+		max-width: 100vw;
+	}
+
+	.sub-post-info-container {
+		max-width: 100%;
+		width: 100vw;
 	}
 
 	.home-page-feed {
 		width: 100vw;
 		display: flex;
+		gap: 0px;
 		align-items: center;
 	}
 
@@ -164,5 +176,13 @@
 
 	.home-page-container-main {
 		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
+	.home-page-container {
+		flex-direction: column;
+	}
+	.home-sub-list {
+		display: none;
 	}
 }
