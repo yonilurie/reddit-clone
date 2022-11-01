@@ -439,4 +439,20 @@
 		width: 100%;
 		max-width: 100%;
 	}
+
+	.user-post-container {
+		width: 100%;
+	}
+
+	.profile-post-info-container {
+		width: 100%;
+	}
+
+	.profile-post-text {
+		width: 100%;
+	}
+
+	.profile-post-info-container {
+		max-width: none;
+	}
 }
