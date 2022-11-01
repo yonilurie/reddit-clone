@@ -147,7 +147,7 @@
 	margin-bottom: 10px;
 	display: flex;
 	flex-direction: column;
-	gap: 10px	;
+	gap: 10px;
 }
 .choose-subreddit {
 	border: solid 1px rgb(237, 239, 241);
@@ -247,4 +247,24 @@ input[type="file"] {
 
 .image-upload-error {
 	color: red;
+}
+
+@media screen and (max-width: 1000px) {
+	.post-form {
+		min-width: 100%;
+		box-sizing: border-box;
+	}
+	.input-types {
+		width: 100%;
+		min-width: 100%;
+	}
+
+	.post-form-container {
+		width: 100vw;
+		margin: 0;
+	}
+.choose-subreddit {
+	border: solid 1px red;
+}
+	
 }

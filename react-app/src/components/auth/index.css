@@ -106,3 +106,9 @@ input[type="email"]:focus.signup-login-input {
 	outline: solid rgb(204, 85, 42) 1px;
 	box-sizing: border-box;
 }
+
+@media screen and (max-width: 1000px) {
+	.login-form-container {
+		max-width: 100%;
+	}
+}

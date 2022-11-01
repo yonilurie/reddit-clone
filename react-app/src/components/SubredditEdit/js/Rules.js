@@ -32,13 +32,14 @@ function SubredditRules({ sub }) {
 			<div className="edit-subreddit-main-content rules">
 				<h2 className="edit-subreddit-header rules">Rules</h2>
 				<h3 className="rules-header-details">
-					These are rules that visitors must follow to participate. (
-					Maximum 15 Rules )
+					These are rules that visitors must follow to participate.
+					<br></br>
+					(Maximum 15 Rules )
 				</h3>
 				{sub.rules && rules && (
 					<div className="edit-subreddit-rules-map">
 						{rules.map((rule, index) => {
-							if (!rule) return null
+							if (!rule) return null;
 							const [ruleTitle, ruleDetail] = rule.split(":");
 							return (
 								<RuleContainer

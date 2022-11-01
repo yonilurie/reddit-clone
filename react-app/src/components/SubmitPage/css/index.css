@@ -13,3 +13,21 @@
 .user-info-card-container-submit {
 	margin-top: 25px;
 }
+
+@media screen and (max-width: 1000px) {
+	.user-info-card-container-submit {
+		display: none;
+	}
+
+	.submit-page-container {
+		padding: 5px;
+		box-sizing: border-box;
+		margin: 0;
+		width: 100vw;
+	}
+
+	.post-form-flex,
+	.post-form {
+		max-width: 100vw;
+	}
+}

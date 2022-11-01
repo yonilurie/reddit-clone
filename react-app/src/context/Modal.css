@@ -27,5 +27,6 @@
 	height: fit-content;
 	overflow: scroll;
 	box-shadow: rgba(20, 20, 20, 0.4) 90px;
-  /* border: solid 20px red; */
+	max-width: 90vw;
+	/* border: solid 20px red; */
 }
