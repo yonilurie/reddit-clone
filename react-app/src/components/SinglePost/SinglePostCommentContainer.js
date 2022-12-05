@@ -1,3 +1,4 @@
+import React from 'react'
 import SinglePostComment from "./SinglePostComment";
 import SinglePostMakeComment from "./SinglePostMakeComment";
 

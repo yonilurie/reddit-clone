@@ -1,4 +1,5 @@
-function LinkForm({ link, setLink, setValidURL}) {
+import React from 'react'
+function LinkForm({ link, setLink, setValidURL }) {
 
 	//Auto resize the textarea as user types
 	const resizeInput = (e) => {

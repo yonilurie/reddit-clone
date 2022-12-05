@@ -1,3 +1,4 @@
+import React from 'react'
 // Plaveholder if a user has no posts
 function PlaceholderPosts({ user }) {
 	return (

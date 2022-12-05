@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import SubredditEditPlaceholder from "./js/Placeholder";
 import SubredditRules from "./js/Rules";

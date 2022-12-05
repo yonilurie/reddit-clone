@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 //Individual rule fo rusbreddit rule card
 function Rule({ idx, ruleTitle, ruleDetail }) {

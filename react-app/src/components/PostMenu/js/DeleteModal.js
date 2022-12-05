@@ -1,3 +1,4 @@
+import React from 'react'
 import { Modal } from "../../../context/Modal";
 import { deleteAPost, getSubInfo, getPosts } from "../../../store/subreddits";
 import { authenticate } from "../../../store/session";

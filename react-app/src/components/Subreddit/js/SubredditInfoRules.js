@@ -1,5 +1,5 @@
 import Rule from "./Rule";
-
+import React from 'react'
 // Card with subreddit rules
 function SubredditInfoRules({ sub }) {
 	const rules = sub.rules.split("%");

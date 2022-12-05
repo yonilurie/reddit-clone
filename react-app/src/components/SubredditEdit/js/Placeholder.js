@@ -1,3 +1,4 @@
+import React from 'react'
 //Plaveholder for editing a subreddit
 function SubredditEditPlaceholder() {
 	return (

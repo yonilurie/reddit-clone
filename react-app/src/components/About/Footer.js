@@ -1,3 +1,4 @@
+import React from 'react'
 import "./footer.css";
 import { Link, useParams } from "react-router-dom";
 

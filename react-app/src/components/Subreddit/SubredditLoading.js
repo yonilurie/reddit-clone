@@ -1,5 +1,5 @@
+import React from 'react'
 //Placeholder for subreddit loading
-
 function SubredditLoading() {
 	return (
 		<div className="loading-post-container">

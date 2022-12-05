@@ -1,7 +1,7 @@
 import "./index.css";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 function SubscribedSubreddits() {
 	const [currentSub, setCurrentSub] = useState("all");
 	const [showMenu, setShowMenu] = useState(false);

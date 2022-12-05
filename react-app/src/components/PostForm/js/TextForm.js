@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 //Text form for text post description
 function TextForm({ text, setText, post }) {

@@ -1,6 +1,6 @@
 import { Modal } from "../../../context/Modal";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { editARule, authenticate } from "../../../store/session";

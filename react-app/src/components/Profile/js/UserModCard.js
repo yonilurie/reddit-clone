@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import React from 'react'
 //Card which shows the subreddits a user is a moderator of
 function UserModCard({ user }) {
 

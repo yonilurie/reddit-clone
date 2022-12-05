@@ -1,5 +1,5 @@
+import React from 'react'
 import "./index.css";
-
 //The about page, contains list of technologies and contact information
 function About() {
 	return (
