@@ -12,18 +12,20 @@ def seed_comments():
     Comment4 = Comment(
         user_id=5, post_id=2, text='This is a test4')
     Comment5 = Comment(
-        user_id=3, post_id=3, text='This is a test5')
+        user_id=3, post_id=3, text='This is a test5', parent=Comment2)
     Comment6 = Comment(
-        user_id=6, post_id=2, text='This is a test6')
+        user_id=6, post_id=3, text='This is a test6', parent=Comment5)
 
-    db.session.add(Comment1)
-    db.session.add(Comment2)
-    db.session.add(Comment3)
-    db.session.add(Comment4)
-    db.session.add(Comment5)
-    db.session.add(Comment6)
+    # db.session.add(Comment1)
+    # db.session.add(Comment2)
+    # db.session.add(Comment3)
+    # db.session.add(Comment4)
+    # db.session.add(Comment5)
+    # db.session.add(Comment6)
+    for comment in [Comment1, Comment2, Comment3, Comment4, Comment5, Comment6]:
+        comment.save()
 
-    db.session.commit()
+    # db.session.commit()
 
 
 # Uses a raw SQL query to TRUNCATE the users table.

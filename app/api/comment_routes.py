@@ -15,6 +15,8 @@ def add_comment(post_id):
     '''
     Add a comment to a post
     '''
+    for comment in Comment.query.filter_by(post_id=post_id).order_by(Comment.path.asc()):
+        print('{}{}: {}'.format('  ' * comment.level(), comment.user, comment.text))
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

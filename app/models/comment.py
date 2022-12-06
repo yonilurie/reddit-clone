@@ -5,7 +5,7 @@ from sqlalchemy.sql import func
 
 class Comment(db.Model):
     __tablename__ = "comments"
-
+    _N = 6
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     user = db.relationship("User", back_populates="comments")
@@ -14,7 +14,12 @@ class Comment(db.Model):
     text = db.Column(db.String(10000), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=True, server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), nullable=True, onupdate=func.now())
-
+    # For nested comments
+    path = db.Column(db.Text, index=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+    replies = db.relationship(
+    'Comment', backref=db.backref('parent', remote_side=[id]),
+    lazy='dynamic')
 
     votes = db.relationship("CommentVote", back_populates="comment", cascade="all, delete-orphan")
     
@@ -44,3 +49,13 @@ class Comment(db.Model):
     
         vote_stats = {"upvote_count": upvotes, "downvote_count": downvotes, "total": total}
         return vote_stats
+    # For nested comments
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        prefix = self.parent.path + '.' if self.parent else ''
+        self.path = prefix + '{:0{}d}'.format(self.id, self._N)
+        db.session.commit()
+
+    def level(self):
+        return len(self.path) 

@@ -18,7 +18,7 @@ def seed():
     seed_subreddits()
     seed_posts()
     seed_members()
-    # seed_comments()
+    seed_comments()
     seed_votes()
     # Add other seed functions here
 
@@ -30,6 +30,6 @@ def undo():
     undo_subreddits()
     undo_posts()
     undo_members()
-    # undo_comments()
+    undo_comments()
     undo_votes()
     # Add other undo functions here
