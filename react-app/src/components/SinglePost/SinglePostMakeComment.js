@@ -29,9 +29,7 @@ function SinglePostMakeComment({
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (!user) return;
-
 		if (commentText.length === 0 || commentText.length >= 10000) return;
-
 		if (commentToReply) {
 			dispatch(
 				replyToAComment(
@@ -56,7 +54,6 @@ function SinglePostMakeComment({
 			setCommentText("");
 			setEditComment(false);
 		} else {
-			console.log("here");
 			dispatch(
 				addAComment(commentText, post.id, post.subreddit_name)
 			).then((data) => {

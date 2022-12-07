@@ -27,9 +27,9 @@ const SignUpForm = ({ action, setShowModal }) => {
 	};
 
 	const updateUsername = (username) => {
-		let temp = username.replace(' ', '')
-		setUsername(temp)
-	}
+		let temp = username.replace(" ", "");
+		setUsername(temp);
+	};
 
 	const onLogin = async (e) => {
 		e.preventDefault();
@@ -40,15 +40,14 @@ const SignUpForm = ({ action, setShowModal }) => {
 		}
 
 		const data = await dispatch(signUp(username, email, password));
-		if (data) {
-			const dataErrors = []
-			//Formats any errors
-			data.forEach(e => {
-				let msg = e.split(':')[1]
-				dataErrors.push(msg)
-			})
-			setErrors(dataErrors);
-		} else setShowModal(false);
+		if (!data) setShowModal(false);
+		const dataErrors = [];
+		//Formats any errors
+		data.forEach((e) => {
+			let msg = e.split(":")[1];
+			dataErrors.push(msg);
+		});
+		setErrors(dataErrors);
 	};
 
 	// Remove erros if user starts typing
@@ -84,7 +83,7 @@ const SignUpForm = ({ action, setShowModal }) => {
 						className="signup-login-input"
 						value={email}
 						onChange={updateEmail}
-							placeholder="(Maximum 255 characters)"
+						placeholder="(Maximum 255 characters)"
 						required={true}
 						onInvalid={(e) =>
 							e.target.setCustomValidity(
@@ -95,7 +94,7 @@ const SignUpForm = ({ action, setShowModal }) => {
 						maxLength={"255"}
 					/>
 					<label htmlFor="email" className={`input-label`}>
-						Email 
+						Email
 					</label>
 				</div>
 				<div className="input-container">
@@ -103,7 +102,6 @@ const SignUpForm = ({ action, setShowModal }) => {
 						name="username"
 						type="text"
 						className="signup-login-input"
-					
 						value={username}
 						onChange={(e) => updateUsername(e.target.value)}
 						required={true}

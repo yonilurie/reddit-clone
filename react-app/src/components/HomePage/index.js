@@ -10,7 +10,6 @@ import {
 import { authenticate } from "../../store/session";
 
 import HomepagePostCard from "./HomepagePostCard";
-import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import AboutSideCard from "../About/AboutSideCard";
 import SubredditLoading from "../Subreddit/SubredditLoading";
 

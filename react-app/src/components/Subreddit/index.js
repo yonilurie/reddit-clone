@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,10 +40,9 @@ const Subreddit = () => {
 
 	//If subreddit is not loaded, create a timeout
 	useEffect(() => {
-		if (!subreddits[subreddit]) {
-			const timeout = setTimeout(() => setLoaded(true), 500);
-			return () => clearTimeout(timeout);
-		} else setLoaded(true);
+		if (subreddits[subreddit]) return setLoaded(true);
+		const timeout = setTimeout(() => setLoaded(true), 500);
+		return () => clearTimeout(timeout);
 	}, [subreddit, subreddits]);
 
 	return (
