@@ -125,21 +125,21 @@ const HomepagePostCard = ({ post }) => {
 					)}
 				</div>
 				<div className="single-post-bottom-bar">
-					{/* <Link to={`/r/${post.subreddit_name}/${post.id}`}>
+					<Link to={`/r/${post.subreddit_name}/${post.id}`}>
 						<div className="single-post-comments-count">
 							<i className="fa-regular fa-message"></i>
 							<div>{post.comment_count}</div>
 						</div>
-					</Link> */}
-					{/* 
-					<div className="share">
+					</Link>
+					
+					{/* <div className="share">
 						<i className="fa-solid fa-share"></i>
 						<div>share</div>
 					</div> */}
-					{/* {currentUser &&
+					{currentUser &&
 						currentUser.username === post.user.username && (
 							<div className="edit">...</div>
-						)} */}
+						)}
 				</div>
 			</div>
 		</div>
