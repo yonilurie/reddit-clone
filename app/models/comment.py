@@ -17,11 +17,14 @@ class Comment(db.Model):
     # For nested comments
     path = db.Column(db.Text, index=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+    
     replies = db.relationship(
     'Comment', backref=db.backref('parent', remote_side=[id]),
-    lazy='dynamic')
+    lazy='dynamic',cascade="all, delete-orphan")
 
-    votes = db.relationship("CommentVote", back_populates="comment", cascade="all, delete-orphan")
+    votes = db.relationship(
+    "CommentVote", back_populates="comment", 
+    cascade="all, delete-orphan")
     
     def to_dict(self):
         return {
