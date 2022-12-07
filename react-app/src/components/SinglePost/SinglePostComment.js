@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { makeCommentVote, replyToAComment } from "../../store/subreddits.js";
+import { makeCommentVote } from "../../store/subreddits.js";
 import { authenticate } from "../../store/session.js";
 
 import { getTimeElapsed } from "../../util/index.js";
@@ -31,7 +31,6 @@ function SinglePostComment({ post, comment }) {
 						onClick={() => setCollapse((state) => !state)}
 					></div>
 				</div>
-
 				<div className="single-post-comment-right">
 					<div className="single-post-comment-user-info">
 						<span className="single-post-comment-username">
@@ -89,7 +88,6 @@ function SinglePostComment({ post, comment }) {
 									).then(() => dispatch(authenticate()));
 								}}
 							>
-								{" "}
 								<i
 									className={`fa-solid fa-arrow-down ${
 										user &&
@@ -104,11 +102,6 @@ function SinglePostComment({ post, comment }) {
 
 						{user && user.id === comment.user_id && (
 							<div className="edit-comment-dots-container">
-								{/* {!editComment && (
-								<div onClick={() => setEditComment(true)}>
-									...
-								</div>
-							)} */}
 								<CommentMenu
 									setEditComment={setEditComment}
 									editComment={editComment}
@@ -158,7 +151,7 @@ function SinglePostComment({ post, comment }) {
 					})}
 				</div>
 			)}
-			{comment.replies.length > 0 && collapse && (
+			{collapse && comment.replies.length > 0 && (
 				<div
 					className="reply-count"
 					onClick={() => setCollapse((state) => !state)}

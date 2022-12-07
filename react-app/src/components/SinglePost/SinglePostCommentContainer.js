@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import SinglePostComment from "./SinglePostComment";
 import SinglePostMakeComment from "./SinglePostMakeComment";
 
@@ -8,17 +8,15 @@ function SinglePostCommentContainer({ post, editComment, setEditComment }) {
 		<div className="single-post-comments-container">
 			<SinglePostMakeComment post={post}></SinglePostMakeComment>
 			{post.comments.length > 0 &&
-				post.comments.map((comment) => {
-					return (
-						<SinglePostComment
-							key={comment.id}
-							comment={comment}
-							post={post}
-							editComment={editComment}
-							setEditComment={setEditComment}
-						></SinglePostComment>
-					);
-				})}
+				post.comments.map((comment) => (
+					<SinglePostComment
+						key={comment.id}
+						comment={comment}
+						post={post}
+						editComment={editComment}
+						setEditComment={setEditComment}
+					></SinglePostComment>
+				))}
 		</div>
 	);
 }

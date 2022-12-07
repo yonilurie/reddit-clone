@@ -186,6 +186,7 @@ export const deleteASubreddit = (subredditId, subredditName) => async (
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(deleteSub(subredditName));
+		return data;
 	}
 };
 

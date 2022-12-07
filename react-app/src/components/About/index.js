@@ -13,7 +13,7 @@ function About() {
 						href="https://www.reddit.com/"
 						className="external-link"
 						target="_blank"
-						rel="noreferrer"
+						rel="noopener noreferrer"
 					>
 						{" "}
 						Reddit.com{" "}
@@ -27,7 +27,7 @@ function About() {
 						<a
 							href="https://www.linkedin.com/in/yonatan-lurie-464266203/"
 							target="_blank"
-							rel="noreferrer"
+							rel="noopener noreferrer"
 							className="about-link-link"
 						>
 							<svg
@@ -45,7 +45,7 @@ function About() {
 						<a
 							href="https://github.com/yonilurie/reddit-clone"
 							target="_blank"
-							rel="noreferrer"
+							rel="noopener noreferrer"
 							className="about-link-link"
 						>
 							<svg

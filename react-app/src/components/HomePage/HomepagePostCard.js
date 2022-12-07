@@ -95,7 +95,7 @@ const HomepagePostCard = ({ post }) => {
 						<a
 							href={post.image}
 							target="_blank"
-							rel="noreferrer"
+							rel="noopener noreferrer"
 							className="sub-image-link"
 						>
 							<img
@@ -114,7 +114,7 @@ const HomepagePostCard = ({ post }) => {
 						</Link>
 					)}
 					{post.link && (
-						<a href={post.link} target="_blank" rel="noreferrer">
+						<a href={post.link} target="_blank" rel="noopener noreferrer">
 							<div className="subreddit-url">
 								{post.link.length > 50
 									? `${post.link.slice(0, 50)}...`

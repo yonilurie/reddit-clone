@@ -88,7 +88,9 @@ function SinglePostContent({
 							<div className="profile-post-subreddit">
 								<span className="profile-post-time">
 									{`Posted by `}
-									<Link to={`/user/${post.user.username}/submitted`}>
+									<Link
+										to={`/user/${post.user.username}/submitted`}
+									>
 										<span className="profile-post-username">
 											{`u/${post.user.username} `}{" "}
 										</span>
@@ -113,7 +115,7 @@ function SinglePostContent({
 						<a
 							href={post.image}
 							target="_blank"
-							rel="noreferrer"
+							rel="noopener noreferrer"
 							className="single-post-image-link"
 						>
 							<img
@@ -157,7 +159,11 @@ function SinglePostContent({
 						</>
 					)}
 					{post.link && (
-						<a href={post.link} target="_blank" rel="noreferrer">
+						<a
+							href={post.link}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
 							<div className="subreddit-url">
 								{post.link.length > 50
 									? `${post.link.slice(0, 50)}...`

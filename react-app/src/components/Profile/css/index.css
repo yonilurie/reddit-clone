@@ -406,13 +406,10 @@
 	max-width: 90%;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1000px) {
 	.user-info-main-container {
 		display: none;
 	}
-}
-
-@media screen and (max-width: 1000px) {
 	.user-profile-tabs {
 		justify-content: center;
 	}

@@ -255,7 +255,7 @@ export const createAPostImage = (subredditId, formData) => async (dispatch) => {
 		const formData = new FormData();
 		formData.append("upvote", true);
 		formData.append("post_id", data.id);
-		const upvoteResponse = await fetch("/api/vote", {
+		await fetch("/api/vote", {
 			method: "POST",
 			body: formData,
 		});
@@ -276,7 +276,7 @@ export const createAPost = (subredditId, formData) => async (dispatch) => {
 		const formData = new FormData();
 		formData.append("upvote", true);
 		formData.append("post_id", data.id);
-		const upvoteResponse = await fetch("/api/vote", {
+		await fetch("/api/vote", {
 			method: "POST",
 			body: formData,
 		});
@@ -333,9 +333,16 @@ export const addAComment = (comment, postId, subredditName) => async (
 		method: "POST",
 		body: formData,
 	});
-	console.log(response);
 	if (response.ok) {
 		const data = await response.json();
+		const formData = new FormData();
+		console.log(data)
+		formData.append("upvote", true);
+		formData.append("comment_id", data.id);
+		await fetch("/api/vote/comment", {
+			method: "POST",
+			body: formData,
+		});
 		dispatch(addComment(data, subredditName));
 		return data;
 	}

@@ -1,11 +1,7 @@
-from unittest import result
 from flask import request, jsonify, Blueprint
-from app.api.user_routes import users
 from app.models import SubReddit, User, Post
 
-
 search_routes = Blueprint('search', __name__)
-
 
 @search_routes.route('')
 def general_search():
@@ -33,7 +29,4 @@ def general_search():
     result['subreddits'] = subreddits_obj
     result['posts'] = posts_obj
     result['users'] = users_obj
-
     return jsonify(result)
-
-

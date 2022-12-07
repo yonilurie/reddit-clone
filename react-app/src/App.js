@@ -14,9 +14,7 @@ import SubredditEdit from "./components/SubredditEdit";
 import SubmitPage from "./components/SubmitPage";
 import Error404 from "./components/ErrorPages/404";
 import About from "./components/About";
-import Footer from "./components/About/Footer";
 import SearchPage from "./components/SearchPage";
-import UserHomePage from "./components/UserHomePage";
 
 function App() {
 	const dispatch = useDispatch();
@@ -81,7 +79,6 @@ function App() {
 					<Error404></Error404>
 				</Route>
 			</Switch>
-			{/* <Footer></Footer> */}
 		</BrowserRouter>
 	);
 }

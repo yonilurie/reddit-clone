@@ -108,6 +108,7 @@
 	min-width: 310px;
 
 	height: fit-content;
+	/* height: 100%; */
 	border: solid 1px rgb(204, 204, 204);
 	border-radius: 4px;
 }
@@ -142,7 +143,7 @@
 .subreddit-info-card-rules,
 .subreddit-info-card-moderator {
 	background-color: white;
-	height: 100%;
+
 	padding: 12px;
 	display: flex;
 	flex-direction: column;
@@ -556,7 +557,7 @@ h1 {
 	.empty-post-text-container-flex {
 		width: 100vw;
 		max-width: 100vw;
-		min-width: 100vw
+		min-width: 100vw;
 	}
 
 	.sub-display-name {

@@ -15,7 +15,7 @@ function AboutSideCard({ sub }) {
 				<a
 					href="https://www.linkedin.com/in/yonatan-lurie-464266203"
 					target="_blank"
-					rel="noreferrer"
+					rel="noopener noreferrer"
 					className="footer-about-link"
 				>
 					Linkedin
@@ -23,7 +23,7 @@ function AboutSideCard({ sub }) {
 				<a
 					href="https://github.com/yonilurie/reddit-clone"
 					target="_blank"
-					rel="noreferrer"
+					rel="noopener noreferrer"
 					className="footer-about-link"
 				>
 					Github Repo

@@ -17,7 +17,7 @@ function Footer() {
 						<a
 							href="https://github.com/yonilurie/reddit-clone"
 							target="_blank"
-							rel="noreferrer"
+							rel="noopener noreferrer"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ function Footer() {
 						<a
 							href="https://www.linkedin.com/in/yonatan-lurie-464266203"
 							target="_blank"
-							rel="noreferrer"
+							rel="noopener noreferrer"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

@@ -84,7 +84,7 @@ function UserPostCard({ postId, post }) {
 							<a
 								href={post.image}
 								target="_blank"
-								rel="noreferrer"
+								rel="noopener noreferrer"
 							>
 								<img
 									src={post.image}
@@ -98,7 +98,7 @@ function UserPostCard({ postId, post }) {
 							<a
 								href={`/r/${post.subreddit_name}/${post.id}`}
 								target="_blank"
-								rel="noreferrer"
+								rel="noopener noreferrer"
 							>
 								<div className="image-box">
 									<i className="fa-solid fa-align-justify"></i>
@@ -109,7 +109,7 @@ function UserPostCard({ postId, post }) {
 							<a
 								href={post.link}
 								target="_blank"
-								rel="noreferrer"
+								rel="noopener noreferrer"
 							>
 								<div className="image-box">
 									<i className="fa-solid fa-link"></i>
@@ -122,7 +122,7 @@ function UserPostCard({ postId, post }) {
 							<a
 								href={`/r/${post.subreddit_name}/${post.id}`}
 								target="_blank"
-								rel="noreferrer"
+								rel="noopener noreferrer"
 							>
 								<div className="image-box">
 									<i className="fa-solid fa-align-justify"></i>

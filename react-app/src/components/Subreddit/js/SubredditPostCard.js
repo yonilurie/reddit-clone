@@ -72,7 +72,9 @@ const SubredditPostCard = ({ post }) => {
 							<div className="profile-post-subreddit">
 								<span className="profile-post-time">
 									{`Posted by `}
-									<Link to={`/user/${post.user.username}/submitted`}>
+									<Link
+										to={`/user/${post.user.username}/submitted`}
+									>
 										<span className="sub-post-time username">
 											u/{post.user.username}
 										</span>{" "}
@@ -90,7 +92,7 @@ const SubredditPostCard = ({ post }) => {
 						<a
 							href={post.image}
 							target="_blank"
-							rel="noreferrer"
+							rel="noopener noreferrer"
 							className="sub-image-link"
 						>
 							<img
@@ -109,7 +111,11 @@ const SubredditPostCard = ({ post }) => {
 						</Link>
 					)}
 					{post.link && (
-						<a href={post.link} target="_blank" rel="noreferrer">
+						<a
+							href={post.link}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
 							<div className="subreddit-url">
 								{post.link.length > 50
 									? `${post.link.slice(0, 50)}...`
