@@ -306,6 +306,14 @@
 	display: flex;
 	justify-content: flex-start;
 	width: 90%;
+	align-items: center;
+	
+}
+
+.fa-solid.fa-arrow-right {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .reply-count:hover {

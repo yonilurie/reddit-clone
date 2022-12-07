@@ -113,7 +113,7 @@ function SinglePostComment({ post, comment }) {
 							className="comment-reply-box"
 							onClick={() => setShowReply((state) => !state)}
 						>
-							<i className="fa-regular fa-message"></i>reply
+							<i className="fa-regular fa-message"></i>Reply
 						</div>
 					</div>
 					{editComment && (
@@ -156,7 +156,7 @@ function SinglePostComment({ post, comment }) {
 					className="reply-count"
 					onClick={() => setCollapse((state) => !state)}
 				>
-					Continue this thread ->
+					Continue this thread <i className="fa-solid fa-arrow-right"></i>
 				</div>
 			)}
 		</>
