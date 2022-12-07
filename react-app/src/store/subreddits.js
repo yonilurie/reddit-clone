@@ -333,7 +333,7 @@ export const addAComment = (comment, postId, subredditName) => async (
 		method: "POST",
 		body: formData,
 	});
-
+	console.log(response);
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(addComment(data, subredditName));
@@ -355,10 +355,11 @@ export const replyToAComment = (
 			body: formData,
 		}
 	);
-
+	// const temp = await response.json()
+	// console.log(temp)
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data)
+		console.log(data);
 		dispatch(addComment(data, subredditName));
 		return data;
 	}

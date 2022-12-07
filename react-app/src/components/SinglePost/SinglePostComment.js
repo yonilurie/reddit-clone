@@ -14,6 +14,7 @@ function SinglePostComment({ post, comment }) {
 
 	const [editComment, setEditComment] = useState(false);
 	const [collapse, setCollapse] = useState(true);
+	const [showReply, setShowReply] = useState(false);
 	const user = useSelector((state) => state.session.user);
 
 	return (
@@ -115,27 +116,11 @@ function SinglePostComment({ post, comment }) {
 								></CommentMenu>
 							</div>
 						)}
-						<button
-							onClick={() =>
-								dispatch(
-									replyToAComment(
-										`reply to comment${comment.id}`,
-										post.id,
-										post.subreddit_name,
-										comment.id
-									)
-								)
-							}
-						>
-							REPLY
-						</button>
-						
 						<div
-							className="reply-count"
-							onClick={() => setCollapse((state) => !state)}
+							className="comment-reply-box"
+							onClick={() => setShowReply((state) => !state)}
 						>
-							{comment.replies.length}{" "}
-							{comment.replies.length === 1 ? "reply" : "replies"}
+							<i className="fa-regular fa-message"></i>reply
 						</div>
 					</div>
 					{editComment && (
@@ -148,6 +133,16 @@ function SinglePostComment({ post, comment }) {
 					)}
 				</div>
 			</div>
+			{showReply && (
+				<SinglePostMakeComment
+					post={post}
+					editComment={editComment}
+					setEditComment={setEditComment}
+					commentToReply={comment}
+					setCollapse={setCollapse}
+					setShowReply={setShowReply}
+				></SinglePostMakeComment>
+			)}
 			{!collapse && comment.replies.length > 0 && (
 				<div className="comment-replies-container">
 					{comment.replies.map((reply) => {
@@ -161,6 +156,14 @@ function SinglePostComment({ post, comment }) {
 							></SinglePostComment>
 						);
 					})}
+				</div>
+			)}
+			{comment.replies.length > 0 && collapse && (
+				<div
+					className="reply-count"
+					onClick={() => setCollapse((state) => !state)}
+				>
+					Continue this thread ->
 				</div>
 			)}
 		</>

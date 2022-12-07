@@ -56,7 +56,7 @@ class Comment(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
-        prefix = self.parent.path + '.' if self.parent else ''
+        prefix = f'self.parent.path' + '.' if self.parent else ''
         self.path = prefix + '{:0{}d}'.format(self.id, self._N)
         db.session.commit()
 

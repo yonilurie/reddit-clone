@@ -304,8 +304,24 @@
 .reply-count {
 	font-size: 12px;
 	cursor: pointer;
+	display: flex;
+	justify-content: flex-start;
+	width: 90%;
 }
 
 .reply-count:hover {
 	color: rgb(15, 129, 214);
+}
+
+.comment-reply-box {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	padding: 5px;
+	border-radius: 4px;
+}
+
+.comment-reply-box:hover {
+	background-color: rgb(232, 232, 232);
 }

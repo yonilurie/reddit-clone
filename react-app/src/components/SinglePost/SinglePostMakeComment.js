@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addAComment, editAComment } from "../../store/subreddits";
+import {
+	addAComment,
+	editAComment,
+	replyToAComment,
+} from "../../store/subreddits";
 import { authenticate } from "../../store/session";
 
-function SinglePostMakeComment({ post, comment, setEditComment, editComment }) {
+function SinglePostMakeComment({
+	post,
+	comment,
+	setEditComment,
+	editComment,
+	commentToReply,
+	setCollapse,
+	setShowReply,
+}) {
 	const dispatch = useDispatch();
 
 	const [commentText, setCommentText] = useState("");
@@ -17,25 +29,40 @@ function SinglePostMakeComment({ post, comment, setEditComment, editComment }) {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (!user) return;
-		if (comment) {
-			if (commentText.length > 0 && commentText.length < 10000) {
-				dispatch(
-					editAComment(commentText, comment.id, post.subreddit_name)
-				).then((data) => {
-					dispatch(authenticate());
-				});
-				setCommentText("");
-				setEditComment(false);
-			}
+
+		if (commentText.length === 0 || commentText.length >= 10000) return;
+
+		if (commentToReply) {
+			dispatch(
+				replyToAComment(
+					commentText,
+					post.id,
+					post.subreddit_name,
+					commentToReply.id
+				)
+			).then((data) => {
+				dispatch(authenticate());
+			});
+			setCommentText("");
+			setCollapse(false);
+
+			setShowReply((state) => !state);
+		} else if (comment) {
+			dispatch(
+				editAComment(commentText, comment.id, post.subreddit_name)
+			).then((data) => {
+				dispatch(authenticate());
+			});
+			setCommentText("");
+			setEditComment(false);
 		} else {
-			if (commentText.length > 0 && commentText.length <= 10000) {
-				dispatch(
-					addAComment(commentText, post.id, post.subreddit_name)
-				).then((data) => {
-					dispatch(authenticate());
-				});
-				setCommentText("");
-			}
+			console.log("here");
+			dispatch(
+				addAComment(commentText, post.id, post.subreddit_name)
+			).then((data) => {
+				dispatch(authenticate());
+			});
+			setCommentText("");
 		}
 	};
 
