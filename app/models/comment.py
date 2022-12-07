@@ -5,7 +5,7 @@ from sqlalchemy.sql import func
 
 class Comment(db.Model):
     __tablename__ = "comments"
-    _N = 6
+    _N = 3
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     user = db.relationship("User", back_populates="comments")
@@ -32,7 +32,10 @@ class Comment(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "user": {"username": self.user.username, "profile_image": self.user.profile_image},
-            "votes": self.__votes__()
+            "votes": self.__votes__(),
+            "parent": self.parent_id,
+            "path": self.path,
+            "replies": self.get_replies()
         }
 
     def __votes__(self):
@@ -59,3 +62,6 @@ class Comment(db.Model):
 
     def level(self):
         return len(self.path) 
+
+    def get_replies(self):
+        return [ reply.to_dict() for reply in self.replies]

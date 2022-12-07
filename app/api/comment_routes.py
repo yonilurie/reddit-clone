@@ -2,7 +2,7 @@
 
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user, user_logged_in
-from app.models import  db, Comment, SubReddit, Post, post
+from app.models import  comment, db, Comment, SubReddit, Post, post
 
 
 from app.forms.comment_form import CommentForm, DeleteCommentForm
@@ -32,6 +32,32 @@ def add_comment(post_id):
 
     else:
         return jsonify(form.errors)
+
+@comment_routes.route('/<int:post_id>/reply/<string:original_comment_id>', methods=['POST'])
+@login_required
+def add_comment_reply(post_id, original_comment_id):
+    '''
+    Reply to a comment in a post
+    '''
+    original_comment = Comment.query.get(original_comment_id)
+    print(original_comment)
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_comment = Comment(
+            user_id = current_user.id,
+            post_id = post_id,
+            text = form.data['comment'],
+            parent = original_comment
+        )
+        new_comment.save()
+        post = Post.query.get(post_id)
+        return post.to_dict()
+
+    else:
+        return jsonify(form.errors)
+
+
 
 @comment_routes.route('/<int:comment_id>/delete', methods=['DELETE'])
 @login_required

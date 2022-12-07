@@ -340,6 +340,29 @@ export const addAComment = (comment, postId, subredditName) => async (
 		return data;
 	}
 };
+export const replyToAComment = (
+	comment,
+	postId,
+	subredditName,
+	originalCommentId
+) => async (dispatch) => {
+	const formData = new FormData();
+	formData.append("comment", comment);
+	const response = await fetch(
+		`/api/comments/${postId}/reply/${originalCommentId}`,
+		{
+			method: "POST",
+			body: formData,
+		}
+	);
+
+	if (response.ok) {
+		const data = await response.json();
+		console.log(data)
+		dispatch(addComment(data, subredditName));
+		return data;
+	}
+};
 export const editAComment = (comment, commentId, subredditName) => async (
 	dispatch
 ) => {

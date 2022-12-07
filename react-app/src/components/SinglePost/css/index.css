@@ -157,6 +157,11 @@
 	height: 100%;
 	width: 2px;
 	background-color: rgb(237, 239, 241);
+	cursor: pointer;
+}
+
+.comment-collapse-bar:hover {
+	background-color: rgb(15, 129, 214);
 }
 
 .single-post-comment-right {
@@ -284,4 +289,23 @@
 	.sub-post-container {
 		height: fit-content;
 	}
+}
+
+/* Testing nested comments */
+.comment-replies-container {
+	/* position: absolute; */
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	/* margin-left: 50px; */
+	width: 90%;
+}
+
+.reply-count {
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.reply-count:hover {
+	color: rgb(15, 129, 214);
 }

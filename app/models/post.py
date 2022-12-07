@@ -36,7 +36,7 @@ class Post(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "user": {"username": self.user.username},
-            "comments": [comment.to_dict() for comment in self.comments],
+            "comments": [comment.to_dict() for comment in self.comments if not comment.parent ],
             "comment_count": len(self.comments),
             "votes": self.__votes__()
         }
