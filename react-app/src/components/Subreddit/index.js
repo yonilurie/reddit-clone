@@ -49,114 +49,109 @@ const Subreddit = () => {
 		<div className="subreddit-outer-container">
 			{sub && <SubredditBanner sub={sub} />}
 			{sub && sub.id && (
-				<>
-					<div className="subreddit-inner-container">
-						{sub.posts && Object.values(sub.posts).length > 0 && (
-							<div className="subreddit-posts">
-								{/* {sub &&
+				<div className="subreddit-inner-container">
+					{sub.posts && Object.values(sub.posts).length > 0 && (
+						<div className="subreddit-posts">
+							{/* {sub &&
 										sub.posts &&
 										Object.values(sub.posts).length > 0 && */}
-								{Object.values(sub.posts)
-									.reverse()
-									.map((post) => (
-										<SubredditPostCard
-											post={post}
-											key={post.id}
-										></SubredditPostCard>
-									))}
-							</div>
-						)}
-
-						{loaded &&
-							sub.posts &&
-							Object.keys(sub.posts).length === 0 && (
-								<div className="empty-post-main">
-									{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
-										(empty) => {
-											return (
-												<div
-													className="empty-post-container"
-													key={empty}
-												>
-													<div className="empty-votes">
-														<i
-															className={`fa-solid fa-arrow-up `}
-														></i>
-														<i
-															className={`fa-solid fa-arrow-down `}
-														></i>
-													</div>
+							{Object.values(sub.posts)
+								.reverse()
+								.map((post) => (
+									<SubredditPostCard
+										post={post}
+										key={post.id}
+									></SubredditPostCard>
+								))}
+						</div>
+					)}
+					{loaded &&
+						sub.posts &&
+						Object.keys(sub.posts).length === 0 && (
+							<div className="empty-post-main">
+								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+									(empty) => {
+										return (
+											<div
+												className="empty-post-container"
+												key={empty}
+											>
+												<div className="empty-votes">
+													<i
+														className={`fa-solid fa-arrow-up `}
+													></i>
+													<i
+														className={`fa-solid fa-arrow-down `}
+													></i>
 												</div>
-											);
-										}
-									)}
-									<div className="empty-post-text-container-flex">
-										<div className="empty-post-text">
-											<div className="empty-post-big-text">
-												There are no posts in this
-												subreddit
 											</div>
-											<div className="empty-post-small-text">
-												{" "}
-												Be the first to till this
-												fertile land.
-											</div>
-											{currentUser && (
-												<Link
-													to={{
-														pathname: `/user/${currentUser.username}/submit`,
-														state: {
-															postSubId: sub.id,
-														},
-													}}
-													className="new-post-button-container"
-												>
-													<button
-														className="new-post-button"
-														style={{
-															width: "200px",
-														}}
-													>
-														New Post
-													</button>
-												</Link>
-											)}
+										);
+									}
+								)}
+								<div className="empty-post-text-container-flex">
+									<div className="empty-post-text">
+										<div className="empty-post-big-text">
+											There are no posts in this subreddit
 										</div>
+										<div className="empty-post-small-text">
+											Be the first to till this fertile
+											land.
+										</div>
+										{currentUser && (
+											<Link
+												to={{
+													pathname: `/user/${currentUser.username}/submit`,
+													state: {
+														postSubId: sub.id,
+													},
+												}}
+												className="new-post-button-container"
+											>
+												<button
+													className="new-post-button"
+													style={{
+														width: "200px",
+													}}
+												>
+													New Post
+												</button>
+											</Link>
+										)}
 									</div>
 								</div>
-							)}
-						{!sub.posts && (
-							<div className="loading-posts">
-								<SubredditLoading></SubredditLoading>
-								<SubredditLoading></SubredditLoading>
 							</div>
 						)}
-						{loaded && (
-							<div className="subreddit-info">
-								<SubredditInfoCard
-									sub={sub}
-									title="About Community"
-								>
-									<SubredditInfoAbout></SubredditInfoAbout>
-								</SubredditInfoCard>
+					{!sub.posts && (
+						<div className="loading-posts">
+							<SubredditLoading></SubredditLoading>
+							<SubredditLoading></SubredditLoading>
+						</div>
+					)}
+					{loaded && (
+						<div className="subreddit-info">
+							<SubredditInfoCard
+								sub={sub}
+								title="About Community"
+							>
+								<SubredditInfoAbout></SubredditInfoAbout>
+							</SubredditInfoCard>
 
-								<SubredditInfoCard
-									sub={sub}
-									title={`r/${sub.name} Rules`}
-								>
-									<SubredditInfoRules></SubredditInfoRules>
-								</SubredditInfoCard>
+							<SubredditInfoCard
+								sub={sub}
+								title={`r/${sub.name} Rules`}
+							>
+								<SubredditInfoRules></SubredditInfoRules>
+							</SubredditInfoCard>
 
-								<SubredditInfoCard
-									sub={sub}
-									title="Moderator"
-								></SubredditInfoCard>
+							<SubredditInfoCard
+								sub={sub}
+								title="Moderator"
+							></SubredditInfoCard>
 
-								<AboutSideCard sub={sub}></AboutSideCard>
-							</div>
-						)}
-					</div>
-				</>
+							<AboutSideCard sub={sub}></AboutSideCard>
+						</div>
+					)}
+				</div>
 			)}
 		</div>
 	);

@@ -28,7 +28,6 @@ function AboutSideCard({ sub }) {
 				>
 					Github Repo
 				</a>
-
 				<Link to="/about" className="footer-about-link">
 					About the project
 				</Link>

@@ -176,7 +176,6 @@ const SignUpForm = ({ action, setShowModal }) => {
 				</div>
 				<button
 					className="signup-login-form-button"
-					// disabled={password !== confirmPassword}
 				>
 					{action}
 				</button>

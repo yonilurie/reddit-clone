@@ -29,11 +29,6 @@ function TextForm({ text, setText, post }) {
 
 	return (
 		<div className="text-form-container">
-			{/* {text.length > 0 && (
-				<label htmlFor="post-text">
-					Text (Optional, Maximum length 2000 characters)
-				</label>
-			)} */}
 			<textarea
 				placeholder="Text(optional)"
 				id="post-text"

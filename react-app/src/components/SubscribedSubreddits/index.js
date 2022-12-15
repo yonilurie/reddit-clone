@@ -2,6 +2,7 @@ import "./index.css";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+
 function SubscribedSubreddits() {
 	const [currentSub, setCurrentSub] = useState("all");
 	const [showMenu, setShowMenu] = useState(false);
@@ -39,7 +40,6 @@ function SubscribedSubreddits() {
 			{showMenu && (
 				<div className="subscribed-menu">
 					<h6 style={{ margin: "0px" }}>Your Communities</h6>
-
 					{Object.values(user.member).length > 0 ? (
 						Object.values(user.member).map((sub) => {
 							return (

@@ -1,5 +1,6 @@
-import React from 'react'
+import React from "react";
 import "./index.css";
+
 //The about page, contains list of technologies and contact information
 function About() {
 	return (
@@ -15,7 +16,6 @@ function About() {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						{" "}
 						Reddit.com{" "}
 					</a>
 					created by Yoni Lurie
@@ -97,7 +97,6 @@ function About() {
 							></img>
 						</div>
 					</li>
-
 					<li>
 						<div className="list-title">Back End</div>
 						<div>
@@ -113,7 +112,6 @@ function About() {
 							></img>
 						</div>
 					</li>
-
 					<li>
 						<div className="list-title">Deployment</div>
 						<div>

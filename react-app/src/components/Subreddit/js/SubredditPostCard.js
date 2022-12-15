@@ -102,7 +102,6 @@ const SubredditPostCard = ({ post }) => {
 							></img>
 						</a>
 					)}
-
 					{post.text && (
 						<Link to={`/r/${post.subreddit_name}/${post.id}`}>
 							{post.text && (

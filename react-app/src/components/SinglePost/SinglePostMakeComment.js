@@ -30,37 +30,29 @@ function SinglePostMakeComment({
 		e.preventDefault();
 		if (!user) return;
 		if (commentText.length === 0 || commentText.length >= 10000) return;
+		const commentInfo = [commentText, post.id, post.subreddit_name];
+		// If a user is replying to a comment
 		if (commentToReply) {
 			dispatch(
-				replyToAComment(
-					commentText,
-					post.id,
-					post.subreddit_name,
-					commentToReply.id
-				)
-			).then((data) => {
-				dispatch(authenticate());
-			});
+				replyToAComment(...commentInfo, commentToReply.id)
+			).then(() => dispatch(authenticate()));
 			setCommentText("");
 			setCollapse(false);
-
-			setShowReply((state) => !state);
-		} else if (comment) {
-			dispatch(
-				editAComment(commentText, comment.id, post.subreddit_name)
-			).then((data) => {
-				dispatch(authenticate());
-			});
-			setCommentText("");
-			setEditComment(false);
-		} else {
-			dispatch(
-				addAComment(commentText, post.id, post.subreddit_name)
-			).then((data) => {
-				dispatch(authenticate());
-			});
-			setCommentText("");
+			return setShowReply((state) => !state);
 		}
+		// If a user is editing a comment
+		if (comment) {
+			dispatch(editAComment(...commentInfo)).then(() =>
+				dispatch(authenticate())
+			);
+			setCommentText("");
+			return setEditComment(false);
+		}
+		// if a new comment is made
+		dispatch(addAComment(...commentInfo)).then(() =>
+			dispatch(authenticate())
+		);
+		setCommentText("");
 	};
 
 	// If user is editing comment, prefill the value into input field

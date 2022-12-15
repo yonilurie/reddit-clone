@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Modal } from "../../../context/Modal";
 import { deleteAPost, getSubInfo, getPosts } from "../../../store/subreddits";
 import { authenticate } from "../../../store/session";
@@ -9,6 +9,17 @@ import { useHistory } from "react-router-dom";
 function DeletePostModal({ showModal, setShowModal, post }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
+
+	const deletePost = () => {
+		dispatch(
+			deleteAPost(post.id, post.user.username, post.subreddit_name)
+		).then(() => dispatch(authenticate()));
+
+		dispatch(getSubInfo(post.subreddit_name)).then(() =>
+			dispatch(getPosts(post.subreddit_name))
+		);
+		return history.push(`/user/${post.user.username}/submitted`);
+	};
 
 	return (
 		<>
@@ -37,27 +48,7 @@ function DeletePostModal({ showModal, setShowModal, post }) {
 									Cancel
 								</button>
 								<button
-									onClick={() => {
-										dispatch(
-											deleteAPost(
-												post.id,
-												post.user.username,
-												post.subreddit_name
-											)
-										).then((data) =>
-											dispatch(authenticate())
-										);
-										dispatch(
-											getSubInfo(post.subreddit_name)
-										).then((data) =>
-											dispatch(
-												getPosts(post.subreddit_name)
-											)
-										);
-										return history.push(
-											`/user/${post.user.username}/submitted`
-										);
-									}}
+									onClick={deletePost}
 									className="submit-post-button"
 								>
 									Delete

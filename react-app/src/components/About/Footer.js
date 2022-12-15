@@ -30,7 +30,6 @@ function Footer() {
 						</a>
 					</div>
 					<div>
-						{" "}
 						<a
 							href="https://www.linkedin.com/in/yonatan-lurie-464266203"
 							target="_blank"

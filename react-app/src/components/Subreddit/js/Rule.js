@@ -12,7 +12,6 @@ function Rule({ idx, ruleTitle, ruleDetail }) {
 					setShowRuleDetail((showRuleDetail) => !showRuleDetail)
 				}
 			>
-				{" "}
 				{idx + 1}. {ruleTitle}
 			</div>
 			<div className={`sub-rule-detail ${showRuleDetail ? "" : "hide"}`}>

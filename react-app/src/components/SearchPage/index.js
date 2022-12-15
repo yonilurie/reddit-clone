@@ -198,48 +198,38 @@ function SearchPage() {
 									0 ? (
 									Object.values(searchResult.subreddits).map(
 										(sub, index) => {
-											if (index < 5) {
-												return (
-													<div className="search-post-community-small">
-														<Link
-															to={`/r/${sub.name}`}
-														>
-															{" "}
-															<div>
-																r/{sub.name}
-															</div>
-														</Link>
+											if (index >= 5) return null;
+											return (
+												<div className="search-post-community-small">
+													<Link to={`/r/${sub.name}`}>
+														{" "}
+														<div>r/{sub.name}</div>
+													</Link>
+													<button
+														className="subreddit-join"
+														onClick={() => {
+															if (!user) {
+																return;
+															}
 
-														<button
-															className="subreddit-join"
-															onClick={() => {
-																if (!user) {
-																	return;
-																}
+															toggleJoin(sub.id);
+														}}
+													>
+														{user &&
+															user.member[
+																sub.id
+															] &&
+															"Joined"}
+														{user &&
+															!user.member[
+																sub.id
+															] &&
+															"Join"}
 
-																toggleJoin(
-																	sub.id
-																);
-															}}
-														>
-															{user &&
-																user.member[
-																	sub.id
-																] &&
-																"Joined"}
-															{user &&
-																!user.member[
-																	sub.id
-																] &&
-																"Join"}
-
-															{!user && "Join"}
-														</button>
-													</div>
-												);
-											} else {
-												return null;
-											}
+														{!user && "Join"}
+													</button>
+												</div>
+											);
 										}
 									)
 								) : (
@@ -273,23 +263,18 @@ function SearchPage() {
 								Object.values(searchResult.users).length > 0 ? (
 									Object.values(searchResult.users).map(
 										(user, index) => {
-											if (index < 5) {
-												return (
-													<Link
-														to={`/user/${user.username}/submitted`}
-														className="search-post-users-small"
-													>
-														<div>
-															u/{user.username}
-														</div>
-														<button className="subreddit-join">
-															View
-														</button>
-													</Link>
-												);
-											} else {
-												return null;
-											}
+											if (index >= 5) return null;
+											return (
+												<Link
+													to={`/user/${user.username}/submitted`}
+													className="search-post-users-small"
+												>
+													<div>u/{user.username}</div>
+													<button className="subreddit-join">
+														View
+													</button>
+												</Link>
+											);
 										}
 									)
 								) : (
@@ -314,7 +299,6 @@ function SearchPage() {
 						</div>
 					</div>
 				)}
-
 				{type === "Communities" &&
 				searchResult &&
 				Object.values(searchResult).length > 0 &&

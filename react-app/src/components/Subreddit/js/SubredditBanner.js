@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 
@@ -47,7 +47,6 @@ const SubredditBanner = ({ sub }) => {
 									style={{ fill: `${sub.color}` }}
 								></path>
 							</svg>
-
 							<div className="title-name">
 								<h1 className="sub-display-name">
 									{sub.display_name

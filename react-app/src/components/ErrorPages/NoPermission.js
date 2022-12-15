@@ -1,6 +1,7 @@
 import React from 'react'
 import "./index.css";
 import { useHistory } from "react-router-dom";
+
 function NoPermission() {
 	const history = useHistory();
 	return (

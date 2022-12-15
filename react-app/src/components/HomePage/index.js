@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
 	getHomePosts,
 	toggleMembership,
@@ -54,21 +53,6 @@ function HomePage() {
 
 	return (
 		<div className="home-page-container-main">
-			{/* {!user && (
-				<div className="splash-info-container">
-					<div className="splash-info-content">
-						Welcome to Teddir! Login or Sign Up to create a
-						community for users to post in, make a post, or vote on
-						content.
-					</div>
-					<Link
-						to="/about"
-						className="splash-info-content splash-about"
-					>
-						About
-					</Link>
-				</div>
-			)} */}
 			<div className="home-page-container">
 				<div className="home-page-feed">
 					{posts &&
@@ -96,7 +80,6 @@ function HomePage() {
 					)}
 				</div>
 				<div className="subreddit-info">
-					{/* {subs.length > 0 && ( */}
 					<div className="home-sub-list">
 						<div className="reccomended-title">
 							<div className="reccomended-title-text">
@@ -170,7 +153,6 @@ function HomePage() {
 							})}
 						</div>
 					</div>
-					{/* )} */}
 					<div>
 						<AboutSideCard></AboutSideCard>
 					</div>

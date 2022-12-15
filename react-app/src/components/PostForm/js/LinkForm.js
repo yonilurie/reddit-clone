@@ -19,12 +19,6 @@ function LinkForm({ link, setLink, setValidURL }) {
 	};
 	return (
 		<div className="text-form-container">
-			{/* {link.length > 0 && (
-				<label htmlFor="link-input">
-					URL to External Page with https: at beginning of URL
-					(Required)
-				</label>
-			)} */}
 			<textarea
 				className="link-input"
 				placeholder="Please enter a URL to an external page prefixed with https://"

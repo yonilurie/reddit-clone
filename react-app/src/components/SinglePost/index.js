@@ -1,17 +1,14 @@
-import React from 'react'
+import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
-import { useParams, Link } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
 import { getSubInfo, getPosts, editAPost } from "../../store/subreddits";
-
 import SinglePostContent from "./SinglePostContent";
 import SubredditBanner from "../Subreddit/js/SubredditBanner";
 import SubredditInfoCard from "../Subreddit/js/SubredditInfoCard";
 import SinglePostCommentContainer from "./SinglePostCommentContainer";
 import AboutSideCard from "../About/AboutSideCard";
-
 import "./css/index.css";
 
 function SinglePostPage() {
@@ -41,10 +38,6 @@ function SinglePostPage() {
 			return history.push("/");
 		}
 	}, [subreddits, postId, subreddit, history]);
-
-	// useEffect(() => {
-	// 	if (currentUser) dispatch(authenticate());
-	// }, [postId, dispatch]);
 
 	// If subreddit does not exist, return
 	useEffect(() => {
@@ -76,53 +69,50 @@ function SinglePostPage() {
 		dispatch(editAPost(postId, formData));
 		setEdit(false);
 	};
-
+	if (
+		!subreddits ||
+		!subreddits[subreddit] ||
+		!subreddits[subreddit].id ||
+		!subreddits[subreddit].posts ||
+		!subreddits[subreddit].posts[postId]
+	) {
+		return null;
+	}
 	return (
-		<>
-			{subreddits &&
-				subreddits[subreddit] &&
-				subreddits[subreddit].id &&
-				subreddits[subreddit].posts &&
-				subreddits[subreddit].posts[postId] && (
-					<div className="single-post-page-main-container">
-						<SubredditBanner
+		<div className="single-post-page-main-container">
+			<SubredditBanner sub={subreddits[subreddit]}></SubredditBanner>
+			<div className="single-post-sub-info-container">
+				<div className="single-post-container">
+					<SinglePostContent
+						post={subreddits[subreddit].posts[postId]}
+						showModal={showModal}
+						setShowModal={setShowModal}
+						edit={edit}
+						setEdit={setEdit}
+						onSubmit={onSubmit}
+						text={text}
+						setText={setText}
+					></SinglePostContent>
+					<div className="single-post-gray-bar"></div>
+					<SinglePostCommentContainer
+						post={subreddits[subreddit].posts[postId]}
+						editComment={editComment}
+						setEditComment={setEditComment}
+					></SinglePostCommentContainer>
+				</div>
+				<div className="subreddit-info">
+					<SubredditInfoCard
+						sub={subreddits[subreddit]}
+						title="About Community"
+					></SubredditInfoCard>
+					<div>
+						<AboutSideCard
 							sub={subreddits[subreddit]}
-						></SubredditBanner>
-
-						<div className="single-post-sub-info-container">
-							<div className="single-post-container">
-								<SinglePostContent
-									post={subreddits[subreddit].posts[postId]}
-									showModal={showModal}
-									setShowModal={setShowModal}
-									edit={edit}
-									setEdit={setEdit}
-									onSubmit={onSubmit}
-									text={text}
-									setText={setText}
-								></SinglePostContent>
-								<div className="single-post-gray-bar"></div>
-								<SinglePostCommentContainer
-									post={subreddits[subreddit].posts[postId]}
-									editComment={editComment}
-									setEditComment={setEditComment}
-								></SinglePostCommentContainer>
-							</div>
-							<div className="subreddit-info">
-								<SubredditInfoCard
-									sub={subreddits[subreddit]}
-									title="About Community"
-								></SubredditInfoCard>
-								<div>
-									<AboutSideCard
-										sub={subreddits[subreddit]}
-									></AboutSideCard>
-								</div>
-							</div>
-						</div>
+						></AboutSideCard>
 					</div>
-				)}
-		</>
+				</div>
+			</div>
+		</div>
 	);
 }
 

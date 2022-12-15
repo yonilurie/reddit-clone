@@ -99,7 +99,6 @@ function SinglePostComment({ post, comment }) {
 								></i>
 							</div>
 						</div>
-
 						{user && user.id === comment.user_id && (
 							<div className="edit-comment-dots-container">
 								<CommentMenu

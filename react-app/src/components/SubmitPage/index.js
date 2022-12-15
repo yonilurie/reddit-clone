@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 import PostForm from "../PostForm";
 import UserInfoCard from "../Profile/js/UserInfoCard";
-
 import NoPermission from "../ErrorPages/NoPermission";
 
 import "./css/index.css";

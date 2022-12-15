@@ -19,7 +19,6 @@ export const getTimeElapsed = (createdAt) => {
 		} else {
 			return `${Math.floor(days * 24)} hours ago`;
 		}
-		
 	} else {
 		if (Math.floor(days) === 1) return `${Math.floor(days)} day ago`;
 		else return `${Math.floor(days)} days ago`;
@@ -58,4 +57,5 @@ export const postVote = async (vote, postId, currentUserId) => {
 		body: formData,
 	});
 	const res = await data.json();
+	return res;
 };

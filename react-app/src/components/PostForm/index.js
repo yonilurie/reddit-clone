@@ -29,7 +29,6 @@ function PostForm() {
 	const [subredditId, setSubredditId] = useState(1);
 	const [typeOfPost, setTypeOfPost] = useState("text");
 	const [title, setTitle] = useState("");
-	// const [tags, setTags] = useState("");
 	const [link, setLink] = useState("");
 	const [text, setText] = useState("");
 	const [image, setImage] = useState(null);
@@ -127,7 +126,6 @@ function PostForm() {
 			<div className="page-title-container">
 				<h3 className="page-title">Create a post</h3>
 			</div>
-
 			<div className="choose-subreddit-container">
 				Subreddit
 				<select

@@ -17,47 +17,45 @@ function PostMenu({ post }) {
 	}, [showMenu]);
 
 	return (
-		<>
-			<div className="post-menu-container">
-				<div
-					className="edit"
-					onClick={() => setShowMenu((showMenu) => !showMenu)}
-				>
-					<i className="fa-solid fa-ellipsis"></i>
-				</div>
-				{showMenu && (
-					<div className="post-menu">
-						{post.type_of_post === "text" && (
-							<Link
-								className="post-menu-option"
-								to={{
-									pathname: `/r/${post.subreddit_name}/${post.id}`,
-									state: { edit: true },
-								}}
-							>
-								<i className="fa-solid fa-pencil"></i>
-								<div>Edit</div>
-							</Link>
-						)}
-						<div
+		<div className="post-menu-container">
+			<div
+				className="edit"
+				onClick={() => setShowMenu((showMenu) => !showMenu)}
+			>
+				<i className="fa-solid fa-ellipsis"></i>
+			</div>
+			{showMenu && (
+				<div className="post-menu">
+					{post.type_of_post === "text" && (
+						<Link
 							className="post-menu-option"
-							onClick={() => {
-								setShowMenu(false);
-								setShowModal(true);
+							to={{
+								pathname: `/r/${post.subreddit_name}/${post.id}`,
+								state: { edit: true },
 							}}
 						>
-							<i className="fa-solid fa-trash"></i>
-							<div>Delete</div>
-						</div>
+							<i className="fa-solid fa-pencil"></i>
+							<div>Edit</div>
+						</Link>
+					)}
+					<div
+						className="post-menu-option"
+						onClick={() => {
+							setShowMenu(false);
+							setShowModal(true);
+						}}
+					>
+						<i className="fa-solid fa-trash"></i>
+						<div>Delete</div>
 					</div>
-				)}
-				<DeletePostModal
-					showModal={showModal}
-					setShowModal={setShowModal}
-					post={post}
-				></DeletePostModal>
-			</div>
-		</>
+				</div>
+			)}
+			<DeletePostModal
+				showModal={showModal}
+				setShowModal={setShowModal}
+				post={post}
+			></DeletePostModal>
+		</div>
 	);
 }
 
