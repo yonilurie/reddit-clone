@@ -1,10 +1,7 @@
-from tokenize import String
-from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, Email, ValidationError, Length, URL
+from wtforms.validators import DataRequired, ValidationError, Length
 from app.models import SubReddit
-
 
 def subreddit_exists(form, field):
     subreddit_id = field.data

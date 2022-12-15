@@ -1,10 +1,7 @@
-
-
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, Email, ValidationError, Length, URL
-from app.models import SubReddit, subreddit, User,  Post
+from wtforms import StringField
+from wtforms.validators import DataRequired, ValidationError, Length
+from app.models import Post
 
 
 def post_exists(form, field):
@@ -19,8 +16,6 @@ def user_exists(form, field):
     if not user:
         raise ValidationError('User not found')
 
-
-   
 
 class CommentForm(FlaskForm):
     comment = StringField('comment', validators=[DataRequired(), Length(min=1, max=10000, message='Comment must be between 1 and 10,000 characters')])

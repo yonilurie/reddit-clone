@@ -36,7 +36,6 @@ def add_comment(post_id):
     post = Post.query.get(post_id)
     return post.to_dict()
 
-
 @comment_routes.route('/<int:post_id>/reply/<string:original_comment_id>', methods=['POST'])
 @login_required
 def add_comment_reply(post_id, original_comment_id):

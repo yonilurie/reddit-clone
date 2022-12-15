@@ -1,4 +1,9 @@
 /* TODO Add site wide styles */
+
+#root {
+	--blue: rgb(0, 121, 211);
+}
+
 html {
 	background-color: rgb(218, 224, 230);
 	width: 100%;
@@ -14,5 +19,3 @@ body {
 * {
 	font-family: "IBM Plex Sans", sans-serif;
 }
-
-

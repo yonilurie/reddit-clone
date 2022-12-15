@@ -40,7 +40,7 @@ const SignUpForm = ({ action, setShowModal }) => {
 		}
 
 		const data = await dispatch(signUp(username, email, password));
-		if (!data) setShowModal(false);
+		if (!data) return setShowModal(false);
 		const dataErrors = [];
 		//Formats any errors
 		data.forEach((e) => {

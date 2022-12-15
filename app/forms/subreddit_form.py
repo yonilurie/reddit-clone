@@ -1,10 +1,7 @@
-from tokenize import String
-from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, Email, ValidationError, Length, URL
-from app.models import SubReddit, subreddit, User, user
-
+from wtforms.validators import DataRequired, ValidationError, Length
+from app.models import SubReddit, User
 
 def subreddit_exists(form, field):
     subreddit_name = field.data
@@ -15,13 +12,9 @@ def subreddit_exists(form, field):
     if user:
         raise ValidationError(f'Subreddit name can not match a users name')
 
-
-   
-
 class SubredditForm(FlaskForm):
     subreddit_name = StringField('subreddit_name', validators=[DataRequired(), subreddit_exists,  Length(min=2, max=21)])
     owner_id = IntegerField("owner_id", validators=[DataRequired(message='Owner id is required')])
-
 
 class SubredditRulesForm(FlaskForm):
     rules = StringField('rules')
